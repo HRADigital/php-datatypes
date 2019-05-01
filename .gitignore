@@ -1,3 +1,5 @@
 vendor/
 .buildpath
 .project
+composer.lock
+phpunit.xml
