@@ -1,0 +1,36 @@
+{
+    "name": "hradigital/php-datatypes",
+    "description": "Brings complex datatype functionality to an application.",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Hugo Rafael Azevedo",
+            "email": "github@hradigital.com"
+        }
+    ],
+    "minimum-stability": "dev",
+    "keywords": [
+        "package",
+        "library",
+        "hradigital",
+        "php",
+        "datatypes"
+    ],
+    "require": {
+        "php": "^7.2"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^7.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Hradigital\\Datatypes\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Hradigital\\Tests\\Datatypes\\": "tests/"
+        }
+    }
+}
