@@ -1,9 +1,9 @@
 <?php
-namespace Hradigital\Tests\Datatypes\Unit;
+namespace Hradigital\Tests\Datatypes\Unit\Scalar;
 
-use Hradigital\Datatypes\ImmutableString;
-use Hradigital\Datatypes\MutableString;
-use Hradigital\Datatypes\ReadonlyString;
+use Hradigital\Datatypes\Scalar\ImmutableString;
+use Hradigital\Datatypes\Scalar\MutableString;
+use Hradigital\Datatypes\Scalar\ReadonlyString;
 
 /**
  * Mutable String Unit testing.

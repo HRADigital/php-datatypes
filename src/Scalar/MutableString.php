@@ -1,5 +1,5 @@
 <?php
-namespace Hradigital\Datatypes;
+namespace Hradigital\Datatypes\Scalar;
 
 /**
  * Mutable String's Scalar Object class.
