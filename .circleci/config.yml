@@ -18,5 +18,10 @@ jobs:
       - run:
           name: Run Tests
           command: phpdbg -qrr vendor/bin/phpunit --coverage-html build/coverage-report
-      - store_artifacts:
-          path:  build/coverage-report
+      - run:
+          name: Check coding standards in /src
+          command: vendor/bin/phpcs --standard=PSR2 --exclude=Squiz.WhiteSpace.ControlStructureSpacing src
+      - run:
+          name: Check coding standards in /tests
+          command: vendor/bin/phpcs --standard=PSR2 --exclude=Squiz.WhiteSpace.ControlStructureSpacing tests
+      
