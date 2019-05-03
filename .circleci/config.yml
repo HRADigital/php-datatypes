@@ -3,6 +3,7 @@ jobs:
   build:
     docker:
       - image: circleci/php:7.2
+    working_directory: ~/php-datatypes
     steps:
       # GIT
       - checkout
@@ -24,4 +25,6 @@ jobs:
       - run:
           name: Check coding standards in /tests
           command: vendor/bin/phpcs --standard=PSR2 --exclude=Squiz.WhiteSpace.ControlStructureSpacing tests
+      - store_artifacts:
+          path:  build/coverage-report
       
