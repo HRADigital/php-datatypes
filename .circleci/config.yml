@@ -9,7 +9,7 @@ jobs:
       # SYSTEM
       - run:
           name: Install System Packages
-          command: apt-get update
+          command: sudo apt-get update
       # COMPOSER
       - restore_cache:
           key: phpdatatypes-{{ .Branch }}-{{ checksum "composer.lock" }}
