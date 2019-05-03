@@ -1,0 +1,26 @@
+version: 2
+jobs:
+  testing:
+    docker:
+      - image: circleci/php:7.2
+    steps:
+      # GIT
+      - checkout
+      # SYSTEM
+      - run:
+          name: Install System Packages
+          command: apt-get update
+      # COMPOSER
+      - restore_cache:
+          key: phpdatatypes-{{ .Branch }}-{{ checksum "composer.lock" }}
+      - run:
+          name: Install Composer Dependencies
+          command: composer install
+      - save_cache:
+          key: phpdatatypes-{{ .Branch }}-{{ checksum "composer.lock" }}
+          paths:
+            - vendor
+      # TESTS
+      - run:
+          name: Run Tests
+          command: vendor/bin/phpunit
