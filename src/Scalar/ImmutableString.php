@@ -15,7 +15,7 @@ namespace Hradigital\Datatypes\Scalar;
  * @license   MIT
  * @since     1.0.0
  */
-class ImmutableString extends ReadonlyString
+class ImmutableString extends AbstractWriteString
 {
     /**
      * Clones this <i>ImmutableString</i> instance, into a <i>MutableString</i> one.
@@ -39,7 +39,7 @@ class ImmutableString extends ReadonlyString
     public function trim(): ImmutableString
     {
         return new ImmutableString(
-            \trim($this->value)
+            parent::doTrim()
         );
     }
 
@@ -52,7 +52,7 @@ class ImmutableString extends ReadonlyString
     public function trimLeft(): ImmutableString
     {
         return new ImmutableString(
-            \ltrim($this->value)
+            parent::doTrimLeft()
         );
     }
 
@@ -65,7 +65,7 @@ class ImmutableString extends ReadonlyString
     public function trimRight(): ImmutableString
     {
         return new ImmutableString(
-            \rtrim($this->value)
+            parent::doTrimRight()
         );
     }
 
@@ -78,7 +78,7 @@ class ImmutableString extends ReadonlyString
     public function toUpper(): ImmutableString
     {
         return new ImmutableString(
-            \mb_strtoupper($this->value)
+            parent::doToUpper()
         );
     }
 
@@ -92,7 +92,7 @@ class ImmutableString extends ReadonlyString
     public function toUpperFirst(): ImmutableString
     {
         return new ImmutableString(
-            \ucfirst($this->value)
+            parent::doToUpperFirst()
         );
     }
 
@@ -108,7 +108,7 @@ class ImmutableString extends ReadonlyString
     public function toUpperWords(string $delimiters = " \t\r\n\f\v"): ImmutableString
     {
         return new ImmutableString(
-            \ucwords($this->value, $delimiters)
+            parent::doToUpperWords($delimiters)
         );
     }
 
@@ -121,7 +121,7 @@ class ImmutableString extends ReadonlyString
     public function toLower(): ImmutableString
     {
         return new ImmutableString(
-            \mb_strtolower($this->value)
+            parent::doToLower()
         );
     }
 
@@ -135,7 +135,7 @@ class ImmutableString extends ReadonlyString
     public function toLowerFirst(): ImmutableString
     {
         return new ImmutableString(
-            \lcfirst($this->value)
+            parent::doToLowerFirst()
         );
     }
 
@@ -156,16 +156,8 @@ class ImmutableString extends ReadonlyString
      */
     public function padLeft(int $length, string $padString = " "): ImmutableString
     {
-        // Validates supplied parameters.
-        if ($length < 1) {
-            throw new \InvalidArgumentException("Supplied Length must be a positive integer.");
-        }
-        if (\strlen($padString) === 0) {
-            throw new \InvalidArgumentException("Supplied padding must be a non empty string.");
-        }
-
         return new ImmutableString(
-            \str_pad($this->value, ($this->length() + $length), $padString, STR_PAD_LEFT)
+            parent::doPadLeft($length, $padString)
         );
     }
 
@@ -186,16 +178,8 @@ class ImmutableString extends ReadonlyString
      */
     public function padRight(int $length, string $padString = " "): ImmutableString
     {
-        // Validates supplied parameters.
-        if ($length < 1) {
-            throw new \InvalidArgumentException("Supplied Length must be a positive integer.");
-        }
-        if (\strlen($padString) === 0) {
-            throw new \InvalidArgumentException("Supplied padding must be a non empty string.");
-        }
-
         return new ImmutableString(
-            \str_pad($this->value, ($this->length() + $length), $padString, STR_PAD_RIGHT)
+            parent::doPadRight($length, $padString)
         );
     }
 
@@ -234,17 +218,9 @@ class ImmutableString extends ReadonlyString
      */
     public function subString(int $start, int $length = null): ImmutableString
     {
-        // Validates supplied $start and $length.
-        $this->validateStartAndLength($start, $length);
-
-        // Processes the substring.
-        if ($length !== null) {
-            $value = \substr($this->value, $start, $length);
-        } else {
-            $value = \substr($this->value, $start);
-        }
-
-        return new ImmutableString($value ?? '');
+        return new ImmutableString(
+            parent::doSubString($start, $length)
+        );
     }
 
     /**
@@ -262,12 +238,9 @@ class ImmutableString extends ReadonlyString
      */
     public function subLeft(int $length): ImmutableString
     {
-        // Validates parameter.
-        if ($length < 1) {
-            throw new \InvalidArgumentException("Supplied length must be a positive integer.");
-        }
-
-        return $this->subString(0, $length);
+        return new ImmutableString(
+            parent::doSubLeft($length)
+        );
     }
 
     /**
@@ -285,12 +258,9 @@ class ImmutableString extends ReadonlyString
      */
     public function subRight(int $length): ImmutableString
     {
-        // Validates parameter.
-        if ($length < 1) {
-            throw new \InvalidArgumentException("Supplied length must be a positive integer.");
-        }
-
-        return $this->subString(0 - $length);
+        return new ImmutableString(
+            parent::doSubRight($length)
+        );
     }
 
     /**
@@ -302,7 +272,7 @@ class ImmutableString extends ReadonlyString
     public function reverse(): ImmutableString
     {
         return new ImmutableString(
-            \strrev($this->value)
+            parent::doReverse()
         );
     }
 
@@ -319,13 +289,8 @@ class ImmutableString extends ReadonlyString
      */
     public function replace(string $search, string $replace): ImmutableString
     {
-        // Validates supplied parameters.
-        if (\strlen($search) === 0) {
-            throw new \InvalidArgumentException("Supplied search must be a non empty string.");
-        }
-
         return new ImmutableString(
-            \str_replace($search, $replace, $this->value)
+            parent::doReplace($search, $replace)
         );
     }
 }
