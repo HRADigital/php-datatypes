@@ -1,6 +1,6 @@
 version: 2
 jobs:
-  testing:
+  build:
     docker:
       - image: circleci/php:7.2
     steps:
