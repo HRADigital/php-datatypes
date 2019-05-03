@@ -140,14 +140,14 @@ class ImmutableString extends AbstractWriteString
     }
 
     /**
-     * This method returns a new instance padded on the <b>left</b> to the specified padding length.
+     * This method returns a new instance padded on the <b>left</b> to the specified padding length minus
+     * the length of the instance's value.
+     *
+     * Eg:. if the padding length is 12, and the instance's value is only 10 characters long, the value will
+     * only be padded by the value of 2.
      *
      * If the optional argument <i>$padString</i> is not supplied, the input is padded with spaces, otherwise
      * it is padded with characters from <i>$padString</i> up to the limit.
-     *
-     * @param  int    $length    - Length of the padded value.
-     * @param  string $padString - The pad_string may be truncated if the required number of padding characters
-     *                             can't be evenly divided by the <i>$padString</i>'s length.
      *
      * @throws \InvalidArgumentException - If any of the parameters is invalid.
      *
@@ -162,7 +162,33 @@ class ImmutableString extends AbstractWriteString
     }
 
     /**
-     * This method returns a new instance padded on the <b>right</b> to the specified padding length.
+     * This method returns a new instance padded on the <b>left</b>, <b>exactly to the specified padding length</b>.
+     *
+     * If the optional argument <i>$padString</i> is not supplied, the input is padded with spaces, otherwise
+     * it is padded with characters from <i>$padString</i> up to the limit.
+     *
+     * @param  int    $length    - Length of the padded value.
+     * @param  string $padString - The pad_string may be truncated if the required number of padding characters
+     *                             can't be evenly divided by the <i>$padString</i>'s length.
+     *
+     * @throws \InvalidArgumentException - If any of the parameters is invalid.
+     *
+     * @since  1.0.0
+     * @return ImmutableString
+     */
+    public function padLeftExtra(int $length, string $padString = " "): ImmutableString
+    {
+        return new ImmutableString(
+            parent::doPadLeftExtra($length, $padString)
+        );
+    }
+
+    /**
+     * This method returns a new instance padded on the <b>right</b> to the specified padding length minus
+     * the length of the instance's value.
+     *
+     * Eg:. if the padding length is 12, and the instance's value is only 10 characters long, the value will
+     * only be padded by the value of 2.
      *
      * If the optional argument <i>$padString</i> is not supplied, the input is padded with spaces, otherwise
      * it is padded with characters from <i>$padString</i> up to the limit.
@@ -180,6 +206,28 @@ class ImmutableString extends AbstractWriteString
     {
         return new ImmutableString(
             parent::doPadRight($length, $padString)
+        );
+    }
+
+    /**
+     * This method returns a new instance padded on the <b>right</b>, <b>exactly to the specified padding length</b>.
+     *
+     * If the optional argument <i>$padString</i> is not supplied, the input is padded with spaces, otherwise
+     * it is padded with characters from <i>$padString</i> up to the limit.
+     *
+     * @param  int    $length    - Length of the padded value.
+     * @param  string $padString - The pad_string may be truncated if the required number of padding characters
+     *                             can't be evenly divided by the <i>$padString</i>'s length.
+     *
+     * @throws \InvalidArgumentException - If any of the parameters is invalid.
+     *
+     * @since  1.0.0
+     * @return ImmutableString
+     */
+    public function padRightExtra(int $length, string $padString = " "): ImmutableString
+    {
+        return new ImmutableString(
+            parent::doPadRightExtra($length, $padString)
         );
     }
 
