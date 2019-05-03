@@ -300,7 +300,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     }
 
     /**
-     * Tests that a string can be padded on the left.
+     * Tests that a string is not padded on the left, when the padding length is less than the string's length.
      *
      * @since  1.0.0
      * @return void
