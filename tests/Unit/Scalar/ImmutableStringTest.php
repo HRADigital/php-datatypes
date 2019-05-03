@@ -305,6 +305,29 @@ class ImmutableStringTest extends AbstractBaseTestCase
      * @since  1.0.0
      * @return void
      */
+    public function testCanPadOnTheLeftWithoutResult(): void
+    {
+        // Performs test.
+        $string   = "Immutable String.";
+        $original = $this->initializeInstance($string);
+        $other    = $original->padLeft(2);
+
+        // Performs assertions.
+        $this->assertEquals(
+            $string,
+            $other->__toString(),
+            'Instance values do not match.'
+        );
+        $this->checkCorrectInstanceType($other);
+        $this->checkInstances($original, $other);
+    }
+
+    /**
+     * Tests that a string can be padded on the left.
+     *
+     * @since  1.0.0
+     * @return void
+     */
     public function testCanPadOnTheLeftExtra(): void
     {
         // Performs test.
