@@ -17,4 +17,6 @@ jobs:
       # TESTS
       - run:
           name: Run Tests
-          command: vendor/bin/phpunit
+          command: phpdbg -qrr vendor/bin/phpunit --coverage-html build/coverage-report
+      - store_artifacts:
+          path:  build/coverage-report
