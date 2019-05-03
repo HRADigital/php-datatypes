@@ -111,7 +111,11 @@ abstract class AbstractWriteString extends ReadonlyString
     }
 
     /**
-     * This method returns a new instance padded on the <b>left</b> to the specified padding length.
+     * This method returns a new instance padded on the <b>left</b> to the specified padding length minus
+     * the length of the instance's value.
+     *
+     * Eg:. if the padding length is 12, and the instance's value is only 10 characters long, the value will
+     * only be padded by the value of 2.
      *
      * If the optional argument <i>$padString</i> is not supplied, the input is padded with spaces, otherwise
      * it is padded with characters from <i>$padString</i> up to the limit.
@@ -135,11 +139,43 @@ abstract class AbstractWriteString extends ReadonlyString
             throw new \InvalidArgumentException("Supplied padding must be a non empty string.");
         }
 
+        return \str_pad($this->value, $length, $padString, STR_PAD_LEFT);
+    }
+
+    /**
+     * This method returns a new instance padded on the <b>left</b>, <b>exactly to the specified padding length</b>.
+     *
+     * If the optional argument <i>$padString</i> is not supplied, the input is padded with spaces, otherwise
+     * it is padded with characters from <i>$padString</i> up to the limit.
+     *
+     * @param  int    $length    - Length of the padded value.
+     * @param  string $padString - The pad_string may be truncated if the required number of padding characters
+     *                             can't be evenly divided by the <i>$padString</i>'s length.
+     *
+     * @throws \InvalidArgumentException - If any of the parameters is invalid.
+     *
+     * @since  1.0.0
+     * @return string
+     */
+    protected function doPadLeftExtra(int $length, string $padString = " "): string
+    {
+        // Validates supplied parameters.
+        if ($length < 1) {
+            throw new \InvalidArgumentException("Supplied Length must be a positive integer.");
+        }
+        if (\strlen($padString) === 0) {
+            throw new \InvalidArgumentException("Supplied padding must be a non empty string.");
+        }
+
         return \str_pad($this->value, ($this->length() + $length), $padString, STR_PAD_LEFT);
     }
 
     /**
-     * This method returns a new instance padded on the <b>right</b> to the specified padding length.
+     * This method returns a new instance padded on the <b>right</b> to the specified padding length minus
+     * the length of the instance's value.
+     *
+     * Eg:. if the padding length is 12, and the instance's value is only 10 characters long, the value will
+     * only be padded by the value of 2.
      *
      * If the optional argument <i>$padString</i> is not supplied, the input is padded with spaces, otherwise
      * it is padded with characters from <i>$padString</i> up to the limit.
@@ -154,6 +190,34 @@ abstract class AbstractWriteString extends ReadonlyString
      * @return string
      */
     protected function doPadRight(int $length, string $padString = " "): string
+    {
+        // Validates supplied parameters.
+        if ($length < 1) {
+            throw new \InvalidArgumentException("Supplied Length must be a positive integer.");
+        }
+        if (\strlen($padString) === 0) {
+            throw new \InvalidArgumentException("Supplied padding must be a non empty string.");
+        }
+
+        return \str_pad($this->value, $length, $padString, STR_PAD_RIGHT);
+    }
+
+    /**
+     * This method returns a new instance padded on the <b>right</b>, <b>exactly to the specified padding length</b>.
+     *
+     * If the optional argument <i>$padString</i> is not supplied, the input is padded with spaces, otherwise
+     * it is padded with characters from <i>$padString</i> up to the limit.
+     *
+     * @param  int    $length    - Length of the padded value.
+     * @param  string $padString - The pad_string may be truncated if the required number of padding characters
+     *                             can't be evenly divided by the <i>$padString</i>'s length.
+     *
+     * @throws \InvalidArgumentException - If any of the parameters is invalid.
+     *
+     * @since  1.0.0
+     * @return string
+     */
+    protected function doPadRightExtra(int $length, string $padString = " "): string
     {
         // Validates supplied parameters.
         if ($length < 1) {
