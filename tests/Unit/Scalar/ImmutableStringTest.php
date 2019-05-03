@@ -285,8 +285,32 @@ class ImmutableStringTest extends AbstractBaseTestCase
     public function testCanPadOnTheLeft(): void
     {
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
-        $other    = $original->padLeft(2);
+        $string   = "Immutable String.";
+        $original = $this->initializeInstance($string);
+        $other    = $original->padLeft(\strlen($string) + 2);
+
+        // Performs assertions.
+        $this->assertEquals(
+            '  Immutable String.',
+            $other->__toString(),
+            'Instance values do not match.'
+        );
+        $this->checkCorrectInstanceType($other);
+        $this->checkInstances($original, $other);
+    }
+
+    /**
+     * Tests that a string can be padded on the left.
+     *
+     * @since  1.0.0
+     * @return void
+     */
+    public function testCanPadOnTheLeftExtra(): void
+    {
+        // Performs test.
+        $string   = "Immutable String.";
+        $original = $this->initializeInstance($string);
+        $other    = $original->padLeftExtra(2);
 
         // Performs assertions.
         $this->assertEquals(
@@ -331,6 +355,38 @@ class ImmutableStringTest extends AbstractBaseTestCase
     }
 
     /**
+     * Tests that padding breaks.
+     *
+     * @since  1.0.0
+     * @return void
+     */
+    public function testCanPaddingOnTheLeftExtraBreaksWithInvalidLength(): void
+    {
+        // Creates expectation.
+        $this->expectException(\InvalidArgumentException::class);
+
+        // Performs test.
+        $original = $this->initializeInstance("Immutable String.");
+        $original->padLeftExtra(0);
+    }
+
+    /**
+     * Tests that padding breaks.
+     *
+     * @since  1.0.0
+     * @return void
+     */
+    public function testCanPaddingOnTheLeftExtraBreaksWithInvalidPadString(): void
+    {
+        // Creates expectation.
+        $this->expectException(\InvalidArgumentException::class);
+
+        // Performs test.
+        $original = $this->initializeInstance("Immutable String.");
+        $original->padLeftExtra(2, '');
+    }
+
+    /**
      * Tests that a string can be padded on the left.
      *
      * @since  1.0.0
@@ -339,8 +395,32 @@ class ImmutableStringTest extends AbstractBaseTestCase
     public function testCanPadOnTheLeftWidthCharacter(): void
     {
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
-        $other    = $original->padLeft(2, '_');
+        $string   = "Immutable String.";
+        $original = $this->initializeInstance($string);
+        $other    = $original->padLeft(\strlen($string) + 2, '_');
+
+        // Performs assertions.
+        $this->assertEquals(
+            '__Immutable String.',
+            $other->__toString(),
+            'Instance values do not match.'
+        );
+        $this->checkCorrectInstanceType($other);
+        $this->checkInstances($original, $other);
+    }
+
+    /**
+     * Tests that a string can be padded on the left.
+     *
+     * @since  1.0.0
+     * @return void
+     */
+    public function testCanPadOnTheLeftExtraWidthCharacter(): void
+    {
+        // Performs test.
+        $string   = "Immutable String.";
+        $original = $this->initializeInstance($string);
+        $other    = $original->padLeftExtra(2, '_');
 
         // Performs assertions.
         $this->assertEquals(
@@ -361,8 +441,32 @@ class ImmutableStringTest extends AbstractBaseTestCase
     public function testCanPadOnTheRight(): void
     {
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
-        $other    = $original->padRight(2);
+        $string   = "Immutable String.";
+        $original = $this->initializeInstance($string);
+        $other    = $original->padRight(\strlen($string) + 2);
+
+        // Performs assertions.
+        $this->assertEquals(
+            'Immutable String.  ',
+            $other->__toString(),
+            'Instance values do not match.'
+        );
+        $this->checkCorrectInstanceType($other);
+        $this->checkInstances($original, $other);
+    }
+
+    /**
+     * Tests that a string can be padded on the right.
+     *
+     * @since  1.0.0
+     * @return void
+     */
+    public function testCanPadOnTheRightExtra(): void
+    {
+        // Performs test.
+        $string   = "Immutable String.";
+        $original = $this->initializeInstance($string);
+        $other    = $original->padRightExtra(2);
 
         // Performs assertions.
         $this->assertEquals(
@@ -407,6 +511,38 @@ class ImmutableStringTest extends AbstractBaseTestCase
     }
 
     /**
+     * Tests that padding breaks.
+     *
+     * @since  1.0.0
+     * @return void
+     */
+    public function testCanPadOnTheRightExtraBreaksWithInvalidLength(): void
+    {
+        // Creates expectation.
+        $this->expectException(\InvalidArgumentException::class);
+
+        // Performs test.
+        $original = $this->initializeInstance("Immutable String.");
+        $original->padRightExtra(0);
+    }
+
+    /**
+     * Tests that padding breaks.
+     *
+     * @since  1.0.0
+     * @return void
+     */
+    public function testCanPadOnTheRightExtraBreaksWithInvalidPadString(): void
+    {
+        // Creates expectation.
+        $this->expectException(\InvalidArgumentException::class);
+
+        // Performs test.
+        $original = $this->initializeInstance("Immutable String.");
+        $original->padRightExtra(2, '');
+    }
+
+    /**
      * Tests that a string can be padded on the right.
      *
      * @since  1.0.0
@@ -415,8 +551,32 @@ class ImmutableStringTest extends AbstractBaseTestCase
     public function testCanPadOnTheRightWidthCharacter(): void
     {
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
-        $other    = $original->padRight(2, '_');
+        $string   = "Immutable String.";
+        $original = $this->initializeInstance($string);
+        $other    = $original->padRight(\strlen($string) + 2, '_');
+
+        // Performs assertions.
+        $this->assertEquals(
+            'Immutable String.__',
+            $other->__toString(),
+            'Instance values do not match.'
+        );
+        $this->checkCorrectInstanceType($other);
+        $this->checkInstances($original, $other);
+    }
+
+    /**
+     * Tests that a string can be padded on the right.
+     *
+     * @since  1.0.0
+     * @return void
+     */
+    public function testCanPadOnTheRightExtraWidthCharacter(): void
+    {
+        // Performs test.
+        $string   = "Immutable String.";
+        $original = $this->initializeInstance($string);
+        $other    = $original->padRightExtra(2, '_');
 
         // Performs assertions.
         $this->assertEquals(
