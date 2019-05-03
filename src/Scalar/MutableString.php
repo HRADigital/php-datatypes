@@ -17,7 +17,7 @@ namespace Hradigital\Datatypes\Scalar;
  * @license   MIT
  * @since     1.0.0
  */
-class MutableString extends ReadonlyString
+class MutableString extends AbstractWriteString
 {
     /**
      * Clones this <i>MutableString</i> instance, into a <i>ImmutableString</i> one.
@@ -42,7 +42,7 @@ class MutableString extends ReadonlyString
      */
     public function trim(): MutableString
     {
-        $this->value = \trim($this->value);
+        $this->value = parent::doTrim();
 
         return $this;
     }
@@ -57,7 +57,7 @@ class MutableString extends ReadonlyString
      */
     public function trimLeft(): MutableString
     {
-        $this->value = \ltrim($this->value);
+        $this->value = parent::doTrimLeft();
 
         return $this;
     }
@@ -72,7 +72,7 @@ class MutableString extends ReadonlyString
      */
     public function trimRight(): MutableString
     {
-        $this->value = \rtrim($this->value);
+        $this->value = parent::doTrimRight();
 
         return $this;
     }
@@ -87,7 +87,7 @@ class MutableString extends ReadonlyString
      */
     public function toUpper(): MutableString
     {
-        $this->value = \mb_strtoupper($this->value);
+        $this->value = parent::doToUpper();
 
         return $this;
     }
@@ -102,7 +102,7 @@ class MutableString extends ReadonlyString
      */
     public function toUpperFirst(): MutableString
     {
-        $this->value = \ucfirst($this->value);
+        $this->value = parent::doToUpperFirst();
 
         return $this;
     }
@@ -117,7 +117,7 @@ class MutableString extends ReadonlyString
      */
     public function toUpperWords(string $delimiters = " \t\r\n\f\v"): MutableString
     {
-        $this->value = \ucwords($this->value, $delimiters);
+        $this->value = parent::doToUpperWords($delimiters);
 
         return $this;
     }
@@ -132,7 +132,7 @@ class MutableString extends ReadonlyString
      */
     public function toLower(): MutableString
     {
-        $this->value = \mb_strtolower($this->value);
+        $this->value = parent::doToLower();
 
         return $this;
     }
@@ -145,7 +145,7 @@ class MutableString extends ReadonlyString
      */
     public function toLowerFirst(): MutableString
     {
-        $this->value = \lcfirst($this->value);
+        $this->value = parent::doToLowerFirst();
 
         return $this;
     }
@@ -169,16 +169,7 @@ class MutableString extends ReadonlyString
      */
     public function padLeft(int $length, string $padString = " "): MutableString
     {
-        // Validates supplied parameters.
-        if ($length < 1) {
-            throw new \InvalidArgumentException("Supplied Length must be a positive integer.");
-        }
-        if (\strlen($padString) === 0) {
-            throw new \InvalidArgumentException("Supplied padding must be a non empty string.");
-        }
-
-        // Sets the padded value.
-        $this->value = \str_pad($this->value, ($this->length() + $length), $padString, STR_PAD_LEFT);
+        $this->value = parent::doPadLeft($length, $padString);
 
         return $this;
     }
@@ -202,16 +193,7 @@ class MutableString extends ReadonlyString
      */
     public function padRight(int $length, string $padString = " "): MutableString
     {
-        // Validates supplied parameters.
-        if ($length < 1) {
-            throw new \InvalidArgumentException("Supplied Length must be a positive integer.");
-        }
-        if (\strlen($padString) === 0) {
-            throw new \InvalidArgumentException("Supplied padding must be a non empty string.");
-        }
-
-        // Sets the padded value.
-        $this->value = \str_pad($this->value, ($this->length() + $length), $padString, STR_PAD_RIGHT);
+        $this->value = parent::doPadRight($length, $padString);
 
         return $this;
     }
@@ -251,15 +233,7 @@ class MutableString extends ReadonlyString
      */
     public function subString(int $start, int $length = null): MutableString
     {
-        // Validates supplied $start and $length.
-        $this->validateStartAndLength($start, $length);
-
-        // Processes the substring.
-        if ($length) {
-            $this->value = (\substr($this->value, $start, $length) ?? '');
-        } else {
-            $this->value = (\substr($this->value, $start) ?? '');
-        }
+        $this->value = parent::doSubString($start, $length);
 
         return $this;
     }
@@ -279,13 +253,9 @@ class MutableString extends ReadonlyString
      */
     public function subLeft(int $length): MutableString
     {
-        // Validates parameter.
-        if ($length < 1) {
-            throw new \InvalidArgumentException("Supplied length must be a positive integer.");
-        }
+        $this->value = parent::doSubLeft($length);
 
-        // Sets the value.
-        return $this->subString(0, $length);
+        return $this;
     }
 
     /**
@@ -303,12 +273,9 @@ class MutableString extends ReadonlyString
      */
     public function subRight(int $length): MutableString
     {
-        // Validates parameter.
-        if ($length < 1) {
-            throw new \InvalidArgumentException("Supplied length must be a positive integer.");
-        }
+        $this->value = parent::doSubRight($length);
 
-        return $this->subString(0 - $length);
+        return $this;
     }
 
     /**
@@ -319,7 +286,7 @@ class MutableString extends ReadonlyString
      */
     public function reverse(): MutableString
     {
-        $this->value = \strrev($this->value);
+        $this->value = parent::doReverse();
 
         return $this;
     }
@@ -337,13 +304,7 @@ class MutableString extends ReadonlyString
      */
     public function replace(string $search, string $replace): MutableString
     {
-        // Validates supplied parameters.
-        if (\strlen($search) === 0) {
-            throw new \InvalidArgumentException("Supplied search must be a non empty string.");
-        }
-
-        // Processes the replacement.
-        $this->value = \str_replace($search, $replace, $this->value);
+        $this->value = parent::doReplace($search, $replace);
 
         return $this;
     }
