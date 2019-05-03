@@ -1,5 +1,5 @@
 <?php
-namespace Hradigital\Datatypes;
+namespace Hradigital\Datatypes\Scalar;
 
 /**
  * Read-only String's Scalar Object class.

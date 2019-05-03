@@ -1,7 +1,7 @@
 <?php
-namespace Hradigital\Tests\Datatypes\Unit;
+namespace Hradigital\Tests\Datatypes\Unit\Scalar;
 
-use Hradigital\Datatypes\ReadonlyString;
+use Hradigital\Datatypes\Scalar\ReadonlyString;
 use Hradigital\Tests\Datatypes\AbstractBaseTestCase;
 
 /**
