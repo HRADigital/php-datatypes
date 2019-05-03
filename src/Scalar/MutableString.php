@@ -151,7 +151,11 @@ class MutableString extends AbstractWriteString
     }
 
     /**
-     * This method pads the instance's value on the <b>left</b> to the specified padding length.
+     * This method returns a new instance padded on the <b>left</b> to the specified padding length minus
+     * the length of the instance's value.
+     *
+     * Eg:. if the padding length is 12, and the instance's value is only 10 characters long, the value will
+     * only be padded by the value of 2.
      *
      * If the optional argument <i>$padString</i> is not supplied, the input is padded with spaces, otherwise
      * it is padded with characters from <i>$padString</i> up to the limit.
@@ -175,7 +179,33 @@ class MutableString extends AbstractWriteString
     }
 
     /**
-     * This method pads the instance's value on the <b>right</b> to the specified padding length.
+     * This method returns a new instance padded on the <b>left</b>, <b>exactly to the specified padding length</b>.
+     *
+     * If the optional argument <i>$padString</i> is not supplied, the input is padded with spaces, otherwise
+     * it is padded with characters from <i>$padString</i> up to the limit.
+     *
+     * @param  int    $length    - Length of the padded value.
+     * @param  string $padString - The pad_string may be truncated if the required number of padding characters
+     *                             can't be evenly divided by the <i>$padString</i>'s length.
+     *
+     * @throws \InvalidArgumentException - If any of the parameters is invalid.
+     *
+     * @since  1.0.0
+     * @return MutableString
+     */
+    public function padLeftExtra(int $length, string $padString = " "): MutableString
+    {
+        $this->value = parent::doPadLeftExtra($length, $padString);
+
+        return $this;
+    }
+
+    /**
+     * This method returns a new instance padded on the <b>right</b> to the specified padding length minus
+     * the length of the instance's value.
+     *
+     * Eg:. if the padding length is 12, and the instance's value is only 10 characters long, the value will
+     * only be padded by the value of 2.
      *
      * If the optional argument <i>$padString</i> is not supplied, the input is padded with spaces, otherwise
      * it is padded with characters from <i>$padString</i> up to the limit.
@@ -194,6 +224,28 @@ class MutableString extends AbstractWriteString
     public function padRight(int $length, string $padString = " "): MutableString
     {
         $this->value = parent::doPadRight($length, $padString);
+
+        return $this;
+    }
+
+    /**
+     * This method returns a new instance padded on the <b>right</b>, <b>exactly to the specified padding length</b>.
+     *
+     * If the optional argument <i>$padString</i> is not supplied, the input is padded with spaces, otherwise
+     * it is padded with characters from <i>$padString</i> up to the limit.
+     *
+     * @param  int    $length    - Length of the padded value.
+     * @param  string $padString - The pad_string may be truncated if the required number of padding characters
+     *                             can't be evenly divided by the <i>$padString</i>'s length.
+     *
+     * @throws \InvalidArgumentException - If any of the parameters is invalid.
+     *
+     * @since  1.0.0
+     * @return MutableString
+     */
+    public function padRightExtra(int $length, string $padString = " "): MutableString
+    {
+        $this->value = parent::doPadRightExtra($length, $padString);
 
         return $this;
     }
