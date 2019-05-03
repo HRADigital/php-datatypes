@@ -11,15 +11,9 @@ jobs:
           name: Install System Packages
           command: sudo apt-get update
       # COMPOSER
-      - restore_cache:
-          key: phpdatatypes-{{ .Branch }}-{{ checksum "composer.lock" }}
       - run:
           name: Install Composer Dependencies
           command: composer install
-      - save_cache:
-          key: phpdatatypes-{{ .Branch }}-{{ checksum "composer.lock" }}
-          paths:
-            - vendor
       # TESTS
       - run:
           name: Run Tests
