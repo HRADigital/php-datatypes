@@ -13,10 +13,17 @@ jobs:
       - run:
           name: Install System Packages
           command: sudo apt-get update
+      - run:
+          name: Install CLOC
+          command: sudo apt-get -y install cloc
       # COMPOSER
       - run:
           name: Install Composer Dependencies
           command: composer install
+      # STATISTICS
+      - run:
+          name: Project's Statistics
+          command: git ls-files | xargs cloc
       # TESTS
       - run:
           name: Run Tests
