@@ -36,6 +36,26 @@ class ReadonlyIntegerTest extends AbstractBaseTestCase
     }
 
     /**
+     * Assert can collect maximum and minimum values.
+     *
+     * @since  1.0.0
+     * @return void
+     */
+    public function testCanRetrieveMaximumAndMinimumAllowedValues(): void
+    {
+        $this->assertEquals(
+            PHP_INT_MAX,
+            ReadonlyInteger::max(),
+            'Values do not match.'
+        );
+        $this->assertEquals(
+            PHP_INT_MIN,
+            ReadonlyInteger::min(),
+            'Values do not match.'
+        );
+    }
+
+    /**
      * Tests that a filled integer can be loaded successfully.
      *
      * @since  1.0.0
@@ -50,7 +70,7 @@ class ReadonlyIntegerTest extends AbstractBaseTestCase
         // Performs assertions.
         $this->assertEquals(
             $test,
-            $value->value(),
+            \intval($value->__toString()),
             'Integer value does not seam to match.'
         );
         $this->instanceChecks($value);
@@ -74,11 +94,6 @@ class ReadonlyIntegerTest extends AbstractBaseTestCase
             $value->__toString(),
             'Integer value does not seam to match.'
         );
-        $this->assertEquals(
-            \intval($test),
-            $value->value(),
-            'Integer value does not seam to match.'
-        );
         $this->instanceChecks($value);
     }
 
@@ -95,6 +110,286 @@ class ReadonlyIntegerTest extends AbstractBaseTestCase
 
         // Performs test.
         ReadonlyInteger::fromString("");
+    }
+
+    /**
+     * Tests can perform comparisons.
+     *
+     * @since  1.0.0
+     * @return void
+     */
+    public function testCanCompareTwoEqualInstances(): void
+    {
+        // Performs test.
+        $test  = 123;
+        $value = ReadonlyInteger::fromInteger($test);
+
+        // Performs assertions.
+        $this->assertTrue(
+            $value->equals(ReadonlyInteger::fromInteger($test)),
+            'Integer values should have been equal.'
+        );
+        $this->instanceChecks($value);
+    }
+
+    /**
+     * Tests can perform comparisons.
+     *
+     * @since  1.0.0
+     * @return void
+     */
+    public function testCanCompareTwoUnequalInstances(): void
+    {
+        // Performs test.
+        $test  = 123;
+        $value = ReadonlyInteger::fromInteger($test);
+
+        // Performs assertions.
+        $this->assertFalse(
+            $value->equals(ReadonlyInteger::fromInteger(++$test)),
+            'Integer values should be unequal.'
+        );
+        $this->instanceChecks($value);
+    }
+
+    /**
+     * Tests can perform comparisons.
+     *
+     * @since  1.0.0
+     * @return void
+     */
+    public function testCanCompareTwoEqualValues(): void
+    {
+        // Performs test.
+        $test  = 123;
+        $value = ReadonlyInteger::fromInteger($test);
+
+        // Performs assertions.
+        $this->assertTrue(
+            $value->equalsNative($test),
+            'Integer values should have been equal.'
+        );
+        $this->instanceChecks($value);
+    }
+
+    /**
+     * Tests can perform comparisons.
+     *
+     * @since  1.0.0
+     * @return void
+     */
+    public function testCanCompareTwoUnequalValues(): void
+    {
+        // Performs test.
+        $test  = 123;
+        $value = ReadonlyInteger::fromInteger($test);
+
+        // Performs assertions.
+        $this->assertFalse(
+            $value->equalsNative(++$test),
+            'Integer values should be unequal.'
+        );
+        $this->instanceChecks($value);
+    }
+
+    /**
+     * Tests can perform comparisons.
+     *
+     * @since  1.0.0
+     * @return void
+     */
+    public function testCanValidateIsBiggerInstance(): void
+    {
+        // Performs test.
+        $test  = 123;
+        $value = ReadonlyInteger::fromInteger($test);
+
+        // Performs assertions.
+        $this->assertTrue(
+            $value->isBigger(ReadonlyInteger::fromInteger(--$test)),
+            'Integer should have been bigger.'
+        );
+        $this->instanceChecks($value);
+    }
+
+    /**
+     * Tests can perform comparisons.
+     *
+     * @since  1.0.0
+     * @return void
+     */
+    public function testCanValidateIsBiggerValue(): void
+    {
+        // Performs test.
+        $test  = 123;
+        $value = ReadonlyInteger::fromInteger($test);
+
+        // Performs assertions.
+        $this->assertTrue(
+            $value->isBiggerNative(--$test),
+            'Integer should have been bigger.'
+        );
+        $this->instanceChecks($value);
+    }
+
+    /**
+     * Tests can perform comparisons.
+     *
+     * @since  1.0.0
+     * @return void
+     */
+    public function testCanValidateIsNotBiggerInstance(): void
+    {
+        // Performs test.
+        $test  = 123;
+        $value = ReadonlyInteger::fromInteger($test);
+
+        // Performs assertions.
+        $this->assertFalse(
+            $value->isBigger(ReadonlyInteger::fromInteger(++$test)),
+            'Integer should have been smaller.'
+        );
+        $this->instanceChecks($value);
+    }
+
+    /**
+     * Tests can perform comparisons.
+     *
+     * @since  1.0.0
+     * @return void
+     */
+    public function testCanValidateIsNotBiggerValue(): void
+    {
+        // Performs test.
+        $test  = 123;
+        $value = ReadonlyInteger::fromInteger($test);
+
+        // Performs assertions.
+        $this->assertFalse(
+            $value->isBiggerNative($test),
+            'Integer should have been smaller.'
+        );
+        $this->instanceChecks($value);
+    }
+
+    /**
+     * Tests can perform comparisons.
+     *
+     * @since  1.0.0
+     * @return void
+     */
+    public function testCanValidateIsSmallerInstance(): void
+    {
+        // Performs test.
+        $test  = 123;
+        $value = ReadonlyInteger::fromInteger($test);
+
+        // Performs assertions.
+        $this->assertTrue(
+            $value->isSmaller(ReadonlyInteger::fromInteger(++$test)),
+            'Integer should have been smaller.'
+        );
+        $this->instanceChecks($value);
+    }
+
+    /**
+     * Tests can perform comparisons.
+     *
+     * @since  1.0.0
+     * @return void
+     */
+    public function testCanValidateIsSmallerValue(): void
+    {
+        // Performs test.
+        $test  = 123;
+        $value = ReadonlyInteger::fromInteger($test);
+
+        // Performs assertions.
+        $this->assertTrue(
+            $value->isSmallerNative(++$test),
+            'Integer should have been smaller.'
+        );
+        $this->instanceChecks($value);
+    }
+
+    /**
+     * Tests can perform comparisons.
+     *
+     * @since  1.0.0
+     * @return void
+     */
+    public function testCanValidateIsNotSmallerInstance(): void
+    {
+        // Performs test.
+        $test  = 123;
+        $value = ReadonlyInteger::fromInteger($test);
+
+        // Performs assertions.
+        $this->assertFalse(
+            $value->isSmaller(ReadonlyInteger::fromInteger(--$test)),
+            'Integer should have been smaller.'
+        );
+        $this->instanceChecks($value);
+    }
+
+    /**
+     * Tests can perform comparisons.
+     *
+     * @since  1.0.0
+     * @return void
+     */
+    public function testCanValidateIsNotSmallerValue(): void
+    {
+        // Performs test.
+        $test  = 123;
+        $value = ReadonlyInteger::fromInteger($test);
+
+        // Performs assertions.
+        $this->assertFalse(
+            $value->isSmallerNative($test),
+            'Integer should have been smaller.'
+        );
+        $this->instanceChecks($value);
+    }
+
+    /**
+     * Tests can identify positive and negative integers.
+     *
+     * @since  1.0.0
+     * @return void
+     */
+    public function testCanValidateNegativeValue(): void
+    {
+        // Performs test.
+        $test  = -123;
+        $value = ReadonlyInteger::fromInteger($test);
+
+        // Performs assertions.
+        $this->assertTrue(
+            $value->isNegative(),
+            'Integer should have been negative.'
+        );
+        $this->instanceChecks($value);
+    }
+
+    /**
+     * Tests can identify positive and negative integers.
+     *
+     * @since  1.0.0
+     * @return void
+     */
+    public function testCanValidatePositiveValue(): void
+    {
+        // Performs test.
+        $test  = 123;
+        $value = ReadonlyInteger::fromInteger($test);
+
+        // Performs assertions.
+        $this->assertFalse(
+            $value->isNegative(),
+            'Integer should have been positive.'
+        );
+        $this->instanceChecks($value);
     }
 
     /**
