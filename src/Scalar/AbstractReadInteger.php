@@ -66,17 +66,6 @@ abstract class AbstractReadInteger
     }
 
     /**
-     * Returns the native value of the instance.
-     *
-     * @since  1.0.0
-     * @return int
-     */
-    public function value(): int
-    {
-        return $this->value;
-    }
-
-    /**
      * Compares two Integer instances, and return <b>TRUE</b> if supplied instance is bigger.
      *
      * @param  AbstractReadInteger $compare - Integer instance to compare to.
@@ -86,7 +75,23 @@ abstract class AbstractReadInteger
      */
     public function isBigger(AbstractReadInteger $compare): bool
     {
-        return ($compare->value() > $this->value);
+        return (
+            $compare->isSmallerNative($this->value) ||
+            $compare->equalsNative($this->value)
+        );
+    }
+
+    /**
+     * Compares instance's value, with the supplied native value, and returns <b>TRUE</b> if instance is bigger.
+     *
+     * @param  int $value - Integer native value to compare to.
+     *
+     * @since  1.0.0
+     * @return bool
+     */
+    public function isBiggerNative(int $value): bool
+    {
+        return ($this->value > $value);
     }
 
     /**
@@ -99,7 +104,34 @@ abstract class AbstractReadInteger
      */
     public function isSmaller(AbstractReadInteger $compare): bool
     {
-        return ($compare->value() < $this->value);
+        return (
+            $compare->isBiggerNative($this->value) ||
+            $compare->equalsNative($this->value)
+        );
+    }
+
+    /**
+     * Compares instance's value, with the supplied native value, and returns <b>TRUE</b> if instance is smaller.
+     *
+     * @param  int $value - Integer native value to compare to.
+     *
+     * @since  1.0.0
+     * @return bool
+     */
+    public function isSmallerNative(int $value): bool
+    {
+        return ($this->value < $value);
+    }
+
+    /**
+     * Returns <b>TRUE</b> if instance contains a negative value.
+     *
+     * @since  1.0.0
+     * @return bool
+     */
+    public function isNegative(): bool
+    {
+        return ($this->value < 0);
     }
 
     /**
@@ -112,17 +144,19 @@ abstract class AbstractReadInteger
      */
     public function equals(AbstractReadInteger $compare): bool
     {
-        return ($compare->value() === $this->value);
+        return $compare->equalsNative($this->value);
     }
 
     /**
-     * Returns <b>TRUE</b> if instance contains a negative value.
+     * Compares instance's value, with the supplied native value, and returns <b>TRUE</b> if equal.
+     *
+     * @param  int $value - Integer native value to compare to.
      *
      * @since  1.0.0
      * @return bool
      */
-    public function isNegative(): bool
+    public function equalsNative(int $value): bool
     {
-        return ($this->value < 0);
+        return ($value === $this->value);
     }
 }
