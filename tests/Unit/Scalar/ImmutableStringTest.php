@@ -15,7 +15,7 @@ use Hradigital\Tests\Datatypes\AbstractBaseTestCase;
  * you should extend this test case for the other type of String, overriding only the necessary
  * tests, which shouldn't be too many.
  *
- * This way, we can testboth types of objects, without repeating the same code/tests.
+ * This way, we can test both types of objects, without repeating the same code/tests.
  *
  * @package   Hradigital\Datatypes
  * @copyright Hugo Rafael Azevedo <github@hradigital.com>
