@@ -66,6 +66,17 @@ abstract class AbstractReadInteger
     }
 
     /**
+     * Returns the native value of the instance.
+     *
+     * @since  1.0.0
+     * @return int
+     */
+    public function value(): int
+    {
+        return $this->value;
+    }
+
+    /**
      * Compares two Integer instances, and return <b>TRUE</b> if supplied instance is bigger.
      *
      * @param  AbstractReadInteger $compare - Integer instance to compare to.
@@ -75,10 +86,7 @@ abstract class AbstractReadInteger
      */
     public function isBigger(AbstractReadInteger $compare): bool
     {
-        return (
-            $compare->isSmallerNative($this->value) ||
-            $compare->equalsNative($this->value)
-        );
+        return $this->isBiggerNative($compare->value());
     }
 
     /**
@@ -104,10 +112,7 @@ abstract class AbstractReadInteger
      */
     public function isSmaller(AbstractReadInteger $compare): bool
     {
-        return (
-            $compare->isBiggerNative($this->value) ||
-            $compare->equalsNative($this->value)
-        );
+        return $this->isSmallerNative($compare->value());
     }
 
     /**
@@ -144,7 +149,7 @@ abstract class AbstractReadInteger
      */
     public function equals(AbstractReadInteger $compare): bool
     {
-        return $compare->equalsNative($this->value);
+        return $this->equalsNative($compare->value());
     }
 
     /**
