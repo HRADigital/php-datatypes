@@ -86,7 +86,7 @@ class ImmutableIntegerTest extends AbstractBaseTestCase
     {
         // Performs test.
         $original = $this->initializeInstance(123);
-        $other    = $original->toMuttable();
+        $other    = $original->toMutable();
 
         // Performs assertions.
         $this->assertInstanceOf(

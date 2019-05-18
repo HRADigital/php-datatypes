@@ -60,7 +60,7 @@ class ImmutableInteger extends AbstractWriteInteger
      * @since  1.0.0
      * @return MutableInteger
      */
-    public function toMuttable(): MutableInteger
+    public function toMutable(): MutableInteger
     {
         return new MutableInteger($this->value);
     }
