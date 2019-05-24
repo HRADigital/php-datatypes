@@ -4,7 +4,9 @@
 [![Build](https://circleci.com/gh/HRADigital/php-datatypes/tree/master.svg?style=svg)](https://circleci.com/gh/HRADigital/php-datatypes/tree/master)
 [![Coverage](https://codecov.io/gh/HRADigital/php-datatypes/branch/master/graph/badge.svg?token=voJmDwksFU)](https://codecov.io/gh/HRADigital/php-datatypes)
 [![Quality](https://api.codacy.com/project/badge/Grade/3be6c231eea84329878a59a66af49e2f)](https://www.codacy.com/app/HRADigital/php-datatypes?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=HRADigital/php-datatypes&amp;utm_campaign=Badge_Grade)
-[![Licence](https://img.shields.io/github/license/HRADigital/php-datatypes.svg)](/)
+[![Downloads](https://img.shields.io/github/downloads/HRADigital/php-datatypes/total.svg)](https://github.com/HRADigital/php-datatypes)
+[![Licence](https://img.shields.io/github/license/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
+[![Version](https://img.shields.io/github/release/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
 
 ## About
 
