@@ -2,7 +2,7 @@
 
 ## Master branch build status:
 [![Build](https://img.shields.io/circleci/build/github/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
-[![Coverage](https://codecov.io/gh/HRADigital/php-datatypes/branch/master/graph/badge.svg?token=voJmDwksFU)](https://github.com/HRADigital/php-datatypes)
+[![Coverage](https://img.shields.io/codecov/c/github/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
 [![Quality](https://api.codacy.com/project/badge/Grade/3be6c231eea84329878a59a66af49e2f)](https://github.com/HRADigital/php-datatypes)
 [![Downloads](https://img.shields.io/github/downloads/HRADigital/php-datatypes/total.svg)](https://github.com/HRADigital/php-datatypes)
 [![Licence](https://img.shields.io/github/license/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
