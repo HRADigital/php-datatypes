@@ -7,6 +7,7 @@
 [![Downloads](https://img.shields.io/github/downloads/HRADigital/php-datatypes/total.svg)](https://github.com/HRADigital/php-datatypes)
 [![Licence](https://img.shields.io/github/license/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
 [![Version](https://img.shields.io/github/release/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
+[![PHP](https://img.shields.io/packagist/php-v/hradigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
 
 ## About
 
