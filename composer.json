@@ -15,7 +15,11 @@
         "library",
         "hradigital",
         "php",
-        "datatypes"
+        "datatypes",
+        "scalar objects",
+        "ddd",
+        "immutable objects",
+        "mutable objects"
     ],
     "require": {
         "php": "^7.2"
