@@ -37,5 +37,5 @@ For general usage of the project's code, please read the project's [usage notes]
 
 Contributing to the project is easy and contributions are welcomed and appreciated.
 
-It's obviously harder to maintain the project alone, but efforts will be made to keep and improve it, as I plan to use it
-as a dependency in other projects.
+It's obviously harder to maintain the project alone, but efforts will be made to keep and improve it, as I plan to use it as
+a dependency in other projects.
