@@ -6,6 +6,7 @@ use Hradigital\Datatypes\Scalar\ReadonlyFloat;
 use Hradigital\Datatypes\Scalar\ReadonlyInteger;
 use Hradigital\Datatypes\Scalar\ReadonlyString;
 use Hradigital\Tests\Datatypes\AbstractBaseTestCase;
+use Hradigital\Datatypes\Scalar\ReadonlyBoolean;
 
 /**
  * Readonly Integer Unit testing.
@@ -464,6 +465,43 @@ class ReadonlyIntegerTest extends AbstractBaseTestCase
             ReadonlyFloat::class,
             $float,
             "Returned instance should have been of type ReadonlyFloat."
+        );
+    }
+
+    /**
+     * Tests that the instance can be converted to a Boolean.
+     *
+     * @since  1.0.0
+     * @return void
+     */
+    public function testCanConvertInstanceToBoolean(): void
+    {
+        // Performs test.
+        $true  = ReadonlyInteger::fromInteger(123);
+        $false = ReadonlyInteger::fromInteger(0);
+        $trueBoolean  = $true->toBoolean();
+        $falseBoolean = $false->toBoolean();
+
+        // Performs assertions.
+        $this->assertInstanceOf(
+            ReadonlyBoolean::class,
+            $trueBoolean,
+            'Instance type, does not match ReadonlyBoolean.'
+        );
+        $this->assertEquals(
+            'True',
+            $trueBoolean->toString(),
+            'Instance value is not correct.'
+        );
+        $this->assertInstanceOf(
+            ReadonlyBoolean::class,
+            $falseBoolean,
+            'Instance type, does not match ReadonlyBoolean.'
+        );
+        $this->assertEquals(
+            'False',
+            $falseBoolean->toString(),
+            'Instance value is not correct.'
         );
     }
 }
