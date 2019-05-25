@@ -7,7 +7,6 @@ use Hradigital\Datatypes\Scalar\ImmutableString;
 use Hradigital\Datatypes\Scalar\ImmutableFloat;
 use Hradigital\Datatypes\Scalar\MutableFloat;
 use Hradigital\Tests\Datatypes\AbstractBaseTestCase;
-use Hradigital\Datatypes\Scalar\ReadonlyBoolean;
 
 /**
  * Immutable Float Unit testing.
@@ -120,43 +119,6 @@ class ImmutableFloatTest extends AbstractBaseTestCase
             ImmutableInteger::class,
             $integer,
             'Instance type, does not match ImmutableInteger.'
-        );
-    }
-
-    /**
-     * Tests that the instance can be converted to a Boolean.
-     *
-     * @since  1.0.0
-     * @return void
-     */
-    public function testCanConvertInstanceToBoolean(): void
-    {
-        // Performs test.
-        $true  = $this->initializeInstance(123.0);
-        $false = $this->initializeInstance(0.0);
-        $trueBoolean  = $true->toBoolean();
-        $falseBoolean = $false->toBoolean();
-
-        // Performs assertions.
-        $this->assertInstanceOf(
-            ReadonlyBoolean::class,
-            $trueBoolean,
-            'Instance type, does not match ReadonlyBoolean.'
-        );
-        $this->assertEquals(
-            'True',
-            $trueBoolean->toString(),
-            'Instance value is not correct.'
-        );
-        $this->assertInstanceOf(
-            ReadonlyBoolean::class,
-            $falseBoolean,
-            'Instance type, does not match ReadonlyBoolean.'
-        );
-        $this->assertEquals(
-            'False',
-            $falseBoolean->toString(),
-            'Instance value is not correct.'
         );
     }
 
