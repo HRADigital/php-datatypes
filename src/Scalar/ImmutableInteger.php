@@ -161,5 +161,4 @@ class ImmutableInteger extends AbstractWriteInteger
     {
         return ImmutableFloat::fromString($this->__toString());
     }
-    //public function toBoolean(): ImmutableBoolean;
 }

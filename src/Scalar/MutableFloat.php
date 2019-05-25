@@ -163,5 +163,4 @@ class MutableFloat extends AbstractWriteFloat
     {
         return MutableInteger::fromString($this->__toString());
     }
-    //public function toBoolean(): MutableBoolean;
 }

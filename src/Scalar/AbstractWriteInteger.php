@@ -65,18 +65,4 @@ abstract class AbstractWriteInteger extends AbstractReadInteger
     {
         return \intval($this->value / $value);
     }
-
-    /**
-     * Converts float's instance to an equivalent boolean instance.
-     *
-     * A <i>ReadonlyBoolean</i> will be returned, as Booleans don't require Immutable and Mutable
-     * distinctions.
-     *
-     * @since  1.0.0
-     * @return ReadonlyBoolean
-     */
-    public function toBoolean(): ReadonlyBoolean
-    {
-        return ReadonlyBoolean::fromInteger($this->value);
-    }
 }
