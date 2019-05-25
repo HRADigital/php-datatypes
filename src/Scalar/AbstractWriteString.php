@@ -15,7 +15,7 @@ namespace Hradigital\Datatypes\Scalar;
  * @license   MIT
  * @since     1.0.0
  */
-abstract class AbstractWriteString extends ReadonlyString
+abstract class AbstractWriteString extends AbstractReadString
 {
     /**
      * Trims instance's value, and returns a new instance of the object.
