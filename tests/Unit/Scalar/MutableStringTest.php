@@ -1,9 +1,9 @@
 <?php
 namespace Hradigital\Tests\Datatypes\Unit\Scalar;
 
+use Hradigital\Datatypes\Scalar\AbstractReadString;
 use Hradigital\Datatypes\Scalar\ImmutableString;
 use Hradigital\Datatypes\Scalar\MutableString;
-use Hradigital\Datatypes\Scalar\ReadonlyString;
 
 /**
  * Mutable String Unit testing.
@@ -27,13 +27,13 @@ class MutableStringTest extends ImmutableStringTest
     /**
      * Asserts that 2 string instances match.
      *
-     * @param  ReadonlyString $original - Original String instance.
-     * @param  ReadonlyString $other    - Second instance for comparison.
+     * @param  AbstractReadString $original - Original String instance.
+     * @param  AbstractReadString $other    - Second instance for comparison.
      *
      * @since  1.0.0
      * @return void
      */
-    protected function checkInstances(ReadonlyString $original, ReadonlyString $other): void
+    protected function checkInstances(AbstractReadString $original, AbstractReadString $other): void
     {
         $this->assertTrue(
             ($original === $other),
@@ -44,12 +44,12 @@ class MutableStringTest extends ImmutableStringTest
     /**
      * Asserts that the supplied instance, is from the correct type.
      *
-     * @param  ReadonlyString $instance - Instance to be validated.
+     * @param  AbstractReadString $instance - Instance to be validated.
      *
      * @since  1.0.0
      * @return void
      */
-    protected function checkCorrectInstanceType(ReadonlyString $instance): void
+    protected function checkCorrectInstanceType(AbstractReadString $instance): void
     {
         $this->assertInstanceOf(
             MutableString::class,
@@ -70,7 +70,7 @@ class MutableStringTest extends ImmutableStringTest
      */
     protected function initializeInstance(string $initialValue)
     {
-        return new MutableString($initialValue);
+        return MutableString::fromString($initialValue);
     }
 
     /**
