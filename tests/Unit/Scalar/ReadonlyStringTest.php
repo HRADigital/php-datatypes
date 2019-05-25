@@ -25,7 +25,7 @@ class ReadonlyStringTest extends AbstractBaseTestCase
     {
         // Performs test.
         $test  = "This is a Testing String";
-        $value = new ReadonlyString($test);
+        $value = ReadonlyString::fromString($test);
 
         // Performs assertions.
         $this->assertEquals(
@@ -49,7 +49,7 @@ class ReadonlyStringTest extends AbstractBaseTestCase
     public function testCanSuccessfullyLoadEmptyString(): void
     {
         // Performs test.
-        $value = new ReadonlyString("");
+        $value = ReadonlyString::fromString("");
 
         // Performs assertions.
         $this->assertEquals(
@@ -74,7 +74,7 @@ class ReadonlyStringTest extends AbstractBaseTestCase
     {
         // Performs test.
         $test   = "This is a Testing String";
-        $value1 = new ReadonlyString($test);
+        $value1 = ReadonlyString::fromString($test);
         $value2 = $value1->toReadonly();
 
         // Performs assertions.
@@ -98,8 +98,8 @@ class ReadonlyStringTest extends AbstractBaseTestCase
     {
         // Performs test.
         $text   = "This is a dummy string.";
-        $value1 = new ReadonlyString($text);
-        $value2 = new ReadonlyString($text);
+        $value1 = ReadonlyString::fromString($text);
+        $value2 = ReadonlyString::fromString($text);
 
         // Performs assertions.
         $this->assertTrue(
@@ -118,8 +118,8 @@ class ReadonlyStringTest extends AbstractBaseTestCase
     {
         // Performs test.
         $text   = "This is a dummy string.";
-        $value1 = new ReadonlyString($text);
-        $value2 = new ReadonlyString($text . $text);
+        $value1 = ReadonlyString::fromString($text);
+        $value2 = ReadonlyString::fromString($text . $text);
 
         // Performs assertions.
         $this->assertFalse(
@@ -138,7 +138,7 @@ class ReadonlyStringTest extends AbstractBaseTestCase
     {
         // Performs test.
         $text  = "This is a dummy string.";
-        $value = new ReadonlyString($text);
+        $value = ReadonlyString::fromString($text);
 
         // Performs assertions.
         $this->assertEquals(
@@ -198,7 +198,7 @@ class ReadonlyStringTest extends AbstractBaseTestCase
         $this->expectException(\InvalidArgumentException::class);
 
         // Performs test.
-        $value = new ReadonlyString("This is a dummy string.");
+        $value = ReadonlyString::fromString("This is a dummy string.");
         $value->indexOf("");
     }
 
@@ -214,7 +214,7 @@ class ReadonlyStringTest extends AbstractBaseTestCase
         $this->expectException(\OutOfRangeException::class);
 
         // Performs test.
-        $value = new ReadonlyString("This is a dummy string.");
+        $value = ReadonlyString::fromString("This is a dummy string.");
         $value->indexOf("dummy", 30);
     }
 
@@ -230,7 +230,7 @@ class ReadonlyStringTest extends AbstractBaseTestCase
         $this->expectException(\OutOfRangeException::class);
 
         // Performs test.
-        $value = new ReadonlyString("This is a dummy string.");
+        $value = ReadonlyString::fromString("This is a dummy string.");
         $value->indexOf("dummy", -30);
     }
 
@@ -246,7 +246,7 @@ class ReadonlyStringTest extends AbstractBaseTestCase
         $this->expectException(\InvalidArgumentException::class);
 
         // Performs test.
-        $value = new ReadonlyString("This is a dummy string.");
+        $value = ReadonlyString::fromString("This is a dummy string.");
         $value->contains("");
     }
 
@@ -262,7 +262,7 @@ class ReadonlyStringTest extends AbstractBaseTestCase
         $this->expectException(\InvalidArgumentException::class);
 
         // Performs test.
-        $value = new ReadonlyString("This is a dummy string.");
+        $value = ReadonlyString::fromString("This is a dummy string.");
         $value->startsWith("");
     }
 
@@ -278,7 +278,7 @@ class ReadonlyStringTest extends AbstractBaseTestCase
         $this->expectException(\InvalidArgumentException::class);
 
         // Performs test.
-        $value = new ReadonlyString("This is a dummy string.");
+        $value = ReadonlyString::fromString("This is a dummy string.");
         $value->endsWith("");
     }
 
@@ -292,7 +292,7 @@ class ReadonlyStringTest extends AbstractBaseTestCase
     {
         // Performs test.
         $text  = "This is a dummy string.";
-        $value = new ReadonlyString($text);
+        $value = ReadonlyString::fromString($text);
 
         // Performs assertions.
         $this->assertEquals(
@@ -349,7 +349,7 @@ class ReadonlyStringTest extends AbstractBaseTestCase
         $this->expectException(\InvalidArgumentException::class);
 
         // Performs test.
-        $value = new ReadonlyString("This is a dummy string.");
+        $value = ReadonlyString::fromString("This is a dummy string.");
         $value->count("");
     }
 
@@ -366,7 +366,7 @@ class ReadonlyStringTest extends AbstractBaseTestCase
 
         // Performs test.
         $text  = "This is a dummy string.";
-        $value = new ReadonlyString($text);
+        $value = ReadonlyString::fromString($text);
         $value->count("search", (\strlen($text) + 1));
     }
 
@@ -383,7 +383,7 @@ class ReadonlyStringTest extends AbstractBaseTestCase
 
         // Performs test.
         $text  = "This is a dummy string.";
-        $value = new ReadonlyString($text);
+        $value = ReadonlyString::fromString($text);
         $value->count("search", (0 - \strlen($text) - 1));
     }
 
@@ -400,7 +400,7 @@ class ReadonlyStringTest extends AbstractBaseTestCase
 
         // Performs test.
         $text  = "This is a dummy string.";
-        $value = new ReadonlyString($text);
+        $value = ReadonlyString::fromString($text);
         $value->count("search", 0, (\strlen($text) + 1));
     }
 
@@ -417,7 +417,7 @@ class ReadonlyStringTest extends AbstractBaseTestCase
 
         // Performs test.
         $text  = "This is a dummy string.";
-        $value = new ReadonlyString($text);
+        $value = ReadonlyString::fromString($text);
         $value->count("search", 0, (0 - \strlen($text) - 1));
     }
 
@@ -434,7 +434,7 @@ class ReadonlyStringTest extends AbstractBaseTestCase
 
         // Performs test.
         $text  = "This is a dummy string.";
-        $value = new ReadonlyString($text);
+        $value = ReadonlyString::fromString($text);
         $value->count("search", -5, 6);
     }
 
@@ -451,7 +451,7 @@ class ReadonlyStringTest extends AbstractBaseTestCase
 
         // Performs test.
         $text  = "This is a dummy string.";
-        $value = new ReadonlyString($text);
+        $value = ReadonlyString::fromString($text);
         $value->count("search", -5, -6);
     }
 }
