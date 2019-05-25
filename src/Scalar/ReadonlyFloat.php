@@ -82,7 +82,7 @@ class ReadonlyFloat extends AbstractReadFloat
      */
     public function format(\NumberFormatter $formatter): ReadonlyString
     {
-        return new ReadonlyString(
+        return ReadonlyString::fromString(
             $formatter->format($this->value, \NumberFormatter::TYPE_DOUBLE)
         );
     }
@@ -95,7 +95,7 @@ class ReadonlyFloat extends AbstractReadFloat
      */
     public function toString(): ReadonlyString
     {
-        return new ReadonlyString($this->__toString());
+        return ReadonlyString::fromString($this->__toString());
     }
 
     /**

@@ -135,7 +135,7 @@ class ImmutableInteger extends AbstractWriteInteger
      */
     public function format(\NumberFormatter $formatter): ImmutableString
     {
-        return new ImmutableString(
+        return ImmutableString::fromString(
             $formatter->format($this->value, \NumberFormatter::TYPE_INT64)
         );
     }
@@ -148,7 +148,7 @@ class ImmutableInteger extends AbstractWriteInteger
      */
     public function toString(): ImmutableString
     {
-        return new ImmutableString($this->__toString());
+        return ImmutableString::fromString($this->__toString());
     }
 
     /**
