@@ -32,7 +32,10 @@ and both _Linear_ and _Associative_ **Collections** such as `Queues`, `Stacks` a
 
 In order to install this package, just add it to your **composer**, by executing `composer require hradigital/php-datatypes`.
 
-For general usage of the project's code, please read the project's [usage notes](/src).
+## Usage
+
+For more information about how to to use these Datatypes, please see the project's **usage notes** and some implementation examples
+in [here](https://github.com/HRADigital/php-datatypes/tree/master/src/).
 
 ## Contributing
 
