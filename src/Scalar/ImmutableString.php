@@ -18,6 +18,19 @@ namespace Hradigital\Datatypes\Scalar;
 class ImmutableString extends AbstractWriteString
 {
     /**
+     * Creates a new instance of <i>ImmutableString</i> based on a string value.
+     *
+     * @param  string $value - Instance's initial value.
+     *
+     * @since  1.0.0
+     * @return ImmutableString
+     */
+    public static function fromString(string $value): ImmutableString
+    {
+        return new ImmutableString($value);
+    }
+
+    /**
      * Clones this <i>ImmutableString</i> instance, into a <i>MutableString</i> one.
      *
      * @since  1.0.0
