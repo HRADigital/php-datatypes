@@ -38,7 +38,7 @@ class ImmutableString extends AbstractWriteString
      */
     public function toMutable(): MutableString
     {
-        return new MutableString(
+        return MutableString::fromString(
             $this->value
         );
     }

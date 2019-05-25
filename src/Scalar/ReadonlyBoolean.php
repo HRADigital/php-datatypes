@@ -75,7 +75,7 @@ class ReadonlyBoolean extends AbstractReadBoolean
      */
     public function toString(): ReadonlyString
     {
-        return new ReadonlyString($this->value ? 'True' : 'False');
+        return ReadonlyString::fromString($this->value ? 'True' : 'False');
     }
 
     /**

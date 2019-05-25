@@ -65,7 +65,7 @@ class ReadonlyInteger extends AbstractReadInteger
      */
     public function format(\NumberFormatter $formatter): ReadonlyString
     {
-        return new ReadonlyString(
+        return ReadonlyString::fromString(
             $formatter->format($this->value, \NumberFormatter::TYPE_INT64)
         );
     }
@@ -78,7 +78,7 @@ class ReadonlyInteger extends AbstractReadInteger
      */
     public function toString(): ReadonlyString
     {
-        return new ReadonlyString($this->__toString());
+        return ReadonlyString::fromString($this->__toString());
     }
 
     /**

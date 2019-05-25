@@ -137,7 +137,7 @@ class MutableFloat extends AbstractWriteFloat
      */
     public function format(\NumberFormatter $formatter): MutableString
     {
-        return new MutableString(
+        return MutableString::fromString(
             $formatter->format($this->value, \NumberFormatter::TYPE_DOUBLE)
         );
     }
@@ -150,7 +150,7 @@ class MutableFloat extends AbstractWriteFloat
      */
     public function toString(): MutableString
     {
-        return new MutableString($this->__toString());
+        return MutableString::fromString($this->__toString());
     }
 
     /**
