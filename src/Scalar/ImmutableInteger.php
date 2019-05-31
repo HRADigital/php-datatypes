@@ -35,7 +35,7 @@ class ImmutableInteger extends AbstractWriteInteger
         }
 
         return new ImmutableInteger(
-            \intval($number)
+            ((int) $number)
         );
     }
 

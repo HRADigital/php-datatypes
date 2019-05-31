@@ -36,7 +36,7 @@ class ReadonlyInteger extends AbstractReadInteger
         }
 
         return new ReadonlyInteger(
-            \intval($number)
+            ((int) $number)
         );
     }
 
