@@ -233,8 +233,8 @@ abstract class AbstractReadString
     protected function validateStartAndLength(int $start, ?int $length): void
     {
         // Calculates the absolute values for validations.
-        $absStart  = \intval(\abs($start));
-        $absLength = \intval(\abs($length));
+        $absStart  = (int) \abs($start);
+        $absLength = (int) \abs($length);
 
         // Validates the starting value.
         if ($absStart > $this->length()) {

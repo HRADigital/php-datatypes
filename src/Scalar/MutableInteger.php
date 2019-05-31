@@ -37,7 +37,7 @@ class MutableInteger extends AbstractWriteInteger
         }
 
         return new MutableInteger(
-            \intval($number)
+            ((int) $number)
         );
     }
 

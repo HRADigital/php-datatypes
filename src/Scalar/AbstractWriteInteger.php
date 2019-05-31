@@ -63,6 +63,6 @@ abstract class AbstractWriteInteger extends AbstractReadInteger
      */
     protected function doDivide(int $value): int
     {
-        return \intval($this->value / $value);
+        return ((int) ($this->value / $value));
     }
 }
