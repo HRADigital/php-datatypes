@@ -5,15 +5,15 @@ namespace Hradigital\Datatypes\Scalar;
 /**
  * Immutable String's Scalar Object class.
  *
- * Instanciate this class, if you want the initial instance's value to be preserved, for example, if
- * you're using it as a Value Object, in a DDD project.
+ * Instanciate this class, if you want the initial instance's value to be preserved.
  *
- * Method chaning is not supported by any mutators. A new instance will be returned instead.
+ * Fluent interface (chaning) is not supported by any mutators.
+ * A new instance will be returned instead.
  *
  * @package   Hradigital\Datatypes
  * @license   MIT
  */
-class ImmutableString extends AbstractWriteString
+class ImmutableString extends AbstractBaseString
 {
     /**
      * Creates a new instance of ImmutableString based on a string value.
@@ -27,18 +27,6 @@ class ImmutableString extends AbstractWriteString
     }
 
     /**
-     * Clones this ImmutableString instance, into a MutableString one.
-     *
-     * @return MutableString
-     */
-    public function toMutable(): MutableString
-    {
-        return MutableString::fromString(
-            $this->value
-        );
-    }
-
-    /**
      * Trims instance's value, and returns a new instance of the object.
      *
      * @return ImmutableString
@@ -46,7 +34,7 @@ class ImmutableString extends AbstractWriteString
     public function trim(): ImmutableString
     {
         return new ImmutableString(
-            parent::doTrim()
+            parent::doTrim($this->value)
         );
     }
 
@@ -58,7 +46,7 @@ class ImmutableString extends AbstractWriteString
     public function trimLeft(): ImmutableString
     {
         return new ImmutableString(
-            parent::doTrimLeft()
+            parent::doTrimLeft($this->value)
         );
     }
 
@@ -70,7 +58,7 @@ class ImmutableString extends AbstractWriteString
     public function trimRight(): ImmutableString
     {
         return new ImmutableString(
-            parent::doTrimRight()
+            parent::doTrimRight($this->value)
         );
     }
 
@@ -82,7 +70,7 @@ class ImmutableString extends AbstractWriteString
     public function toUpper(): ImmutableString
     {
         return new ImmutableString(
-            parent::doToUpper()
+            parent::doToUpper($this->value)
         );
     }
 
@@ -95,7 +83,7 @@ class ImmutableString extends AbstractWriteString
     public function toUpperFirst(): ImmutableString
     {
         return new ImmutableString(
-            parent::doToUpperFirst()
+            parent::doToUpperFirst($this->value)
         );
     }
 
@@ -110,7 +98,7 @@ class ImmutableString extends AbstractWriteString
     public function toUpperWords(string $delimiters = " \t\r\n\f\v"): ImmutableString
     {
         return new ImmutableString(
-            parent::doToUpperWords($delimiters)
+            parent::doToUpperWords($this->value, $delimiters)
         );
     }
 
@@ -122,7 +110,7 @@ class ImmutableString extends AbstractWriteString
     public function toLower(): ImmutableString
     {
         return new ImmutableString(
-            parent::doToLower()
+            parent::doToLower($this->value)
         );
     }
 
@@ -135,7 +123,7 @@ class ImmutableString extends AbstractWriteString
     public function toLowerFirst(): ImmutableString
     {
         return new ImmutableString(
-            parent::doToLowerFirst()
+            parent::doToLowerFirst($this->value)
         );
     }
 
@@ -155,7 +143,7 @@ class ImmutableString extends AbstractWriteString
     public function padLeft(int $length, string $padding = " "): ImmutableString
     {
         return new ImmutableString(
-            parent::doPadLeft($length, $padding)
+            parent::doPadLeft($this->value, $length, $padding)
         );
     }
 
@@ -175,7 +163,7 @@ class ImmutableString extends AbstractWriteString
     public function padLeftExtra(int $length, string $padding = " "): ImmutableString
     {
         return new ImmutableString(
-            parent::doPadLeftExtra($length, $padding)
+            parent::doPadLeftExtra($this->value, $length, $padding)
         );
     }
 
@@ -199,7 +187,7 @@ class ImmutableString extends AbstractWriteString
     public function padRight(int $length, string $padding = " "): ImmutableString
     {
         return new ImmutableString(
-            parent::doPadRight($length, $padding)
+            parent::doPadRight($this->value, $length, $padding)
         );
     }
 
@@ -219,7 +207,7 @@ class ImmutableString extends AbstractWriteString
     public function padRightExtra(int $length, string $padding = " "): ImmutableString
     {
         return new ImmutableString(
-            parent::doPadRightExtra($length, $padding)
+            parent::doPadRightExtra($this->value, $length, $padding)
         );
     }
 
@@ -228,7 +216,7 @@ class ImmutableString extends AbstractWriteString
      * $start and $length parameters.
      *
      * $start parameter:
-     * -If $start is non-negative, the returned an instance will start at the $start'th position in
+     * - If $start is non-negative, the returned an instance will start at the $start'th position in
      * string, counting from zero. For instance, in the string 'abcdef', the character at position 0 is 'a', the
      * character at position 2 is 'c', and so forth.
      * - If $start is negative, the returned string will start at the $start'th character from the end
@@ -254,7 +242,7 @@ class ImmutableString extends AbstractWriteString
     public function subString(int $start, int $length = null): ImmutableString
     {
         return new ImmutableString(
-            parent::doSubString($start, $length)
+            parent::doSubString($this->value, $start, $length)
         );
     }
 
@@ -272,7 +260,7 @@ class ImmutableString extends AbstractWriteString
     public function subLeft(int $length): ImmutableString
     {
         return new ImmutableString(
-            parent::doSubLeft($length)
+            parent::doSubLeft($this->value, $length)
         );
     }
 
@@ -290,7 +278,7 @@ class ImmutableString extends AbstractWriteString
     public function subRight(int $length): ImmutableString
     {
         return new ImmutableString(
-            parent::doSubRight($length)
+            parent::doSubRight($this->value, $length)
         );
     }
 
@@ -302,7 +290,7 @@ class ImmutableString extends AbstractWriteString
     public function reverse(): ImmutableString
     {
         return new ImmutableString(
-            parent::doReverse()
+            parent::doReverse($this->value)
         );
     }
 
@@ -318,7 +306,7 @@ class ImmutableString extends AbstractWriteString
     public function replace(string $search, string $replace): ImmutableString
     {
         return new ImmutableString(
-            parent::doReplace($search, $replace)
+            parent::doReplace($this->value, $search, $replace)
         );
     }
 }
