@@ -1,26 +1,23 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace Hradigital\Datatypes\Scalar;
 
 /**
  * Abstract Write String's Scalar Object class.
  *
- * The purpose of this class is to center writing operations for both <i>ImmutableString</i> and
- * <I>MutableString</i> objects, as both perform the same operations, but return different outcomes.
+ * The purpose of this class is to center writing operations for both ImmutableString and
+ * MutableString objects, as both perform the same operations, but return different outcomes.
  *
- * This class will perform every writing operation, <b>for internal use only</b>.
+ * This class will perform every writing operation, for internal use only.
  *
  * @package   Hradigital\Datatypes
- * @copyright Hugo Rafael Azevedo <github@hradigital.com>
- * @author    Hugo Rafael Azevedo <github@hradigital.com>
  * @license   MIT
- * @since     1.0.0
  */
 abstract class AbstractWriteString extends AbstractReadString
 {
     /**
      * Trims instance's value, and returns a new instance of the object.
      *
-     * @since  1.0.0
      * @return string
      */
     protected function doTrim(): string
@@ -31,7 +28,6 @@ abstract class AbstractWriteString extends AbstractReadString
     /**
      * Left trims instance's value, and returns a new instance of the object.
      *
-     * @since  1.0.0
      * @return string
      */
     protected function doTrimLeft(): string
@@ -42,7 +38,6 @@ abstract class AbstractWriteString extends AbstractReadString
     /**
      * Right trims instance's value, and returns a new instance of the object.
      *
-     * @since  1.0.0
      * @return string
      */
     protected function doTrimRight(): string
@@ -51,9 +46,8 @@ abstract class AbstractWriteString extends AbstractReadString
     }
 
     /**
-     * Converts the instance's value to <b>Upper Case</b>, and returns a new instance of the object.
+     * Converts the instance's value to Upper Case, and returns a new instance of the object.
      *
-     * @since  1.0.0
      * @return string
      */
     protected function doToUpper(): string
@@ -62,10 +56,9 @@ abstract class AbstractWriteString extends AbstractReadString
     }
 
     /**
-     * Converts the instance's value first character to <b>Upper Case</b>, and returns a new instance
+     * Converts the instance's value first character to Upper Case, and returns a new instance
      * of the object.
      *
-     * @since  1.0.0
      * @return string
      */
     protected function doToUpperFirst(): string
@@ -74,12 +67,11 @@ abstract class AbstractWriteString extends AbstractReadString
     }
 
     /**
-     * Converts the instance's value first character of each word to <b>Upper Case</b>, and returns a new instance
+     * Converts the instance's value first character of each word to Upper Case, and returns a new instance
      * of the object.
      *
      * @param  string $delimiters - The optional delimiters contains the word separator characters.
      *
-     * @since  1.0.0
      * @return string
      */
     protected function doToUpperWords(string $delimiters = " \t\r\n\f\v"): string
@@ -88,9 +80,8 @@ abstract class AbstractWriteString extends AbstractReadString
     }
 
     /**
-     * Converts the instance's value to <b>Lower Case</b>, and returns a new instance of the object.
+     * Converts the instance's value to Lower Case, and returns a new instance of the object.
      *
-     * @since  1.0.0
      * @return string
      */
     protected function doToLower(): string
@@ -99,10 +90,9 @@ abstract class AbstractWriteString extends AbstractReadString
     }
 
     /**
-     * Converts the instance's value first character to <b>Lower Case</b>, and returns a new instance
+     * Converts the instance's value first character to Lower Case, and returns a new instance
      * of the object
      *
-     * @since  1.0.0
      * @return string
      */
     protected function doToLowerFirst(): string
@@ -111,156 +101,144 @@ abstract class AbstractWriteString extends AbstractReadString
     }
 
     /**
-     * This method returns a new instance padded on the <b>left</b> to the specified padding length minus
+     * This method returns a new instance padded on the LEFT to the specified padding length minus
      * the length of the instance's value.
      *
      * Eg:. if the padding length is 12, and the instance's value is only 10 characters long, the value will
      * only be padded by the value of 2.
      *
-     * If the optional argument <i>$padString</i> is not supplied, the input is padded with spaces, otherwise
-     * it is padded with characters from <i>$padString</i> up to the limit.
+     * If the optional argument $padString is not supplied, the input is padded with spaces, otherwise
+     * it is padded with characters from $padString up to the limit.
      *
-     * @param  int    $length    - Length of the padded value.
-     * @param  string $padString - The pad_string may be truncated if the required number of padding characters
-     *                             can't be evenly divided by the <i>$padString</i>'s length.
+     * @param  int    $length  - Length of the padded value.
+     * @param  string $padding - The pad_string may be truncated if the required number of padding characters
+     *                             can't be evenly divided by the $padString's length.
      *
      * @throws \InvalidArgumentException - If any of the parameters is invalid.
-     *
-     * @since  1.0.0
      * @return string
      */
-    protected function doPadLeft(int $length, string $padString = " "): string
+    protected function doPadLeft(int $length, string $padding = " "): string
     {
         // Validates supplied parameters.
         if ($length < 1) {
             throw new \InvalidArgumentException("Supplied Length must be a positive integer.");
         }
-        if (\strlen($padString) === 0) {
+        if (\strlen($padding) === 0) {
             throw new \InvalidArgumentException("Supplied padding must be a non empty string.");
         }
 
-        return \str_pad($this->value, $length, $padString, STR_PAD_LEFT);
+        return \str_pad($this->value, $length, $padding, STR_PAD_LEFT);
     }
 
     /**
-     * This method returns a new instance padded on the <b>left</b>, <b>exactly to the specified padding length</b>.
+     * This method returns a new instance padded on the LEFT, exactly to the specified padding length.
      *
-     * If the optional argument <i>$padString</i> is not supplied, the input is padded with spaces, otherwise
-     * it is padded with characters from <i>$padString</i> up to the limit.
+     * If the optional argument $padding is not supplied, the input is padded with spaces, otherwise
+     * it is padded with characters from $padding up to the limit.
      *
-     * @param  int    $length    - Length of the padded value.
-     * @param  string $padString - The pad_string may be truncated if the required number of padding characters
-     *                             can't be evenly divided by the <i>$padString</i>'s length.
+     * @param  int    $length  - Length of the padded value.
+     * @param  string $padding - The pad_string may be truncated if the required number of padding characters
+     *                           can't be evenly divided by the $padding's length.
      *
      * @throws \InvalidArgumentException - If any of the parameters is invalid.
-     *
-     * @since  1.0.0
      * @return string
      */
-    protected function doPadLeftExtra(int $length, string $padString = " "): string
+    protected function doPadLeftExtra(int $length, string $padding = " "): string
     {
         // Validates supplied parameters.
         if ($length < 1) {
             throw new \InvalidArgumentException("Supplied Length must be a positive integer.");
         }
-        if (\strlen($padString) === 0) {
+        if (\strlen($padding) === 0) {
             throw new \InvalidArgumentException("Supplied padding must be a non empty string.");
         }
 
-        return \str_pad($this->value, ($this->length() + $length), $padString, STR_PAD_LEFT);
+        return \str_pad($this->value, ($this->length() + $length), $padding, STR_PAD_LEFT);
     }
 
     /**
-     * This method returns a new instance padded on the <b>right</b> to the specified padding length minus
+     * This method returns a new instance padded on the RIGHT to the specified padding length minus
      * the length of the instance's value.
      *
      * Eg:. if the padding length is 12, and the instance's value is only 10 characters long, the value will
      * only be padded by the value of 2.
      *
-     * If the optional argument <i>$padString</i> is not supplied, the input is padded with spaces, otherwise
-     * it is padded with characters from <i>$padString</i> up to the limit.
+     * If the optional argument $padString is not supplied, the input is padded with spaces, otherwise
+     * it is padded with characters from $padding up to the limit.
      *
-     * @param  int    $length    - Length of the padded value.
-     * @param  string $padString - The pad_string may be truncated if the required number of padding characters
-     *                             can't be evenly divided by the <i>$padString</i>'s length.
+     * @param  int    $length  - Length of the padded value.
+     * @param  string $padding - The pad_string may be truncated if the required number of padding characters
+     *                           can't be evenly divided by the $padding's length.
      *
      * @throws \InvalidArgumentException - If any of the parameters is invalid.
-     *
-     * @since  1.0.0
      * @return string
      */
-    protected function doPadRight(int $length, string $padString = " "): string
+    protected function doPadRight(int $length, string $padding = " "): string
     {
         // Validates supplied parameters.
         if ($length < 1) {
             throw new \InvalidArgumentException("Supplied Length must be a positive integer.");
         }
-        if (\strlen($padString) === 0) {
+        if (\strlen($padding) === 0) {
             throw new \InvalidArgumentException("Supplied padding must be a non empty string.");
         }
 
-        return \str_pad($this->value, $length, $padString, STR_PAD_RIGHT);
+        return \str_pad($this->value, $length, $padding, STR_PAD_RIGHT);
     }
 
     /**
-     * This method returns a new instance padded on the <b>right</b>, <b>exactly to the specified padding length</b>.
+     * This method returns a new instance padded on the RIGHT, exactly to the specified padding length.
      *
-     * If the optional argument <i>$padString</i> is not supplied, the input is padded with spaces, otherwise
-     * it is padded with characters from <i>$padString</i> up to the limit.
+     * If the optional argument $padding is not supplied, the input is padded with spaces, otherwise
+     * it is padded with characters from $padding up to the limit.
      *
-     * @param  int    $length    - Length of the padded value.
-     * @param  string $padString - The pad_string may be truncated if the required number of padding characters
-     *                             can't be evenly divided by the <i>$padString</i>'s length.
+     * @param  int    $length  - Length of the padded value.
+     * @param  string $padding - The pad_string may be truncated if the required number of padding characters
+     *                           can't be evenly divided by the $padding's length.
      *
      * @throws \InvalidArgumentException - If any of the parameters is invalid.
-     *
-     * @since  1.0.0
      * @return string
      */
-    protected function doPadRightExtra(int $length, string $padString = " "): string
+    protected function doPadRightExtra(int $length, string $padding = " "): string
     {
         // Validates supplied parameters.
         if ($length < 1) {
             throw new \InvalidArgumentException("Supplied Length must be a positive integer.");
         }
-        if (\strlen($padString) === 0) {
+        if (\strlen($padding) === 0) {
             throw new \InvalidArgumentException("Supplied padding must be a non empty string.");
         }
 
-        return \str_pad($this->value, ($this->length() + $length), $padString, STR_PAD_RIGHT);
+        return \str_pad($this->value, ($this->length() + $length), $padding, STR_PAD_RIGHT);
     }
 
     /**
      * This method returns a new instance with a portion of the original instance's value, specified by the
-     * <i>$start</i> and <i>$length</i> parameters.
+     * $start and $length parameters.
      *
-     * <b>$start</b> parameter:
-     * <ul>
-     * <li>If <i>$start</i> is non-negative, the returned an instance will start at the <i>$start</i>'th position in
+     * $start parameter:
+     * - If $start is non-negative, the returned an instance will start at the $start'th position in
      * string, counting from zero. For instance, in the string 'abcdef', the character at position 0 is 'a', the
-     * character at position 2 is 'c', and so forth.</li>
-     * <li>If <i>$start</i> is negative, the returned string will start at the <i>$start</i>'th character from the end
-     * of string.</li>
-     * <li>If the <b>absolute value</b> of <i>$start</i> is <b>higher</b> than the instance's <b>length</b>, an
-     * <b>exception is thrown</b>.</li>
-     * </ul>
+     * character at position 2 is 'c', and so forth.
+     * - If $start is negative, the returned string will start at the $start'th character from the end
+     * of string.
+     * - If the absolute value of $start is higher than the instance's length, an
+     * exception is thrown.
      *
-     * <b>$length</b> parameter:
-     * <ul>
-     * <li>If <i>$length</i> is given and is positive, the string returned will contain at most length characters
-     * beginning from <i>$start</i> (depending on the length of string).</li>
-     * <li>If <i>$length</i> is given and is negative, then that many characters will be omitted from the end of string
-     * (after the start position has been calculated when a start is negative).</li>
-     * <li>If <i>$length</i> <b>exceeds the remaining number of characters</b>, after the <i>$start</i> calculation, an
-     * <b>Exception will be raised</b>.</li>
-     * </ul>
+     *
+     * $length parameter:
+     * - If $length is given and is positive, the string returned will contain at most length characters
+     * beginning from $start (depending on the length of string).
+     * - If $length is given and is negative, then that many characters will be omitted from the end of string
+     * (after the start position has been calculated when a start is negative).
+     * - If $length exceeds the remaining number of characters, after the $start calculation, an
+     * Exception will be raised.
+     *
      *
      * @param  int $start  - Start of the sub-string. Can be negative.
      * @param  int $length - Length of the sub-string. Can be negative.
      *
-     * @throws \OutOfRangeException - If the <i>$start</i> and/or <i>$length</i> is either too small, or too long.
-     *
-     * @since  1.0.0
+     * @throws \OutOfRangeException - If the $start and/or $length is either too small, or too long.
      * @return string
      */
     protected function doSubString(int $start, int $length = null): string
@@ -280,15 +258,13 @@ abstract class AbstractWriteString extends AbstractReadString
 
     /**
      * This method returns a new instance with a portion of the original instance's value, starting at the beginning
-     * of the value, with the number of characters specified in the <i>$length</i> parameter.
+     * of the value, with the number of characters specified in the $length parameter.
      *
-     * Same rules as <i>ImmutableString::subString()</i> are applied.
+     * Same rules as ImmutableString::subString() are applied.
      *
      * @param  int $length - Length of the sub-string. Must be positive.
      *
      * @throws \InvalidArgumentException - If supplied Length is not a positive integer.
-     *
-     * @since  1.0.0
      * @return string
      */
     protected function doSubLeft(int $length): string
@@ -303,15 +279,13 @@ abstract class AbstractWriteString extends AbstractReadString
 
     /**
      * This method returns a new instance with a portion of the original instance's value, couting from the end
-     * of the value, with the number of characters specified in the <i>$length</i> parameter.
+     * of the value, with the number of characters specified in the $length parameter.
      *
-     * Same rules as <i>ImmutableString::subString()</i> are applied.
+     * Same rules as ImmutableString::subString() are applied.
      *
      * @param  int $length - Length of the sub-string. Must be positive.
      *
      * @throws \InvalidArgumentException - If supplied Length is not a positive integer.
-     *
-     * @since  1.0.0
      * @return string
      */
     protected function doSubRight(int $length): string
@@ -327,7 +301,6 @@ abstract class AbstractWriteString extends AbstractReadString
     /**
      * This method returns a new instance with the reversed value of the original instance.
      *
-     * @since  1.0.0
      * @return string
      */
     protected function doReverse(): string
@@ -342,8 +315,6 @@ abstract class AbstractWriteString extends AbstractReadString
      * @param  string $replace - The search's replacement.
      *
      * @throws \InvalidArgumentException - If $search is empty, or count is a not a positive integer.
-     *
-     * @since  1.0.0
      * @return string
      */
     protected function doReplace(string $search, string $replace): string

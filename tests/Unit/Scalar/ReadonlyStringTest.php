@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace Hradigital\Tests\Datatypes\Unit\Scalar;
 
 use Hradigital\Datatypes\Scalar\ReadonlyString;
@@ -8,17 +9,13 @@ use Hradigital\Tests\Datatypes\AbstractBaseTestCase;
  * Readonly String Unit testing.
  *
  * @package   Hradigital\Datatypes
- * @copyright Hugo Rafael Azevedo <github@hradigital.com>
- * @author    Hugo Rafael Azevedo <github@hradigital.com>
  * @license   MIT
- * @since     1.0.0
  */
 class ReadonlyStringTest extends AbstractBaseTestCase
 {
     /**
      * Tests that a filled string can be loaded successfully.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanSuccessfullyLoadFilledString(): void
@@ -43,7 +40,6 @@ class ReadonlyStringTest extends AbstractBaseTestCase
     /**
      * Tests that an empty string can be loaded successfully.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanSuccessfullyLoadEmptyString(): void
@@ -67,7 +63,6 @@ class ReadonlyStringTest extends AbstractBaseTestCase
     /**
      * Tests instance can be cloned.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanCopyInstance(): void
@@ -91,7 +86,6 @@ class ReadonlyStringTest extends AbstractBaseTestCase
     /**
      * Tests that equal strings are marked as equal.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanCompareTwoStringsWithSameValue(): void
@@ -111,7 +105,6 @@ class ReadonlyStringTest extends AbstractBaseTestCase
     /**
      * Tests that different strings are not marked as equal.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanCompareTwoStringsWithDifferentValue(): void
@@ -131,7 +124,6 @@ class ReadonlyStringTest extends AbstractBaseTestCase
     /**
      * Tests that the indexOf of a string works properly.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testIndexOfStringRelatedFunctionality(): void
@@ -189,7 +181,6 @@ class ReadonlyStringTest extends AbstractBaseTestCase
     /**
      * Tests that indexOf doesn't accept an empty search.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testIndexOfBreaksWithEmptySearch(): void
@@ -205,7 +196,6 @@ class ReadonlyStringTest extends AbstractBaseTestCase
     /**
      * Tests that indexOf doesn't accept an illegal starting search.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testIndexOfBreaksWithInvalidPositiveStart(): void
@@ -221,7 +211,6 @@ class ReadonlyStringTest extends AbstractBaseTestCase
     /**
      * Tests that indexOf doesn't accept an illegal starting search.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testIndexOfBreaksWithInvalidNegativeStart(): void
@@ -237,7 +226,6 @@ class ReadonlyStringTest extends AbstractBaseTestCase
     /**
      * Tests that contains() breaks with an empty Search value.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testContainsBreakWithEmptySearch(): void
@@ -253,7 +241,6 @@ class ReadonlyStringTest extends AbstractBaseTestCase
     /**
      * Tests that startsWith() breaks with an empty Search value.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testStartsWithBreakWithEmptySearch(): void
@@ -269,7 +256,6 @@ class ReadonlyStringTest extends AbstractBaseTestCase
     /**
      * Tests that endsWith() breaks with an empty Search value.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testEndsWithBreakWithEmptySearch(): void
@@ -285,7 +271,6 @@ class ReadonlyStringTest extends AbstractBaseTestCase
     /**
      * Tests that the number of occurrences of a search, can be counted within the string.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanCountNumberOfOccurrencesWithinString(): void
@@ -340,7 +325,6 @@ class ReadonlyStringTest extends AbstractBaseTestCase
     /**
      * Tests that count() breaks with an empty Search value.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCountBreakWithEmptySearch(): void
@@ -356,7 +340,6 @@ class ReadonlyStringTest extends AbstractBaseTestCase
     /**
      * Tests that count() breaks with long Start value.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCountBreaksWithLongStart(): void
@@ -373,7 +356,6 @@ class ReadonlyStringTest extends AbstractBaseTestCase
     /**
      * Tests that count() breaks with long negative Start value.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCountBreaksWithLongNegativeStart(): void
@@ -390,7 +372,6 @@ class ReadonlyStringTest extends AbstractBaseTestCase
     /**
      * Tests that count() breaks with long Length value.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCountBreaksWithLongLength(): void
@@ -407,7 +388,6 @@ class ReadonlyStringTest extends AbstractBaseTestCase
     /**
      * Tests that count() breaks with long negative Length value.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCountBreaksWithLongNegativeLength(): void
@@ -424,7 +404,6 @@ class ReadonlyStringTest extends AbstractBaseTestCase
     /**
      * Tests that count() breaks with out of scope Length value.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCountBreaksWithOutOfScopeLength(): void
@@ -441,7 +420,6 @@ class ReadonlyStringTest extends AbstractBaseTestCase
     /**
      * Tests that count() breaks with out of scope negative Length value.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCountBreaksWithOutOfScopeNegativeLength(): void

@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace Hradigital\Datatypes\Scalar;
 
 /**
@@ -12,19 +13,14 @@ namespace Hradigital\Datatypes\Scalar;
  * All mutator/setter methods in this class, support chaning.
  *
  * @package   Hradigital\Datatypes
- * @copyright Hugo Rafael Azevedo <github@hradigital.com>
- * @author    Hugo Rafael Azevedo <github@hradigital.com>
  * @license   MIT
- * @since     1.0.0
  */
 class MutableString extends AbstractWriteString
 {
     /**
-     * Creates a new instance of <i>MutableString</i> based on a string value.
+     * Creates a new instance of MutableString based on a string value.
      *
      * @param  string $value - Instance's initial value.
-     *
-     * @since  1.0.0
      * @return MutableString
      */
     public static function fromString(string $value): MutableString
@@ -33,9 +29,8 @@ class MutableString extends AbstractWriteString
     }
 
     /**
-     * Clones this <i>MutableString</i> instance, into a <i>ImmutableString</i> one.
+     * Clones this MutableString instance, into a ImmutableString one.
      *
-     * @since  1.0.0
      * @return ImmutableString
      */
     public function toImmutable(): ImmutableString
@@ -50,7 +45,6 @@ class MutableString extends AbstractWriteString
      *
      * This method supports chaning.
      *
-     * @since  1.0.0
      * @return MutableString
      */
     public function trim(): MutableString
@@ -65,7 +59,6 @@ class MutableString extends AbstractWriteString
      *
      * This method supports chaning.
      *
-     * @since  1.0.0
      * @return MutableString
      */
     public function trimLeft(): MutableString
@@ -80,7 +73,6 @@ class MutableString extends AbstractWriteString
      *
      * This method supports chaning.
      *
-     * @since  1.0.0
      * @return MutableString
      */
     public function trimRight(): MutableString
@@ -91,11 +83,10 @@ class MutableString extends AbstractWriteString
     }
 
     /**
-     * Converts the instance's value to <b>Upper Case</b>.
+     * Converts the instance's value to Upper Case.
      *
      * This method supports chaning.
      *
-     * @since  1.0.0
      * @return MutableString
      */
     public function toUpper(): MutableString
@@ -109,9 +100,6 @@ class MutableString extends AbstractWriteString
      * Make a string's first character uppercase.
      *
      * @return MutableString
-     *
-     * @since  1.0.0
-     * @return MutableString
      */
     public function toUpperFirst(): MutableString
     {
@@ -121,11 +109,10 @@ class MutableString extends AbstractWriteString
     }
 
     /**
-     * Makes the string's first character of each word to <b>Upper Case</b>.
+     * Makes the string's first character of each word to Upper Case.
      *
      * @param  string $delimiters - The optional delimiters contains the word separator characters.
      *
-     * @since  1.0.0
      * @return MutableString
      */
     public function toUpperWords(string $delimiters = " \t\r\n\f\v"): MutableString
@@ -136,11 +123,10 @@ class MutableString extends AbstractWriteString
     }
 
     /**
-     * Converts the instance's value to <b>Lower Case</b>.
+     * Converts the instance's value to Lower Case.
      *
      * This method supports chaning.
      *
-     * @since  1.0.0
      * @return MutableString
      */
     public function toLower(): MutableString
@@ -153,7 +139,6 @@ class MutableString extends AbstractWriteString
     /**
      * Make a string's first character lowercase.
      *
-     * @since  1.0.0
      * @return MutableString
      */
     public function toLowerFirst(): MutableString
@@ -164,136 +149,124 @@ class MutableString extends AbstractWriteString
     }
 
     /**
-     * This method returns a new instance padded on the <b>left</b> to the specified padding length minus
+     * This method returns a new instance padded on the left to the specified padding length minus
      * the length of the instance's value.
      *
      * Eg:. if the padding length is 12, and the instance's value is only 10 characters long, the value will
      * only be padded by the value of 2.
      *
-     * If the optional argument <i>$padString</i> is not supplied, the input is padded with spaces, otherwise
-     * it is padded with characters from <i>$padString</i> up to the limit.
+     * If the optional argument $padding is not supplied, the input is padded with spaces, otherwise
+     * it is padded with characters from $padding up to the limit.
      *
      * This method supports chaning.
      *
      * @param  int    $length    - Length of the padded value.
-     * @param  string $padString - The pad_string may be truncated if the required number of padding characters
-     *                             can't be evenly divided by the <i>$padString</i>'s length.
+     * @param  string $padding - The pad_string may be truncated if the required number of padding characters
+     *                             can't be evenly divided by the $padding's length.
      *
      * @throws \InvalidArgumentException - If any of the parameters is invalid.
-     *
-     * @since  1.0.0
      * @return MutableString
      */
-    public function padLeft(int $length, string $padString = " "): MutableString
+    public function padLeft(int $length, string $padding = " "): MutableString
     {
-        $this->value = parent::doPadLeft($length, $padString);
+        $this->value = parent::doPadLeft($length, $padding);
 
         return $this;
     }
 
     /**
-     * This method returns a new instance padded on the <b>left</b>, <b>exactly to the specified padding length</b>.
+     * This method returns a new instance padded on the left, exactly to the specified padding length.
      *
-     * If the optional argument <i>$padString</i> is not supplied, the input is padded with spaces, otherwise
-     * it is padded with characters from <i>$padString</i> up to the limit.
+     * If the optional argument $padding is not supplied, the input is padded with spaces, otherwise
+     * it is padded with characters from $padding up to the limit.
      *
      * @param  int    $length    - Length of the padded value.
-     * @param  string $padString - The pad_string may be truncated if the required number of padding characters
-     *                             can't be evenly divided by the <i>$padString</i>'s length.
+     * @param  string $padding - The pad_string may be truncated if the required number of padding characters
+     *                             can't be evenly divided by the $padding's length.
      *
      * @throws \InvalidArgumentException - If any of the parameters is invalid.
-     *
-     * @since  1.0.0
      * @return MutableString
      */
-    public function padLeftExtra(int $length, string $padString = " "): MutableString
+    public function padLeftExtra(int $length, string $padding = " "): MutableString
     {
-        $this->value = parent::doPadLeftExtra($length, $padString);
+        $this->value = parent::doPadLeftExtra($length, $padding);
 
         return $this;
     }
 
     /**
-     * This method returns a new instance padded on the <b>right</b> to the specified padding length minus
+     * This method returns a new instance padded on the right to the specified padding length minus
      * the length of the instance's value.
      *
      * Eg:. if the padding length is 12, and the instance's value is only 10 characters long, the value will
      * only be padded by the value of 2.
      *
-     * If the optional argument <i>$padString</i> is not supplied, the input is padded with spaces, otherwise
-     * it is padded with characters from <i>$padString</i> up to the limit.
+     * If the optional argument $padding is not supplied, the input is padded with spaces, otherwise
+     * it is padded with characters from $padding up to the limit.
      *
      * This method supports chaning.
      *
      * @param  int    $length    - Length of the padded value.
-     * @param  string $padString - The pad_string may be truncated if the required number of padding characters
-     *                             can't be evenly divided by the <i>$padString</i>'s length.
+     * @param  string $padding - The pad_string may be truncated if the required number of padding characters
+     *                             can't be evenly divided by the $padding's length.
      *
      * @throws \InvalidArgumentException - If any of the parameters is invalid.
-     *
-     * @since  1.0.0
      * @return MutableString
      */
-    public function padRight(int $length, string $padString = " "): MutableString
+    public function padRight(int $length, string $padding = " "): MutableString
     {
-        $this->value = parent::doPadRight($length, $padString);
+        $this->value = parent::doPadRight($length, $padding);
 
         return $this;
     }
 
     /**
-     * This method returns a new instance padded on the <b>right</b>, <b>exactly to the specified padding length</b>.
+     * This method returns a new instance padded on the right, exactly to the specified padding length.
      *
-     * If the optional argument <i>$padString</i> is not supplied, the input is padded with spaces, otherwise
-     * it is padded with characters from <i>$padString</i> up to the limit.
+     * If the optional argument $padding is not supplied, the input is padded with spaces, otherwise
+     * it is padded with characters from $padding up to the limit.
      *
      * @param  int    $length    - Length of the padded value.
-     * @param  string $padString - The pad_string may be truncated if the required number of padding characters
-     *                             can't be evenly divided by the <i>$padString</i>'s length.
+     * @param  string $padding - The pad_string may be truncated if the required number of padding characters
+     *                             can't be evenly divided by the $padding's length.
      *
      * @throws \InvalidArgumentException - If any of the parameters is invalid.
-     *
-     * @since  1.0.0
      * @return MutableString
      */
-    public function padRightExtra(int $length, string $padString = " "): MutableString
+    public function padRightExtra(int $length, string $padding = " "): MutableString
     {
-        $this->value = parent::doPadRightExtra($length, $padString);
+        $this->value = parent::doPadRightExtra($length, $padding);
 
         return $this;
     }
 
     /**
      * This method mutates the instance's value with a portion of the original value, specified by the
-     * <i>$start</i> and <i>$length</i> parameters.
+     * $start and $length parameters.
      *
-     * <b>$start</b> parameter:
-     * <ul>
-     * <li>If <i>$start</i> is non-negative, the returned an instance will start at the <i>$start</i>'th position in
+     * $start parameter:
+     * - If $start is non-negative, the returned an instance will start at the $start'th position in
      * string, counting from zero. For instance, in the string 'abcdef', the character at position 0 is 'a', the
-     * character at position 2 is 'c', and so forth.</li>
-     * <li>If <i>$start</i> is negative, the returned string will start at the <i>$start</i>'th character from the end
-     * of string.</li>
-     * <li>If the <b>absolute value</b> of <i>$start</i> is <b>higher</b> than the instance's <b>length</b>, an
-     * <b>exception is thrown</b>.</li>
-     * </ul>
+     * character at position 2 is 'c', and so forth.
+     * - If $start is negative, the returned string will start at the $start'th character from the end
+     * of string.
+     * - If the absolute value of $start is higher than the instance's length, an
+     * exception is thrown.
      *
-     * <b>$length</b> parameter:
-     * <ul>
-     * <li>If <i>$length</i> is given and is positive, the string returned will contain at most length characters
-     * beginning from <i>$start</i> (depending on the length of string).</li>
-     * <li>If <i>$length</i> is given and is negative, then that many characters will be omitted from the end of string
-     * (after the start position has been calculated when a start is negative).</li>
-     * <li>If <i>$length</i> <b>exceeds the remaining number of characters</b>, after the <i>$start</i> calculation, an
-     * <b>Exception will be raised</b>.</li>
-     * </ul>
+     *
+     * $length parameter:
+     * - If $length is given and is positive, the string returned will contain at most length characters
+     * beginning from $start (depending on the length of string).
+     * - If $length is given and is negative, then that many characters will be omitted from the end of string
+     * (after the start position has been calculated when a start is negative).
+     * - If $length exceeds the remaining number of characters, after the $start calculation, an
+     * Exception will be raised.
+     *
      *
      * @param  int $start  - Start of the sub-string. Can be negative.
      * @param  int $length - Length of the sub-string. Can be negative.
      *
-     * @throws \OutOfRangeException - If the <i>$start</i> and/or <i>$length</i> is either too small, or too long.
-     *
-     * @since  1.0.0
+     * @throws \OutOfRangeException - If the $start and/or $length is either too small, or too long.
      * @return MutableString
      */
     public function subString(int $start, int $length = null): MutableString
@@ -305,15 +278,13 @@ class MutableString extends AbstractWriteString
 
     /**
      * This method mutates the instance's value with a portion of the original instance's value, starting at the
-     * beginning of the value, with the number of characters specified in the <i>$length</i> parameter.
+     * beginning of the value, with the number of characters specified in the $length parameter.
      *
-     * Same rules as <i>MutableString::subString()</i> are applied.
+     * Same rules as MutableString::subString() are applied.
      *
      * @param  int $length - Length of the sub-string. Must be positive.
      *
      * @throws \InvalidArgumentException - If supplied Length is not a positive integer.
-     *
-     * @since  1.0.0
      * @return MutableString
      */
     public function subLeft(int $length): MutableString
@@ -325,15 +296,13 @@ class MutableString extends AbstractWriteString
 
     /**
      * This method mutates the instance's value with a portion of the original instance's value, couting from the
-     * end of the value, with the number of characters specified in the <i>$length</i> parameter.
+     * end of the value, with the number of characters specified in the $length parameter.
      *
-     * Same rules as <i>MutableString::subString()</i> are applied.
+     * Same rules as MutableString::subString() are applied.
      *
      * @param  int $length - Length of the sub-string. Must be positive.
      *
      * @throws \InvalidArgumentException - If supplied Length is not a positive integer.
-     *
-     * @since  1.0.0
      * @return MutableString
      */
     public function subRight(int $length): MutableString
@@ -346,7 +315,6 @@ class MutableString extends AbstractWriteString
     /**
      * This method reverses value of the instance.
      *
-     * @since  1.0.0
      * @return MutableString
      */
     public function reverse(): MutableString
@@ -363,8 +331,6 @@ class MutableString extends AbstractWriteString
      * @param  string $replace - The search's replacement.
      *
      * @throws \InvalidArgumentException - If $search is empty.
-     *
-     * @since  1.0.0
      * @return MutableString
      */
     public function replace(string $search, string $replace): MutableString

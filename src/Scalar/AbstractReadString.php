@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace Hradigital\Datatypes\Scalar;
 
 /**
@@ -7,28 +8,23 @@ namespace Hradigital\Datatypes\Scalar;
  * Use this class if you want to write protect your string values.
  * This class only contains accessors, and no mutators.
  *
- * This class is also used as a base, for both <i>ReadOnlyString</i>, <i>MutableString</i> datatype,
- * as well as for <i>ImmutableString</i>.
+ * This class is also used as a base, for both ReadOnlyString, MutableString datatype,
+ * as well as for ImmutableString.
  *
  * @package   Hradigital\Datatypes
- * @copyright Hugo Rafael Azevedo <github@hradigital.com>
- * @author    Hugo Rafael Azevedo <github@hradigital.com>
  * @license   MIT
- * @since     1.0.0
  */
 abstract class AbstractReadString
 {
     /**
      * @var string $value - Internal string value for the instance.
      */
-    protected $value = '';
+    protected string $value = '';
 
     /**
-     * Initializes a new instance of a <i>String</i>.
+     * Initializes a new instance of a String.
      *
      * @param  string $value - Initial string value.
-     *
-     * @since  1.0.0
      * @return void
      */
     protected function __construct(string $value)
@@ -37,10 +33,9 @@ abstract class AbstractReadString
     }
 
     /**
-     * Use this method to copy a child instance to a <i>ReadonlyString</i> instance, or just to clone a
-     * <i>ReadonlyString</i>.
+     * Use this method to copy a child instance to a ReadonlyString instance, or just to clone a
+     * ReadonlyString.
      *
-     * @since  1.0.0
      * @return ReadonlyString
      */
     public function toReadonly(): ReadonlyString
@@ -53,7 +48,6 @@ abstract class AbstractReadString
     /**
      * Magic method that will print out the native string representation of the instance.
      *
-     * @since  1.0.0
      * @return string
      */
     public function __toString(): string
@@ -64,11 +58,10 @@ abstract class AbstractReadString
     /**
      * Compares the values of 2 separate instances.
      *
-     * Returns <i>TRUE</i> if the 2 instance's values match. <i>FALSE</i> otherwise.
+     * Returns TRUE if the 2 instance's values match. FALSE otherwise.
      *
      * @param  ReadOnlyString $string - Another String instance to compare to.
      *
-     * @since  1.0.0
      * @return bool
      */
     public function equals(ReadOnlyString $string): bool
@@ -79,7 +72,6 @@ abstract class AbstractReadString
     /**
      * Returns the instance's value character length.
      *
-     * @since  1.0.0
      * @return int
      */
     public function length(): int
@@ -88,21 +80,19 @@ abstract class AbstractReadString
     }
 
     /**
-     * Searches and returns the index in the instance, of the <b>$search</b> string.
+     * Searches and returns the index in the instance, of the $search string.
      *
-     * If a <b>$start</b> is specified, search will start this number of characters counted from
-     * the beginning of the string. If <b>$start</b> is negative, the search will start this number
+     * If a $start is specified, search will start this number of characters counted from
+     * the beginning of the string. If $start is negative, the search will start this number
      * of characters counted from the end of the string.
      *
-     * If the <b>$search</b> is not found inthe instance's value, <b>NULL</b> is returned.
+     * If the $search is not found inthe instance's value, NULL is returned.
      *
      * @param  string $search - String to search for in the instance.
-     * @param  int    $start  - Search offset start. Defaults to <b>NULL</b>.
+     * @param  int    $start  - Search offset start. Defaults to NULL.
      *
-     * @throws \InvalidArgumentException - If <i>$search</i> value is an empty string.
-     * @throws \OutOfRangeException      - If the <i>$start</i> is either too small, or too long.
-     *
-     * @since  1.0.0
+     * @throws \InvalidArgumentException - If $search value is an empty string.
+     * @throws \OutOfRangeException      - If the $start is either too small, or too long.
      * @return int|NULL
      */
     public function indexOf(string $search, int $start = null): ?int
@@ -127,15 +117,13 @@ abstract class AbstractReadString
     }
 
     /**
-     * Checks if the instance contains the supplied <i>$search</i> value.
+     * Checks if the instance contains the supplied $search value.
      *
-     * Returns <i>TRUE</i> if found. <i>FALSE</i> otherwise.
+     * Returns TRUE if found. FALSE otherwise.
      *
      * @param  string $search - Non empty string to search for in the instance.
      *
-     * @throws \InvalidArgumentException - If supplied <i>$search</i> is empty.
-     *
-     * @since  1.0.0
+     * @throws \InvalidArgumentException - If supplied $search is empty.
      * @return bool
      */
     public function contains(string $search): bool
@@ -149,13 +137,11 @@ abstract class AbstractReadString
     }
 
     /**
-     * Checks if the instance's value <b>starts</b> with the supplied string.
+     * Checks if the instance's value starts with the supplied string.
      *
      * @param  string $search - Non empty string to search for in the instance.
      *
-     * @throws \InvalidArgumentException - If supplied <i>$search</i> is empty.
-     *
-     * @since  1.0.0
+     * @throws \InvalidArgumentException - If supplied $search is empty.
      * @return bool
      */
     public function startsWith(string $search): bool
@@ -169,13 +155,11 @@ abstract class AbstractReadString
     }
 
     /**
-     * Checks if the instance's value <b>ends</b> with the supplied string.
+     * Checks if the instance's value ends with the supplied string.
      *
      * @param  string $search - Non empty string to search for in the instance.
      *
-     * @throws \InvalidArgumentException - If supplied <i>$search</i> is empty.
-     *
-     * @since  1.0.0
+     * @throws \InvalidArgumentException - If supplied $search is empty.
      * @return bool
      */
     public function endsWith(string $search): bool
@@ -193,12 +177,10 @@ abstract class AbstractReadString
      *
      * @param  string   $search - Non empty string to search for in the instance.
      * @param  int      $start  - The sub-string's offset/start.
-     * @param  int|NULL $length - Length value. Can be <i>NULL</i>, in which case, it won't be validated.
+     * @param  int|NULL $length - Length value. Can be NULL, in which case, it won't be validated.
      *
-     * @throws \InvalidArgumentException - If supplied <i>$search</i> is empty.
-     * @throws \OutOfRangeException      - If the <i>$start</i> and/or <i>$length</i> is either too small, or too long.
-     *
-     * @since  1.0.0
+     * @throws \InvalidArgumentException - If supplied $search is empty.
+     * @throws \OutOfRangeException      - If the $start and/or $length is either too small, or too long.
      * @return int
      */
     public function count(string $search, int $start = 0, int $length = null): int
@@ -220,14 +202,12 @@ abstract class AbstractReadString
     }
 
     /**
-     * Validates a character <i>$length</i>, based on the instance value's length, and supplied <i>$start</i>.
+     * Validates a character $length, based on the instance value's length, and supplied $start.
      *
      * @param  int      $start  - The sub-string's offset/start.
-     * @param  int|NULL $length - Length value. Can be <i>NULL</i>, in which case, it won't be validated.
+     * @param  int|NULL $length - Length value. Can be NULL, in which case, it won't be validated.
      *
-     * @throws \OutOfRangeException - If the <i>$start</i> and/or <i>$length</i> is either too small, or too long.
-     *
-     * @since  1.0.0
+     * @throws \OutOfRangeException - If the $start and/or $length is either too small, or too long.
      * @return void
      */
     protected function validateStartAndLength(int $start, ?int $length): void
