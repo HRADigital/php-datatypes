@@ -22,10 +22,10 @@
         "mutable objects"
     ],
     "require": {
-        "php": "^7.2"
+        "php": "^7.4"
     },
     "require-dev": {
-        "phpunit/phpunit": "^7.5",
+        "phpunit/phpunit": "^9.0",
         "squizlabs/php_codesniffer": "^3.0@dev"
     },
     "autoload": {
@@ -37,5 +37,10 @@
         "psr-4": {
             "Hradigital\\Tests\\Datatypes\\": "tests/"
         }
+    },
+    "scripts": {
+        "test-code" : "./vendor/bin/phpunit --coverage-clover ci/coverage-report.xml --coverage-html ci/coverage-report --log-junit ci/tests-results.xml",
+        "test-cs" : "./vendor/bin/phpcs -p --colors --no-cache --report=full --standard=PSR2 src/",
+        "test-all" : "composer run test-code && composer run test-cs"
     }
 }
