@@ -9,13 +9,12 @@ namespace Hradigital\Datatypes\Scalar;
  * mutates during the instance's life.
  *
  * Any mutator call, will transform the instances internal value. Initial value will no longer be available.
- *
- * All mutator/setter methods in this class, support chaning.
+ * All mutator/setter methods in this class, have a fluent interface (method chaning).
  *
  * @package   Hradigital\Datatypes
  * @license   MIT
  */
-class MutableString extends AbstractWriteString
+class MutableString extends AbstractBaseString
 {
     /**
      * Creates a new instance of MutableString based on a string value.
@@ -49,7 +48,7 @@ class MutableString extends AbstractWriteString
      */
     public function trim(): MutableString
     {
-        $this->value = parent::doTrim();
+        $this->value = parent::doTrim($this->value);
 
         return $this;
     }
@@ -63,7 +62,7 @@ class MutableString extends AbstractWriteString
      */
     public function trimLeft(): MutableString
     {
-        $this->value = parent::doTrimLeft();
+        $this->value = parent::doTrimLeft($this->value);
 
         return $this;
     }
@@ -77,7 +76,7 @@ class MutableString extends AbstractWriteString
      */
     public function trimRight(): MutableString
     {
-        $this->value = parent::doTrimRight();
+        $this->value = parent::doTrimRight($this->value);
 
         return $this;
     }
@@ -91,7 +90,7 @@ class MutableString extends AbstractWriteString
      */
     public function toUpper(): MutableString
     {
-        $this->value = parent::doToUpper();
+        $this->value = parent::doToUpper($this->value);
 
         return $this;
     }
@@ -103,7 +102,7 @@ class MutableString extends AbstractWriteString
      */
     public function toUpperFirst(): MutableString
     {
-        $this->value = parent::doToUpperFirst();
+        $this->value = parent::doToUpperFirst($this->value);
 
         return $this;
     }
@@ -117,7 +116,7 @@ class MutableString extends AbstractWriteString
      */
     public function toUpperWords(string $delimiters = " \t\r\n\f\v"): MutableString
     {
-        $this->value = parent::doToUpperWords($delimiters);
+        $this->value = parent::doToUpperWords($this->value, $delimiters);
 
         return $this;
     }
@@ -131,7 +130,7 @@ class MutableString extends AbstractWriteString
      */
     public function toLower(): MutableString
     {
-        $this->value = parent::doToLower();
+        $this->value = parent::doToLower($this->value);
 
         return $this;
     }
@@ -143,7 +142,7 @@ class MutableString extends AbstractWriteString
      */
     public function toLowerFirst(): MutableString
     {
-        $this->value = parent::doToLowerFirst();
+        $this->value = parent::doToLowerFirst($this->value);
 
         return $this;
     }
@@ -169,7 +168,7 @@ class MutableString extends AbstractWriteString
      */
     public function padLeft(int $length, string $padding = " "): MutableString
     {
-        $this->value = parent::doPadLeft($length, $padding);
+        $this->value = parent::doPadLeft($this->value, $length, $padding);
 
         return $this;
     }
@@ -189,7 +188,7 @@ class MutableString extends AbstractWriteString
      */
     public function padLeftExtra(int $length, string $padding = " "): MutableString
     {
-        $this->value = parent::doPadLeftExtra($length, $padding);
+        $this->value = parent::doPadLeftExtra($this->value, $length, $padding);
 
         return $this;
     }
@@ -215,7 +214,7 @@ class MutableString extends AbstractWriteString
      */
     public function padRight(int $length, string $padding = " "): MutableString
     {
-        $this->value = parent::doPadRight($length, $padding);
+        $this->value = parent::doPadRight($this->value, $length, $padding);
 
         return $this;
     }
@@ -235,7 +234,7 @@ class MutableString extends AbstractWriteString
      */
     public function padRightExtra(int $length, string $padding = " "): MutableString
     {
-        $this->value = parent::doPadRightExtra($length, $padding);
+        $this->value = parent::doPadRightExtra($this->value, $length, $padding);
 
         return $this;
     }
@@ -271,7 +270,7 @@ class MutableString extends AbstractWriteString
      */
     public function subString(int $start, int $length = null): MutableString
     {
-        $this->value = parent::doSubString($start, $length);
+        $this->value = parent::doSubString($this->value, $start, $length);
 
         return $this;
     }
@@ -289,7 +288,7 @@ class MutableString extends AbstractWriteString
      */
     public function subLeft(int $length): MutableString
     {
-        $this->value = parent::doSubLeft($length);
+        $this->value = parent::doSubLeft($this->value, $length);
 
         return $this;
     }
@@ -307,7 +306,7 @@ class MutableString extends AbstractWriteString
      */
     public function subRight(int $length): MutableString
     {
-        $this->value = parent::doSubRight($length);
+        $this->value = parent::doSubRight($this->value, $length);
 
         return $this;
     }
@@ -319,7 +318,7 @@ class MutableString extends AbstractWriteString
      */
     public function reverse(): MutableString
     {
-        $this->value = parent::doReverse();
+        $this->value = parent::doReverse($this->value);
 
         return $this;
     }
@@ -335,7 +334,7 @@ class MutableString extends AbstractWriteString
      */
     public function replace(string $search, string $replace): MutableString
     {
-        $this->value = parent::doReplace($search, $replace);
+        $this->value = parent::doReplace($this->value, $search, $replace);
 
         return $this;
     }
