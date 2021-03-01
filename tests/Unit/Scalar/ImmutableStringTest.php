@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace Hradigital\Tests\Datatypes\Unit\Scalar;
 
 use Hradigital\Datatypes\Scalar\AbstractReadString;
@@ -11,17 +12,14 @@ use Hradigital\Tests\Datatypes\AbstractBaseTestCase;
  *
  * Protected method in this class, are available for override in child classes.
  *
- * <i>ImmutableString</i> and <i>MutableString</i> classes have similar behavior, therefore,
+ * ImmutableString and MutableString classes have similar behavior, therefore,
  * you should extend this test case for the other type of String, overriding only the necessary
  * tests, which shouldn't be too many.
  *
  * This way, we can test both types of objects, without repeating the same code/tests.
  *
  * @package   Hradigital\Datatypes
- * @copyright Hugo Rafael Azevedo <github@hradigital.com>
- * @author    Hugo Rafael Azevedo <github@hradigital.com>
  * @license   MIT
- * @since     1.0.0
  */
 class ImmutableStringTest extends AbstractBaseTestCase
 {
@@ -31,7 +29,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
      * @param  AbstractReadString $original - Original String instance.
      * @param  AbstractReadString $other    - Second instance for comparison.
      *
-     * @since  1.0.0
      * @return void
      */
     protected function checkInstances(AbstractReadString $original, AbstractReadString $other): void
@@ -47,7 +44,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
      *
      * @param  AbstractReadString $instance - Instance to be validated.
      *
-     * @since  1.0.0
      * @return void
      */
     protected function checkCorrectInstanceType(AbstractReadString $instance): void
@@ -66,7 +62,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
      *
      * @param  string $initialValue - Instance's initial value.
      *
-     * @since  1.0.0
      * @return ImmutableString
      */
     protected function initializeInstance(string $initialValue)
@@ -77,7 +72,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Checks instance can be cloned.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanCloneObject(): void
@@ -103,7 +97,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that a string can be trimmed.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanTrimString(): void
@@ -125,7 +118,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that a string can be trimmed only on the left.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanLeftTrimString(): void
@@ -147,7 +139,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that a string can be trimmed only on the right.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanRightTrimString(): void
@@ -169,7 +160,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that a string can be converted to UPPER case.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanUpperCaseString(): void
@@ -191,7 +181,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that a string can be converted to UPPER case.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanUpperCaseFirst(): void
@@ -213,7 +202,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that a string can be convert to UPPER case, all words.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanUpperCaseWords(): void
@@ -235,7 +223,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that a string can be converted to LOWER case.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanLowerCaseString(): void
@@ -257,7 +244,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that a string can be converted to LOWER case.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanLowerCaseFirst(): void
@@ -279,7 +265,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that a string can be padded on the left.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanPadOnTheLeft(): void
@@ -302,7 +287,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that a string is not padded on the left, when the padding length is less than the string's length.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanPadOnTheLeftWithoutResult(): void
@@ -325,7 +309,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that a string can be padded on the left.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanPadOnTheLeftExtra(): void
@@ -348,7 +331,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that padding breaks.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanPaddingOnTheLeftBreaksWithInvalidLength(): void
@@ -364,7 +346,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that padding breaks.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanPaddingOnTheLeftBreaksWithInvalidPadString(): void
@@ -380,7 +361,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that padding breaks.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanPaddingOnTheLeftExtraBreaksWithInvalidLength(): void
@@ -396,7 +376,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that padding breaks.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanPaddingOnTheLeftExtraBreaksWithInvalidPadString(): void
@@ -412,7 +391,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that a string can be padded on the left.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanPadOnTheLeftWidthCharacter(): void
@@ -435,7 +413,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that a string can be padded on the left.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanPadOnTheLeftExtraWidthCharacter(): void
@@ -458,7 +435,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that a string can be padded on the right.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanPadOnTheRight(): void
@@ -481,7 +457,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that a string can be padded on the right.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanPadOnTheRightExtra(): void
@@ -504,7 +479,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that padding breaks.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanPadOnTheRightBreaksWithInvalidLength(): void
@@ -520,7 +494,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that padding breaks.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanPadOnTheRightBreaksWithInvalidPadString(): void
@@ -536,7 +509,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that padding breaks.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanPadOnTheRightExtraBreaksWithInvalidLength(): void
@@ -552,7 +524,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that padding breaks.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanPadOnTheRightExtraBreaksWithInvalidPadString(): void
@@ -568,7 +539,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that a string can be padded on the right.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanPadOnTheRightWidthCharacter(): void
@@ -591,7 +561,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that a string can be padded on the right.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testCanPadOnTheRightExtraWidthCharacter(): void
@@ -614,7 +583,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that a simple substring can be retrieved.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testSubStringCanBeRetrieved(): void
@@ -636,7 +604,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that a simple substring can be retrieved.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testSubStringCanBeRetrievedWithNegativeStart(): void
@@ -658,7 +625,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that a simple substring can be retrieved.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testSubStringCanBeRetrievedWithLength(): void
@@ -680,7 +646,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that a simple substring can be retrieved.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testSubStringCanBeRetrievedWithNegativeLength(): void
@@ -702,7 +667,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that substring breaks.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testSubStringBreaksWithShortStart(): void
@@ -718,7 +682,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that substring breaks.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testSubStringBreaksWithLongStart(): void
@@ -734,7 +697,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that substring breaks.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testSubStringBreaksWithShortLength(): void
@@ -750,7 +712,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that substring breaks.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testSubStringBreaksWithLongLength(): void
@@ -766,7 +727,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that a simple subLeft can be retrieved.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testSubStringLeftCanBeRetrieved(): void
@@ -788,7 +748,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that subLeft() breaks.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testSubStringLeftBreaksWithShortLength(): void
@@ -804,7 +763,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that subLeft() breaks.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testSubStringLeftBreaksWithLongLength(): void
@@ -820,7 +778,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that a simple subRight() can be retrieved.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testSubStringRightCanBeRetrieved(): void
@@ -842,7 +799,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that subRight() breaks.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testSubStringRightBreaksWithShortLength(): void
@@ -858,7 +814,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that subRight() breaks.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testSubStringRightBreaksWithLongLength(): void
@@ -874,7 +829,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that a string can be reversed.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testStringCanBeReversed(): void
@@ -896,7 +850,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that text can be replaced in the String.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testTextCanBeReplacedInString(): void
@@ -918,7 +871,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that text is not replaced if search is not found.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testTextIsNotReplacedIfSearchNotFound(): void
@@ -940,7 +892,6 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Tests that text replace breaks.
      *
-     * @since  1.0.0
      * @return void
      */
     public function testTextReplaceBreaksIfSearchIsEmpty(): void
