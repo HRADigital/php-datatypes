@@ -4,7 +4,7 @@ orbs:
 jobs:
   build:
     docker:
-      - image: circleci/php:7.2
+      - image: circleci/php:7.4
     working_directory: ~/php-datatypes
     steps:
       # GIT
@@ -38,4 +38,4 @@ jobs:
           path:  ~/build/coverage-report
       - codecov/upload:
           file: ~/build/coverage-report
-      
+
