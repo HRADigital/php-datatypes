@@ -1,5 +1,6 @@
 ci/
 vendor/
+notyetdeveloped/
 .buildpath
 .project
 composer.lock
