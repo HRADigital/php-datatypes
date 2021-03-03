@@ -90,13 +90,13 @@ abstract class AbstractBaseString
      * If the $search is not found inthe instance's value, NULL is returned.
      *
      * @param  string $search - String to search for in the instance.
-     * @param  int    $start  - Search offset start. Defaults to NULL.
+     * @param  int    $start  - Search offset start. Defaults to ZERO.
      *
      * @throws \InvalidArgumentException - If $search value is an empty string.
      * @throws \OutOfRangeException      - If the $start is either too small, or too long.
      * @return int|NULL
      */
-    public function indexOf(string $search, int $start = null): ?int
+    public function indexOf(string $search, int $start = 0): ?int
     {
         // Validates supplied parameters.
         if (\strlen($search) === 0) {
@@ -185,13 +185,13 @@ abstract class AbstractBaseString
     /**
      * Validates a character $length, based on the instance value's length, and supplied $start.
      *
-     * @param  int      $start  - The sub-string's offset/start.
-     * @param  int|NULL $length - Length value. Can be NULL, in which case, it won't be validated.
+     * @param  int       $start  - The sub-string's offset/start.
+     * @param  int|null  $length - Length value. Can be NULL, in which case, it won't be validated.
      *
      * @throws \OutOfRangeException - If the $start and/or $length is either too small, or too long.
      * @return void
      */
-    private function validateStartAndLength(int $start, ?int $length): void
+    protected function validateStartAndLength(int $start, ?int $length): void
     {
         // Calculates the absolute values for validations.
         $absStart  = (int) \abs($start);
