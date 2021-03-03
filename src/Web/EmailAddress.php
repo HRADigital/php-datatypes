@@ -29,7 +29,7 @@ class EmailAddress implements \Serializable
      *
      * @return EmailAddress
      */
-    public function fromString(string $email): EmailAddress
+    public static function fromString(string $email): EmailAddress
     {
         return new EmailAddress($email);
     }
