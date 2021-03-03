@@ -164,7 +164,7 @@ abstract class AbstractBaseString
      * @throws \OutOfRangeException      - If the $start and/or $length is either too small, or too long.
      * @return int
      */
-    public function count(string $search, int $start = 0, int $length = null): int
+    public function count(string $search, int $start = 0, ?int $length = null): int
     {
         // Validates supplied $search parameter.
         if (\strlen($search) === 0) {
