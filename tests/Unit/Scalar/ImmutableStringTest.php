@@ -111,7 +111,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
      *
      * @return void
      */
-    public function testBreaksWhileCheckingIfStringContainsPortion(): void
+    public function testBreaksCheckingIfStringContainsPortionWithEmptyText(): void
     {
         // Performs test.
         $original = $this->getInstance("Immutable string.");
@@ -121,6 +121,233 @@ class ImmutableStringTest extends AbstractBaseTestCase
 
         // Performs test.
         $original->contains('');
+    }
+
+    /**
+     * Tests can retrieve string's length.
+     *
+     * @return void
+     */
+    public function testCanRetrieveLength(): void
+    {
+        // Performs test.
+        $original = "Immutable string.";
+        $instance = $this->getInstance($original);
+
+        // Performs assertions.
+        $this->assertEquals(
+            \strlen($original),
+            $instance->length(),
+            'Length values do not match.'
+        );
+        $this->checkCorrectInstanceType($instance);
+    }
+
+    /**
+     * Test indexOf() method.
+     *
+     * @return void
+     */
+    public function testCanRetrieveIndexOf(): void
+    {
+        // Performs test.
+        $instance = $this->getInstance("Immutable string.");
+        $indexOf  = $instance->indexOf('string');
+
+        // Performs assertions.
+        $this->assertEquals(
+            10,
+            $indexOf,
+            'Retrieved index is incorrect.'
+        );
+    }
+
+    /**
+     * Test indexOf() method.
+     *
+     * @return void
+     */
+    public function testCanRetrieveIndexOfWithStart(): void
+    {
+        // Performs test.
+        $instance = $this->getInstance("Immutable string, or part of another string.");
+        $indexOf  = $instance->indexOf('string', 15);
+
+        // Performs assertions.
+        $this->assertEquals(
+            37,
+            $indexOf,
+            'Retrieved index is incorrect.'
+        );
+    }
+
+    /**
+     * Test indexOf() method.
+     *
+     * @return void
+     */
+    public function testIndexOfReturnsNullIfNotFound(): void
+    {
+        // Performs test.
+        $instance = $this->getInstance("Immutable string.");
+        $indexOf  = $instance->indexOf('another');
+
+        // Performs assertions.
+        $this->assertNull(
+            $indexOf,
+            'Retrieved index should have been NULL.'
+        );
+    }
+
+    /**
+     * Test indexOf() breaks with illegal parameters.
+     *
+     * @return void
+     */
+    public function testBreaksIndexOfIfEmptySearch(): void
+    {
+        // Creates expectation.
+        $this->expectException(\InvalidArgumentException::class);
+
+        // Performs test.
+        $instance = $this->getInstance("Immutable string.");
+        $instance->indexOf('');
+    }
+
+    /**
+     * Tests that we can check is a string begins with a given text.
+     *
+     * @return void
+     */
+    public function testCanCheckIfStringStartsWithText(): void
+    {
+        // Performs test.
+        $instance = $this->getInstance("Immutable string.");
+        $true  = $instance->startsWith("Immu");
+        $false = $instance->startsWith("string");
+
+        // Performs assertions.
+        $this->assertTrue($true);
+        $this->assertFalse($false);
+    }
+
+    /**
+     * Tests that we can check is a string begins with a given text.
+     *
+     * @return void
+     */
+    public function testBreaksCheckingIfStringStartsWithText(): void
+    {
+        // Creates expectation.
+        $this->expectException(\InvalidArgumentException::class);
+
+        // Performs test.
+        $instance = $this->getInstance("Immutable string.");
+        $instance->startsWith('');
+    }
+
+    /**
+     * Tests that we can check is a string begins with a given text.
+     *
+     * @return void
+     */
+    public function testCanCheckIfStringEndsWithText(): void
+    {
+        // Performs test.
+        $instance = $this->getInstance("Immutable string.");
+        $true  = $instance->endsWith("string.");
+        $false = $instance->endsWith("Immu");
+
+        // Performs assertions.
+        $this->assertTrue($true);
+        $this->assertFalse($false);
+    }
+
+    /**
+     * Tests that we can check is a string begins with a given text.
+     *
+     * @return void
+     */
+    public function testBreaksCheckingIfStringEndsWithText(): void
+    {
+        // Creates expectation.
+        $this->expectException(\InvalidArgumentException::class);
+
+        // Performs test.
+        $instance = $this->getInstance("Immutable string.");
+        $instance->endsWith('');
+    }
+
+    /**
+     * Tests count() method.
+     *
+     * @return void
+     */
+    public function testCanCountNumberOccurencesInString(): void
+    {
+        // Performs test.
+        $instance = $this->getInstance("Immutable string, or part of another string.");
+        $count = $instance->count('string');
+
+        // Performs assertions.
+        $this->assertEquals(
+            2,
+            $count,
+            'Retrieved count is incorrect.'
+        );
+    }
+
+    /**
+     * Tests count() method.
+     *
+     * @return void
+     */
+    public function testCanCountNumberOccurencesInStringWithStartAndLength(): void
+    {
+        // Performs test.
+        $instance = $this->getInstance("Immutable string, or part of another string.");
+        $count = $instance->count('string', 15, 29);
+
+        // Performs assertions.
+        $this->assertEquals(
+            1,
+            $count,
+            'Retrieved count is incorrect.'
+        );
+    }
+
+    /**
+     * Tests count() method.
+     *
+     * @return void
+     */
+    public function testCanCountNumberOccurencesInStringIfNoneIsFound(): void
+    {
+        // Performs test.
+        $instance = $this->getInstance("Immutable string, or part of another string.");
+        $count = $instance->count('string', 38, 4);
+
+        // Performs assertions.
+        $this->assertEquals(
+            0,
+            $count,
+            'Retrieved count is incorrect.'
+        );
+    }
+
+    /**
+     * Tests count() breaks if empty search is supplied.
+     *
+     * @return void
+     */
+    public function testBreaksCountNumberOccurencesInStringIfSerachIsEmpty(): void
+    {
+        // Creates expectation.
+        $this->expectException(\InvalidArgumentException::class);
+
+        // Performs test.
+        $instance = $this->getInstance("Immutable string, or part of another string.");
+        $instance->count('');
     }
 
     /**
