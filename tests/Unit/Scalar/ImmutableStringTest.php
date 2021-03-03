@@ -2,9 +2,8 @@
 
 namespace Hradigital\Tests\Datatypes\Unit\Scalar;
 
-use Hradigital\Datatypes\Scalar\AbstractReadString;
+use Hradigital\Datatypes\Scalar\AbstractBaseString;
 use Hradigital\Datatypes\Scalar\ImmutableString;
-use Hradigital\Datatypes\Scalar\MutableString;
 use Hradigital\Tests\Datatypes\AbstractBaseTestCase;
 
 /**
@@ -26,12 +25,12 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Asserts that 2 string instances do not match.
      *
-     * @param  AbstractReadString $original - Original String instance.
-     * @param  AbstractReadString $other    - Second instance for comparison.
+     * @param  AbstractBaseString $original - Original String instance.
+     * @param  AbstractBaseString $other    - Second instance for comparison.
      *
      * @return void
      */
-    protected function checkInstances(AbstractReadString $original, AbstractReadString $other): void
+    protected function checkInstances(AbstractBaseString $original, AbstractBaseString $other): void
     {
         $this->assertFalse(
             ($original === $other),
@@ -42,11 +41,11 @@ class ImmutableStringTest extends AbstractBaseTestCase
     /**
      * Asserts that the supplied instance, is from the correct type.
      *
-     * @param  AbstractReadString $instance - Instance to be validated.
+     * @param  AbstractBaseString $instance - Instance to be validated.
      *
      * @return void
      */
-    protected function checkCorrectInstanceType(AbstractReadString $instance): void
+    protected function checkCorrectInstanceType(AbstractBaseString $instance): void
     {
         $this->assertInstanceOf(
             ImmutableString::class,
@@ -62,36 +61,66 @@ class ImmutableStringTest extends AbstractBaseTestCase
      *
      * @param  string $initialValue - Instance's initial value.
      *
-     * @return ImmutableString
+     * @return AbstractBaseString
      */
-    protected function initializeInstance(string $initialValue)
+    protected function getInstance(string $initialValue): AbstractBaseString
     {
         return ImmutableString::fromString($initialValue);
     }
 
     /**
-     * Checks instance can be cloned.
+     * Checks Equality of two distinct strings.
      *
      * @return void
      */
-    public function testCanCloneObject(): void
+    public function testCanCheckEquality(): void
     {
         // Performs test.
-        $original = $this->initializeInstance("Immutable string.");
-        $other    = $original->toMutable();
+        $original = $this->getInstance("  Immutable string.  ");
+        $other    = $this->getInstance("  Immutable string.  ");
 
         // Performs assertions.
-        $this->assertInstanceOf(
-            MutableString::class,
-            $other,
-            'Instance type, does not match ImmutableString.'
-        );
-        $this->assertEquals(
-            $original->__toString(),
-            $other->__toString(),
+        $this->assertTrue(
+            $original->equals($other),
             'Instance values do not match.'
         );
-        $this->checkInstances($original, $other);
+        $this->checkCorrectInstanceType($original);
+        $this->checkCorrectInstanceType($other);
+    }
+
+    /**
+     * Tests that we can check of String contains a text portion.
+     *
+     * @return void
+     */
+    public function testCanCheckIfStringContainsPortion(): void
+    {
+        // Performs test.
+        $original = $this->getInstance("Immutable string.");
+
+        // Performs assertions.
+        $this->assertTrue(
+            $original->contains('muta'),
+            'Instance values do not match.'
+        );
+        $this->checkCorrectInstanceType($original);
+    }
+
+    /**
+     * Tests that method breaks if invalid parameters are passed.
+     *
+     * @return void
+     */
+    public function testBreaksWhileCheckingIfStringContainsPortion(): void
+    {
+        // Performs test.
+        $original = $this->getInstance("Immutable string.");
+
+        // Create expectations.
+        $this->expectException(\InvalidArgumentException::class);
+
+        // Performs test.
+        $original->contains('');
     }
 
     /**
@@ -102,7 +131,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     public function testCanTrimString(): void
     {
         // Performs test.
-        $original = $this->initializeInstance("  Immutable string.  ");
+        $original = $this->getInstance("  Immutable string.  ");
         $other    = $original->trim();
 
         // Performs assertions.
@@ -123,7 +152,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     public function testCanLeftTrimString(): void
     {
         // Performs test.
-        $original = $this->initializeInstance("  Immutable string.  ");
+        $original = $this->getInstance("  Immutable string.  ");
         $other    = $original->trimLeft();
 
         // Performs assertions.
@@ -144,7 +173,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     public function testCanRightTrimString(): void
     {
         // Performs test.
-        $original = $this->initializeInstance("  Immutable string.  ");
+        $original = $this->getInstance("  Immutable string.  ");
         $other    = $original->trimRight();
 
         // Performs assertions.
@@ -165,7 +194,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     public function testCanUpperCaseString(): void
     {
         // Performs test.
-        $original = $this->initializeInstance("Immutable string.");
+        $original = $this->getInstance("Immutable string.");
         $other    = $original->toUpper();
 
         // Performs assertions.
@@ -186,7 +215,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     public function testCanUpperCaseFirst(): void
     {
         // Performs test.
-        $original = $this->initializeInstance("immutable string.");
+        $original = $this->getInstance("immutable string.");
         $other    = $original->toUpperFirst();
 
         // Performs assertions.
@@ -207,7 +236,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     public function testCanUpperCaseWords(): void
     {
         // Performs test.
-        $original = $this->initializeInstance("immutable string.");
+        $original = $this->getInstance("immutable string.");
         $other    = $original->toUpperWords();
 
         // Performs assertions.
@@ -228,7 +257,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     public function testCanLowerCaseString(): void
     {
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $other    = $original->toLower();
 
         // Performs assertions.
@@ -249,7 +278,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     public function testCanLowerCaseFirst(): void
     {
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $other    = $original->toLowerFirst();
 
         // Performs assertions.
@@ -271,7 +300,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     {
         // Performs test.
         $string   = "Immutable String.";
-        $original = $this->initializeInstance($string);
+        $original = $this->getInstance($string);
         $other    = $original->padLeft(\strlen($string) + 2);
 
         // Performs assertions.
@@ -293,7 +322,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     {
         // Performs test.
         $string   = "Immutable String.";
-        $original = $this->initializeInstance($string);
+        $original = $this->getInstance($string);
         $other    = $original->padLeft(2);
 
         // Performs assertions.
@@ -315,7 +344,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     {
         // Performs test.
         $string   = "Immutable String.";
-        $original = $this->initializeInstance($string);
+        $original = $this->getInstance($string);
         $other    = $original->padLeftExtra(2);
 
         // Performs assertions.
@@ -339,7 +368,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
         $this->expectException(\InvalidArgumentException::class);
 
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $original->padLeft(0);
     }
 
@@ -354,7 +383,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
         $this->expectException(\InvalidArgumentException::class);
 
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $original->padLeft(2, '');
     }
 
@@ -369,7 +398,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
         $this->expectException(\InvalidArgumentException::class);
 
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $original->padLeftExtra(0);
     }
 
@@ -384,7 +413,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
         $this->expectException(\InvalidArgumentException::class);
 
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $original->padLeftExtra(2, '');
     }
 
@@ -397,7 +426,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     {
         // Performs test.
         $string   = "Immutable String.";
-        $original = $this->initializeInstance($string);
+        $original = $this->getInstance($string);
         $other    = $original->padLeft(\strlen($string) + 2, '_');
 
         // Performs assertions.
@@ -419,7 +448,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     {
         // Performs test.
         $string   = "Immutable String.";
-        $original = $this->initializeInstance($string);
+        $original = $this->getInstance($string);
         $other    = $original->padLeftExtra(2, '_');
 
         // Performs assertions.
@@ -441,7 +470,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     {
         // Performs test.
         $string   = "Immutable String.";
-        $original = $this->initializeInstance($string);
+        $original = $this->getInstance($string);
         $other    = $original->padRight(\strlen($string) + 2);
 
         // Performs assertions.
@@ -463,7 +492,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     {
         // Performs test.
         $string   = "Immutable String.";
-        $original = $this->initializeInstance($string);
+        $original = $this->getInstance($string);
         $other    = $original->padRightExtra(2);
 
         // Performs assertions.
@@ -487,7 +516,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
         $this->expectException(\InvalidArgumentException::class);
 
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $original->padRight(0);
     }
 
@@ -502,7 +531,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
         $this->expectException(\InvalidArgumentException::class);
 
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $original->padRight(2, '');
     }
 
@@ -517,7 +546,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
         $this->expectException(\InvalidArgumentException::class);
 
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $original->padRightExtra(0);
     }
 
@@ -532,7 +561,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
         $this->expectException(\InvalidArgumentException::class);
 
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $original->padRightExtra(2, '');
     }
 
@@ -545,7 +574,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     {
         // Performs test.
         $string   = "Immutable String.";
-        $original = $this->initializeInstance($string);
+        $original = $this->getInstance($string);
         $other    = $original->padRight(\strlen($string) + 2, '_');
 
         // Performs assertions.
@@ -567,7 +596,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     {
         // Performs test.
         $string   = "Immutable String.";
-        $original = $this->initializeInstance($string);
+        $original = $this->getInstance($string);
         $other    = $original->padRightExtra(2, '_');
 
         // Performs assertions.
@@ -588,7 +617,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     public function testSubStringCanBeRetrieved(): void
     {
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $other    = $original->subString(10);
 
         // Performs assertions.
@@ -609,7 +638,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     public function testSubStringCanBeRetrievedWithNegativeStart(): void
     {
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $other    = $original->subString(-7);
 
         // Performs assertions.
@@ -630,7 +659,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     public function testSubStringCanBeRetrievedWithLength(): void
     {
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $other    = $original->subString(2, 7);
 
         // Performs assertions.
@@ -651,7 +680,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     public function testSubStringCanBeRetrievedWithNegativeLength(): void
     {
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $other    = $original->subString(2, -8);
 
         // Performs assertions.
@@ -675,7 +704,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
         $this->expectException(\OutOfRangeException::class);
 
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $original->subString(-30);
     }
 
@@ -690,7 +719,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
         $this->expectException(\OutOfRangeException::class);
 
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $original->subString(30);
     }
 
@@ -705,7 +734,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
         $this->expectException(\OutOfRangeException::class);
 
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $original->subString(0, -30);
     }
 
@@ -720,7 +749,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
         $this->expectException(\OutOfRangeException::class);
 
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $original->subString(0, 30);
     }
 
@@ -732,7 +761,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     public function testSubStringLeftCanBeRetrieved(): void
     {
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $other    = $original->subLeft(10);
 
         // Performs assertions.
@@ -756,7 +785,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
         $this->expectException(\InvalidArgumentException::class);
 
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $original->subLeft(-1);
     }
 
@@ -771,7 +800,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
         $this->expectException(\OutOfRangeException::class);
 
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $original->subLeft(30);
     }
 
@@ -783,7 +812,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     public function testSubStringRightCanBeRetrieved(): void
     {
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $other    = $original->subRight(10);
 
         // Performs assertions.
@@ -807,7 +836,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
         $this->expectException(\InvalidArgumentException::class);
 
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $original->subRight(-1);
     }
 
@@ -822,7 +851,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
         $this->expectException(\OutOfRangeException::class);
 
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $original->subRight(30);
     }
 
@@ -834,7 +863,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     public function testStringCanBeReversed(): void
     {
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $other    = $original->reverse();
 
         // Performs assertions.
@@ -855,7 +884,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     public function testTextCanBeReplacedInString(): void
     {
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $other    = $original->replace('String', 'Object');
 
         // Performs assertions.
@@ -876,7 +905,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
     public function testTextIsNotReplacedIfSearchNotFound(): void
     {
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $other    = $original->replace('None', 'Object');
 
         // Performs assertions.
@@ -900,7 +929,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
         $this->expectException(\InvalidArgumentException::class);
 
         // Performs test.
-        $original = $this->initializeInstance("Immutable String.");
+        $original = $this->getInstance("Immutable String.");
         $original->replace('', 'Object');
     }
 }
