@@ -1,4 +1,5 @@
-<?php
+<?php declare(strict_types=1);
+
 namespace Hradigital\Datatypes\Web;
 
 /**
@@ -8,19 +9,24 @@ namespace Hradigital\Datatypes\Web;
  * an E-mail address is a complex field, with a very specific set of rules.
  *
  * @package   Hradigital\Datatypes
- * @copyright Hugo Rafael Azevedo <github@hradigital.com>
- * @author    Hugo Rafael Azevedo <github@hradigital.com>
  * @license   MIT
- * @since     1.0.0
  */
 class EmailAddress implements \Serializable
 {
+    /** @var string $username - Holds the Username's part of the E-mail address. */
+    protected string $username;
+
+    /** @var string $domain - Holds the Domain part of the E-mail address. */
+    protected string $domain;
+
+    /** @var string $tld - Holds the Top Level Domain part of the E-mail address. */
+    protected string $tld;
+
     /**
      * Loads a new EmailAddress instance from a native string.
      *
      * @param  string $email - E-mail address used to initialize instance.
      *
-     * @since  1.0.0
      * @return EmailAddress
      */
     public function fromString(string $email): EmailAddress
@@ -29,34 +35,16 @@ class EmailAddress implements \Serializable
     }
 
     /**
-     * @var string $username - Holds the Username's part of the E-mail address.
-     */
-    protected $username = null;
-
-    /**
-     * @var string $domain - Holds the Domain part of the E-mail address.
-     */
-    protected $domain = null;
-
-    /**
-     * @var string $tld - Holds the Top Level Domain part of the E-mail address.
-     */
-    protected $tld = null;
-
-    /**
      * Initializes a new instance of an E-mail address.
      *
      * @param  string $email - String representation of the e-mail address.
      *
      * @throws \InvalidArgumentException - If the supplied email address is empty or invalid.
-     *
-     * @since  1.0.0
      * @return void
      */
     protected function __construct(string $email)
     {
-        // Loads data into class.
-        $this->loadEmail($email);
+        $this->loadInitialState($email);
     }
 
     /**
@@ -65,11 +53,9 @@ class EmailAddress implements \Serializable
      * @param  string $email - String representation of the e-mail.
      *
      * @throws \InvalidArgumentException - If the supplied email address is empty or invalid.
-     *
-     * @since  1.0.0
      * @return void
      */
-    private function loadEmail(string $email): void
+    private function loadInitialState(string $email): void
     {
         // Validate supplied parameter.
         if (\strlen(\trim($email)) === 0) {
@@ -91,11 +77,6 @@ class EmailAddress implements \Serializable
     }
 
     /**
-     * Serializes the contents of the class.
-     *
-     * @since  1.0.0
-     * @return string
-     *
      * {@inheritDoc}
      * @see \Serializable::serialize()
      */
@@ -105,26 +86,18 @@ class EmailAddress implements \Serializable
     }
 
     /**
-     * Unserializes back the contents of the class.
-     *
-     * @since  1.0.0
-     * @return void
-     *
      * {@inheritDoc}
      * @see \Serializable::unserialize()
      */
     public function unserialize($serialized)
     {
-        // Loads unserialized data back to the class.
-        $this->loadEmail(
+        $this->loadInitialState(
             \unserialize($serialized)
         );
     }
 
     /**
      * Returns the String representation of the object.
-     *
-     * @since  1.0.0
      *
      * @return string
      */
@@ -136,7 +109,6 @@ class EmailAddress implements \Serializable
     /**
      * Returns a string representation for the Email address.
      *
-     * @since  1.0.0
      * @return string
      */
     public function address(): string
@@ -147,7 +119,6 @@ class EmailAddress implements \Serializable
     /**
      * Return the Username part for the e-mail address.
      *
-     * @since  1.0.0
      * @return string
      */
     public function username(): string
@@ -158,7 +129,6 @@ class EmailAddress implements \Serializable
     /**
      * Return the Domain part for the e-mail address.
      *
-     * @since  1.0.0
      * @return string
      */
     public function domain(): string
@@ -169,7 +139,6 @@ class EmailAddress implements \Serializable
     /**
      * Return the Top Level Domain part for the e-mail address.
      *
-     * @since  1.0.0
      * @return string
      */
     public function tld(): string
