@@ -2,7 +2,7 @@
 
 namespace Hradigital\Tests\Datatypes\Unit\Scalar;
 
-use Hradigital\Datatypes\Scalar\AbstractReadString;
+use Hradigital\Datatypes\Scalar\AbstractBaseString;
 use Hradigital\Datatypes\Scalar\ImmutableString;
 use Hradigital\Datatypes\Scalar\MutableString;
 
@@ -25,12 +25,12 @@ class MutableStringTest extends ImmutableStringTest
     /**
      * Asserts that 2 string instances match.
      *
-     * @param  AbstractReadString $original - Original String instance.
-     * @param  AbstractReadString $other    - Second instance for comparison.
+     * @param  AbstractBaseString $original - Original String instance.
+     * @param  AbstractBaseString $other    - Second instance for comparison.
      *
      * @return void
      */
-    protected function checkInstances(AbstractReadString $original, AbstractReadString $other): void
+    protected function checkInstances(AbstractBaseString $original, AbstractBaseString $other): void
     {
         $this->assertTrue(
             ($original === $other),
@@ -41,11 +41,11 @@ class MutableStringTest extends ImmutableStringTest
     /**
      * Asserts that the supplied instance, is from the correct type.
      *
-     * @param  AbstractReadString $instance - Instance to be validated.
+     * @param  AbstractBaseString $instance - Instance to be validated.
      *
      * @return void
      */
-    protected function checkCorrectInstanceType(AbstractReadString $instance): void
+    protected function checkCorrectInstanceType(AbstractBaseString $instance): void
     {
         $this->assertInstanceOf(
             MutableString::class,
@@ -61,9 +61,9 @@ class MutableStringTest extends ImmutableStringTest
      *
      * @param  string $initialValue - Instance's initial value.
      *
-     * @return MutableString
+     * @return AbstractBaseString
      */
-    protected function initializeInstance(string $initialValue)
+    protected function getInstance(string $initialValue): AbstractBaseString
     {
         return MutableString::fromString($initialValue);
     }
@@ -76,7 +76,7 @@ class MutableStringTest extends ImmutableStringTest
     public function testCanCloneObject(): void
     {
         // Performs test.
-        $original = $this->initializeInstance("Immutable string.");
+        $original = $this->getInstance("Immutable string.");
         $other    = $original->toImmutable();
 
         // Performs assertions.
