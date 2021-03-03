@@ -28,6 +28,11 @@ and `boolean`.
 There will also be wrapping classes around **Complex Datatypes** such as `Datetime`, `Email`, `Color`, `UrlAddress`, ...,
 and both _Linear_ and _Associative_ **Collections** such as `Queues`, `Stacks` and `Sets`/`Stores`.
 
+### Data Transfer Objects (ValueObjects, Entities, etc...)
+
+Lastly, **PHP Datatypes** will also provide basic functionality for [DTOs](https://en.wikipedia.org/wiki/Data_transfer_object),
+in case you'll want to quickly centralize/isolate record validation and sanitation, in a strongly typed/system agnostic object.
+
 ## Installation
 
 In order to install this package, just add it to your **composer**, by executing `composer require hradigital/php-datatypes`.
@@ -35,7 +40,7 @@ In order to install this package, just add it to your **composer**, by executing
 ## Usage
 
 For more information about how to to use these Datatypes, please see the project's **usage notes** and some implementation examples
-in [here](https://github.com/HRADigital/php-datatypes/tree/master/src/).
+in [here](src/).
 
 ## Contributing
 
