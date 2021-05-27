@@ -3,7 +3,7 @@
 namespace Hradigital\Tests\Datatypes\Unit\Scalar;
 
 use Hradigital\Datatypes\Scalar\AbstractBaseString;
-use Hradigital\Datatypes\Scalar\ImmutableString;
+use Hradigital\Datatypes\Scalar\IString;
 use Hradigital\Tests\Datatypes\AbstractBaseTestCase;
 
 /**
@@ -11,7 +11,7 @@ use Hradigital\Tests\Datatypes\AbstractBaseTestCase;
  *
  * Protected method in this class, are available for override in child classes.
  *
- * ImmutableString and MutableString classes have similar behavior, therefore,
+ * IString and MutableString classes have similar behavior, therefore,
  * you should extend this test case for the other type of String, overriding only the necessary
  * tests, which shouldn't be too many.
  *
@@ -20,7 +20,7 @@ use Hradigital\Tests\Datatypes\AbstractBaseTestCase;
  * @package   Hradigital\Datatypes
  * @license   MIT
  */
-class ImmutableStringTest extends AbstractBaseTestCase
+class IStringTest extends AbstractBaseTestCase
 {
     /**
      * Asserts that 2 string instances do not match.
@@ -48,9 +48,9 @@ class ImmutableStringTest extends AbstractBaseTestCase
     protected function checkCorrectInstanceType(AbstractBaseString $instance): void
     {
         $this->assertInstanceOf(
-            ImmutableString::class,
+            IString::class,
             $instance,
-            'Instance type, does not match ImmutableString.'
+            'Instance type, does not match IString.'
         );
     }
 
@@ -65,7 +65,7 @@ class ImmutableStringTest extends AbstractBaseTestCase
      */
     protected function getInstance(string $initialValue): AbstractBaseString
     {
-        return ImmutableString::fromString($initialValue);
+        return IString::create($initialValue);
     }
 
     /**

@@ -13,27 +13,27 @@ namespace Hradigital\Datatypes\Scalar;
  * @package   Hradigital\Datatypes
  * @license   MIT
  */
-class ImmutableString extends AbstractBaseString
+class IString extends AbstractBaseString
 {
     /**
-     * Creates a new instance of ImmutableString based on a string value.
+     * Creates a new instance of IString based on a string value.
      *
      * @param  string $value - Instance's initial value.
-     * @return ImmutableString
+     * @return IString
      */
-    public static function fromString(string $value): ImmutableString
+    public static function create(string $value): IString
     {
-        return new ImmutableString($value);
+        return new IString($value);
     }
 
     /**
      * Trims instance's value, and returns a new instance of the object.
      *
-     * @return ImmutableString
+     * @return IString
      */
-    public function trim(): ImmutableString
+    public function trim(): IString
     {
-        return new ImmutableString(
+        return new IString(
             parent::doTrim($this->value)
         );
     }
@@ -41,11 +41,11 @@ class ImmutableString extends AbstractBaseString
     /**
      * Left trims instance's value, and returns a new instance of the object.
      *
-     * @return ImmutableString
+     * @return IString
      */
-    public function trimLeft(): ImmutableString
+    public function trimLeft(): IString
     {
-        return new ImmutableString(
+        return new IString(
             parent::doTrimLeft($this->value)
         );
     }
@@ -53,11 +53,11 @@ class ImmutableString extends AbstractBaseString
     /**
      * Right trims instance's value, and returns a new instance of the object.
      *
-     * @return ImmutableString
+     * @return IString
      */
-    public function trimRight(): ImmutableString
+    public function trimRight(): IString
     {
-        return new ImmutableString(
+        return new IString(
             parent::doTrimRight($this->value)
         );
     }
@@ -65,11 +65,11 @@ class ImmutableString extends AbstractBaseString
     /**
      * Converts the instance's value to Upper Case, and returns a new instance of the object.
      *
-     * @return ImmutableString
+     * @return IString
      */
-    public function toUpper(): ImmutableString
+    public function toUpper(): IString
     {
-        return new ImmutableString(
+        return new IString(
             parent::doToUpper($this->value)
         );
     }
@@ -78,11 +78,11 @@ class ImmutableString extends AbstractBaseString
      * Converts the instance's value first character to Upper Case, and returns a new instance
      * of the object.
      *
-     * @return ImmutableString
+     * @return IString
      */
-    public function toUpperFirst(): ImmutableString
+    public function toUpperFirst(): IString
     {
-        return new ImmutableString(
+        return new IString(
             parent::doToUpperFirst($this->value)
         );
     }
@@ -93,11 +93,11 @@ class ImmutableString extends AbstractBaseString
      *
      * @param  string $delimiters - The optional delimiters contains the word separator characters.
      *
-     * @return ImmutableString
+     * @return IString
      */
-    public function toUpperWords(string $delimiters = " \t\r\n\f\v"): ImmutableString
+    public function toUpperWords(string $delimiters = " \t\r\n\f\v"): IString
     {
-        return new ImmutableString(
+        return new IString(
             parent::doToUpperWords($this->value, $delimiters)
         );
     }
@@ -105,11 +105,11 @@ class ImmutableString extends AbstractBaseString
     /**
      * Converts the instance's value to Lower Case, and returns a new instance of the object.
      *
-     * @return ImmutableString
+     * @return IString
      */
-    public function toLower(): ImmutableString
+    public function toLower(): IString
     {
-        return new ImmutableString(
+        return new IString(
             parent::doToLower($this->value)
         );
     }
@@ -118,11 +118,11 @@ class ImmutableString extends AbstractBaseString
      * Converts the instance's value first character to Lower Case, and returns a new instance
      * of the object
      *
-     * @return ImmutableString
+     * @return IString
      */
-    public function toLowerFirst(): ImmutableString
+    public function toLowerFirst(): IString
     {
-        return new ImmutableString(
+        return new IString(
             parent::doToLowerFirst($this->value)
         );
     }
@@ -138,11 +138,11 @@ class ImmutableString extends AbstractBaseString
      * it is padded with characters from $padding up to the limit.
      *
      * @throws \InvalidArgumentException - If any of the parameters is invalid.
-     * @return ImmutableString
+     * @return IString
      */
-    public function padLeft(int $length, string $padding = " "): ImmutableString
+    public function padLeft(int $length, string $padding = " "): IString
     {
-        return new ImmutableString(
+        return new IString(
             parent::doPadLeft($this->value, $length, $padding)
         );
     }
@@ -158,11 +158,11 @@ class ImmutableString extends AbstractBaseString
      *                           can't be evenly divided by the $padding's length.
      *
      * @throws \InvalidArgumentException - If any of the parameters is invalid.
-     * @return ImmutableString
+     * @return IString
      */
-    public function padLeftExtra(int $length, string $padding = " "): ImmutableString
+    public function padLeftExtra(int $length, string $padding = " "): IString
     {
-        return new ImmutableString(
+        return new IString(
             parent::doPadLeftExtra($this->value, $length, $padding)
         );
     }
@@ -182,11 +182,11 @@ class ImmutableString extends AbstractBaseString
      *                           can't be evenly divided by the $padding's length.
      *
      * @throws \InvalidArgumentException - If any of the parameters is invalid.
-     * @return ImmutableString
+     * @return IString
      */
-    public function padRight(int $length, string $padding = " "): ImmutableString
+    public function padRight(int $length, string $padding = " "): IString
     {
-        return new ImmutableString(
+        return new IString(
             parent::doPadRight($this->value, $length, $padding)
         );
     }
@@ -202,11 +202,11 @@ class ImmutableString extends AbstractBaseString
      *                           can't be evenly divided by the $padding's length.
      *
      * @throws \InvalidArgumentException - If any of the parameters is invalid.
-     * @return ImmutableString
+     * @return IString
      */
-    public function padRightExtra(int $length, string $padding = " "): ImmutableString
+    public function padRightExtra(int $length, string $padding = " "): IString
     {
-        return new ImmutableString(
+        return new IString(
             parent::doPadRightExtra($this->value, $length, $padding)
         );
     }
@@ -237,11 +237,11 @@ class ImmutableString extends AbstractBaseString
      * @param  int $length - Length of the sub-string. Can be negative.
      *
      * @throws \OutOfRangeException - If the $start and/or $length is either too small, or too long.
-     * @return ImmutableString
+     * @return IString
      */
-    public function subString(int $start, int $length = null): ImmutableString
+    public function subString(int $start, int $length = null): IString
     {
-        return new ImmutableString(
+        return new IString(
             parent::doSubString($this->value, $start, $length)
         );
     }
@@ -250,16 +250,16 @@ class ImmutableString extends AbstractBaseString
      * This method returns a new instance with a portion of the original instance's value, starting at the beginning
      * of the value, with the number of characters specified in the $length parameter.
      *
-     * Same rules as ImmutableString::subString() are applied.
+     * Same rules as IString::subString() are applied.
      *
      * @param  int $length - Length of the sub-string. Must be positive.
      *
      * @throws \InvalidArgumentException - If supplied Length is not a positive integer.
-     * @return ImmutableString
+     * @return IString
      */
-    public function subLeft(int $length): ImmutableString
+    public function subLeft(int $length): IString
     {
-        return new ImmutableString(
+        return new IString(
             parent::doSubLeft($this->value, $length)
         );
     }
@@ -268,16 +268,16 @@ class ImmutableString extends AbstractBaseString
      * This method returns a new instance with a portion of the original instance's value, couting from the end
      * of the value, with the number of characters specified in the $length parameter.
      *
-     * Same rules as ImmutableString::subString() are applied.
+     * Same rules as IString::subString() are applied.
      *
      * @param  int $length - Length of the sub-string. Must be positive.
      *
      * @throws \InvalidArgumentException - If supplied Length is not a positive integer.
-     * @return ImmutableString
+     * @return IString
      */
-    public function subRight(int $length): ImmutableString
+    public function subRight(int $length): IString
     {
-        return new ImmutableString(
+        return new IString(
             parent::doSubRight($this->value, $length)
         );
     }
@@ -285,11 +285,11 @@ class ImmutableString extends AbstractBaseString
     /**
      * This method returns a new instance with the reversed value of the original instance.
      *
-     * @return ImmutableString
+     * @return IString
      */
-    public function reverse(): ImmutableString
+    public function reverse(): IString
     {
-        return new ImmutableString(
+        return new IString(
             parent::doReverse($this->value)
         );
     }
@@ -301,11 +301,11 @@ class ImmutableString extends AbstractBaseString
      * @param  string $replace - The search's replacement.
      *
      * @throws \InvalidArgumentException - If $search is empty, or count is a not a positive integer.
-     * @return ImmutableString
+     * @return IString
      */
-    public function replace(string $search, string $replace): ImmutableString
+    public function replace(string $search, string $replace): IString
     {
-        return new ImmutableString(
+        return new IString(
             parent::doReplace($this->value, $search, $replace)
         );
     }
