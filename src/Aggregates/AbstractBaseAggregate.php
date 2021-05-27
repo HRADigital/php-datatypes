@@ -35,7 +35,7 @@ abstract class AbstractBaseAggregate implements \JsonSerializable
             if ($value instanceof \JsonSerializable) {
                 $json[$name] = $value->jsonSerialize();
             } elseif (\method_exists($value, '__toString')) {
-                $json[$name] = $value->__toString();
+                $json[$name] = (string) $value;
             } else {
                 $json[$name] = $value;
             }
