@@ -26,10 +26,9 @@ class EmailAddress implements \Serializable
      * Loads a new EmailAddress instance from a native string.
      *
      * @param  string $email - E-mail address used to initialize instance.
-     *
      * @return EmailAddress
      */
-    public static function fromString(string $email): EmailAddress
+    public static function create(string $email): EmailAddress
     {
         return new EmailAddress($email);
     }
@@ -44,7 +43,7 @@ class EmailAddress implements \Serializable
      */
     protected function __construct(string $email)
     {
-        $this->loadInitialState($email);
+        $this->loadFromPrimitive($email);
     }
 
     /**
@@ -55,7 +54,7 @@ class EmailAddress implements \Serializable
      * @throws \InvalidArgumentException - If the supplied email address is empty or invalid.
      * @return void
      */
-    private function loadInitialState(string $email): void
+    protected function loadFromPrimitive(string $email): void
     {
         // Validate supplied parameter.
         if (\strlen(\trim($email)) === 0) {
@@ -91,7 +90,7 @@ class EmailAddress implements \Serializable
      */
     public function unserialize($serialized)
     {
-        $this->loadInitialState(
+        $this->loadFromPrimitive(
             \unserialize($serialized)
         );
     }
