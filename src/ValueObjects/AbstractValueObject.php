@@ -94,7 +94,7 @@ abstract class AbstractValueObject implements \JsonSerializable, Serializable
      */
     private function loadUsableFields(): void
     {
-        $this->attributeList = $this->filterFields(
+        $this->attributeList = $this->filterSystemControlFields(
             \get_object_vars($this)
         );
     }
@@ -105,7 +105,7 @@ abstract class AbstractValueObject implements \JsonSerializable, Serializable
      * @param  array $attrs - Array of fields to be filtered.
      * @return array
      */
-    private function filterFields(array $attrs): array
+    private function filterSystemControlFields(array $attrs): array
     {
         unset(
             $attrs['maps'],
@@ -136,7 +136,7 @@ abstract class AbstractValueObject implements \JsonSerializable, Serializable
     public function getAttributes(): array
     {
         // Collects a list of usable Attributes from the Value Object.
-        $fields = $this->filterFields(
+        $fields = $this->filterSystemControlFields(
             \get_object_vars($this)
         );
 
