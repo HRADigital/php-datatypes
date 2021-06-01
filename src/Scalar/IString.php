@@ -3,14 +3,15 @@
 namespace Hradigital\Datatypes\Scalar;
 
 /**
- * Immutable String's Scalar Object class.
+ * String's Scalar Value Object class.
  *
  * Instanciate this class, if you want the initial instance's value to be preserved.
  *
- * Fluent interface (chaning) is not supported by any mutators.
- * A new instance will be returned instead.
+ * Fluent interface (chaning) is supported by mutators, but a new instance will be returned.
+ * Original internal value will be immutable.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 class IString extends AbstractBaseString
@@ -27,14 +28,100 @@ class IString extends AbstractBaseString
     }
 
     /**
-     * Trims instance's value, and returns a new instance of the object.
+     * Compares the values of 2 separate instances.
      *
-     * @return IString
+     * Returns TRUE if the 2 instance's values match. FALSE otherwise.
+     *
+     * @param  IString $string - Another IString instance to compare to.
+     * @return bool
      */
+    public function equals(IString $string): bool
+    {
+        return parent::doEquals((string) $string);
+    }
+
+    /**
+     * Checks if the instance contains the supplied $search value.
+     *
+     * Returns TRUE if found. FALSE otherwise.
+     *
+     * @param  IString $search - Non empty string to search for in the instance.
+     *
+     * @throws \InvalidArgumentException - If supplied $search is empty.
+     * @return bool
+     */
+    public function contains(IString $search): bool
+    {
+        return parent::doEquals((string) $search);
+    }
+
+    /**
+     * Searches and returns the index in the instance, of the $search string.
+     *
+     * If a $start is specified, search will start this number of characters counted from
+     * the beginning of the string. If $start is negative, the search will start this number
+     * of characters counted from the end of the string.
+     *
+     * If the $search is not found inthe instance's value, NULL is returned.
+     *
+     * @param  IString $search - String to search for in the instance.
+     * @param  int     $start  - Search offset start. Defaults to ZERO.
+     *
+     * @throws \InvalidArgumentException - If $search value is an empty string.
+     * @throws \OutOfRangeException      - If the $start is either too small, or too long.
+     * @return int|NULL
+     */
+    public function indexOf(IString $search, int $start = 0): ?int
+    {
+        return parent::doIndexOf((string) $search, $start);
+    }
+
+    /**
+     * Checks if the instance's value starts with the supplied string.
+     *
+     * @param  IString $search - Non empty string to search for in the instance.
+     *
+     * @throws \InvalidArgumentException - If supplied $search is empty.
+     * @return bool
+     */
+    public function startsWith(IString $search): bool
+    {
+        return parent::doStartsWith((string) $search);
+    }
+
+    /**
+     * Checks if the instance's value ends with the supplied string.
+     *
+     * @param  IString $search - Non empty string to search for in the instance.
+     *
+     * @throws \InvalidArgumentException - If supplied $search is empty.
+     * @return bool
+     */
+    public function endsWith(IString $search): bool
+    {
+        return parent::doEndsWith((string) $search);
+    }
+
+    /**
+     * Counts the number of substring occurrences in the instance's value.
+     *
+     * @param  IString  $search - Non empty string to search for in the instance.
+     * @param  int      $start  - The sub-string's offset/start.
+     * @param  int|NULL $length - Length value. Can be NULL, in which case, it won't be validated.
+     *
+     * @throws \InvalidArgumentException - If supplied $search is empty.
+     * @throws \OutOfRangeException      - If the $start and/or $length is either too small, or too long.
+     * @return int
+     */
+    public function count(IString $search, int $start = 0, ?int $length = null): int
+    {
+        return parent::doCount((string) $search, $start, $length);
+    }
+
     public function trim(): IString
     {
-        return new IString(
-            parent::doTrim($this->value)
+        return IString::create(
+            parent::doTrim()
         );
     }
 
@@ -45,8 +132,8 @@ class IString extends AbstractBaseString
      */
     public function trimLeft(): IString
     {
-        return new IString(
-            parent::doTrimLeft($this->value)
+        return IString::create(
+            parent::doTrimLeft()
         );
     }
 
@@ -57,8 +144,8 @@ class IString extends AbstractBaseString
      */
     public function trimRight(): IString
     {
-        return new IString(
-            parent::doTrimRight($this->value)
+        return IString::create(
+            parent::doTrimRight()
         );
     }
 
@@ -69,8 +156,8 @@ class IString extends AbstractBaseString
      */
     public function toUpper(): IString
     {
-        return new IString(
-            parent::doToUpper($this->value)
+        return IString::create(
+            parent::doToUpper()
         );
     }
 
@@ -82,8 +169,8 @@ class IString extends AbstractBaseString
      */
     public function toUpperFirst(): IString
     {
-        return new IString(
-            parent::doToUpperFirst($this->value)
+        return IString::create(
+            parent::doToUpperFirst()
         );
     }
 
@@ -97,8 +184,8 @@ class IString extends AbstractBaseString
      */
     public function toUpperWords(string $delimiters = " \t\r\n\f\v"): IString
     {
-        return new IString(
-            parent::doToUpperWords($this->value, $delimiters)
+        return IString::create(
+            parent::doToUpperWords($delimiters)
         );
     }
 
@@ -109,8 +196,8 @@ class IString extends AbstractBaseString
      */
     public function toLower(): IString
     {
-        return new IString(
-            parent::doToLower($this->value)
+        return IString::create(
+            parent::doToLower()
         );
     }
 
@@ -122,8 +209,8 @@ class IString extends AbstractBaseString
      */
     public function toLowerFirst(): IString
     {
-        return new IString(
-            parent::doToLowerFirst($this->value)
+        return IString::create(
+            parent::doToLowerFirst()
         );
     }
 
@@ -142,8 +229,8 @@ class IString extends AbstractBaseString
      */
     public function padLeft(int $length, string $padding = " "): IString
     {
-        return new IString(
-            parent::doPadLeft($this->value, $length, $padding)
+        return IString::create(
+            parent::doPadLeft($length, $padding)
         );
     }
 
@@ -162,8 +249,8 @@ class IString extends AbstractBaseString
      */
     public function padLeftExtra(int $length, string $padding = " "): IString
     {
-        return new IString(
-            parent::doPadLeftExtra($this->value, $length, $padding)
+        return IString::create(
+            parent::doPadLeftExtra($length, $padding)
         );
     }
 
@@ -186,8 +273,8 @@ class IString extends AbstractBaseString
      */
     public function padRight(int $length, string $padding = " "): IString
     {
-        return new IString(
-            parent::doPadRight($this->value, $length, $padding)
+        return IString::create(
+            parent::doPadRight($length, $padding)
         );
     }
 
@@ -206,8 +293,8 @@ class IString extends AbstractBaseString
      */
     public function padRightExtra(int $length, string $padding = " "): IString
     {
-        return new IString(
-            parent::doPadRightExtra($this->value, $length, $padding)
+        return IString::create(
+            parent::doPadRightExtra($length, $padding)
         );
     }
 
@@ -241,16 +328,14 @@ class IString extends AbstractBaseString
      */
     public function subString(int $start, int $length = null): IString
     {
-        return new IString(
-            parent::doSubString($this->value, $start, $length)
+        return IString::create(
+            parent::doSubString($start, $length)
         );
     }
 
     /**
      * This method returns a new instance with a portion of the original instance's value, starting at the beginning
      * of the value, with the number of characters specified in the $length parameter.
-     *
-     * Same rules as IString::subString() are applied.
      *
      * @param  int $length - Length of the sub-string. Must be positive.
      *
@@ -259,16 +344,14 @@ class IString extends AbstractBaseString
      */
     public function subLeft(int $length): IString
     {
-        return new IString(
-            parent::doSubLeft($this->value, $length)
+        return IString::create(
+            parent::doSubLeft($length)
         );
     }
 
     /**
      * This method returns a new instance with a portion of the original instance's value, couting from the end
      * of the value, with the number of characters specified in the $length parameter.
-     *
-     * Same rules as IString::subString() are applied.
      *
      * @param  int $length - Length of the sub-string. Must be positive.
      *
@@ -277,36 +360,36 @@ class IString extends AbstractBaseString
      */
     public function subRight(int $length): IString
     {
-        return new IString(
-            parent::doSubRight($this->value, $length)
+        return IString::create(
+            parent::doSubRight($length)
         );
     }
 
     /**
-     * This method returns a new instance with the reversed value of the original instance.
+     * This method returns the reversed value of the instance.
      *
      * @return IString
      */
     public function reverse(): IString
     {
-        return new IString(
-            parent::doReverse($this->value)
+        return IString::create(
+            parent::doReverse()
         );
     }
 
     /**
      * This method replaces a string's occurance by another, and returns a new instance with the new value.
      *
-     * @param  string $search  - The string to search for.
-     * @param  string $replace - The search's replacement.
+     * @param  IString $search  - The string to search for.
+     * @param  IString $replace - The search's replacement.
      *
      * @throws \InvalidArgumentException - If $search is empty, or count is a not a positive integer.
      * @return IString
      */
-    public function replace(string $search, string $replace): IString
+    public function replace(IString $search, IString $replace): IString
     {
-        return new IString(
-            parent::doReplace($this->value, $search, $replace)
+        return IString::create(
+            parent::doReplace((string) $search, (string) $replace)
         );
     }
 }
