@@ -28,6 +28,16 @@ class NString extends AbstractBaseString
     }
 
     /**
+     * Returns a VoString object, containing this instance's value.
+     *
+     * @return VoString
+     */
+    public function toVoString(): VoString
+    {
+        return VoString::create($this->value);
+    }
+
+    /**
      * Compares the values of 2 separate strings.
      *
      * Returns TRUE if the 2 values match. FALSE otherwise.
