@@ -5,9 +5,11 @@ namespace Hradigital\Datatypes\Scalar;
 /**
  * Abstract Base String's Scalar Object class.
  *
- * This class is used as a base, for both MutableString datatype as well as for ImmutableString.
+ * In this package, this class is used as a base, for both VoString Value Object datatype
+ * as well as for NatString native datatype.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 abstract class AbstractBaseString
@@ -16,9 +18,9 @@ abstract class AbstractBaseString
     protected string $value = '';
 
     /**
-     * Initializes a new instance of a String.
+     * Instantiates an AbstractBaseString child class.
      *
-     * @param  string $value - Initial string value.
+     * @param  string $value - Initial instance's value.
      * @return void
      */
     protected function __construct(string $value)
@@ -37,41 +39,7 @@ abstract class AbstractBaseString
     }
 
     /**
-     * Compares the values of 2 separate instances.
-     *
-     * Returns TRUE if the 2 instance's values match. FALSE otherwise.
-     *
-     * @param  AbstractBaseString $string - Another String instance to compare to.
-     *
-     * @return bool
-     */
-    public function equals(AbstractBaseString $string): bool
-    {
-        return ($this->__toString() === $string->__toString());
-    }
-
-    /**
-     * Checks if the instance contains the supplied $search value.
-     *
-     * Returns TRUE if found. FALSE otherwise.
-     *
-     * @param  string $search - Non empty string to search for in the instance.
-     *
-     * @throws \InvalidArgumentException - If supplied $search is empty.
-     * @return bool
-     */
-    public function contains(string $search): bool
-    {
-        // Validates supplied parameter.
-        if (\strlen($search) === 0) {
-            throw new \InvalidArgumentException("Supplied search must be a non empty string.");
-        }
-
-        return ($this->indexOf($search) !== null);
-    }
-
-    /**
-     * Returns the instance's value character length.
+     * Returns the Instance's value character length.
      *
      * @return int
      */
@@ -81,22 +49,55 @@ abstract class AbstractBaseString
     }
 
     /**
-     * Searches and returns the index in the instance, of the $search string.
+     * Compares the instance's value, with the supplied native string.
+     *
+     * Returns TRUE if the 2 values match. FALSE otherwise.
+     *
+     * @param  string $string - Another string to compare with.
+     * @return bool
+     */
+    protected function doEquals(string $string): bool
+    {
+        return ($this->value === $string);
+    }
+
+    /**
+     * Checks if the instance's value contains the supplied $search string.
+     *
+     * Returns TRUE if found. FALSE otherwise.
+     *
+     * @param  string $search - Non empty string to search for in the instance.
+     *
+     * @throws \InvalidArgumentException - If supplied $search is empty.
+     * @return bool
+     */
+    protected function doContains(string $search): bool
+    {
+        // Validates supplied parameter.
+        if (\strlen($search) === 0) {
+            throw new \InvalidArgumentException("Supplied search must be a non empty string.");
+        }
+
+        return ($this->doIndexOf($search) !== null);
+    }
+
+    /**
+     * Searches and returns the character index in the instance, of the $search string.
      *
      * If a $start is specified, search will start this number of characters counted from
      * the beginning of the string. If $start is negative, the search will start this number
      * of characters counted from the end of the string.
      *
-     * If the $search is not found inthe instance's value, NULL is returned.
+     * If the $search is not found in the instance's value, NULL is returned.
      *
      * @param  string $search - String to search for in the instance.
      * @param  int    $start  - Search offset start. Defaults to ZERO.
      *
      * @throws \InvalidArgumentException - If $search value is an empty string.
      * @throws \OutOfRangeException      - If the $start is either too small, or too long.
-     * @return int|NULL
+     * @return int|null
      */
-    public function indexOf(string $search, int $start = 0): ?int
+    protected function doIndexOf(string $search, int $start = 0): ?int
     {
         // Validates supplied parameters.
         if (\strlen($search) === 0) {
@@ -125,14 +126,14 @@ abstract class AbstractBaseString
      * @throws \InvalidArgumentException - If supplied $search is empty.
      * @return bool
      */
-    public function startsWith(string $search): bool
+    protected function doStartsWith(string $search): bool
     {
         // Validates supplied parameter.
         if (\strlen($search) === 0) {
             throw new \InvalidArgumentException("Supplied search must be a non empty string.");
         }
 
-        return ($this->indexOf($search) === 0);
+        return ($this->doIndexOf($search) === 0);
     }
 
     /**
@@ -143,14 +144,14 @@ abstract class AbstractBaseString
      * @throws \InvalidArgumentException - If supplied $search is empty.
      * @return bool
      */
-    public function endsWith(string $search): bool
+    protected function doEndsWith(string $search): bool
     {
         // Validates supplied parameter.
         if (\strlen($search) === 0) {
             throw new \InvalidArgumentException("Supplied search must be a non empty string.");
         }
 
-        return (\substr($this->value, (0 - \strlen($search))) === $search);
+        return ($this->doSubString((0 - \strlen($search))) === $search);
     }
 
     /**
@@ -164,7 +165,7 @@ abstract class AbstractBaseString
      * @throws \OutOfRangeException      - If the $start and/or $length is either too small, or too long.
      * @return int
      */
-    public function count(string $search, int $start = 0, ?int $length = null): int
+    protected function doCount(string $search, int $start = 0, ?int $length = null): int
     {
         // Validates supplied $search parameter.
         if (\strlen($search) === 0) {
@@ -191,7 +192,7 @@ abstract class AbstractBaseString
      * @throws \OutOfRangeException - If the $start and/or $length is either too small, or too long.
      * @return void
      */
-    protected function validateStartAndLength(int $start, ?int $length): void
+    private function validateStartAndLength(int $start, ?int $length): void
     {
         // Calculates the absolute values for validations.
         $absStart  = (int) \abs($start);
@@ -220,103 +221,84 @@ abstract class AbstractBaseString
     }
 
     /**
-     * Trims instance's value, and returns a new instance of the object.
-     *
-     * @param  string  $value - String value to perform the operation on.
+     * Trims instance's value
      *
      * @return string
      */
-    protected function doTrim(string $value): string
+    protected function doTrim(): string
     {
-        return \trim($value);
+        return \trim($this->value);
     }
 
     /**
-     * Left trims instance's value, and returns a new instance of the object.
-     *
-     * @param  string  $value - String value to perform the operation on.
+     * Left trims instance's value.
      *
      * @return string
      */
-    protected function doTrimLeft(string $value): string
+    protected function doTrimLeft(): string
     {
-        return \ltrim($value);
+        return \ltrim($this->value);
     }
 
     /**
-     * Right trims instance's value, and returns a new instance of the object.
-     *
-     * @param  string  $value - String value to perform the operation on.
+     * Right trims instance's value.
      *
      * @return string
      */
-    protected function doTrimRight(string $value): string
+    protected function doTrimRight(): string
     {
-        return \rtrim($value);
+        return \rtrim($this->value);
     }
 
     /**
-     * Converts the instance's value to Upper Case, and returns a new instance of the object.
-     *
-     * @param  string  $value - String value to perform the operation on.
+     * Converts the instance's value to Uppercase.
      *
      * @return string
      */
-    protected function doToUpper(string $value): string
+    protected function doToUpper(): string
     {
-        return \mb_strtoupper($value);
+        return \mb_strtoupper($this->value);
     }
 
     /**
-     * Converts the instance's value first character to Upper Case, and returns a new instance
-     * of the object.
-     *
-     * @param  string  $value - String value to perform the operation on.
+     * Converts the instance's value first character to Uppercase.
      *
      * @return string
      */
-    protected function doToUpperFirst(string $value): string
+    protected function doToUpperFirst(): string
     {
-        return \ucfirst($value);
+        return \ucfirst($this->value);
     }
 
     /**
-     * Converts the instance's value first character of each word to Upper Case, and returns a new instance
-     * of the object.
+     * Converts the instance's value first character of each word to Upper Case.
      *
-     * @param  string  $value - String value to perform the operation on.
      * @param  string  $delimiters - The optional delimiters contains the word separator characters.
-     *
      * @return string
      */
-    protected function doToUpperWords(string $value, string $delimiters = " \t\r\n\f\v"): string
+    protected function doToUpperWords(string $delimiters = " \t\r\n\f\v"): string
     {
-        return \ucwords($value, $delimiters);
+        return \ucwords($this->value, $delimiters);
     }
 
     /**
-     * Converts the instance's value to Lower Case, and returns a new instance of the object.
-     *
-     * @param  string  $value - String value to perform the operation on.
+     * Converts the instance's value to Lowercase.
      *
      * @return string
      */
-    protected function doToLower(string $value): string
+    protected function doToLower(): string
     {
-        return \mb_strtolower($value);
+        return \mb_strtolower($this->value);
     }
 
     /**
-     * Converts the instance's value first character to Lower Case, and returns a new instance
-     * of the object
-     *
-     * @param  string  $value - String value to perform the operation on.
+     * Converts the instance's value first character to Lowercase.
      *
      * @return string
      */
-    protected function doToLowerFirst(string $value): string
+    protected function doToLowerFirst(): string
     {
-        return \lcfirst($value);
+        return \lcfirst($this->value);
     }
 
     /**
@@ -329,7 +311,6 @@ abstract class AbstractBaseString
      * If the optional argument $padString is not supplied, the input is padded with spaces, otherwise
      * it is padded with characters from $padString up to the limit.
      *
-     * @param  string  $value   - String value to perform the operation on.
      * @param  int     $length  - Length of the padded value.
      * @param  string  $padding - The pad_string may be truncated if the required number of padding characters
      *                            can't be evenly divided by the $padString's length.
@@ -337,7 +318,7 @@ abstract class AbstractBaseString
      * @throws \InvalidArgumentException - If any of the parameters is invalid.
      * @return string
      */
-    protected function doPadLeft(string $value, int $length, string $padding = " "): string
+    protected function doPadLeft(int $length, string $padding = " "): string
     {
         // Validates supplied parameters.
         if ($length < 1) {
@@ -347,7 +328,7 @@ abstract class AbstractBaseString
             throw new \InvalidArgumentException("Supplied padding must be a non empty string.");
         }
 
-        return \str_pad($value, $length, $padding, STR_PAD_LEFT);
+        return \str_pad($this->value, $length, $padding, STR_PAD_LEFT);
     }
 
     /**
@@ -356,7 +337,6 @@ abstract class AbstractBaseString
      * If the optional argument $padding is not supplied, the input is padded with spaces, otherwise
      * it is padded with characters from $padding up to the limit.
      *
-     * @param  string  $value   - String value to perform the operation on.
      * @param  int     $length  - Length of the padded value.
      * @param  string  $padding - The pad_string may be truncated if the required number of padding characters
      *                            can't be evenly divided by the $padding's length.
@@ -364,17 +344,9 @@ abstract class AbstractBaseString
      * @throws \InvalidArgumentException - If any of the parameters is invalid.
      * @return string
      */
-    protected function doPadLeftExtra(string $value, int $length, string $padding = " "): string
+    protected function doPadLeftExtra(int $length, string $padding = " "): string
     {
-        // Validates supplied parameters.
-        if ($length < 1) {
-            throw new \InvalidArgumentException("Supplied Length must be a positive integer.");
-        }
-        if (\strlen($padding) === 0) {
-            throw new \InvalidArgumentException("Supplied padding must be a non empty string.");
-        }
-
-        return \str_pad($value, (\strlen($value) + $length), $padding, STR_PAD_LEFT);
+        return $this->doPadLeft(($this->length() + $length), $padding);
     }
 
     /**
@@ -387,7 +359,6 @@ abstract class AbstractBaseString
      * If the optional argument $padString is not supplied, the input is padded with spaces, otherwise
      * it is padded with characters from $padding up to the limit.
      *
-     * @param  string  $value   - String value to perform the operation on.
      * @param  int     $length  - Length of the padded value.
      * @param  string  $padding - The pad_string may be truncated if the required number of padding characters
      *                            can't be evenly divided by the $padding's length.
@@ -395,7 +366,7 @@ abstract class AbstractBaseString
      * @throws \InvalidArgumentException - If any of the parameters is invalid.
      * @return string
      */
-    protected function doPadRight(string $value, int $length, string $padding = " "): string
+    protected function doPadRight(int $length, string $padding = " "): string
     {
         // Validates supplied parameters.
         if ($length < 1) {
@@ -405,7 +376,7 @@ abstract class AbstractBaseString
             throw new \InvalidArgumentException("Supplied padding must be a non empty string.");
         }
 
-        return \str_pad($value, $length, $padding, STR_PAD_RIGHT);
+        return \str_pad($this->value, $length, $padding, STR_PAD_RIGHT);
     }
 
     /**
@@ -414,7 +385,6 @@ abstract class AbstractBaseString
      * If the optional argument $padding is not supplied, the input is padded with spaces, otherwise
      * it is padded with characters from $padding up to the limit.
      *
-     * @param  string  $value   - String value to perform the operation on.
      * @param  int     $length  - Length of the padded value.
      * @param  string  $padding - The pad_string may be truncated if the required number of padding characters
      *                            can't be evenly divided by the $padding's length.
@@ -422,17 +392,9 @@ abstract class AbstractBaseString
      * @throws \InvalidArgumentException - If any of the parameters is invalid.
      * @return string
      */
-    protected function doPadRightExtra(string $value, int $length, string $padding = " "): string
+    protected function doPadRightExtra(int $length, string $padding = " "): string
     {
-        // Validates supplied parameters.
-        if ($length < 1) {
-            throw new \InvalidArgumentException("Supplied Length must be a positive integer.");
-        }
-        if (\strlen($padding) === 0) {
-            throw new \InvalidArgumentException("Supplied padding must be a non empty string.");
-        }
-
-        return \str_pad($value, (\strlen($value) + $length), $padding, STR_PAD_RIGHT);
+        return $this->doPadRight(($this->length() + $length), $padding);
     }
 
     /**
@@ -457,23 +419,22 @@ abstract class AbstractBaseString
      * - If $length exceeds the remaining number of characters, after the $start calculation, an
      * Exception will be raised.
      *
-     * @param  string  $value  - String value to perform the operation on.
      * @param  int     $start  - Start of the sub-string. Can be negative.
      * @param  int     $length - Length of the sub-string. Can be negative.
      *
      * @throws \OutOfRangeException - If the $start and/or $length is either too small, or too long.
      * @return string
      */
-    protected function doSubString(string $value, int $start, int $length = null): string
+    protected function doSubString(int $start, int $length = null): string
     {
         // Validates supplied $start and $length.
         $this->validateStartAndLength($start, $length);
 
         // Processes the substring.
         if ($length !== null) {
-            $value = \substr($value, $start, $length);
+            $value = \substr($this->value, $start, $length);
         } else {
-            $value = \substr($value, $start);
+            $value = \substr($this->value, $start);
         }
 
         return ($value ?? '');
@@ -483,75 +444,69 @@ abstract class AbstractBaseString
      * This method returns a new instance with a portion of the original instance's value, starting at the beginning
      * of the value, with the number of characters specified in the $length parameter.
      *
-     * Same rules as ImmutableString::subString() are applied.
-     *
-     * @param  string  $value  - String value to perform the operation on.
      * @param  int     $length - Length of the sub-string. Must be positive.
      *
      * @throws \InvalidArgumentException - If supplied Length is not a positive integer.
      * @return string
      */
-    protected function doSubLeft(string $value, int $length): string
+    protected function doSubLeft(int $length): string
     {
         // Validates parameter.
         if ($length < 1) {
             throw new \InvalidArgumentException("Supplied length must be a positive integer.");
         }
 
-        return $this->doSubString($value, 0, $length);
+        return $this->doSubString(0, $length);
     }
 
     /**
      * This method returns a new instance with a portion of the original instance's value, couting from the end
      * of the value, with the number of characters specified in the $length parameter.
      *
-     * Same rules as ImmutableString::subString() are applied.
-     *
-     * @param  string  $value  - String value to perform the operation on.
      * @param  int     $length - Length of the sub-string. Must be positive.
      *
      * @throws \InvalidArgumentException - If supplied Length is not a positive integer.
      * @return string
      */
-    protected function doSubRight($value, int $length): string
+    protected function doSubRight(int $length): string
     {
         // Validates parameter.
         if ($length < 1) {
             throw new \InvalidArgumentException("Supplied length must be a positive integer.");
         }
 
-        return $this->doSubString($value, 0 - $length);
+        return $this->doSubString(0 - $length);
     }
 
     /**
-     * This method returns a new instance with the reversed value of the original instance.
-     *
-     * @param  string  $value  - String value to perform the operation on.
+     * This method returns the reversed value of the instance.
      *
      * @return string
      */
-    protected function doReverse(string $value): string
+    protected function doReverse(): string
     {
-        return \strrev($value);
+        return \strrev($this->value);
     }
 
     /**
      * This method replaces a string's occurance by another, and returns a new instance with the new value.
      *
-     * @param  string  $value   - String value to perform the operation on.
      * @param  string  $search  - The string to search for.
      * @param  string  $replace - The search's replacement.
      *
      * @throws \InvalidArgumentException - If $search is empty, or count is a not a positive integer.
      * @return string
      */
-    protected function doReplace(string $value, string $search, string $replace): string
+    protected function doReplace(string $search, string $replace): string
     {
         // Validates supplied parameters.
         if (\strlen($search) === 0) {
             throw new \InvalidArgumentException("Supplied search must be a non empty string.");
         }
+        if (\strlen($replace) === 0) {
+            throw new \InvalidArgumentException("Supplied replace must be a non empty string.");
+        }
 
-        return \str_replace($search, $replace, $value);
+        return \str_replace($search, $replace, $this->value);
     }
 }
