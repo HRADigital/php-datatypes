@@ -178,14 +178,14 @@ class VoString extends AbstractBaseString
      * Converts the instance's value first character of each word to Upper Case, and returns a new instance
      * of the object.
      *
-     * @param  string $delimiters - The optional delimiters contains the word separator characters.
+     * @param  VoString|null $delimiters - The optional delimiters contains the word separator characters.
      *
      * @return VoString
      */
-    public function toUpperWords(string $delimiters = " \t\r\n\f\v"): VoString
+    public function toUpperWords(?VoString $delimiters = null): VoString
     {
         return VoString::create(
-            parent::doToUpperWords($delimiters)
+            parent::doToUpperWords($delimiters ?? " \t\r\n\f\v")
         );
     }
 
@@ -224,13 +224,17 @@ class VoString extends AbstractBaseString
      * If the optional argument $padding is not supplied, the input is padded with spaces, otherwise
      * it is padded with characters from $padding up to the limit.
      *
+     * @param  int  $length  - Length of the padded value.
+     * @param  VoString|null $padding - The pad_string may be truncated if the required number of padding characters
+     *                           can't be evenly divided by the $padding's length.
+     *
      * @throws \InvalidArgumentException - If any of the parameters is invalid.
      * @return VoString
      */
-    public function padLeft(int $length, string $padding = " "): VoString
+    public function padLeft(int $length, ?VoString $padding = null): VoString
     {
         return VoString::create(
-            parent::doPadLeft($length, $padding)
+            parent::doPadLeft($length, ((string) $padding ?: " "))
         );
     }
 
@@ -240,17 +244,17 @@ class VoString extends AbstractBaseString
      * If the optional argument $padding is not supplied, the input is padded with spaces, otherwise
      * it is padded with characters from $padding up to the limit.
      *
-     * @param  int    $length  - Length of the padded value.
-     * @param  string $padding - The pad_string may be truncated if the required number of padding characters
+     * @param  int  $length  - Length of the padded value.
+     * @param  VoString|null $padding - The pad_string may be truncated if the required number of padding characters
      *                           can't be evenly divided by the $padding's length.
      *
      * @throws \InvalidArgumentException - If any of the parameters is invalid.
      * @return VoString
      */
-    public function padLeftExtra(int $length, string $padding = " "): VoString
+    public function padLeftExtra(int $length, ?VoString $padding = null): VoString
     {
         return VoString::create(
-            parent::doPadLeftExtra($length, $padding)
+            parent::doPadLeftExtra($length, ((string) $padding ?: " "))
         );
     }
 
@@ -264,17 +268,17 @@ class VoString extends AbstractBaseString
      * If the optional argument $padding is not supplied, the input is padded with spaces, otherwise
      * it is padded with characters from $padding up to the limit.
      *
-     * @param  int    $length  - Length of the padded value.
-     * @param  string $padding - The pad_string may be truncated if the required number of padding characters
+     * @param  int  $length  - Length of the padded value.
+     * @param  VoString|null $padding - The pad_string may be truncated if the required number of padding characters
      *                           can't be evenly divided by the $padding's length.
      *
      * @throws \InvalidArgumentException - If any of the parameters is invalid.
      * @return VoString
      */
-    public function padRight(int $length, string $padding = " "): VoString
+    public function padRight(int $length, ?VoString $padding = null): VoString
     {
         return VoString::create(
-            parent::doPadRight($length, $padding)
+            parent::doPadRight($length, ((string) $padding ?: " "))
         );
     }
 
@@ -284,17 +288,17 @@ class VoString extends AbstractBaseString
      * If the optional argument $padding is not supplied, the input is padded with spaces, otherwise
      * it is padded with characters from $padding up to the limit.
      *
-     * @param  int    $length  - Length of the padded value.
-     * @param  string $padding - The pad_string may be truncated if the required number of padding characters
+     * @param  int  $length  - Length of the padded value.
+     * @param  VoString|null $padding - The pad_string may be truncated if the required number of padding characters
      *                           can't be evenly divided by the $padding's length.
      *
      * @throws \InvalidArgumentException - If any of the parameters is invalid.
      * @return VoString
      */
-    public function padRightExtra(int $length, string $padding = " "): VoString
+    public function padRightExtra(int $length, ?VoString $padding = null): VoString
     {
         return VoString::create(
-            parent::doPadRightExtra($length, $padding)
+            parent::doPadRightExtra($length, ((string) $padding ?: " "))
         );
     }
 
