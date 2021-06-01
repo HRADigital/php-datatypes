@@ -14,17 +14,17 @@ namespace Hradigital\Datatypes\Scalar;
  * @copyright Hradigital\Datatypes
  * @license   MIT
  */
-class IString extends AbstractBaseString
+class VoString extends AbstractBaseString
 {
     /**
-     * Creates a new instance of IString based on a string value.
+     * Creates a new instance of VoString based on a string value.
      *
      * @param  string $value - Instance's initial value.
-     * @return IString
+     * @return VoString
      */
-    public static function create(string $value): IString
+    public static function create(string $value): VoString
     {
-        return new IString($value);
+        return new VoString($value);
     }
 
     /**
@@ -32,10 +32,10 @@ class IString extends AbstractBaseString
      *
      * Returns TRUE if the 2 instance's values match. FALSE otherwise.
      *
-     * @param  IString $string - Another IString instance to compare to.
+     * @param  VoString $string - Another VoString instance to compare to.
      * @return bool
      */
-    public function equals(IString $string): bool
+    public function equals(VoString $string): bool
     {
         return parent::doEquals((string) $string);
     }
@@ -45,12 +45,12 @@ class IString extends AbstractBaseString
      *
      * Returns TRUE if found. FALSE otherwise.
      *
-     * @param  IString $search - Non empty string to search for in the instance.
+     * @param  VoString $search - Non empty string to search for in the instance.
      *
      * @throws \InvalidArgumentException - If supplied $search is empty.
      * @return bool
      */
-    public function contains(IString $search): bool
+    public function contains(VoString $search): bool
     {
         return parent::doEquals((string) $search);
     }
@@ -64,14 +64,14 @@ class IString extends AbstractBaseString
      *
      * If the $search is not found inthe instance's value, NULL is returned.
      *
-     * @param  IString $search - String to search for in the instance.
+     * @param  VoString $search - String to search for in the instance.
      * @param  int     $start  - Search offset start. Defaults to ZERO.
      *
      * @throws \InvalidArgumentException - If $search value is an empty string.
      * @throws \OutOfRangeException      - If the $start is either too small, or too long.
      * @return int|NULL
      */
-    public function indexOf(IString $search, int $start = 0): ?int
+    public function indexOf(VoString $search, int $start = 0): ?int
     {
         return parent::doIndexOf((string) $search, $start);
     }
@@ -79,12 +79,12 @@ class IString extends AbstractBaseString
     /**
      * Checks if the instance's value starts with the supplied string.
      *
-     * @param  IString $search - Non empty string to search for in the instance.
+     * @param  VoString $search - Non empty string to search for in the instance.
      *
      * @throws \InvalidArgumentException - If supplied $search is empty.
      * @return bool
      */
-    public function startsWith(IString $search): bool
+    public function startsWith(VoString $search): bool
     {
         return parent::doStartsWith((string) $search);
     }
@@ -92,12 +92,12 @@ class IString extends AbstractBaseString
     /**
      * Checks if the instance's value ends with the supplied string.
      *
-     * @param  IString $search - Non empty string to search for in the instance.
+     * @param  VoString $search - Non empty string to search for in the instance.
      *
      * @throws \InvalidArgumentException - If supplied $search is empty.
      * @return bool
      */
-    public function endsWith(IString $search): bool
+    public function endsWith(VoString $search): bool
     {
         return parent::doEndsWith((string) $search);
     }
@@ -105,7 +105,7 @@ class IString extends AbstractBaseString
     /**
      * Counts the number of substring occurrences in the instance's value.
      *
-     * @param  IString  $search - Non empty string to search for in the instance.
+     * @param  VoString  $search - Non empty string to search for in the instance.
      * @param  int      $start  - The sub-string's offset/start.
      * @param  int|NULL $length - Length value. Can be NULL, in which case, it won't be validated.
      *
@@ -113,14 +113,14 @@ class IString extends AbstractBaseString
      * @throws \OutOfRangeException      - If the $start and/or $length is either too small, or too long.
      * @return int
      */
-    public function count(IString $search, int $start = 0, ?int $length = null): int
+    public function count(VoString $search, int $start = 0, ?int $length = null): int
     {
         return parent::doCount((string) $search, $start, $length);
     }
 
-    public function trim(): IString
+    public function trim(): VoString
     {
-        return IString::create(
+        return VoString::create(
             parent::doTrim()
         );
     }
@@ -128,11 +128,11 @@ class IString extends AbstractBaseString
     /**
      * Left trims instance's value, and returns a new instance of the object.
      *
-     * @return IString
+     * @return VoString
      */
-    public function trimLeft(): IString
+    public function trimLeft(): VoString
     {
-        return IString::create(
+        return VoString::create(
             parent::doTrimLeft()
         );
     }
@@ -140,11 +140,11 @@ class IString extends AbstractBaseString
     /**
      * Right trims instance's value, and returns a new instance of the object.
      *
-     * @return IString
+     * @return VoString
      */
-    public function trimRight(): IString
+    public function trimRight(): VoString
     {
-        return IString::create(
+        return VoString::create(
             parent::doTrimRight()
         );
     }
@@ -152,11 +152,11 @@ class IString extends AbstractBaseString
     /**
      * Converts the instance's value to Upper Case, and returns a new instance of the object.
      *
-     * @return IString
+     * @return VoString
      */
-    public function toUpper(): IString
+    public function toUpper(): VoString
     {
-        return IString::create(
+        return VoString::create(
             parent::doToUpper()
         );
     }
@@ -165,11 +165,11 @@ class IString extends AbstractBaseString
      * Converts the instance's value first character to Upper Case, and returns a new instance
      * of the object.
      *
-     * @return IString
+     * @return VoString
      */
-    public function toUpperFirst(): IString
+    public function toUpperFirst(): VoString
     {
-        return IString::create(
+        return VoString::create(
             parent::doToUpperFirst()
         );
     }
@@ -180,11 +180,11 @@ class IString extends AbstractBaseString
      *
      * @param  string $delimiters - The optional delimiters contains the word separator characters.
      *
-     * @return IString
+     * @return VoString
      */
-    public function toUpperWords(string $delimiters = " \t\r\n\f\v"): IString
+    public function toUpperWords(string $delimiters = " \t\r\n\f\v"): VoString
     {
-        return IString::create(
+        return VoString::create(
             parent::doToUpperWords($delimiters)
         );
     }
@@ -192,11 +192,11 @@ class IString extends AbstractBaseString
     /**
      * Converts the instance's value to Lower Case, and returns a new instance of the object.
      *
-     * @return IString
+     * @return VoString
      */
-    public function toLower(): IString
+    public function toLower(): VoString
     {
-        return IString::create(
+        return VoString::create(
             parent::doToLower()
         );
     }
@@ -205,11 +205,11 @@ class IString extends AbstractBaseString
      * Converts the instance's value first character to Lower Case, and returns a new instance
      * of the object
      *
-     * @return IString
+     * @return VoString
      */
-    public function toLowerFirst(): IString
+    public function toLowerFirst(): VoString
     {
-        return IString::create(
+        return VoString::create(
             parent::doToLowerFirst()
         );
     }
@@ -225,11 +225,11 @@ class IString extends AbstractBaseString
      * it is padded with characters from $padding up to the limit.
      *
      * @throws \InvalidArgumentException - If any of the parameters is invalid.
-     * @return IString
+     * @return VoString
      */
-    public function padLeft(int $length, string $padding = " "): IString
+    public function padLeft(int $length, string $padding = " "): VoString
     {
-        return IString::create(
+        return VoString::create(
             parent::doPadLeft($length, $padding)
         );
     }
@@ -245,11 +245,11 @@ class IString extends AbstractBaseString
      *                           can't be evenly divided by the $padding's length.
      *
      * @throws \InvalidArgumentException - If any of the parameters is invalid.
-     * @return IString
+     * @return VoString
      */
-    public function padLeftExtra(int $length, string $padding = " "): IString
+    public function padLeftExtra(int $length, string $padding = " "): VoString
     {
-        return IString::create(
+        return VoString::create(
             parent::doPadLeftExtra($length, $padding)
         );
     }
@@ -269,11 +269,11 @@ class IString extends AbstractBaseString
      *                           can't be evenly divided by the $padding's length.
      *
      * @throws \InvalidArgumentException - If any of the parameters is invalid.
-     * @return IString
+     * @return VoString
      */
-    public function padRight(int $length, string $padding = " "): IString
+    public function padRight(int $length, string $padding = " "): VoString
     {
-        return IString::create(
+        return VoString::create(
             parent::doPadRight($length, $padding)
         );
     }
@@ -289,11 +289,11 @@ class IString extends AbstractBaseString
      *                           can't be evenly divided by the $padding's length.
      *
      * @throws \InvalidArgumentException - If any of the parameters is invalid.
-     * @return IString
+     * @return VoString
      */
-    public function padRightExtra(int $length, string $padding = " "): IString
+    public function padRightExtra(int $length, string $padding = " "): VoString
     {
-        return IString::create(
+        return VoString::create(
             parent::doPadRightExtra($length, $padding)
         );
     }
@@ -324,11 +324,11 @@ class IString extends AbstractBaseString
      * @param  int $length - Length of the sub-string. Can be negative.
      *
      * @throws \OutOfRangeException - If the $start and/or $length is either too small, or too long.
-     * @return IString
+     * @return VoString
      */
-    public function subString(int $start, int $length = null): IString
+    public function subString(int $start, int $length = null): VoString
     {
-        return IString::create(
+        return VoString::create(
             parent::doSubString($start, $length)
         );
     }
@@ -340,11 +340,11 @@ class IString extends AbstractBaseString
      * @param  int $length - Length of the sub-string. Must be positive.
      *
      * @throws \InvalidArgumentException - If supplied Length is not a positive integer.
-     * @return IString
+     * @return VoString
      */
-    public function subLeft(int $length): IString
+    public function subLeft(int $length): VoString
     {
-        return IString::create(
+        return VoString::create(
             parent::doSubLeft($length)
         );
     }
@@ -356,11 +356,11 @@ class IString extends AbstractBaseString
      * @param  int $length - Length of the sub-string. Must be positive.
      *
      * @throws \InvalidArgumentException - If supplied Length is not a positive integer.
-     * @return IString
+     * @return VoString
      */
-    public function subRight(int $length): IString
+    public function subRight(int $length): VoString
     {
-        return IString::create(
+        return VoString::create(
             parent::doSubRight($length)
         );
     }
@@ -368,11 +368,11 @@ class IString extends AbstractBaseString
     /**
      * This method returns the reversed value of the instance.
      *
-     * @return IString
+     * @return VoString
      */
-    public function reverse(): IString
+    public function reverse(): VoString
     {
-        return IString::create(
+        return VoString::create(
             parent::doReverse()
         );
     }
@@ -380,15 +380,15 @@ class IString extends AbstractBaseString
     /**
      * This method replaces a string's occurance by another, and returns a new instance with the new value.
      *
-     * @param  IString $search  - The string to search for.
-     * @param  IString $replace - The search's replacement.
+     * @param  VoString $search  - The string to search for.
+     * @param  VoString $replace - The search's replacement.
      *
      * @throws \InvalidArgumentException - If $search is empty, or count is a not a positive integer.
-     * @return IString
+     * @return VoString
      */
-    public function replace(IString $search, IString $replace): IString
+    public function replace(VoString $search, VoString $replace): VoString
     {
-        return IString::create(
+        return VoString::create(
             parent::doReplace((string) $search, (string) $replace)
         );
     }
