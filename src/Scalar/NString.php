@@ -403,11 +403,11 @@ class NString extends AbstractBaseString
      * @param  string  $replace - The search's replacement.
      *
      * @throws \InvalidArgumentException - If $search is empty, or count is a not a positive integer.
-     * @return VoString
+     * @return NString
      */
-    public function replace(string $search, string $replace): VoString
+    public function replace(string $search, string $replace): NString
     {
-        return VoString::create(
+        return NString::create(
             parent::doReplace($search, $replace)
         );
     }
