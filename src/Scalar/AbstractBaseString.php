@@ -221,7 +221,7 @@ abstract class AbstractBaseString
     }
 
     /**
-     * Trims instance's value
+     * Trims instance's value on both ends.
      *
      * @return string
      */
@@ -231,7 +231,7 @@ abstract class AbstractBaseString
     }
 
     /**
-     * Left trims instance's value.
+     * Trims instance's value only on the left.
      *
      * @return string
      */
@@ -241,7 +241,7 @@ abstract class AbstractBaseString
     }
 
     /**
-     * Right trims instance's value.
+     * Trims instance's value only on the right.
      *
      * @return string
      */

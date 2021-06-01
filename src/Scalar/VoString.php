@@ -69,7 +69,7 @@ class VoString extends AbstractBaseString
      *
      * @throws \InvalidArgumentException - If $search value is an empty string.
      * @throws \OutOfRangeException      - If the $start is either too small, or too long.
-     * @return int|NULL
+     * @return int|null
      */
     public function indexOf(VoString $search, int $start = 0): ?int
     {
@@ -107,7 +107,7 @@ class VoString extends AbstractBaseString
      *
      * @param  VoString  $search - Non empty string to search for in the instance.
      * @param  int      $start  - The sub-string's offset/start.
-     * @param  int|NULL $length - Length value. Can be NULL, in which case, it won't be validated.
+     * @param  int|null $length - Length value. Can be NULL, in which case, it won't be validated.
      *
      * @throws \InvalidArgumentException - If supplied $search is empty.
      * @throws \OutOfRangeException      - If the $start and/or $length is either too small, or too long.
@@ -118,6 +118,11 @@ class VoString extends AbstractBaseString
         return parent::doCount((string) $search, $start, $length);
     }
 
+    /**
+     * Trims instance's value on both ends.
+     *
+     * @return VoString
+     */
     public function trim(): VoString
     {
         return VoString::create(
@@ -126,7 +131,7 @@ class VoString extends AbstractBaseString
     }
 
     /**
-     * Left trims instance's value, and returns a new instance of the object.
+     * Trims instance's value only on the left.
      *
      * @return VoString
      */
@@ -138,7 +143,7 @@ class VoString extends AbstractBaseString
     }
 
     /**
-     * Right trims instance's value, and returns a new instance of the object.
+     * Trims instance's value only on the right.
      *
      * @return VoString
      */
@@ -150,7 +155,7 @@ class VoString extends AbstractBaseString
     }
 
     /**
-     * Converts the instance's value to Upper Case, and returns a new instance of the object.
+     * Converts the instance's value to Uppercase, and returns a new instance of the object.
      *
      * @return VoString
      */
@@ -162,7 +167,7 @@ class VoString extends AbstractBaseString
     }
 
     /**
-     * Converts the instance's value first character to Upper Case, and returns a new instance
+     * Converts the instance's value first character to Uppercase, and returns a new instance
      * of the object.
      *
      * @return VoString
@@ -190,7 +195,7 @@ class VoString extends AbstractBaseString
     }
 
     /**
-     * Converts the instance's value to Lower Case, and returns a new instance of the object.
+     * Converts the instance's value to Lowercase, and returns a new instance of the object.
      *
      * @return VoString
      */
@@ -202,7 +207,7 @@ class VoString extends AbstractBaseString
     }
 
     /**
-     * Converts the instance's value first character to Lower Case, and returns a new instance
+     * Converts the instance's value first character to Lowercase, and returns a new instance
      * of the object
      *
      * @return VoString
