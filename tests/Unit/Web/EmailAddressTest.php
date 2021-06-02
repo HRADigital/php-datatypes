@@ -2,6 +2,8 @@
 
 namespace Hradigital\Tests\Datatypes\Unit\Web;
 
+use Hradigital\Datatypes\Exceptions\Datatypes\InvalidEmailException;
+use Hradigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
 use Hradigital\Datatypes\Web\EmailAddress;
 use Hradigital\Tests\Datatypes\AbstractBaseTestCase;
 
@@ -32,27 +34,27 @@ class EmailAddressTest extends AbstractBaseTestCase
         );
         $this->assertEquals(
             $emailString,
-            $email->__toString(),
+            (string) $email,
             'Loaded state does not match inital value.'
         );
         $this->assertEquals(
             $emailString,
-            $email->address(),
+            (string) $email->address(),
             'Addresses do not match.'
         );
         $this->assertEquals(
             'user',
-            $email->username(),
+            (string) $email->username(),
             'Usernames do not match.'
         );
         $this->assertEquals(
             'domain',
-            $email->domain(),
+            (string) $email->domain(),
             'Domains do not match.'
         );
         $this->assertEquals(
             'tld',
-            $email->tld(),
+            (string) $email->tld(),
             'TLDs do not match.'
         );
     }
@@ -71,7 +73,7 @@ class EmailAddressTest extends AbstractBaseTestCase
         // Performs assertions.
         $this->assertEquals(
             \strtolower(\trim($emailString)),
-            $email->__toString(),
+            (string) $email,
             'Trimmed and lower cased strings do not match.'
         );
     }
@@ -84,7 +86,7 @@ class EmailAddressTest extends AbstractBaseTestCase
     public function testBreaksIfEmptyAddressSupplied(): void
     {
         // Creates expectation.
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(NonEmptyStringException::class);
 
         // Performs test.
         EmailAddress::create('');
@@ -98,7 +100,7 @@ class EmailAddressTest extends AbstractBaseTestCase
     public function testBreaksIfInvalidAddressSupplied(): void
     {
         // Creates expectation.
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidEmailException::class);
 
         // Performs test.
         EmailAddress::create('This is not an email address');
@@ -130,13 +132,13 @@ class EmailAddressTest extends AbstractBaseTestCase
             'Returned instance is not of type EmailAddress.'
         );
         $this->assertEquals(
-            $email1->__toString(),
-            $email2->__toString(),
+            (string) $email1,
+            (string) $email2,
             'Addresses do not match.'
         );
         $this->assertNotEquals(
             $serialized,
-            $email2->__toString(),
+            (string) $email2,
             'Addresses do not match.'
         );
     }
