@@ -22,7 +22,7 @@ class EmailAddressTest extends AbstractBaseTestCase
     {
         // Performs test.
         $emailString = 'user@domain.tld';
-        $email = EmailAddress::fromString($emailString);
+        $email = EmailAddress::create($emailString);
 
         // Performs assertions.
         $this->assertInstanceOf(
@@ -66,7 +66,7 @@ class EmailAddressTest extends AbstractBaseTestCase
     {
         // Performs test.
         $emailString = 'User@DoMaiN.Tld';
-        $email = EmailAddress::fromString($emailString);
+        $email = EmailAddress::create($emailString);
 
         // Performs assertions.
         $this->assertEquals(
@@ -87,7 +87,7 @@ class EmailAddressTest extends AbstractBaseTestCase
         $this->expectException(\InvalidArgumentException::class);
 
         // Performs test.
-        EmailAddress::fromString('');
+        EmailAddress::create('');
     }
 
     /**
@@ -101,7 +101,7 @@ class EmailAddressTest extends AbstractBaseTestCase
         $this->expectException(\InvalidArgumentException::class);
 
         // Performs test.
-        EmailAddress::fromString('This is not an email address');
+        EmailAddress::create('This is not an email address');
     }
 
     /**
@@ -113,7 +113,7 @@ class EmailAddressTest extends AbstractBaseTestCase
     {
         // Performs test.
         $emailString = 'user@domain.tld';
-        $email1 = EmailAddress::fromString($emailString);
+        $email1 = EmailAddress::create($emailString);
 
         $serialized = \serialize($email1);
         $email2 = \unserialize($serialized);
