@@ -86,6 +86,25 @@ abstract class AbstractBaseStringTestBase extends AbstractBaseTestCase
     }
 
     /**
+     * Checks that String's word count retrieval works.
+     *
+     * @return void
+     */
+    public function testCanRetrieveWordCountCorrectly(): void
+    {
+        // Performs test.
+        $string = "This is my immutable string.";
+        $instance = $this->getInstance($string);
+
+        // Performs assertions.
+        $this->assertEquals(
+            5,
+            $instance->wordCount(),
+            'Instance word  count does not seam to match.'
+        );
+    }
+
+    /**
      * Tests that a string can be trimmed.
      *
      * @return void
