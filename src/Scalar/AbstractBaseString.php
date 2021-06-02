@@ -2,6 +2,9 @@
 
 namespace Hradigital\Datatypes\Scalar;
 
+use Hradigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
+use Hradigital\Datatypes\Exceptions\Datatypes\ParameterOutOfRangeException;
+
 /**
  * Abstract Base String's Scalar Object class.
  *
@@ -73,14 +76,14 @@ abstract class AbstractBaseString
      *
      * @param  string $search - Non empty string to search for in the instance.
      *
-     * @throws \InvalidArgumentException - If supplied $search is empty.
+     * @throws NonEmptyStringException - If supplied $search is empty.
      * @return bool
      */
     protected function doContains(string $search): bool
     {
         // Validates supplied parameter.
         if (\strlen($search) === 0) {
-            throw new \InvalidArgumentException("Supplied search must be a non empty string.");
+            throw new NonEmptyStringException('$search');
         }
 
         return ($this->doIndexOf($search) !== null);
@@ -98,15 +101,15 @@ abstract class AbstractBaseString
      * @param  string $search - String to search for in the instance.
      * @param  int    $start  - Search offset start. Defaults to ZERO.
      *
-     * @throws \InvalidArgumentException - If $search value is an empty string.
-     * @throws \OutOfRangeException      - If the $start is either too small, or too long.
+     * @throws NonEmptyStringException      - If $search value is an empty string.
+     * @throws ParameterOutOfRangeException - If the $start is either too small, or too long.
      * @return int|null
      */
     protected function doIndexOf(string $search, int $start = 0): ?int
     {
         // Validates supplied parameters.
         if (\strlen($search) === 0) {
-            throw new \InvalidArgumentException("Supplied search must be a non empty string.");
+            throw new NonEmptyStringException('$search');
         }
         if ($start) {
             $this->validateStartAndLength($start, null);
@@ -128,14 +131,14 @@ abstract class AbstractBaseString
      *
      * @param  string $search - Non empty string to search for in the instance.
      *
-     * @throws \InvalidArgumentException - If supplied $search is empty.
+     * @throws NonEmptyStringException - If supplied $search is empty.
      * @return bool
      */
     protected function doStartsWith(string $search): bool
     {
         // Validates supplied parameter.
         if (\strlen($search) === 0) {
-            throw new \InvalidArgumentException("Supplied search must be a non empty string.");
+            throw new NonEmptyStringException('$search');
         }
 
         return ($this->doIndexOf($search) === 0);
@@ -146,14 +149,14 @@ abstract class AbstractBaseString
      *
      * @param  string $search - Non empty string to search for in the instance.
      *
-     * @throws \InvalidArgumentException - If supplied $search is empty.
+     * @throws NonEmptyStringException - If supplied $search is empty.
      * @return bool
      */
     protected function doEndsWith(string $search): bool
     {
         // Validates supplied parameter.
         if (\strlen($search) === 0) {
-            throw new \InvalidArgumentException("Supplied search must be a non empty string.");
+            throw new NonEmptyStringException('$search');
         }
 
         return ($this->doSubString((0 - \strlen($search))) === $search);
@@ -166,15 +169,15 @@ abstract class AbstractBaseString
      * @param  int      $start  - The sub-string's offset/start.
      * @param  int|NULL $length - Length value. Can be NULL, in which case, it won't be validated.
      *
-     * @throws \InvalidArgumentException - If supplied $search is empty.
-     * @throws \OutOfRangeException      - If the $start and/or $length is either too small, or too long.
+     * @throws NonEmptyStringException      - If supplied $search is empty.
+     * @throws ParameterOutOfRangeException - If the $start and/or $length is either too small, or too long.
      * @return int
      */
     protected function doCount(string $search, int $start = 0, ?int $length = null): int
     {
         // Validates supplied $search parameter.
         if (\strlen($search) === 0) {
-            throw new \InvalidArgumentException("Supplied search must be a non empty string.");
+            throw new NonEmptyStringException('$search');
         }
 
         // Validates supplied $start and $length.
@@ -194,7 +197,7 @@ abstract class AbstractBaseString
      * @param  int       $start  - The sub-string's offset/start.
      * @param  int|null  $length - Length value. Can be NULL, in which case, it won't be validated.
      *
-     * @throws \OutOfRangeException - If the $start and/or $length is either too small, or too long.
+     * @throws ParameterOutOfRangeException - If the $start and/or $length is either too small, or too long.
      * @return void
      */
     private function validateStartAndLength(int $start, ?int $length): void
@@ -205,9 +208,7 @@ abstract class AbstractBaseString
 
         // Validates the starting value.
         if ($absStart > $this->length()) {
-            throw new \OutOfRangeException(
-                "The Start's absolute value must be less than the total number of characters in the string."
-            );
+            throw new ParameterOutOfRangeException('$start');
         }
 
         // If supplied $length is NULL, no further validations are required.
@@ -219,9 +220,7 @@ abstract class AbstractBaseString
         if (($start >= 0 && ($this->length() - $start < $absLength)) ||
             ($start < 0 && $absLength > $absStart)) {
 
-            throw new \OutOfRangeException(
-                "The Length's absolute value cannot be higher than the number of available characters."
-            );
+            throw new ParameterOutOfRangeException('$length');
         }
     }
 
@@ -320,17 +319,18 @@ abstract class AbstractBaseString
      * @param  string  $padding - The pad_string may be truncated if the required number of padding characters
      *                            can't be evenly divided by the $padString's length.
      *
-     * @throws \InvalidArgumentException - If any of the parameters is invalid.
+     * @throws NonEmptyStringException      - If supplied $padding is empty.
+     * @throws ParameterOutOfRangeException - If the $length is either too small, or too long.
      * @return string
      */
     protected function doPadLeft(int $length, string $padding = " "): string
     {
         // Validates supplied parameters.
         if ($length < 1) {
-            throw new \InvalidArgumentException("Supplied Length must be a positive integer.");
+            throw new ParameterOutOfRangeException('$length');
         }
         if (\strlen($padding) === 0) {
-            throw new \InvalidArgumentException("Supplied padding must be a non empty string.");
+            throw new NonEmptyStringException('$padding');
         }
 
         return \str_pad($this->value, $length, $padding, STR_PAD_LEFT);
@@ -346,7 +346,8 @@ abstract class AbstractBaseString
      * @param  string  $padding - The pad_string may be truncated if the required number of padding characters
      *                            can't be evenly divided by the $padding's length.
      *
-     * @throws \InvalidArgumentException - If any of the parameters is invalid.
+     * @throws NonEmptyStringException      - If supplied $padding is empty.
+     * @throws ParameterOutOfRangeException - If the $length is either too small, or too long.
      * @return string
      */
     protected function doPadLeftExtra(int $length, string $padding = " "): string
@@ -368,17 +369,18 @@ abstract class AbstractBaseString
      * @param  string  $padding - The pad_string may be truncated if the required number of padding characters
      *                            can't be evenly divided by the $padding's length.
      *
-     * @throws \InvalidArgumentException - If any of the parameters is invalid.
+     * @throws NonEmptyStringException      - If supplied $padding is empty.
+     * @throws ParameterOutOfRangeException - If the $length is either too small, or too long.
      * @return string
      */
     protected function doPadRight(int $length, string $padding = " "): string
     {
         // Validates supplied parameters.
         if ($length < 1) {
-            throw new \InvalidArgumentException("Supplied Length must be a positive integer.");
+            throw new ParameterOutOfRangeException('$length');
         }
         if (\strlen($padding) === 0) {
-            throw new \InvalidArgumentException("Supplied padding must be a non empty string.");
+            throw new NonEmptyStringException('$padding');
         }
 
         return \str_pad($this->value, $length, $padding, STR_PAD_RIGHT);
@@ -394,7 +396,8 @@ abstract class AbstractBaseString
      * @param  string  $padding - The pad_string may be truncated if the required number of padding characters
      *                            can't be evenly divided by the $padding's length.
      *
-     * @throws \InvalidArgumentException - If any of the parameters is invalid.
+     * @throws NonEmptyStringException      - If supplied $padding is empty.
+     * @throws ParameterOutOfRangeException - If the $length is either too small, or too long.
      * @return string
      */
     protected function doPadRightExtra(int $length, string $padding = " "): string
@@ -427,7 +430,7 @@ abstract class AbstractBaseString
      * @param  int     $start  - Start of the sub-string. Can be negative.
      * @param  int     $length - Length of the sub-string. Can be negative.
      *
-     * @throws \OutOfRangeException - If the $start and/or $length is either too small, or too long.
+     * @throws ParameterOutOfRangeException - If the $start and/or $length is either too small, or too long.
      * @return string
      */
     protected function doSubString(int $start, int $length = null): string
@@ -451,14 +454,14 @@ abstract class AbstractBaseString
      *
      * @param  int     $length - Length of the sub-string. Must be positive.
      *
-     * @throws \InvalidArgumentException - If supplied Length is not a positive integer.
+     * @throws ParameterOutOfRangeException - If supplied Length is not a positive integer.
      * @return string
      */
     protected function doSubLeft(int $length): string
     {
         // Validates parameter.
         if ($length < 1) {
-            throw new \InvalidArgumentException("Supplied length must be a positive integer.");
+            throw new ParameterOutOfRangeException('$length');
         }
 
         return $this->doSubString(0, $length);
@@ -470,14 +473,14 @@ abstract class AbstractBaseString
      *
      * @param  int     $length - Length of the sub-string. Must be positive.
      *
-     * @throws \InvalidArgumentException - If supplied Length is not a positive integer.
+     * @throws ParameterOutOfRangeException - If supplied Length is not a positive integer.
      * @return string
      */
     protected function doSubRight(int $length): string
     {
         // Validates parameter.
         if ($length < 1) {
-            throw new \InvalidArgumentException("Supplied length must be a positive integer.");
+            throw new ParameterOutOfRangeException('$length');
         }
 
         return $this->doSubString(0 - $length);
@@ -499,17 +502,17 @@ abstract class AbstractBaseString
      * @param  string  $search  - The string to search for.
      * @param  string  $replace - The search's replacement.
      *
-     * @throws \InvalidArgumentException - If $search is empty, or count is a not a positive integer.
+     * @throws NonEmptyStringException - If either $search or $replace are empty.
      * @return string
      */
     protected function doReplace(string $search, string $replace): string
     {
         // Validates supplied parameters.
         if (\strlen($search) === 0) {
-            throw new \InvalidArgumentException("Supplied search must be a non empty string.");
+            throw new NonEmptyStringException('$search');
         }
         if (\strlen($replace) === 0) {
-            throw new \InvalidArgumentException("Supplied replace must be a non empty string.");
+            throw new NonEmptyStringException('$replace');
         }
 
         return \str_replace($search, $replace, $this->value);
