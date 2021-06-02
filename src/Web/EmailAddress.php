@@ -2,6 +2,10 @@
 
 namespace Hradigital\Datatypes\Web;
 
+use Hradigital\Datatypes\Exceptions\Datatypes\InvalidEmailException;
+use Hradigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
+use Hradigital\Datatypes\Scalar\VoString;
+
 /**
  * E-mail address datatype.
  *
@@ -13,14 +17,14 @@ namespace Hradigital\Datatypes\Web;
  */
 class EmailAddress implements \Serializable
 {
-    /** @var string $username - Holds the Username's part of the E-mail address. */
-    protected string $username;
+    /** @var VoString $username - Holds the Username's part of the E-mail address. */
+    protected VoString $username;
 
-    /** @var string $domain - Holds the Domain part of the E-mail address. */
-    protected string $domain;
+    /** @var VoString $domain - Holds the Domain part of the E-mail address. */
+    protected VoString $domain;
 
-    /** @var string $tld - Holds the Top Level Domain part of the E-mail address. */
-    protected string $tld;
+    /** @var VoString $tld - Holds the Top Level Domain part of the E-mail address. */
+    protected VoString $tld;
 
     /**
      * Loads a new EmailAddress instance from a native string.
@@ -56,23 +60,25 @@ class EmailAddress implements \Serializable
      */
     protected function loadFromPrimitive(string $email): void
     {
+        // Converts supplied primitive to VoString.
+        $voEmail = VoString::create($email)->trim()->toLower();
+
         // Validate supplied parameter.
-        if (\strlen(\trim($email)) === 0) {
-            throw new \InvalidArgumentException("Supplied e-mail address must be a non empty string.");
+        if ($voEmail->length() === 0) {
+            throw new NonEmptyStringException('$email');
         }
-        if (!\filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            throw new \InvalidArgumentException("Provided e-mail field does not seam to be a valid e-mail address.");
+        if (!\filter_var((string) $email, FILTER_VALIDATE_EMAIL)) {
+            throw new InvalidEmailException($email);
         }
 
         // Sanitizes and processes supplied e-mail address.
-        $email = \strtolower(\trim($email));
-        $parts = \explode('@', $email);
-        $this->username = $parts[0];
+        $parts = \explode('@', (string) $voEmail);
+        $this->username = VoString::create($parts[0]);
 
         // Processes the right side of the e-mail address.
         $domain = \explode('.', $parts[1]);
-        $this->tld    = \array_pop($domain);
-        $this->domain = \implode('.', $domain);
+        $this->tld    = VoString::create(\array_pop($domain));
+        $this->domain = VoString::create(\implode('.', $domain));
     }
 
     /**
@@ -81,7 +87,9 @@ class EmailAddress implements \Serializable
      */
     public function serialize()
     {
-        return \serialize($this->address());
+        return \serialize(
+            (string) $this->address()
+        );
     }
 
     /**
@@ -102,7 +110,7 @@ class EmailAddress implements \Serializable
      */
     public function __toString(): string
     {
-        return $this->address();
+        return (string) $this->address();
     }
 
     /**
@@ -110,9 +118,16 @@ class EmailAddress implements \Serializable
      *
      * @return string
      */
-    public function address(): string
+    public function address(): VoString
     {
-        return ($this->username . '@' . $this->domain . '.' . $this->tld);
+        return VoString::create(
+            \sprintf(
+                "%s@%s.%s",
+                (string) $this->username,
+                (string) $this->domain,
+                (string) $this->tld
+            )
+        );
     }
 
     /**
@@ -120,7 +135,7 @@ class EmailAddress implements \Serializable
      *
      * @return string
      */
-    public function username(): string
+    public function username(): VoString
     {
         return $this->username;
     }
@@ -130,7 +145,7 @@ class EmailAddress implements \Serializable
      *
      * @return string
      */
-    public function domain(): string
+    public function domain(): VoString
     {
         return $this->domain;
     }
@@ -140,7 +155,7 @@ class EmailAddress implements \Serializable
      *
      * @return string
      */
-    public function tld(): string
+    public function tld(): VoString
     {
         return $this->tld;
     }
