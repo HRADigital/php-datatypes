@@ -5,8 +5,11 @@ namespace Hradigital\Datatypes\Scalar;
 /**
  * Abstract Base String's Scalar Object class.
  *
- * In this package, this class is used as a base, for both VoString Value Object datatype
- * as well as for NatString native datatype.
+ * In this package, this class is used as a base, for all Value Object and/or Primitive based
+ * child classes.
+ *
+ * All native processing should be done/wrapped in this class, but the state should never
+ * change directly.
  *
  * @package   Hradigital\Datatypes
  * @copyright Hradigital\Datatypes
@@ -20,7 +23,9 @@ abstract class AbstractBaseString
     /**
      * Instantiates an AbstractBaseString child class.
      *
-     * @param  string $value - Initial instance's value.
+     * Constructor should be kept protected, to allow child class manipulation, if required.
+     *
+     * @param  string $value - Instance's initial state value.
      * @return void
      */
     protected function __construct(string $value)
@@ -39,7 +44,7 @@ abstract class AbstractBaseString
     }
 
     /**
-     * Returns the Instance's value character length.
+     * Returns the Instance's character length.
      *
      * @return int
      */
