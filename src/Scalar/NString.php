@@ -66,7 +66,7 @@ class NString extends AbstractBaseString
      */
     public function contains(string $search): bool
     {
-        return parent::doEquals($search);
+        return parent::doContains($search);
     }
 
     /**
