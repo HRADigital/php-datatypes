@@ -253,12 +253,12 @@ class VoString extends AbstractBaseString
      */
     public function padLeft(int $length, ?VoString $padding = null): VoString
     {
-        if ($padding !== null && $padding->length() === 0) {
-            $padding = null;
+        if ($padding === null) {
+            $padding = VoString::create(" ");
         }
 
         return VoString::create(
-            parent::doPadLeft($length, ((string) $padding ?: " "))
+            parent::doPadLeft($length, ((string) $padding ?? " "))
         );
     }
 
@@ -278,12 +278,12 @@ class VoString extends AbstractBaseString
      */
     public function padLeftExtra(int $length, ?VoString $padding = null): VoString
     {
-        if ($padding !== null && $padding->length() === 0) {
-            $padding = null;
+        if ($padding === null) {
+            $padding = VoString::create(" ");
         }
 
         return VoString::create(
-            parent::doPadLeftExtra($length, ((string) $padding ?: " "))
+            parent::doPadLeftExtra($length, ((string) $padding ?? " "))
         );
     }
 
@@ -307,12 +307,12 @@ class VoString extends AbstractBaseString
      */
     public function padRight(int $length, ?VoString $padding = null): VoString
     {
-        if ($padding !== null && $padding->length() === 0) {
-            $padding = null;
+        if ($padding === null) {
+            $padding = VoString::create(" ");
         }
 
         return VoString::create(
-            parent::doPadRight($length, ((string) $padding ?: " "))
+            parent::doPadRight($length, ((string) $padding ?? " "))
         );
     }
 
@@ -332,12 +332,12 @@ class VoString extends AbstractBaseString
      */
     public function padRightExtra(int $length, ?VoString $padding = null): VoString
     {
-        if ($padding !== null && $padding->length() === 0) {
-            $padding = null;
+        if ($padding === null) {
+            $padding = VoString::create(" ");
         }
 
         return VoString::create(
-            parent::doPadRightExtra($length, ((string) $padding ?: " "))
+            parent::doPadRightExtra($length, ((string) $padding ?? " "))
         );
     }
 
