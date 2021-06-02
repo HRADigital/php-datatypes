@@ -2,6 +2,9 @@
 
 namespace Hradigital\Datatypes\Scalar;
 
+use Hradigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
+use Hradigital\Datatypes\Exceptions\Datatypes\ParameterOutOfRangeException;
+
 /**
  * String's Scalar Value Object class.
  *
@@ -58,7 +61,7 @@ class VoString extends AbstractBaseString
      *
      * @param  VoString $search - Non empty string to search for in the instance.
      *
-     * @throws \InvalidArgumentException - If supplied $search is empty.
+     * @throws NonEmptyStringException - If supplied $search is empty.
      * @return bool
      */
     public function contains(VoString $search): bool
@@ -78,8 +81,8 @@ class VoString extends AbstractBaseString
      * @param  VoString $search - String to search for in the instance.
      * @param  int     $start  - Search offset start. Defaults to ZERO.
      *
-     * @throws \InvalidArgumentException - If $search value is an empty string.
-     * @throws \OutOfRangeException      - If the $start is either too small, or too long.
+     * @throws NonEmptyStringException      - If $search value is an empty string.
+     * @throws ParameterOutOfRangeException - If the $start is either too small, or too long.
      * @return int|null
      */
     public function indexOf(VoString $search, int $start = 0): ?int
@@ -92,7 +95,7 @@ class VoString extends AbstractBaseString
      *
      * @param  VoString $search - Non empty string to search for in the instance.
      *
-     * @throws \InvalidArgumentException - If supplied $search is empty.
+     * @throws NonEmptyStringException - If supplied $search is empty.
      * @return bool
      */
     public function startsWith(VoString $search): bool
@@ -105,7 +108,7 @@ class VoString extends AbstractBaseString
      *
      * @param  VoString $search - Non empty string to search for in the instance.
      *
-     * @throws \InvalidArgumentException - If supplied $search is empty.
+     * @throws NonEmptyStringException - If supplied $search is empty.
      * @return bool
      */
     public function endsWith(VoString $search): bool
@@ -120,8 +123,8 @@ class VoString extends AbstractBaseString
      * @param  int      $start  - The sub-string's offset/start.
      * @param  int|null $length - Length value. Can be NULL, in which case, it won't be validated.
      *
-     * @throws \InvalidArgumentException - If supplied $search is empty.
-     * @throws \OutOfRangeException      - If the $start and/or $length is either too small, or too long.
+     * @throws NonEmptyStringException      - If supplied $search is empty.
+     * @throws ParameterOutOfRangeException - If the $start and/or $length is either too small, or too long.
      * @return int
      */
     public function count(VoString $search, int $start = 0, ?int $length = null): int
@@ -244,7 +247,8 @@ class VoString extends AbstractBaseString
      * @param  VoString|null $padding - The pad_string may be truncated if the required number of padding characters
      *                           can't be evenly divided by the $padding's length.
      *
-     * @throws \InvalidArgumentException - If any of the parameters is invalid.
+     * @throws NonEmptyStringException      - If supplied $padding is empty.
+     * @throws ParameterOutOfRangeException - If the $length is either too small, or too long.
      * @return VoString
      */
     public function padLeft(int $length, ?VoString $padding = null): VoString
@@ -264,7 +268,8 @@ class VoString extends AbstractBaseString
      * @param  VoString|null $padding - The pad_string may be truncated if the required number of padding characters
      *                           can't be evenly divided by the $padding's length.
      *
-     * @throws \InvalidArgumentException - If any of the parameters is invalid.
+     * @throws NonEmptyStringException      - If supplied $padding is empty.
+     * @throws ParameterOutOfRangeException - If the $length is either too small, or too long.
      * @return VoString
      */
     public function padLeftExtra(int $length, ?VoString $padding = null): VoString
@@ -288,7 +293,8 @@ class VoString extends AbstractBaseString
      * @param  VoString|null $padding - The pad_string may be truncated if the required number of padding characters
      *                           can't be evenly divided by the $padding's length.
      *
-     * @throws \InvalidArgumentException - If any of the parameters is invalid.
+     * @throws NonEmptyStringException      - If supplied $padding is empty.
+     * @throws ParameterOutOfRangeException - If the $length is either too small, or too long.
      * @return VoString
      */
     public function padRight(int $length, ?VoString $padding = null): VoString
@@ -308,7 +314,8 @@ class VoString extends AbstractBaseString
      * @param  VoString|null $padding - The pad_string may be truncated if the required number of padding characters
      *                           can't be evenly divided by the $padding's length.
      *
-     * @throws \InvalidArgumentException - If any of the parameters is invalid.
+     * @throws NonEmptyStringException      - If supplied $padding is empty.
+     * @throws ParameterOutOfRangeException - If the $length is either too small, or too long.
      * @return VoString
      */
     public function padRightExtra(int $length, ?VoString $padding = null): VoString
@@ -343,7 +350,7 @@ class VoString extends AbstractBaseString
      * @param  int $start  - Start of the sub-string. Can be negative.
      * @param  int $length - Length of the sub-string. Can be negative.
      *
-     * @throws \OutOfRangeException - If the $start and/or $length is either too small, or too long.
+     * @throws ParameterOutOfRangeException - If the $start and/or $length is either too small, or too long.
      * @return VoString
      */
     public function subString(int $start, int $length = null): VoString
@@ -359,7 +366,7 @@ class VoString extends AbstractBaseString
      *
      * @param  int $length - Length of the sub-string. Must be positive.
      *
-     * @throws \InvalidArgumentException - If supplied Length is not a positive integer.
+     * @throws ParameterOutOfRangeException - If supplied Length is not a positive integer.
      * @return VoString
      */
     public function subLeft(int $length): VoString
@@ -375,7 +382,7 @@ class VoString extends AbstractBaseString
      *
      * @param  int $length - Length of the sub-string. Must be positive.
      *
-     * @throws \InvalidArgumentException - If supplied Length is not a positive integer.
+     * @throws ParameterOutOfRangeException - If supplied Length is not a positive integer.
      * @return VoString
      */
     public function subRight(int $length): VoString
@@ -403,7 +410,7 @@ class VoString extends AbstractBaseString
      * @param  VoString $search  - The string to search for.
      * @param  VoString $replace - The search's replacement.
      *
-     * @throws \InvalidArgumentException - If $search is empty, or count is a not a positive integer.
+     * @throws NonEmptyStringException - If either $search or $replace are empty.
      * @return VoString
      */
     public function replace(VoString $search, VoString $replace): VoString
