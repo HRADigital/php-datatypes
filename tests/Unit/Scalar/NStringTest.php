@@ -242,7 +242,7 @@ class NStringTest extends AbstractBaseStringTestBase
 
         // Performs assertions.
         $this->assertEquals(
-             2,
+            2,
             $count,
             'Retrieved count is incorrect.'
         );
