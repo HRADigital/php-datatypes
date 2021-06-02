@@ -8,7 +8,7 @@ namespace Hradigital\Datatypes\Scalar;
  * In this package, this class is used as a base, for all Value Object and/or Primitive based
  * child classes.
  *
- * All native processing should be done/wrapped in this class, but the state should never
+ * All native processing should be done/wrapped in this class, but the internal state should never
  * change directly.
  *
  * @package   Hradigital\Datatypes
