@@ -16,13 +16,13 @@ namespace Hradigital\Datatypes\Exceptions;
 class GoneException extends AbstractBaseException
 {
     /** @var string $message - Exception's error message. */
-    protected string $message = "The resource you are looking for, is no longer available in the system.";
+    protected $message = "The resource you are looking for, is no longer available in the system.";
 
     /** @var string $message - Exception's error message when a record ID is specified. */
     protected string $messageWithId = "The resource with the ID %d no longer exists in the system.";
 
     /** @var int $code - Exception's error code. */
-    protected int $code = 410;
+    protected $code = 410;
 
     /**
      * Initializes Base Record Gone Exception.

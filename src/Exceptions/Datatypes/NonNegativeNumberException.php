@@ -15,7 +15,7 @@ use Hradigital\Datatypes\Exceptions\UnprocessableEntityException;
 class NonNegativeNumberException extends UnprocessableEntityException
 {
     /** @var string $message - Exception's error message. */
-    protected string $message = "Supplied parameter must be a non negative number.";
+    protected $message = "Supplied parameter must be a non negative number.";
 
     /** @var string $message - Exception's error message with field's name. */
     protected string $messageWithName = "Parameter '%s' must be a non negative number.";

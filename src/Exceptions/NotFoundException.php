@@ -16,13 +16,13 @@ namespace Hradigital\Datatypes\Exceptions;
 class NotFoundException extends AbstractBaseException
 {
     /** @var string $message - Exception's error message. */
-    protected string $message = "The resource you are looking for, was not found in the system.";
+    protected $message = "The resource you are looking for, was not found in the system.";
 
     /** @var string $message - Exception's error message when a record ID is specified. */
     protected string $messageWithId = "The resource with the ID %d you are looking for, was not found in the system.";
 
     /** @var int $code - Exception's error code. */
-    protected int $code = 404;
+    protected $code = 404;
 
     /**
      * Initializes Base NotFound Exception.

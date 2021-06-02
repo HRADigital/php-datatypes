@@ -18,10 +18,10 @@ namespace Hradigital\Datatypes\Exceptions;
 class FailedDependencyException extends AbstractBaseException
 {
     /** @var string $message - Exception's error message. */
-    protected string $message = "The action failed due to failure of a previous action.";
+    protected $message = "The action failed due to failure of a previous action.";
 
     /** @var int $code - Exception's error code. */
-    protected int $code = 424;
+    protected $code = 424;
 
     /**
      * Initializes Base Conflist Exception.

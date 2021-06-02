@@ -18,13 +18,13 @@ namespace Hradigital\Datatypes\Exceptions;
 class UnsupportedMediaTypeException extends AbstractBaseException
 {
     /** @var string $message - Exception's error message. */
-    protected string $message = "The supplied MediaType is not supported by the system.";
+    protected $message = "The supplied MediaType is not supported by the system.";
 
     /** @var string $message - Exception's error message when Media Type is supplied. */
     protected string $messageWithName = "MediaType '%s' is not supported by the system.";
 
     /** @var int $code - Exception's error code. */
-    protected int $code = 415;
+    protected $code = 415;
 
     /**
      * Initializes Base Unsupported Media Type Exception.

@@ -19,13 +19,13 @@ namespace Hradigital\Datatypes\Exceptions;
 class UnprocessableEntityException extends AbstractBaseException
 {
     /** @var string $message - Exception's error message. */
-    protected string $message = "The request was well-formed but was unable to be followed due to semantic errors.";
+    protected $message = "The request was well-formed but was unable to be followed due to semantic errors.";
 
     /** @var string $messageWithName - Exception's error message when an attribute name is supplied. */
     protected string $messageWithName = "The request was well-formed but was unable to be followed due to field '%s'.";
 
     /** @var int $code - Exception's error code. */
-    protected int $code = 422;
+    protected $code = 422;
 
     /**
      * Initializes Base Unprocessable Entity Exception.

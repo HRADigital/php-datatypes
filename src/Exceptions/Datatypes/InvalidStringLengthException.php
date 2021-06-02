@@ -13,7 +13,7 @@ use Hradigital\Datatypes\Exceptions\UnprocessableEntityException;
 class InvalidStringLengthException extends UnprocessableEntityException
 {
     /** @var string $message - Exception's error message. */
-    protected string $message = "Supplied field doesn't have required character length.";
+    protected $message = "Supplied field doesn't have required character length.";
 
     /** @var string $message - Exception's error message with field's name. */
     protected string $messageWithName = "Field '%s' doesn't have required character length.";

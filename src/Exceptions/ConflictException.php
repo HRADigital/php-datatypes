@@ -18,10 +18,10 @@ namespace Hradigital\Datatypes\Exceptions;
 class ConflictException extends AbstractBaseException
 {
     /** @var string $message - Exception's error message. */
-    protected string $message = "The action failed due to a conflict in the provided request.";
+    protected $message = "The action failed due to a conflict in the provided request.";
 
     /** @var int $code - Exception's error code. */
-    protected int $code = 409;
+    protected $code = 409;
 
     /**
      * Initializes Base Conflist Exception.

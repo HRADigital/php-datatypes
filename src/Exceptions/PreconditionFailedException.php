@@ -18,10 +18,10 @@ namespace Hradigital\Datatypes\Exceptions;
 class PreconditionFailedException extends AbstractBaseException
 {
     /** @var string $message - Exception's error message. */
-    protected string $message = "A given precondition evaluated to false on the system.";
+    protected $message = "A given precondition evaluated to false on the system.";
 
     /** @var int $code - Exception's error code. */
-    protected int $code = 412;
+    protected $code = 412;
 
     /**
      * Initializes Base Precondition Failed Exception.
