@@ -15,6 +15,7 @@ namespace Hradigital\Datatypes\Exceptions;
  * credentials for the target resource.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 class DeniedAccessException extends AbstractBaseException

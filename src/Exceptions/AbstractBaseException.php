@@ -15,6 +15,7 @@ namespace Hradigital\Datatypes\Exceptions;
  * HTTP status codes.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  * @link      https://httpstatuses.com/
  */

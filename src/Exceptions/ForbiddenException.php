@@ -15,6 +15,7 @@ namespace Hradigital\Datatypes\Exceptions;
  * The request should not be repeated.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 class ForbiddenException extends AbstractBaseException

@@ -14,6 +14,7 @@ namespace Hradigital\Datatypes\Exceptions;
  * total technical sense.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 class RequestedRangeNotSatisfiableException extends AbstractBaseException

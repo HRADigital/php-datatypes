@@ -13,6 +13,7 @@ namespace Hradigital\Datatypes\Exceptions;
  * of examples.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 class ConflictException extends AbstractBaseException

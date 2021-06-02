@@ -14,6 +14,7 @@ use Hradigital\Datatypes\Exceptions\UnprocessableEntityException;
  * in error message.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 class RequiredEntityValueMissingException extends UnprocessableEntityException

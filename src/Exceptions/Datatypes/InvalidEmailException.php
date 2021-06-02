@@ -8,6 +8,7 @@ use Hradigital\Datatypes\Exceptions\UnprocessableEntityException;
  * Invalid E-mail Datatype Exception.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 class InvalidEmailException extends UnprocessableEntityException

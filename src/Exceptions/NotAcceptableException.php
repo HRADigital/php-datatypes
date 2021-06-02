@@ -13,6 +13,7 @@ namespace Hradigital\Datatypes\Exceptions;
  * total technical sense.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 class NotAcceptableException extends AbstractBaseException

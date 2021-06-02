@@ -11,6 +11,7 @@ use Hradigital\Tests\Datatypes\AbstractBaseTestCase;
  * Email Address Unit testing.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 class EmailAddressTest extends AbstractBaseTestCase

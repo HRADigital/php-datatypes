@@ -27,6 +27,7 @@ namespace Hradigital\Datatypes\Collections\Linear;
  * of great importance.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  * @link      http://php.net/manual/en/class.ds-collection.php
  * @link      https://en.wikipedia.org/wiki/Collection_(abstract_data_type)#Lists

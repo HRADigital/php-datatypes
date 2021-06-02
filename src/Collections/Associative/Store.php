@@ -21,6 +21,7 @@ namespace Hradigital\Datatypes\Collections\Associative;
  * from the set.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  * @link      https://en.wikipedia.org/wiki/Set_(abstract_data_type)
  */

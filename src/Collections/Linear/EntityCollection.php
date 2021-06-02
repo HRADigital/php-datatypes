@@ -8,7 +8,8 @@ namespace Hradigital\Datatypes\Collections\Linear;
  * This class will hold, process, encapsulate and group Entity objects together.
  *
  * @package   Hradigital\Datatypes
- * @license   MIT
+ * @copyright Hradigital\Datatypes
+ * @license   MIT1
  * @link      https://github.com/opsbears/foundation/tree/master/src/Complex
  */
 class EntityCollection implements \Countable, \Iterator, \JsonSerializable
