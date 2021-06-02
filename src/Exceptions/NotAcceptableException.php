@@ -18,10 +18,10 @@ namespace Hradigital\Datatypes\Exceptions;
 class NotAcceptableException extends AbstractBaseException
 {
     /** @var string $message - Exception's error message. */
-    protected string $message = "The operation you're trying to perform, is not acceptable.";
+    protected $message = "The operation you're trying to perform, is not acceptable.";
 
     /** @var int $code - Exception's error code. */
-    protected int $code = 406;
+    protected $code = 406;
 
     /**
      * Initializes Base Not Acceptable Exception.

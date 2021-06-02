@@ -21,10 +21,10 @@ namespace Hradigital\Datatypes\Exceptions;
 abstract class AbstractBaseException extends \Exception
 {
     /** @var string $message - Exception's error message. */
-    protected string  $message = "An unspecified error occurred on the server.";
+    protected $message = "An unspecified error occurred on the server.";
 
     /** @var int $code - Exception's error code. */
-    protected int $code = 500;
+    protected $code = 500;
 
     /**
      * Initializes the Base Exception.

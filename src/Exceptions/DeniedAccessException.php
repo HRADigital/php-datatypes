@@ -20,10 +20,10 @@ namespace Hradigital\Datatypes\Exceptions;
 class DeniedAccessException extends AbstractBaseException
 {
     /** @var string $message - Exception's error message. */
-    protected string $message = "You don't have access to the resource you are looking for.";
+    protected $message = "You don't have access to the resource you are looking for.";
 
     /** @var int $code - Exception's error code. */
-    protected int $code = 401;
+    protected $code = 401;
 
     /**
      * Initializes Base Denied Access Exception.
