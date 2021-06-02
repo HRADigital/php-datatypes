@@ -5,9 +5,10 @@ namespace Hradigital\Datatypes\Scalar;
 /**
  * String's Scalar Value Object class.
  *
- * Instanciate this class, if you want the initial instance's value to be preserved.
+ * Instanciate this class, if you want to be able to manipulate the Instance's value always using
+ * Value Objects as interface.
  *
- * Fluent interface (chaning) is supported by mutators, but a new instance will be returned.
+ * Fluent interface (chaning) is supported by mutators, but a new instance will always be returned.
  * Original internal value will be immutable.
  *
  * @package   Hradigital\Datatypes
