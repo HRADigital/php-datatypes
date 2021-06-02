@@ -24,6 +24,7 @@ namespace Hradigital\Datatypes\Collections\Linear;
  * example of a linear data structure, or more abstractly a sequential Collection.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  * @link      http://php.net/manual/en/class.ds-queue.php
  * @link      https://en.wikipedia.org/wiki/Queue_(abstract_data_type)

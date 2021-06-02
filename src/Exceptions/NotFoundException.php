@@ -11,6 +11,7 @@ namespace Hradigital\Datatypes\Exceptions;
  * Used when the requested resource is not found/doesn't exist.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 class NotFoundException extends AbstractBaseException

@@ -11,6 +11,7 @@ use PHPUnit\Framework\TestCase;
  * All shared testing functionality and/or configuration should be added to this file.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 abstract class AbstractBaseTestCase extends TestCase

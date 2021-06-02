@@ -13,6 +13,7 @@ namespace Hradigital\Datatypes\Exceptions;
  * the rest of the commands will also fail with 424 (Failed Dependency).
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 class FailedDependencyException extends AbstractBaseException

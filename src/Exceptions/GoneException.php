@@ -11,6 +11,7 @@ namespace Hradigital\Datatypes\Exceptions;
  * Used when the requested resource is gone already.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 class GoneException extends AbstractBaseException

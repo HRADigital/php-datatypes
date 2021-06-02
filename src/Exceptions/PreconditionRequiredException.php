@@ -8,6 +8,7 @@ namespace Hradigital\Datatypes\Exceptions;
  * Responses using this status code SHOULD explain how to resubmit the request successfully.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 class PreconditionRequiredException extends AbstractBaseException

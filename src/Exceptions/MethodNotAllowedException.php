@@ -15,6 +15,7 @@ namespace Hradigital\Datatypes\Exceptions;
  * containing a list of valid methods for the requested resource.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 class MethodNotAllowedException extends AbstractBaseException

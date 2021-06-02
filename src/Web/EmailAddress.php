@@ -13,6 +13,7 @@ use Hradigital\Datatypes\Scalar\VoString;
  * an E-mail address is a complex field, with a very specific set of rules.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 class EmailAddress implements \Serializable

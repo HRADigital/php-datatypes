@@ -8,6 +8,7 @@ use Hradigital\Datatypes\Exceptions\UnprocessableEntityException;
  * Non empty String Datatype Exception.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 class NonEmptyStringException extends UnprocessableEntityException

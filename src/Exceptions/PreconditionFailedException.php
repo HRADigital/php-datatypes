@@ -13,6 +13,7 @@ namespace Hradigital\Datatypes\Exceptions;
  * method from being applied to a resource other than the one intended.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 class PreconditionFailedException extends AbstractBaseException

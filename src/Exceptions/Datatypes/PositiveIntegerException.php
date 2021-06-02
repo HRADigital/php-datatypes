@@ -8,6 +8,7 @@ use Hradigital\Datatypes\Exceptions\UnprocessableEntityException;
  * Must be a Positive Integer Datatype Exception.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 class PositiveIntegerException extends UnprocessableEntityException

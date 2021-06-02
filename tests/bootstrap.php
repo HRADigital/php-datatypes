@@ -5,6 +5,7 @@
  * For Unit testing only, please link PHPUnit to this file. This file will autoload Composer's dependencies.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 

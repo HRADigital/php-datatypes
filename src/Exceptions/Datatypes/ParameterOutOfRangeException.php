@@ -8,6 +8,7 @@ use Hradigital\Datatypes\Exceptions\UnprocessableEntityException;
  * Out of Range value Datatype Exception.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 class ParameterOutOfRangeException extends UnprocessableEntityException

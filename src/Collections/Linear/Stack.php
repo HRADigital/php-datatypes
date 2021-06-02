@@ -24,6 +24,7 @@ namespace Hradigital\Datatypes\Collections\Linear;
  * an item deeper in the stack may require taking off multiple other items first.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  * @link      http://php.net/manual/en/class.ds-stack.php
  * @link      https://en.wikipedia.org/wiki/Stack_(abstract_data_type)

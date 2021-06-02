@@ -12,6 +12,7 @@ use Hradigital\Tests\Datatypes\AbstractBaseTestCase;
  * String's Scalar Value Object Unit testing.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 class VoStringTest extends AbstractBaseStringTestBase

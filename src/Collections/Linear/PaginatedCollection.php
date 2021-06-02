@@ -17,6 +17,7 @@ use Aesir\Domain\Datatypes\Sorting\SortInfo;
  * If no pagination information is required, please use regular Collection object.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  * @see       EntityCollection
  */

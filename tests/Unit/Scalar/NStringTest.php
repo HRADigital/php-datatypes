@@ -12,6 +12,7 @@ use Hradigital\Tests\Datatypes\AbstractBaseTestCase;
  * String's Scalar Native/Primitive Object Unit testing.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 class NStringTest extends AbstractBaseStringTestBase

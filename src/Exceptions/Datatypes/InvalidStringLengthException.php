@@ -8,6 +8,7 @@ use Hradigital\Datatypes\Exceptions\UnprocessableEntityException;
  * Invalid String's Length Datatype Exception.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 class InvalidStringLengthException extends UnprocessableEntityException

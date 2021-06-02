@@ -13,6 +13,7 @@ namespace Hradigital\Datatypes\Exceptions;
  * that images use a different format.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 class UnsupportedMediaTypeException extends AbstractBaseException

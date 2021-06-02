@@ -10,6 +10,7 @@ use Hradigital\Datatypes\Exceptions\UnprocessableEntityException;
  * Only Zero or more should be allowed.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 class NonNegativeNumberException extends UnprocessableEntityException

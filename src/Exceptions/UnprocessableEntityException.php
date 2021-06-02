@@ -14,6 +14,7 @@ namespace Hradigital\Datatypes\Exceptions;
  * (i.e., syntactically correct), but semantically erroneous, XML instructions.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 class UnprocessableEntityException extends AbstractBaseException

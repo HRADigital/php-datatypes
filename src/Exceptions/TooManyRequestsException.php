@@ -13,6 +13,7 @@ namespace Hradigital\Datatypes\Exceptions;
  * a new request.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 class TooManyRequestsException extends AbstractBaseException

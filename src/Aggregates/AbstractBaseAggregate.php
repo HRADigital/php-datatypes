@@ -10,6 +10,7 @@ namespace Hradigital\Datatypes\Aggregates;
  * This will add shared common functionality to all Aggregates, without code repetition.
  *
  * @package   Hradigital\Datatypes
+ * @copyright Hradigital\Datatypes
  * @license   MIT
  */
 abstract class AbstractBaseAggregate implements \JsonSerializable
