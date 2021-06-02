@@ -57,6 +57,16 @@ abstract class AbstractBaseString
     }
 
     /**
+     * Counts the number of words in the String.
+     *
+     * @return int
+     */
+    public function wordCount(): int
+    {
+        return \str_word_count($this->value);
+    }
+
+    /**
      * Compares the instance's value, with the supplied native string.
      *
      * Returns TRUE if the 2 values match. FALSE otherwise.
