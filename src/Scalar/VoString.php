@@ -66,7 +66,7 @@ class VoString extends AbstractBaseString
      */
     public function contains(VoString $search): bool
     {
-        return parent::doEquals((string) $search);
+        return parent::doContains((string) $search);
     }
 
     /**
