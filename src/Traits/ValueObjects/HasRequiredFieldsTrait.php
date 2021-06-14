@@ -15,7 +15,7 @@ use Hradigital\Datatypes\Exceptions\Entities\RequiredEntityValueMissingException
  */
 trait HasRequiredFieldsTrait
 {
-   /** @var array $required - List of required native class attributes. */
+    /** @var array $required - List of required native class attributes. */
     protected array $required = [];
 
     /**
