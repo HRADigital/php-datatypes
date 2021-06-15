@@ -1,4 +1,4 @@
-# Domain Exception's namespace
+# Exception's namespace
 
 Domain Exceptions are predefined Exceptions that can/should be raised from within the product.
 
