@@ -9,5 +9,5 @@
  * @license   MIT
  */
 
-// Autoload Composer's dependencies, and Aesir-Base's namespace.
+// Autoload Composer's dependencies.
 require __DIR__ . '/../vendor/autoload.php';
