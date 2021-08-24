@@ -11,31 +11,44 @@
 
 ## About
 
-**PHP Datatypes** is a project is based and inspired on many other projects around, and is mainly meant to bring support
-for **Scalar objects** and other common **Complex datatypes** into PHP, while native support isn't around.
+**PHP Datatypes** is a project meant to conviniently aggregate commonly used **Scalar objects**, other **datatypes** and
+**Data Transfer Object**'s base classes into a single package.
 
 Some of the projects that inspired this one, are mainly [Nikita Popov's Scalar Objects](https://github.com/nikic/scalar_objects),
 but also [Martin Helmich's Scalar Classes](https://github.com/martin-helmich/php-scalarclasses/) and
 [Michael Hall's Datatypes](https://github.com/themichaelhall/datatypes/).
 
-### Scalar objects
+## Requirements
 
-**PHP Datatypes** will initially wrap common functionality to PHP's native datatypes, such as `string`, `integer`, `float`
-and `boolean`.
-
-### Complex datatypes
-
-There will also be wrapping classes around **Complex Datatypes** such as `Datetime`, `Email`, `Color`, `UrlAddress`, ...,
-and both _Linear_ and _Associative_ **Collections** such as `Queues`, `Stacks` and `Sets`/`Stores`.
-
-### Data Transfer Objects (ValueObjects, Entities, etc...)
-
-Lastly, **PHP Datatypes** will also provide basic functionality for [DTOs](https://en.wikipedia.org/wiki/Data_transfer_object),
-in case you'll want to quickly centralize/isolate record validation and sanitation, in a strongly typed/system agnostic object.
+- PHP >= 7.4
 
 ## Installation
 
-In order to install this package, just add it to your **composer**, by executing `composer require hradigital/php-datatypes`.
+``` bash
+$ composer require hradigital/php-datatypes
+```
+
+### Project's purpose/mission
+
+The project's mission is based on the following 4 principles:
+
+- Deliver the biggest amount of datatypes on a single project, that can serve as base code for many different projects.
+- Be a self reliant project, without extra dependencies, that only depends on PHP's version and/or native code.
+- Provide reliable code, which is fully tested/coverade.
+- Provide fully documented code.
+
+### When not to use this project
+
+**PHP Datatypes** provides easily used, simple class interfaces, and each of the supplied datatypes is not meant to fully
+provide all code combinations and/or functionality. It's code created for developer's convinience.
+
+If you need a more comprehensive handling of each datatype, there are other alternatives online. Here are a few:
+
+- `nesbot/carbon` for Datetime's processing
+- `symfony/string` for String's processing
+- `moneyphp/money` for currency's processing
+- `egulias/email-validator` for e-mail's processing
+- ...
 
 ## Usage
 
