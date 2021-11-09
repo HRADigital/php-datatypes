@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Traits\Entities\Location;
 
+use HraDigital\Datatypes\Scalar\Str;
+
 /**
  * Trait for an Entity's Postal Code attribute.
  *
@@ -13,8 +15,8 @@ namespace HraDigital\Datatypes\Traits\Entities\Location;
  */
 trait HasPostalCodeTrait
 {
-    /** @var string $postal_code - Postal Code */
-    protected string $postal_code = '';
+    /** @var Str $postal_code - Postal Code */
+    protected Str $postal_code = Str::create('');
 
     /**
      * Mutator method for setting the value into the Attribute.
@@ -24,15 +26,15 @@ trait HasPostalCodeTrait
      */
     protected function castPostalCode(string $postalCode): void
     {
-        $this->postal_code = \trim($postalCode);
+        $this->postal_code = Str::create($postalCode)->trim();
     }
 
     /**
      * Returns the Entity's Postal Code.
      *
-     * @return string
+     * @return Str
      */
-    public function getPostalCode(): string
+    public function getPostalCode(): Str
     {
         return $this->postal_code;
     }

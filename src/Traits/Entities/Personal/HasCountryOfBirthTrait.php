@@ -4,7 +4,8 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Traits\Entities\Personal;
 
-use HraDigital\Datatypes\Exceptions\Entities\UnexpectedEntityValueException;
+use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
+use HraDigital\Datatypes\Scalar\Str;
 
 /**
  * Trait for an Entity's Country of Birth attribute.
@@ -15,8 +16,8 @@ use HraDigital\Datatypes\Exceptions\Entities\UnexpectedEntityValueException;
  */
 trait HasCountryOfBirthTrait
 {
-    /** @var string $country_of_birth - Country of Birth */
-    protected string $country_of_birth = '';
+    /** @var Str $country_of_birth - Country of Birth */
+    protected Str $country_of_birth = Str::create('');
 
     /**
      * Mutator method for setting the value into the Attribute.
@@ -26,19 +27,21 @@ trait HasCountryOfBirthTrait
      */
     protected function castCountryOfBirth(string $country): void
     {
-        if (\strlen(\trim($country)) === 0) {
-            throw new UnexpectedEntityValueException('Supplied Country of Birth must be a non empty string.');
+        $countryValue = Str::create($country)->trim();
+
+        if ($countryValue->getLength() === 0) {
+            throw new NonEmptyStringException('$country_of_birth');
         }
 
-        $this->country_of_birth = \trim($country);
+        $this->country_of_birth = $countryValue;
     }
 
     /**
      * Returns the Entity's Country of Birth.
      *
-     * @return string
+     * @return Str
      */
-    public function getCountryOfBirth(): string
+    public function getCountryOfBirth(): Str
     {
         return $this->country_of_birth;
     }

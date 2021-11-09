@@ -24,7 +24,7 @@ trait HasFeatureTrait
      */
     protected function castFeatured(bool $featured): void
     {
-        $this->featured = $featured;
+        $this->is_featured = $featured;
     }
 
     /**
@@ -34,6 +34,6 @@ trait HasFeatureTrait
      */
     public function isFeatured(): bool
     {
-        return $this->featured;
+        return $this->is_featured;
     }
 }

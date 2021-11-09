@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Traits\Entities\Location;
 
+use HraDigital\Datatypes\Scalar\Str;
+
 /**
  * Trait for an Entity's Address attribute.
  *
@@ -13,8 +15,8 @@ namespace HraDigital\Datatypes\Traits\Entities\Location;
  */
 trait HasAddressTrait
 {
-    /** @var string $address - Address */
-    protected string $address = '';
+    /** @var Str $address - Address */
+    protected Str $address = Str::create('');
 
     /**
      * Mutator method for setting the value into the Attribute.
@@ -24,15 +26,15 @@ trait HasAddressTrait
      */
     protected function castAddress(string $address): void
     {
-        $this->address = \trim($address);
+        $this->address = Str::create($address)->trim();
     }
 
     /**
      * Returns the Entity's Address.
      *
-     * @return string
+     * @return Str
      */
-    public function getAddress(): string
+    public function getAddress(): Str
     {
         return $this->address;
     }

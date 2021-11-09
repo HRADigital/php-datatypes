@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Traits\Entities\General;
 
+use HraDigital\Datatypes\Scalar\Str;
+
 /**
  * Trait for a Record's UUID (Universal Unique Identifier) attribute.
  *
@@ -13,8 +15,8 @@ namespace HraDigital\Datatypes\Traits\Entities\General;
  */
 trait HasUuidTrait
 {
-    /** @var string $uuid - Universal Unique Identifier */
-    protected string $uuid;
+    /** @var Str $uuid - Universal Unique Identifier */
+    protected Str $uuid;
 
     /**
      * Mutator method for setting the value into the Attribute.
@@ -24,15 +26,15 @@ trait HasUuidTrait
      */
     protected function castUuid(string $uuid): void
     {
-        $this->uuid = $uuid;
+        $this->uuid = Str::create($uuid);
     }
 
     /**
      * Returns the Universal Unique Identifier.
      *
-     * @return string
+     * @return Str
      */
-    public function getUuid(): string
+    public function getUuid(): Str
     {
         return $this->uuid;
     }

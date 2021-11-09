@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Traits\Entities\SocialMedia;
 
+use HraDigital\Datatypes\Scalar\Str;
+
 /**
  * Adds Facebook's Social Media account URL field.
  *
@@ -13,8 +15,8 @@ namespace HraDigital\Datatypes\Traits\Entities\SocialMedia;
  */
 trait HasFacebookProfileTrait
 {
-    /** @var string|null $facebook - Social Media account's URL. */
-    protected ?string $facebook = null;
+    /** @var Str|null $facebook - Social Media account's URL. */
+    protected ?Str $facebook = null;
 
     /**
      * Sets the Social Media account URL value of an Entity.
@@ -24,15 +26,15 @@ trait HasFacebookProfileTrait
      */
     protected function castFacebook(?string $facebook): void
     {
-        $this->facebook = $facebook;
+        $this->facebook = $facebook ? Str::create($facebook)->trim() : null;
     }
 
     /**
      * Retrieves record's Social Media account's URL.
      *
-     * @return string|null
+     * @return Str|null
      */
-    public function getFacebookUrl(): ?string
+    public function getFacebookUrl(): ?Str
     {
         return $this->facebook;
     }

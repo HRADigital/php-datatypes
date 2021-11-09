@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace HraDigital\Datatypes\Traits\Entities\General;
 
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
+use HraDigital\Datatypes\Scalar\Str;
 
 /**
  * Gives Alias information capabilities to an Entity/Value Object.
@@ -15,8 +16,8 @@ use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
  */
 trait HasAliasTrait
 {
-    /** @var string $alias - Instances's Alias. */
-    protected string $alias = '';
+    /** @var Str $alias - Instances's Alias. */
+    protected Str $alias = Str::create('');
 
     /**
      * Setter method for alias.
@@ -29,25 +30,24 @@ trait HasAliasTrait
     protected function castAlias(string $alias): void
     {
         // Sanitizes supplied parameter.
-        $alias = \strtolower(\trim($alias));
-        $alias = \str_replace(' ', '_', $alias);
+        $aliasValue = Str::create($alias)->trim()->toLower()->replace(' ', '_');
 
         // Validates if alias is filled.
-        if (\strlen($alias) === 0) {
+        if ($aliasValue->getLength() === 0) {
             throw new NonEmptyStringException('$alias');
         }
 
         // We'll set the alias value on the attribute, but use the sanitizeAlias() method
         // to sanitize its value.
-        $this->alias = $alias;
+        $this->alias = $aliasValue;
     }
 
     /**
      * Returns the Entity's alias.
      *
-     * @return string
+     * @return Str
      */
-    public function getAlias(): string
+    public function getAlias(): Str
     {
         return $this->alias;
     }

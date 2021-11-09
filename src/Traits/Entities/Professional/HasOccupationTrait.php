@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace HraDigital\Datatypes\Traits\Entities\Professional;
 
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
+use HraDigital\Datatypes\Scalar\Str;
 
 /**
  * Gives Professional Occupation information capabilities to an Entity/Value Object.
@@ -15,8 +16,8 @@ use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
  */
 trait HasOccupationTrait
 {
-    /** @var string|null $occupation - Profile's Professional Occupation */
-    protected ?string $occupation = null;
+    /** @var Str|null $occupation - Profile's Professional Occupation */
+    protected ?Str $occupation = null;
 
     /**
      * Sets the Profile's Professional Occupation value of an Entity.
@@ -29,19 +30,21 @@ trait HasOccupationTrait
     protected function castOccupation(?string $occupation): void
     {
         // Validates supplied parameter.
-        if ($occupation !== null && \strlen(\trim($occupation)) === 0) {
+        $occupationValue = $occupation ? Str::create($occupation)->trim() : null;
+
+        if ($occupationValue !== null && $occupationValue->getLength() === 0) {
             throw new NonEmptyStringException('$occupation');
         }
 
-        $this->occupation = $occupation;
+        $this->occupation = $occupationValue;
     }
 
     /**
      * Returns the Instance's Profile's Occupation.
      *
-     * @return string|null
+     * @return Str|null
      */
-    public function getOccupation(): ?string
+    public function getOccupation(): ?Str
     {
         return $this->occupation;
     }

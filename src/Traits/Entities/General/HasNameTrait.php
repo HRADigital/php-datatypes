@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace HraDigital\Datatypes\Traits\Entities\General;
 
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
+use HraDigital\Datatypes\Scalar\Str;
 
 /**
  * Gives Name information capabilities to an Entity/Value Object.
@@ -15,8 +16,8 @@ use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
  */
 trait HasNameTrait
 {
-    /** @var string $name - Instance's Name. */
-    protected string $name = '';
+    /** @var Str $name - Instance's Name. */
+    protected Str $name = Str::create('');
 
     /**
      * Setter method for name.
@@ -29,7 +30,8 @@ trait HasNameTrait
     protected function castName(string $name): void
     {
         // Validates supplied parameter.
-        if (\strlen(\trim($name)) === 0) {
+        $nameValue = Str::create($name)->trim();
+        if ($nameValue->getLength() === 0) {
             throw new NonEmptyStringException('$name');
         }
 
@@ -39,9 +41,9 @@ trait HasNameTrait
     /**
      * Returns the Instance's name.
      *
-     * @return string
+     * @return Str
      */
-    public function getName(): string
+    public function getName(): Str
     {
         return $this->name;
     }

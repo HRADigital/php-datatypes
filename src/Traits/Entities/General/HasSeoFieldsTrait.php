@@ -6,6 +6,7 @@ namespace HraDigital\Datatypes\Traits\Entities\General;
 
 use HraDigital\Datatypes\Exceptions\Datatypes\InvalidStringLengthException;
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
+use HraDigital\Datatypes\Scalar\Str;
 
 /**
  * Gives Seo Title, Seo Description and Seo Keywords information capabilities to an Entity/Value Object.
@@ -16,14 +17,14 @@ use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
  */
 trait HasSeoFieldsTrait
 {
-    /** @var string|null $seo_title - Record's Seo title option. */
-    protected ?string $seo_title = null;
+    /** @var Str|null $seo_title - Record's Seo title option. */
+    protected ?Str $seo_title = null;
 
-    /** @var string|null $seo_description - Record's Seo description option. */
-    protected ?string $seo_description = null;
+    /** @var Str|null $seo_description - Record's Seo description option. */
+    protected ?Str $seo_description = null;
 
-    /** @var string|null $seo_keywords - Record's Seo keywords option. */
-    protected ?string $seo_keywords = null;
+    /** @var Str|null $seo_keywords - Record's Seo keywords option. */
+    protected ?Str $seo_keywords = null;
 
     /**
      * Checking the character limitations of the <seo_title>.
@@ -39,11 +40,13 @@ trait HasSeoFieldsTrait
     protected function castSeoTitle(?string $title = null): void
     {
         // Setting the max length for Seo description.
-        if ($title !== null && \strlen(\trim($title)) > 70) {
+        $titleValue = ($title ? Str::create($title)->trim() ? null);
+
+        if ($titleValue !== null && $titleValue->getLength() > 70) {
             throw new NonEmptyStringException("Supplied Seo title must have length up to 70 characters.");
         }
 
-        $this->seo_title = $this->seoSanitize($title);
+        $this->seo_title = $this->seoSanitize($titleValue);
     }
 
     /**
@@ -60,11 +63,13 @@ trait HasSeoFieldsTrait
     protected function castSeoDescription(?string $description = null): void
     {
         // Setting the max length for Seo description.
-        if ($description !== null && \strlen(\trim($description)) > 160) {
+        $descriptionValue = ($description ? Str::create($description) : null);
+
+        if ($descriptionValue !== null && $descriptionValue->trim()->getLength() > 160) {
             throw new NonEmptyStringException("Supplied Seo description must have length up to 160 characters.");
         }
 
-        $this->seo_description = $this->seoSanitize($description);
+        $this->seo_description = $this->seoSanitize($descriptionValue);
     }
 
     /**
@@ -81,22 +86,24 @@ trait HasSeoFieldsTrait
     protected function castSeoKeywords(string $keywords = null): void
     {
         // Setting the max length for Seo keywords.
-        if ($keywords !== null && \strlen(\trim($keywords)) > 255) {
+        $keywordsValue = ($keywords ? Str::create($keywords) : null);
+
+        if ($keywordsValue !== null && $keywordsValue->trim()->getLength() > 255) {
             throw new NonEmptyStringException("Supplied Seo keywords must have length up to 255 characters.");
         }
 
-        $this->seo_keywords = $this->seoSanitize($keywords);
+        $this->seo_keywords = $this->seoSanitize($keywordsValue);
     }
 
     /**
      * Returns the Entity's seo title.
      *
-     * @return string|null
+     * @return Str|null
      */
-    public function getSeoTitle(): ?string
+    public function getSeoTitle(): ?Str
     {
         // If the Seo title is not set it is set to name property.
-        if ($this->seo_title === null || \strlen(\trim($this->seo_title)) === 0) {
+        if ($this->seo_title === null || $this->seo_title->trim()->getLength() === 0) {
             return ( \property_exists($this, 'name') ? $this->{'name'} : null );
         }
 
@@ -106,9 +113,9 @@ trait HasSeoFieldsTrait
     /**
      * Returns the Entity's seo description.
      *
-     * @return string|null
+     * @return Str|null
      */
-    public function getSeoDescription(): ?string
+    public function getSeoDescription(): ?Str
     {
         return $this->seo_description;
     }
@@ -116,9 +123,9 @@ trait HasSeoFieldsTrait
     /**
      * Returns the Entity's seo keywords.
      *
-     * @return string|null
+     * @return Str|null
      */
-    public function getSeoKeywords(): ?string
+    public function getSeoKeywords(): ?Str
     {
         return $this->seo_keywords;
     }
@@ -126,19 +133,19 @@ trait HasSeoFieldsTrait
     /**
      * Sanitizes the individual Seo field in the Entity.
      *
-     * @param  string|null $seoField - New Hit's value.
-     * @return string|null
+     * @param  Str|null $seoField - New Hit's value.
+     * @return Str|null
      */
-    private function seoSanitize(?string $seoField = null): ?string
+    private function seoSanitize(?Str $seoField = null): ?Str
     {
         // Checking if the value is an empty string or a string made of spaces.
-        if ($seoField !== null && \strlen(\trim($seoField)) === 0) {
+        if ($seoField !== null && $seoField->trim()->getLength() === 0) {
             $seoField = null;
         }
 
         // If there is a valid string trimming the spaces form the beginning and the end.
         if ($seoField !== null) {
-            $seoField = \trim($seoField);
+            $seoField = $seoField->trim();
         }
 
         return $seoField;

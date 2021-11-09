@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace HraDigital\Datatypes\Traits\Entities\Personal;
 
 use HraDigital\Datatypes\Exceptions\Entities\UnexpectedEntityValueException;
+use HraDigital\Datatypes\Scalar\Str;
 
 /**
  * Trait for an Entity's Gender attribute.
@@ -15,8 +16,8 @@ use HraDigital\Datatypes\Exceptions\Entities\UnexpectedEntityValueException;
  */
 trait HasGenderTrait
 {
-    /** @var string $sex - Gender */
-    protected string $sex = 'Male';
+    /** @var Str $sex - Gender */
+    protected Str $sex = Str::create('Male');
 
     /**
      * Mutator method for setting the value into the Attribute.
@@ -27,9 +28,10 @@ trait HasGenderTrait
     protected function castSex(string $sex): void
     {
         // Sanitizes and checks supplied value.
-        $sex = \ucfirst(\strtolower($sex));
-        if ($sex !== 'Male' && $sex !== 'Female') {
-            throw new UnexpectedEntityValueException("Specified gender '{$sex}' is not valid.");
+        $sexValue = Str::create($sex)->toLower()->toUpperFirst();
+
+        if (!$sexValue->equals(Str::create('Male')) && !$sexValue->equals(Str::create('Female'))) {
+            throw new UnexpectedEntityValueException('$sex');
         }
 
         $this->sex = $sex;
@@ -38,9 +40,9 @@ trait HasGenderTrait
     /**
      * Returns the Entity's Gender.
      *
-     * @return string
+     * @return Str
      */
-    public function getGender(): string
+    public function getGender(): Str
     {
         return $this->sex;
     }

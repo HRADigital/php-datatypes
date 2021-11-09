@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Traits\Entities\Location;
 
+use HraDigital\Datatypes\Scalar\Str;
+
 /**
  * Trait for an Entity's City attribute.
  *
@@ -13,8 +15,8 @@ namespace HraDigital\Datatypes\Traits\Entities\Location;
  */
 trait HasCityTrait
 {
-    /** @var string $city - City */
-    protected string $city = '';
+    /** @var Str $city - City */
+    protected Str $city = Str::create('');
 
     /**
      * Mutator method for setting the value into the Attribute.
@@ -24,15 +26,15 @@ trait HasCityTrait
      */
     protected function castCity(string $city): void
     {
-        $this->city = \trim($city);
+        $this->city = Str::create($city)->trim();
     }
 
     /**
      * Returns the Entity's City.
      *
-     * @return string
+     * @return Str
      */
-    public function getCity(): string
+    public function getCity(): Str
     {
         return $this->city;
     }

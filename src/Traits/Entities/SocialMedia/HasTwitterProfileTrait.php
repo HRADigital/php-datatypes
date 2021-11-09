@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Traits\Entities\SocialMedia;
 
+use HraDigital\Datatypes\Scalar\Str;
+
 /**
  * Adds Twitters's Social Media account URL field.
  *
@@ -13,8 +15,8 @@ namespace HraDigital\Datatypes\Traits\Entities\SocialMedia;
  */
 trait HasTwitterProfileTrait
 {
-    /** @var string|null $twitter - Social Media account's URL. */
-    protected ?string $twitter = null;
+    /** @var Str|null $twitter - Social Media account's URL. */
+    protected ?Str $twitter = null;
 
     /**
      * Sets the Social Media account URL value of an Entity.
@@ -24,15 +26,15 @@ trait HasTwitterProfileTrait
      */
     protected function castTwitter(?string $twitter): void
     {
-        $this->twitter = $twitter;
+        $this->twitter = $twitter ? Str::create($twitter)->trim() : null;
     }
 
     /**
      * Retrieves record's Social Media account's URL.
      *
-     * @return string|null
+     * @return Str|null
      */
-    public function getTwitterUrl(): ?string
+    public function getTwitterUrl(): ?Str
     {
         return $this->twitter;
     }

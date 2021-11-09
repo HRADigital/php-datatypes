@@ -30,7 +30,7 @@ trait HasHitsTrait
     {
         // Validates supplied $hits value.
         if ($hits < 0) {
-            throw new NonNegativeNumberException("Supplid hits counter cannot be a negative integer.");
+            throw new NonNegativeNumberException('$hits');
         }
 
         // Sets value in class' attribute.

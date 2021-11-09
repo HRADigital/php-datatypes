@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Traits\Entities\SocialMedia;
 
+use HraDigital\Datatypes\Scalar\Str;
+
 /**
  * Adds Instagram's Social Media account URL field.
  *
@@ -13,8 +15,8 @@ namespace HraDigital\Datatypes\Traits\Entities\SocialMedia;
  */
 trait HasInstagramProfileTrait
 {
-    /** @var string|null $instagram - Social Media account's URL. */
-    protected ?string $instagram = null;
+    /** @var Str|null $instagram - Social Media account's URL. */
+    protected ?Str $instagram = null;
 
     /**
      * Sets the Social Media account URL value of an Entity.
@@ -24,15 +26,15 @@ trait HasInstagramProfileTrait
      */
     protected function castInstagram(?string $instagram): void
     {
-        $this->instagram = $instagram;
+        $this->instagram = $instagram ? Str::create($instagram)->trim() : null;
     }
 
     /**
      * Retrieves record's Social Media account's URL.
      *
-     * @return string|null
+     * @return Str|null
      */
-    public function getInstagramUrl(): ?string
+    public function getInstagramUrl(): ?Str
     {
         return $this->instagram;
     }

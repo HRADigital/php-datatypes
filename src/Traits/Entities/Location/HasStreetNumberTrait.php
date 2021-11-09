@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Traits\Entities\Location;
 
+use HraDigital\Datatypes\Scalar\Str;
+
 /**
  * Trait for an Entity's Street Number attribute.
  *
@@ -13,8 +15,8 @@ namespace HraDigital\Datatypes\Traits\Entities\Location;
  */
 trait HasStreetNumberTrait
 {
-    /** @var string $street_adicional - Street Number */
-    protected string $street_no = '';
+    /** @var Str $street_adicional - Street Number */
+    protected Str $street_no = Str::create('');
 
     /**
      * Mutator method for setting the value into the Attribute.
@@ -24,15 +26,15 @@ trait HasStreetNumberTrait
      */
     protected function castStreetNo(string $number): void
     {
-        $this->street_no = \trim($number);
+        $this->street_no = Str::create($number)->trim();
     }
 
     /**
      * Returns the Entity's Street Number.
      *
-     * @return string
+     * @return Str
      */
-    public function getStreetNumber(): string
+    public function getStreetNumber(): Str
     {
         return $this->street_no;
     }
