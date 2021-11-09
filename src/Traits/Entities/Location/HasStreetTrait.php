@@ -16,7 +16,7 @@ use HraDigital\Datatypes\Scalar\Str;
 trait HasStreetTrait
 {
     /** @var Str $street - Street */
-    protected Str $street = Str::create('');
+    protected Str $street;
 
     /**
      * Mutator method for setting the value into the Attribute.

@@ -16,7 +16,7 @@ use HraDigital\Datatypes\Scalar\Str;
 trait HasAddressTrait
 {
     /** @var Str $address - Address */
-    protected Str $address = Str::create('');
+    protected Str $address;
 
     /**
      * Mutator method for setting the value into the Attribute.

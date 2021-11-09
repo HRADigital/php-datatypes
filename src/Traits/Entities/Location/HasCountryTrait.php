@@ -16,7 +16,7 @@ use HraDigital\Datatypes\Scalar\Str;
 trait HasCountryTrait
 {
     /** @var Str $country - Country */
-    protected Str $country = Str::create('');
+    protected Str $country;
 
     /**
      * Mutator method for setting the value into the Attribute.

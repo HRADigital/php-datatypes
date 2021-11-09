@@ -17,7 +17,7 @@ use HraDigital\Datatypes\Scalar\Str;
 trait HasNameTrait
 {
     /** @var Str $name - Instance's Name. */
-    protected Str $name = Str::create('');
+    protected Str $name;
 
     /**
      * Setter method for name.
@@ -35,7 +35,7 @@ trait HasNameTrait
             throw new NonEmptyStringException('$name');
         }
 
-        $this->name = $name;
+        $this->name = $nameValue;
     }
 
     /**

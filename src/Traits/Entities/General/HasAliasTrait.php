@@ -17,7 +17,7 @@ use HraDigital\Datatypes\Scalar\Str;
 trait HasAliasTrait
 {
     /** @var Str $alias - Instances's Alias. */
-    protected Str $alias = Str::create('');
+    protected Str $alias;
 
     /**
      * Setter method for alias.

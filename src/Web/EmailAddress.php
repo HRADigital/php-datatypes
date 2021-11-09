@@ -67,7 +67,7 @@ class EmailAddress implements \Serializable
         $voEmail = Str::create($email)->trim()->toLower();
 
         // Validate supplied parameter.
-        if ($voEmail->length() === 0) {
+        if ($voEmail->getLength() === 0) {
             throw new NonEmptyStringException('$email');
         }
         if (!\filter_var((string) $email, FILTER_VALIDATE_EMAIL)) {

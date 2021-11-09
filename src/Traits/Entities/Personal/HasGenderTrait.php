@@ -17,7 +17,7 @@ use HraDigital\Datatypes\Scalar\Str;
 trait HasGenderTrait
 {
     /** @var Str $sex - Gender */
-    protected Str $sex = Str::create('Male');
+    protected Str $sex;
 
     /**
      * Mutator method for setting the value into the Attribute.
