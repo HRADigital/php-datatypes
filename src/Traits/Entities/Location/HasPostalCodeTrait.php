@@ -16,7 +16,7 @@ use HraDigital\Datatypes\Scalar\Str;
 trait HasPostalCodeTrait
 {
     /** @var Str $postal_code - Postal Code */
-    protected Str $postal_code = Str::create('');
+    protected Str $postal_code;
 
     /**
      * Mutator method for setting the value into the Attribute.

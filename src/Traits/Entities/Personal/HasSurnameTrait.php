@@ -17,7 +17,7 @@ use HraDigital\Datatypes\Scalar\Str;
 trait HasSurnameTrait
 {
     /** @var Str $surname - Instance's Surname. */
-    protected Str $surname = Str::create('');
+    protected Str $surname;
 
     /**
      * Setter method for Surname.
