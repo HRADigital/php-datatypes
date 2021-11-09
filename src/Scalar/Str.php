@@ -415,13 +415,13 @@ class Str extends AbstractBaseString
     /**
      * This method replaces a string's occurance by another, and returns a new instance with the new value.
      *
-     * @param  Str $search  - The string to search for.
-     * @param  Str $replace - The search's replacement.
+     * @param  string $search  - The string to search for.
+     * @param  string $replace - The search's replacement.
      *
      * @throws NonEmptyStringException - If either $search or $replace are empty.
      * @return Str
      */
-    public function replace(Str $search, Str $replace): Str
+    public function replace(string $search, string $replace): Str
     {
         return Str::create(
             parent::doReplace((string) $search, (string) $replace)
