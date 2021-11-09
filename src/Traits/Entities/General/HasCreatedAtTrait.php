@@ -1,14 +1,17 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Traits\Entities\General;
+declare(strict_types=1);
 
-use Hradigital\Datatypes\Datatypes\Datetime;
+namespace HraDigital\Datatypes\Traits\Entities\General;
+
+use HraDigital\Datatypes\Datetime\Datetime;
+use HraDigital\Datatypes\Scalar\VoString;
 
 /**
  * Trait for a Record CreatedAt attribute.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   Proprietary
  */
 trait HasCreatedAtTrait
@@ -24,7 +27,7 @@ trait HasCreatedAtTrait
      */
     protected function castCreatedAt(string $timestamp): void
     {
-        $this->created_at = Datetime::fromString($timestamp);
+        $this->created_at = Datetime::fromString(VoString::create($timestamp));
     }
 
     /**
@@ -32,7 +35,7 @@ trait HasCreatedAtTrait
      *
      * @return Datetime
      */
-    public function createdAt(): Datetime
+    public function getCreatedAt(): Datetime
     {
         return $this->created_at;
     }

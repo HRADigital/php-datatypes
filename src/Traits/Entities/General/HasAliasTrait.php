@@ -1,19 +1,21 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Traits\Entities\General;
+declare(strict_types=1);
 
-use Hradigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
+namespace HraDigital\Datatypes\Traits\Entities\General;
+
+use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
 
 /**
  * Gives Alias information capabilities to an Entity/Value Object.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   Proprietary
  */
 trait HasAliasTrait
 {
-    /** @var string $alias - instances's Alias. */
+    /** @var string $alias - Instances's Alias. */
     protected string $alias = '';
 
     /**
@@ -21,7 +23,7 @@ trait HasAliasTrait
      *
      * @param string $alias - New value to be set on Attribute.
      *
-     * @throws \InvalidArgumentException - Supplied Alias must be a non empty string.
+     * @throws NonEmptyStringException - Supplied Alias must be a non empty string.
      * @return void
      */
     protected function castAlias(string $alias): void
@@ -32,7 +34,7 @@ trait HasAliasTrait
 
         // Validates if alias is filled.
         if (\strlen($alias) === 0) {
-            throw new NonEmptyStringException("Supplied Alias must be a non empty string.");
+            throw new NonEmptyStringException('$alias');
         }
 
         // We'll set the alias value on the attribute, but use the sanitizeAlias() method
@@ -45,7 +47,7 @@ trait HasAliasTrait
      *
      * @return string
      */
-    public function alias(): string
+    public function getAlias(): string
     {
         return $this->alias;
     }

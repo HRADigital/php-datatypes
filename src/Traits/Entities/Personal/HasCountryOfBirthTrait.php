@@ -1,14 +1,16 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Traits\Entities\Personal;
+declare(strict_types=1);
 
-use Hradigital\Datatypes\Exceptions\Entities\UnexpectedEntityValueException;
+namespace HraDigital\Datatypes\Traits\Entities\Personal;
+
+use HraDigital\Datatypes\Exceptions\Entities\UnexpectedEntityValueException;
 
 /**
  * Trait for an Entity's Country of Birth attribute.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   Proprietary
  */
 trait HasCountryOfBirthTrait
@@ -36,7 +38,7 @@ trait HasCountryOfBirthTrait
      *
      * @return string
      */
-    public function countryOfBirth(): string
+    public function getCountryOfBirth(): string
     {
         return $this->country_of_birth;
     }

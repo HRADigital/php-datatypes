@@ -1,14 +1,16 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Traits\Entities\General;
+declare(strict_types=1);
 
-use Hradigital\Datatypes\Datatypes\EmailAddress;
+namespace HraDigital\Datatypes\Traits\Entities\General;
+
+use HraDigital\Datatypes\Web\EmailAddress;
 
 /**
  * Trait for a Record's Email attribute.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   Proprietary
  */
 trait HasEmailTrait
@@ -24,7 +26,7 @@ trait HasEmailTrait
      */
     protected function castEmail(string $email): void
     {
-        $this->email = EmailAddress::fromString($email);
+        $this->email = EmailAddress::create($email);
     }
 
     /**
@@ -32,7 +34,7 @@ trait HasEmailTrait
      *
      * @return EmailAddress|null
      */
-    public function email(): ?EmailAddress
+    public function getEmail(): ?EmailAddress
     {
         return $this->email;
     }

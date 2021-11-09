@@ -1,12 +1,14 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Traits\Entities\General;
+declare(strict_types=1);
+
+namespace HraDigital\Datatypes\Traits\Entities\General;
 
 /**
  * Gives Publishing with timestamps capabilities to an Entity.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   Proprietary
  * @todo      Finish up Trait, when Datetime datatype is finished.
  */

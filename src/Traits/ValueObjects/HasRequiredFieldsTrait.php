@@ -1,16 +1,18 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Traits\ValueObjects;
+declare(strict_types=1);
 
-use Hradigital\Datatypes\Exceptions\Entities\RequiredEntityValueMissingException;
+namespace HraDigital\Datatypes\Traits\ValueObjects;
+
+use HraDigital\Datatypes\Exceptions\Entities\RequiredEntityValueMissingException;
 
 /**
  * Gives Field Requirement capabilities to Value Object's
  *
  * If you extend directly AbstractValueObject, you'll already be inheriting this functionality.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   Proprietary
  */
 trait HasRequiredFieldsTrait

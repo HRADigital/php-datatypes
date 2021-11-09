@@ -1,16 +1,18 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Traits\Entities\General;
+declare(strict_types=1);
 
-use Hradigital\Datatypes\Datatypes\Datetime;
+namespace HraDigital\Datatypes\Traits\Entities\General;
+
+use HraDigital\Datatypes\Datetime\Datetime;
 
 /**
  * Trait for an Entity DeletedAt attribute.
  *
  * Only use this Trait in in Entities/Value Objects that have Soft Delete capabilities.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   Proprietary
  */
 trait HasDeletedAtTrait
@@ -26,7 +28,7 @@ trait HasDeletedAtTrait
      */
     protected function castDeletedAt(?string $timestamp): void
     {
-        $this->deleted_at = ($timestamp ? Datetime::fromString($timestamp) : null);
+        $this->deleted_at = ($timestamp ? Datetime::fromString(VoString::create($timestamp)) : null);
     }
 
     /**
@@ -34,7 +36,7 @@ trait HasDeletedAtTrait
      *
      * @return Datetime|null
      */
-    public function deletedAt(): ?Datetime
+    public function getDeletedAt(): ?Datetime
     {
         return $this->deleted_at;
     }

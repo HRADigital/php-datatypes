@@ -1,6 +1,6 @@
-# Domain Aggregates
+# Aggregates
 
-_Domain Aggregates_ are not meant to be the same as _DDD's Aggregates_.
+_Aggregates_ are not meant to be the same as _DDD's Root Aggregates_.
 
 `Aggregates` are meant to **aggregate returned types** together, in order to **minimize** communication with the **Domain**.
 

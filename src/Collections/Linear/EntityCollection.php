@@ -1,14 +1,16 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Collections\Linear;
+declare(strict_types=1);
+
+namespace HraDigital\Datatypes\Collections\Linear;
 
 /**
  * Entity Collection class.
  *
  * This class will hold, process, encapsulate and group Entity objects together.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT1
  * @link      https://github.com/opsbears/foundation/tree/master/src/Complex
  */

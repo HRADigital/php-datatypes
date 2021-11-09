@@ -1,14 +1,16 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Traits\Entities\Personal;
+declare(strict_types=1);
 
-use Hradigital\Datatypes\Exceptions\Entities\UnexpectedEntityValueException;
+namespace HraDigital\Datatypes\Traits\Entities\Personal;
+
+use HraDigital\Datatypes\Exceptions\Entities\UnexpectedEntityValueException;
 
 /**
  * Trait for an Entity's Gender attribute.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   Proprietary
  */
 trait HasGenderTrait
@@ -38,7 +40,7 @@ trait HasGenderTrait
      *
      * @return string
      */
-    public function gender(): string
+    public function getGender(): string
     {
         return $this->sex;
     }

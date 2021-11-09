@@ -1,15 +1,17 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Traits\ValueObjects;
+declare(strict_types=1);
 
-use Hradigital\Datatypes\Collections\Linear\EntityCollection;
-use Hradigital\Datatypes\ValueObjects\AbstractValueObject;
+namespace HraDigital\Datatypes\Traits\ValueObjects;
+
+use HraDigital\Datatypes\Collections\Linear\EntityCollection;
+use HraDigital\Datatypes\ValueObjects\AbstractValueObject;
 
 /**
  * Adds conversion of list of Fields into their primitive representation.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   Proprietary
  */
 trait HasConversionToPrimitiveValuesTrait
@@ -30,7 +32,7 @@ trait HasConversionToPrimitiveValuesTrait
             // If is not an Object not an Array, returns the actual value of the Field.
             if ($value instanceof AbstractValueObject || $value instanceof EntityCollection) {
                 $converted[$field] = $value->jsonSerialize();
-            } elseif (\method_exists($value, '__toString')) {
+            } elseif (\is_object($value) && \method_exists($value, '__toString')) {
                 $converted[$field] = (string) $value;
             } elseif (\is_array($value) || \is_object($value)) {
                 $converted[$field] = \json_encode($value);

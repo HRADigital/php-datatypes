@@ -1,10 +1,10 @@
 <?php declare(strict_types=1);
 
-namespace Hradigital\Datatypes\Web;
+namespace HraDigital\Datatypes\Web;
 
-use Hradigital\Datatypes\Exceptions\Datatypes\InvalidEmailException;
-use Hradigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
-use Hradigital\Datatypes\Scalar\VoString;
+use HraDigital\Datatypes\Exceptions\Datatypes\InvalidEmailException;
+use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
+use HraDigital\Datatypes\Scalar\VoString;
 
 /**
  * E-mail address datatype.
@@ -12,8 +12,8 @@ use Hradigital\Datatypes\Scalar\VoString;
  * Datatype class to hold and validate a single E-mail address value, as
  * an E-mail address is a complex field, with a very specific set of rules.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  */
 class EmailAddress implements \Serializable

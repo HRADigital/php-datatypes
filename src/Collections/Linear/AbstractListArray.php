@@ -1,6 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Collections\Linear;
+declare(strict_types=1);
+
+namespace HraDigital\Datatypes\Collections\Linear;
 
 /**
  * List Abstract Linear Collection.
@@ -26,8 +28,8 @@ namespace Hradigital\Datatypes\Collections\Linear;
  * Other specialized operations on lists include sorting, where, again, the order of data items is
  * of great importance.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  * @link      http://php.net/manual/en/class.ds-collection.php
  * @link      https://en.wikipedia.org/wiki/Collection_(abstract_data_type)#Lists

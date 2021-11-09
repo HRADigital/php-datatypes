@@ -1,12 +1,14 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Traits\Entities\Location;
+declare(strict_types=1);
+
+namespace HraDigital\Datatypes\Traits\Entities\Location;
 
 /**
  * Trait for an Entity's Country attribute.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   Proprietary
  */
 trait HasCountryTrait
@@ -30,7 +32,7 @@ trait HasCountryTrait
      *
      * @return string
      */
-    public function country(): string
+    public function getCountry(): string
     {
         return $this->country;
     }

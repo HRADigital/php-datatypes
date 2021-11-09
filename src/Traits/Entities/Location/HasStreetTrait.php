@@ -1,12 +1,14 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Traits\Entities\Location;
+declare(strict_types=1);
+
+namespace HraDigital\Datatypes\Traits\Entities\Location;
 
 /**
  * Trait for an Entity's Street attribute.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   Proprietary
  */
 trait HasStreetTrait
@@ -30,7 +32,7 @@ trait HasStreetTrait
      *
      * @return string
      */
-    public function street(): string
+    public function getStreet(): string
     {
         return $this->street;
     }

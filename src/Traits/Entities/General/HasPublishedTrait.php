@@ -1,18 +1,20 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Traits\Entities\General;
+declare(strict_types=1);
+
+namespace HraDigital\Datatypes\Traits\Entities\General;
 
 /**
  * Gives Publishing capabilities to an Entity/Value Object.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   Proprietary
  */
 trait HasPublishedTrait
 {
     /** @var bool $published - If the record is marked as Published for the frontend. */
-    protected bool $published = false;
+    protected bool $is_published = false;
 
     /**
      * Sets the published value of an Entity/Value Object.
@@ -22,7 +24,7 @@ trait HasPublishedTrait
      */
     protected function castPublished(bool $published): void
     {
-        $this->published = $published;
+        $this->is_published = $published;
     }
 
     /**
@@ -30,8 +32,8 @@ trait HasPublishedTrait
      *
      * @return bool
      */
-    public function published(): bool
+    public function isPublished(): bool
     {
-        return $this->published;
+        return $this->is_published;
     }
 }
