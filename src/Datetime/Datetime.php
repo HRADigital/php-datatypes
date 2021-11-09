@@ -65,7 +65,7 @@ class Datetime implements \JsonSerializable //extends \Datetime //implements \Se
      *
      * @return int
      */
-    public function timestamp(): int
+    public function getTimestamp(): int
     {
         return $this->dateTime->getTimestamp();
     }
@@ -75,7 +75,7 @@ class Datetime implements \JsonSerializable //extends \Datetime //implements \Se
      *
      * @return int
      */
-    public function offset(): int
+    public function getOffset(): int
     {
         return $this->dateTime->getOffset();
     }
@@ -85,7 +85,7 @@ class Datetime implements \JsonSerializable //extends \Datetime //implements \Se
      *
      * @return int
      */
-    public function year(): int
+    public function getYear(): int
     {
         return (int) ((string) $this->toFormat(Str::create('Y')));
     }
@@ -95,7 +95,7 @@ class Datetime implements \JsonSerializable //extends \Datetime //implements \Se
      *
      * @return int
      */
-    public function month(): int
+    public function getMonth(): int
     {
         return (int) ((string) $this->toFormat(Str::create('m')));
     }
@@ -105,7 +105,7 @@ class Datetime implements \JsonSerializable //extends \Datetime //implements \Se
      *
      * @return int
      */
-    public function day(): int
+    public function getDay(): int
     {
         return (int) ((string) $this->toFormat(Str::create('d')));
     }
@@ -115,7 +115,7 @@ class Datetime implements \JsonSerializable //extends \Datetime //implements \Se
      *
      * @return int
      */
-    public function hour(): int
+    public function getHour(): int
     {
         return (int) ((string) $this->toFormat(Str::create('H')));
     }
@@ -125,7 +125,7 @@ class Datetime implements \JsonSerializable //extends \Datetime //implements \Se
      *
      * @return int
      */
-    public function minute(): int
+    public function getMinute(): int
     {
         return (int) ((string) $this->toFormat(Str::create('i')));
     }
@@ -135,7 +135,7 @@ class Datetime implements \JsonSerializable //extends \Datetime //implements \Se
      *
      * @return int
      */
-    public function second(): int
+    public function getSecond(): int
     {
         return (int) ((string) $this->toFormat(Str::create('s')));
     }
@@ -268,14 +268,14 @@ class Datetime implements \JsonSerializable //extends \Datetime //implements \Se
         );
     }
 
-    public function startOfDay(): Datetime
+    public function getStartOfDay(): Datetime
     {
         return new Datetime(
             $this->dateTime->format('Y-m-d 00:00:00')
         );
     }
 
-    public function endOfDay(): Datetime
+    public function getEndOfDay(): Datetime
     {
         return new Datetime(
             $this->dateTime->format('Y-m-d 23:59:59')
