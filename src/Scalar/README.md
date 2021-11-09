@@ -1,43 +1,43 @@
 # PHP Scalar Datatypes
 
-Currently, this package supports only **Scalar Strings**. You can choose between `VoString` and `NString` string objects.
+Currently, this package supports only **Scalar Strings**. You can choose between `Str` and `NString` string objects.
 
 **Scalar Strings** are wrapper objects around primitive `strings`, which encapsulate all string related funcionality into
 a single instance.
 
-## VoString vs. NString
+## Str vs. NString
 
-`VoString` and `NString` string datatypes will have the exact same functionality, but will have different instance management.
+`Str` and `NString` string datatypes will have the exact same functionality, but will have different instance management.
 Both types inherit commonly used `protected` functionality from parent `AbstractBaseString` class. Parent methods will map to
 native procedural string manipulation functions.
 
 Both types of classes implement `__toString()` method, which means you can directly print their result:
 
 ```php
-// Example of a VoString.
-$voString = VoString::create("   This Is A String   ");
+// Example of a Str.
+$Str = Str::create("   This Is A String   ");
 
-echo $voString; // Prints '   This Is A String   '
+echo $Str; // Prints '   This Is A String   '
 ```
 
 Use **accessor** methods to retrieve any information from within the instance. **Mutators** methods will manipulate the
 value of the instance. Both classes are immutable Value Objects, which means that, they will always return a new
 instance of themselves when changing internal value, which should remain immutable in original instance.
 
-Both `VoString` and `NString` instances have _fluent interfaces_, and therefore you can chain mutator methods, and make
-several changes in the same line of code. The main difference between the two types, is that `VoString` instances will
-force all mutator's interfaces/methods to always use other `VoString` as parameters, and never primitive `strings`.
+Both `Str` and `NString` instances have _fluent interfaces_, and therefore you can chain mutator methods, and make
+several changes in the same line of code. The main difference between the two types, is that `Str` instances will
+force all mutator's interfaces/methods to always use other `Str` as parameters, and never primitive `strings`.
 
 Here are two examples:
 
 ```php
-// Example of a VoString string.
-$string1 = VoString::create("   This Is A String   ");
+// Example of a Str string.
+$string1 = Str::create("   This Is A String   ");
 
 // Overrite initial variable with returned instance.
-// Notice that we use other VoString as parameters.
-$search  = VoString::create("This");
-$replace = VoString::create("That");
+// Notice that we use other Str as parameters.
+$search  = Str::create("This");
+$replace = Str::create("That");
 $string1 = $string1->replace($search, $replace);
 
 // Perform operations on instance, and assign result to different variables.
@@ -100,11 +100,11 @@ echo "{$string} has the value 'that is a great feature'";
 You can easily import, use and manipulate primitive native data in the following way:
 
 ```php
-use HraDigital\Datatypes\Scalar\VoString;
+use HraDigital\Datatypes\Scalar\Str;
 
 // ...
 
-$string = VoString::create(' This is the string I am trying to manipulate.   ');
+$string = Str::create(' This is the string I am trying to manipulate.   ');
 ```
 
 ### Class conversion
@@ -115,13 +115,13 @@ You can also convert from one type of string to the other.
 // Originally creates an Instance of NString.
 $string = NString::create('This is originally a NString.')
     ->replace(' is ', ' was ')
-    ->toVoString();
+    ->toStr();
 
-echo get_class($string); // Should echo \HraDigital\Datatypes\Scalar\VoString
+echo get_class($string); // Should echo \HraDigital\Datatypes\Scalar\Str
 echo $string; // This was originally a NString.
 
 // Converts to original type.
-$string = $string->replace(VoString::create(' was '), VoString::create(' is '))->toNString();
+$string = $string->replace(Str::create(' was '), Str::create(' is '))->toNString();
 
 echo get_class($string); // Should echo \HraDigital\Datatypes\Scalar\NString
 echo $string; // This is originally a NString.

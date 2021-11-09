@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace HraDigital\Datatypes\ValueObjects\Timezone;
 
 use HraDigital\Datatypes\Datetime\Datetime;
-use HraDigital\Datatypes\Scalar\VoString;
+use HraDigital\Datatypes\Scalar\Str;
 use HraDigital\Datatypes\Traits\Entities\Timezone\HasTimestampTrait;
 use HraDigital\Datatypes\ValueObjects\AbstractValueObject;
 
@@ -24,7 +24,7 @@ class Transition extends AbstractValueObject
     protected Datetime $dateTime;
     protected int $offset;
     protected bool $isDayLightSavingActive;
-    protected VoString $abbreviation;
+    protected Str $abbreviation;
 
     /** @inheritDoc */
     protected array $required = [
@@ -61,7 +61,7 @@ class Transition extends AbstractValueObject
 
     protected function castAbbreviation(string $abbreviation): void
     {
-        $this->abbreviation = VoString::create($abbreviation);
+        $this->abbreviation = Str::create($abbreviation);
     }
 
     public function dateTime(): Datetime
@@ -79,7 +79,7 @@ class Transition extends AbstractValueObject
         return $this->isDayLightSavingActive;
     }
 
-    public function abbreviation(): VoString
+    public function abbreviation(): Str
     {
         return $this->abbreviation;
     }

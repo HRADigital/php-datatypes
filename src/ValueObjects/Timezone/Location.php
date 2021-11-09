@@ -2,7 +2,7 @@
 
 namespace HraDigital\Datatypes\ValueObjects\Timezone;
 
-use HraDigital\Datatypes\Scalar\VoString;
+use HraDigital\Datatypes\Scalar\Str;
 use HraDigital\Datatypes\Traits\Entities\Location\HasCountryCodeTrait;
 use HraDigital\Datatypes\Traits\Entities\Location\HasLatitudeTrait;
 use HraDigital\Datatypes\Traits\Entities\Location\HasLongitudeTrait;
@@ -22,7 +22,7 @@ class Location extends AbstractValueObject
         HasLatitudeTrait,
         HasLongitudeTrait;
 
-    protected ?VoString $comments = null;
+    protected ?Str $comments = null;
 
     /** @inheritDoc */
     protected array $required = [
@@ -33,10 +33,10 @@ class Location extends AbstractValueObject
 
     protected function castComments(?string $comments): void
     {
-        $this->comments = ($comments ? VoString::create($comments) : null);
+        $this->comments = ($comments ? Str::create($comments) : null);
     }
 
-    public function comments(): ?VoString
+    public function comments(): ?Str
     {
         return $this->comments;
     }
