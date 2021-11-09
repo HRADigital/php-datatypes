@@ -11,7 +11,7 @@ use HraDigital\Datatypes\Web\EmailAddress;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   Proprietary
+ * @license   MIT
  */
 trait HasEmailTrait
 {

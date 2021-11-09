@@ -11,7 +11,7 @@ use HraDigital\Datatypes\Datetime\Datetime;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   Proprietary
+ * @license   MIT
  */
 trait HasDateOfBirthTrait
 {

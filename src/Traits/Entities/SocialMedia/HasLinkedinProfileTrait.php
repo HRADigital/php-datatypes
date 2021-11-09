@@ -9,7 +9,7 @@ namespace HraDigital\Datatypes\Traits\Entities\SocialMedia;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   Proprietary
+ * @license   MIT
  */
 trait HasLinkedinProfileTrait
 {

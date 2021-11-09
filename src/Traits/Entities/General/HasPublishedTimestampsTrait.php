@@ -9,7 +9,7 @@ namespace HraDigital\Datatypes\Traits\Entities\General;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   Proprietary
+ * @license   MIT
  * @todo      Finish up Trait, when Datetime datatype is finished.
  */
 trait HasPublishedTimestampsTrait

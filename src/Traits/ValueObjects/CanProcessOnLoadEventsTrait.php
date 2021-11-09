@@ -13,7 +13,7 @@ use Closure;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   Proprietary
+ * @license   MIT
  */
 trait CanProcessOnLoadEventsTrait
 {

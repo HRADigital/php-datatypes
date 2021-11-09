@@ -11,7 +11,7 @@ use HraDigital\Datatypes\Scalar\VoString;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   Proprietary
+ * @license   MIT
  */
 trait HasCountryCodeTrait
 {

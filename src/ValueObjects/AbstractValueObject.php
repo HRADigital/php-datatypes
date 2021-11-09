@@ -31,7 +31,7 @@ use Serializable;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   Proprietary
+ * @license   MIT
  */
 abstract class AbstractValueObject implements \JsonSerializable, Serializable
 {

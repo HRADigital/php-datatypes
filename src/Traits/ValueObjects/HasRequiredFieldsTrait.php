@@ -13,7 +13,7 @@ use HraDigital\Datatypes\Exceptions\Entities\RequiredEntityValueMissingException
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   Proprietary
+ * @license   MIT
  */
 trait HasRequiredFieldsTrait
 {

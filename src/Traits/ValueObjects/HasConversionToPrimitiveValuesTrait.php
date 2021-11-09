@@ -12,7 +12,7 @@ use HraDigital\Datatypes\ValueObjects\AbstractValueObject;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   Proprietary
+ * @license   MIT
  */
 trait HasConversionToPrimitiveValuesTrait
 {
