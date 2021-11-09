@@ -31,7 +31,7 @@ trait HasStaticFactoryMethodsTrait
 
     public static function fromString(?string $datetime = null, ?DateTimeZone $timezone = null): Datetime
     {
-        return new Datetime((string) $datetime ?? "now", $timezone);
+        return new Datetime($datetime ?? "now", $timezone);
     }
 
     public static function fromTimestamp(int $timestamp): Datetime
