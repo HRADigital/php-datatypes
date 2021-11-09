@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace HraDigital\Datatypes\ValueObjects\Timezone;
 
@@ -44,9 +46,7 @@ class Transition extends AbstractValueObject
 
     protected function castDateTime(string $time): void
     {
-        $this->dateTime = Datetime::fromString(
-            VoString::create($time)
-        );
+        $this->dateTime = Datetime::fromString($time);
     }
 
     protected function castOffset(int $offset): void

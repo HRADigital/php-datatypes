@@ -6,7 +6,6 @@ namespace HraDigital\Datatypes\Traits\Datetime\Datetime;
 
 use HraDigital\Datatypes\Datetime\Datetime;
 use HraDigital\Datatypes\Datetime\DateTimeZone;
-use HraDigital\Datatypes\Scalar\VoString;
 
 trait HasStaticFactoryMethodsTrait
 {
@@ -30,7 +29,7 @@ trait HasStaticFactoryMethodsTrait
         return new Datetime("yesterday");
     }
 
-    public static function fromString(?VoString $datetime = null, ?DateTimeZone $timezone = null): Datetime
+    public static function fromString(?string $datetime = null, ?DateTimeZone $timezone = null): Datetime
     {
         return new Datetime((string) $datetime ?? "now", $timezone);
     }
