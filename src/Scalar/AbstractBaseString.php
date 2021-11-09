@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Scalar;
 
@@ -51,7 +53,7 @@ abstract class AbstractBaseString
      *
      * @return int
      */
-    public function length(): int
+    public function getLength(): int
     {
         return \strlen($this->value);
     }
@@ -61,7 +63,7 @@ abstract class AbstractBaseString
      *
      * @return int
      */
-    public function wordCount(): int
+    public function getWordCount(): int
     {
         return \str_word_count($this->value);
     }
