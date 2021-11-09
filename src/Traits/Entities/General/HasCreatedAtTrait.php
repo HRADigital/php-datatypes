@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace HraDigital\Datatypes\Traits\Entities\General;
 
 use HraDigital\Datatypes\Datetime\Datetime;
-use HraDigital\Datatypes\Scalar\VoString;
 
 /**
  * Trait for a Record CreatedAt attribute.
@@ -27,7 +26,7 @@ trait HasCreatedAtTrait
      */
     protected function castCreatedAt(string $timestamp): void
     {
-        $this->created_at = Datetime::fromString(VoString::create($timestamp));
+        $this->created_at = Datetime::fromString($timestamp);
     }
 
     /**

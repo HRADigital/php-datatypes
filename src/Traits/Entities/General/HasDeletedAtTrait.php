@@ -28,7 +28,7 @@ trait HasDeletedAtTrait
      */
     protected function castDeletedAt(?string $timestamp): void
     {
-        $this->deleted_at = ($timestamp ? Datetime::fromString(VoString::create($timestamp)) : null);
+        $this->deleted_at = ($timestamp ? Datetime::fromString($timestamp) : null);
     }
 
     /**
