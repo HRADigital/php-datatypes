@@ -22,21 +22,22 @@
         "mutable objects"
     ],
     "require": {
-        "php": "^7.4"
+        "php": "^7.4|^8.0"
     },
     "require-dev": {
         "ext-xdebug": "*",
         "phpunit/phpunit": "^9.0",
-        "squizlabs/php_codesniffer": "^3.0@dev"
+        "squizlabs/php_codesniffer": "^3.0@dev",
+        "nesbot/carbon": "^2.0@dev"
     },
     "autoload": {
         "psr-4": {
-            "Hradigital\\Datatypes\\": "src/"
+            "HraDigital\\Datatypes\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Hradigital\\Tests\\Datatypes\\": "tests/"
+            "HraDigital\\Tests\\Datatypes\\": "tests/"
         }
     },
     "scripts": {
