@@ -9,7 +9,7 @@ namespace HraDigital\Datatypes\Traits\Entities\Location;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   Proprietary
+ * @license   MIT
  */
 trait HasCityTrait
 {

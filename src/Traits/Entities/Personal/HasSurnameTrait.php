@@ -11,7 +11,7 @@ use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   Proprietary
+ * @license   MIT
  */
 trait HasSurnameTrait
 {
