@@ -1,6 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Exceptions;
+declare(strict_types=1);
+
+namespace HraDigital\Datatypes\Exceptions;
 
 /**
  * Too Many Requests Base Domain Exception.
@@ -12,8 +14,8 @@ namespace Hradigital\Datatypes\Exceptions;
  * and MAY include a Retry-After header indicating how long to wait before making
  * a new request.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  */
 class TooManyRequestsException extends AbstractBaseException

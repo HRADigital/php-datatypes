@@ -1,6 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Exceptions;
+declare(strict_types=1);
+
+namespace HraDigital\Datatypes\Exceptions;
 
 /**
  * Method Not Allowed Base Domain Exception.
@@ -14,8 +16,8 @@ namespace Hradigital\Datatypes\Exceptions;
  * identified by the Request-URI. The response MUST include an Allow header
  * containing a list of valid methods for the requested resource.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  */
 class MethodNotAllowedException extends AbstractBaseException

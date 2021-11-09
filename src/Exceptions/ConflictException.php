@@ -1,6 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Exceptions;
+declare(strict_types=1);
+
+namespace HraDigital\Datatypes\Exceptions;
 
 /**
  * Conflict Base Domain Exception.
@@ -12,8 +14,8 @@ namespace Hradigital\Datatypes\Exceptions;
  * entries and deleting root objects when cascade-delete is not supported are a couple
  * of examples.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  */
 class ConflictException extends AbstractBaseException

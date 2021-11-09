@@ -1,6 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Exceptions;
+declare(strict_types=1);
+
+namespace HraDigital\Datatypes\Exceptions;
 
 /**
  * Unsupported Media Type Base Domain Exception.
@@ -12,8 +14,8 @@ namespace Hradigital\Datatypes\Exceptions;
  * For example, the client uploads an image as image/svg+xml, but the server requires
  * that images use a different format.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  */
 class UnsupportedMediaTypeException extends AbstractBaseException

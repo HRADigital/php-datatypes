@@ -1,14 +1,16 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Exceptions\Datatypes;
+declare(strict_types=1);
 
-use Hradigital\Datatypes\Exceptions\UnprocessableEntityException;
+namespace HraDigital\Datatypes\Exceptions\Datatypes;
+
+use HraDigital\Datatypes\Exceptions\UnprocessableEntityException;
 
 /**
  * Non empty String Datatype Exception.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  */
 class NonEmptyStringException extends UnprocessableEntityException

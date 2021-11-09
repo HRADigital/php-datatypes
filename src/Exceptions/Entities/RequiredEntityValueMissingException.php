@@ -1,8 +1,10 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Exceptions\Entities;
+declare(strict_types=1);
 
-use Hradigital\Datatypes\Exceptions\UnprocessableEntityException;
+namespace HraDigital\Datatypes\Exceptions\Entities;
+
+use HraDigital\Datatypes\Exceptions\UnprocessableEntityException;
 
 /**
  * Required Entity Value Missing Exception.
@@ -13,8 +15,8 @@ use Hradigital\Datatypes\Exceptions\UnprocessableEntityException;
  * When possible, message should be overridden, and missing field should be specified
  * in error message.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  */
 class RequiredEntityValueMissingException extends UnprocessableEntityException

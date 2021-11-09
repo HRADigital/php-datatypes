@@ -1,6 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Exceptions;
+declare(strict_types=1);
+
+namespace HraDigital\Datatypes\Exceptions;
 
 /**
  * Precondition Base Domain Exception.
@@ -12,8 +14,8 @@ namespace Hradigital\Datatypes\Exceptions;
  * resource meta-information (header field data) and thus prevent the requested
  * method from being applied to a resource other than the one intended.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  */
 class PreconditionFailedException extends AbstractBaseException

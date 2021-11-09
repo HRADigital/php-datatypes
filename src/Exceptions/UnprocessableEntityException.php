@@ -1,6 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Exceptions;
+declare(strict_types=1);
+
+namespace HraDigital\Datatypes\Exceptions;
 
 /**
  * The request was well-formed but was unable to be followed due to semantic errors.
@@ -13,8 +15,8 @@ namespace Hradigital\Datatypes\Exceptions;
  * For example, this error condition may occur if an XML request body contains well-formed
  * (i.e., syntactically correct), but semantically erroneous, XML instructions.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  */
 class UnprocessableEntityException extends AbstractBaseException
