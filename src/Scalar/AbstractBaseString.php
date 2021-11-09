@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Hradigital\Datatypes\Scalar;
+namespace HraDigital\Datatypes\Scalar;
 
-use Hradigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
-use Hradigital\Datatypes\Exceptions\Datatypes\ParameterOutOfRangeException;
+use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
+use HraDigital\Datatypes\Exceptions\Datatypes\ParameterOutOfRangeException;
 
 /**
  * Abstract Base String's Scalar Object class.
@@ -14,8 +14,8 @@ use Hradigital\Datatypes\Exceptions\Datatypes\ParameterOutOfRangeException;
  * All native processing should be done/wrapped in this class, but the internal state should never
  * change directly.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  */
 abstract class AbstractBaseString

@@ -1,6 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Collections\Linear;
+declare(strict_types=1);
+
+namespace HraDigital\Datatypes\Collections\Linear;
 
 /**
  * Stack Linear Collection.
@@ -23,8 +25,8 @@ namespace Hradigital\Datatypes\Collections\Linear;
  * on top of each other, which makes it easy to take an item off the top of the Stack, while getting to
  * an item deeper in the stack may require taking off multiple other items first.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  * @link      http://php.net/manual/en/class.ds-stack.php
  * @link      https://en.wikipedia.org/wiki/Stack_(abstract_data_type)

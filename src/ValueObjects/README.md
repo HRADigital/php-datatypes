@@ -13,7 +13,7 @@ The first thing you should assess, is the context of the **Value Object** you're
 
 Similar contexted **Value Objects**, will be placed near each other in the filesystem/namespace.
 
-All **Value Objects** should be located in the `Hradigital\Basetypes\ValueObjects` namespace, followed by the same segments
+All **Value Objects** should be located in the `HraDigital\Basetypes\ValueObjects` namespace, followed by the same segments
 present in the file system, up to the class definition.
 
 ### Value Objects are immutable
@@ -36,9 +36,9 @@ If we're talking about a Database as a **persistence layer**, and a given datata
 ```php
 class MyValueObject extends AbstractValueObject
 {
-    protected $name    = '';
-    protected $surname = '';
-    protected $date_of_birth = null;
+    protected VoString $name;
+    protected VoString $surname;
+    protected Datetime $date_of_birth;
 }
 ```
 
@@ -97,10 +97,10 @@ protected $maps = [
 ```php
 class Person extends AbstractvalueObject
 {
-    protected $name = '';
-    protected $surname = '';
+    protected VoString $name;
+    protected VoString $surname;
 
-    protected $required = ['name', 'surname'];
+    protected array $required = ['name', 'surname'];
 }
 ```
 
@@ -113,12 +113,12 @@ class Person extends AbstractValueObject
 
     protected function castName(string $name): void
     {
-        $this->name = trim($name);
+        $this->name = VoString::create($name)->trim();
     }
 
     protected function castSurname(string $surname): void
     {
-        $this->surname = trim($surname);
+        $this->surname = VoString::create($surname)->trim();
     }
 }
 ```
@@ -130,12 +130,12 @@ class Person extends AbstractValueObject
 {
     // ... Previous content.
 
-    public function name(): string
+    public function name(): VoString
     {
         return $this->name;
     }
 
-    public function surname(): string
+    public function surname(): VoString
     {
         return $this->surname;
     }

@@ -1,9 +1,9 @@
 <?php declare(strict_types=1);
 
-namespace Hradigital\Datatypes\Scalar;
+namespace HraDigital\Datatypes\Scalar;
 
-use Hradigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
-use Hradigital\Datatypes\Exceptions\Datatypes\ParameterOutOfRangeException;
+use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
+use HraDigital\Datatypes\Exceptions\Datatypes\ParameterOutOfRangeException;
 
 /**
  * String's Scalar Native/Primitive Object class.
@@ -14,8 +14,8 @@ use Hradigital\Datatypes\Exceptions\Datatypes\ParameterOutOfRangeException;
  * Fluent interface (chaning) is supported by mutators, but a new instance will always be returned.
  * Original internal value will be immutable.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  */
 class NString extends AbstractBaseString

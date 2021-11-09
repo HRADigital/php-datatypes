@@ -1,6 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Aggregates;
+declare(strict_types=1);
+
+namespace HraDigital\Datatypes\Aggregates;
 
 /**
  * Abstract Base Aggregate class.
@@ -9,8 +11,8 @@ namespace Hradigital\Datatypes\Aggregates;
  *
  * This will add shared common functionality to all Aggregates, without code repetition.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  */
 abstract class AbstractBaseAggregate implements \JsonSerializable
@@ -35,7 +37,7 @@ abstract class AbstractBaseAggregate implements \JsonSerializable
             // Otherwize, return its holding value.
             if ($value instanceof \JsonSerializable) {
                 $json[$name] = $value->jsonSerialize();
-            } elseif (\method_exists($value, '__toString')) {
+            } elseif (\is_object($value) && \method_exists($value, '__toString')) {
                 $json[$name] = (string) $value;
             } else {
                 $json[$name] = $value;

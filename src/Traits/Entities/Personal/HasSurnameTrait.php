@@ -1,14 +1,16 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Traits\Entities\Personal;
+declare(strict_types=1);
 
-use Hradigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
+namespace HraDigital\Datatypes\Traits\Entities\Personal;
+
+use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
 
 /**
  * Gives Surname information capabilities to an Entity/Value Object.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   Proprietary
  */
 trait HasSurnameTrait
@@ -28,7 +30,7 @@ trait HasSurnameTrait
     {
         // Validates supplied parameter.
         if (\strlen(\trim($surname)) === 0) {
-            throw new NonEmptyStringException("Supplied Surname must be a non empty string.");
+            throw new NonEmptyStringException('$surname');
         }
 
         $this->surname = $surname;
@@ -39,7 +41,7 @@ trait HasSurnameTrait
      *
      * @return string
      */
-    public function surname(): string
+    public function getSurname(): string
     {
         return $this->surname;
     }

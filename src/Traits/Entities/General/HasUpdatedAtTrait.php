@@ -1,14 +1,17 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Traits\Entities\General;
+declare(strict_types=1);
 
-use Hradigital\Datatypes\Datatypes\Datetime;
+namespace HraDigital\Datatypes\Traits\Entities\General;
+
+use HraDigital\Datatypes\Datetime\Datetime;
+use HraDigital\Datatypes\Scalar\VoString;
 
 /**
  * Trait for a Record UpdatedAt attribute.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   Proprietary
  */
 trait HasUpdatedAtTrait
@@ -24,7 +27,7 @@ trait HasUpdatedAtTrait
      */
     protected function castUpdatedAt(?string $timestamp): void
     {
-        $this->updated_at = ($timestamp ? Datetime::fromString($timestamp) : null);
+        $this->updated_at = ($timestamp ? Datetime::fromString(VoString::create($timestamp)) : null);
     }
 
     /**
@@ -32,7 +35,7 @@ trait HasUpdatedAtTrait
      *
      * @return Datetime|null
      */
-    public function updatedAt(): ?Datetime
+    public function getUpdatedAt(): ?Datetime
     {
         return $this->updated_at;
     }

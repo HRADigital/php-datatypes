@@ -1,6 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Traits\ValueObjects;
+declare(strict_types=1);
+
+namespace HraDigital\Datatypes\Traits\ValueObjects;
 
 /**
  * Adds Guarded field's functionality to a Value Object.
@@ -8,8 +10,8 @@ namespace Hradigital\Datatypes\Traits\ValueObjects;
  * Allows Value Object's implementation to remove any field's from original
  * attribute's listing.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   Proprietary
  */
 trait HasGuardedFieldsTrait

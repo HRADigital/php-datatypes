@@ -1,12 +1,14 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Traits\Entities\General;
+declare(strict_types=1);
+
+namespace HraDigital\Datatypes\Traits\Entities\General;
 
 /**
  * Trait for a Record's UUID (Universal Unique Identifier) attribute.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   Proprietary
  */
 trait HasUuidTrait
@@ -30,7 +32,7 @@ trait HasUuidTrait
      *
      * @return string
      */
-    public function uuid(): string
+    public function getUuid(): string
     {
         return $this->uuid;
     }

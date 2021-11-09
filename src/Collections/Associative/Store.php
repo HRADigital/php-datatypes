@@ -1,6 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Collections\Associative;
+declare(strict_types=1);
+
+namespace HraDigital\Datatypes\Collections\Associative;
 
 /**
  * Store Associative Collection.
@@ -20,8 +22,8 @@ namespace Hradigital\Datatypes\Collections\Associative;
  * Other variants, called dynamic or mutable sets, allow also the insertion and deletion of elements
  * from the set.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  * @link      https://en.wikipedia.org/wiki/Set_(abstract_data_type)
  */

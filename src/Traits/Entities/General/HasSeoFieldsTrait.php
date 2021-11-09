@@ -1,14 +1,17 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Traits\Entities\General;
+declare(strict_types=1);
 
-use Hradigital\Datatypes\Exceptions\Datatypes\InvalidStringLengthException;
+namespace HraDigital\Datatypes\Traits\Entities\General;
+
+use HraDigital\Datatypes\Exceptions\Datatypes\InvalidStringLengthException;
+use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
 
 /**
  * Gives Seo Title, Seo Description and Seo Keywords information capabilities to an Entity/Value Object.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   Proprietary
  */
 trait HasSeoFieldsTrait
@@ -37,7 +40,7 @@ trait HasSeoFieldsTrait
     {
         // Setting the max length for Seo description.
         if ($title !== null && \strlen(\trim($title)) > 70) {
-            throw new InvalidStringLengthException("Supplied Seo title must have length up to 70 characters.");
+            throw new NonEmptyStringException("Supplied Seo title must have length up to 70 characters.");
         }
 
         $this->seo_title = $this->seoSanitize($title);
@@ -49,7 +52,7 @@ trait HasSeoFieldsTrait
      *
      * @param string|null $description - New value to be set on Attribute.
      *
-     * @throws InvalidStringLengthException - Supplied Seo Description must be a non empty string.
+     * @throws NonEmptyStringException - Supplied Seo Description must be a non empty string.
      *
      * @link  https://seopressor.com/blog/google-title-meta-descriptions-length
      * @return void
@@ -58,7 +61,7 @@ trait HasSeoFieldsTrait
     {
         // Setting the max length for Seo description.
         if ($description !== null && \strlen(\trim($description)) > 160) {
-            throw new InvalidStringLengthException("Supplied Seo description must have length up to 160 characters.");
+            throw new NonEmptyStringException("Supplied Seo description must have length up to 160 characters.");
         }
 
         $this->seo_description = $this->seoSanitize($description);
@@ -70,7 +73,7 @@ trait HasSeoFieldsTrait
      *
      * @param string|null $keywords - New value to be set on Attribute.
      *
-     * @throws InvalidStringLengthException - Supplied Seo Keywords must be a non empty string.
+     * @throws NonEmptyStringException - Supplied Seo Keywords must be a non empty string.
      *
      * @link  https://www.quora.com/What-is-the-minimum-length-of-a-meta-keyword-in-on-page-SEO
      * @return void
@@ -79,7 +82,7 @@ trait HasSeoFieldsTrait
     {
         // Setting the max length for Seo keywords.
         if ($keywords !== null && \strlen(\trim($keywords)) > 255) {
-            throw new InvalidStringLengthException("Supplied Seo keywords must have length up to 255 characters.");
+            throw new NonEmptyStringException("Supplied Seo keywords must have length up to 255 characters.");
         }
 
         $this->seo_keywords = $this->seoSanitize($keywords);
@@ -90,7 +93,7 @@ trait HasSeoFieldsTrait
      *
      * @return string|null
      */
-    public function seoTitle(): ?string
+    public function getSeoTitle(): ?string
     {
         // If the Seo title is not set it is set to name property.
         if ($this->seo_title === null || \strlen(\trim($this->seo_title)) === 0) {
@@ -105,7 +108,7 @@ trait HasSeoFieldsTrait
      *
      * @return string|null
      */
-    public function seoDescription(): ?string
+    public function getSeoDescription(): ?string
     {
         return $this->seo_description;
     }
@@ -115,7 +118,7 @@ trait HasSeoFieldsTrait
      *
      * @return string|null
      */
-    public function seoKeywords(): ?string
+    public function getSeoKeywords(): ?string
     {
         return $this->seo_keywords;
     }

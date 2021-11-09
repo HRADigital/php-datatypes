@@ -1,15 +1,16 @@
 <?php
 
-namespace Hradigital\Datatypes\ValueObjects;
+namespace HraDigital\Datatypes\ValueObjects;
 
-use Hradigital\Datatypes\Exceptions\Entities\RequiredEntityValueMissingException;
-use Hradigital\Datatypes\Exceptions\Entities\UnexpectedEntityValueException;
-use Hradigital\Datatypes\Traits\ValueObjects\HasConversionToPrimitiveValuesTrait;
-use Hradigital\Datatypes\Traits\ValueObjects\HasFieldCastingTrait;
-use Hradigital\Datatypes\Traits\ValueObjects\HasGuardedFieldsTrait;
-use Hradigital\Datatypes\Traits\ValueObjects\HasMappedFieldsTrait;
-use Hradigital\Datatypes\Traits\ValueObjects\HasRequiredFieldsTrait;
-use Hradigital\Datatypes\Traits\ValueObjects\HasRuleProcessingTrait;
+use HraDigital\Datatypes\Exceptions\Entities\RequiredEntityValueMissingException;
+use HraDigital\Datatypes\Exceptions\Entities\UnexpectedEntityValueException;
+use HraDigital\Datatypes\Traits\ValueObjects\CanProcessOnLoadEventsTrait;
+use HraDigital\Datatypes\Traits\ValueObjects\HasConversionToPrimitiveValuesTrait;
+use HraDigital\Datatypes\Traits\ValueObjects\HasFieldCastingTrait;
+use HraDigital\Datatypes\Traits\ValueObjects\HasGuardedFieldsTrait;
+use HraDigital\Datatypes\Traits\ValueObjects\HasMappedFieldsTrait;
+use HraDigital\Datatypes\Traits\ValueObjects\HasRequiredFieldsTrait;
+use HraDigital\Datatypes\Traits\ValueObjects\HasRuleProcessingTrait;
 use Serializable;
 
 /**
@@ -28,8 +29,8 @@ use Serializable;
  * All class attributes should be defined with a 'protected' visibility, in order for future
  * child classes to override them. Accessor methods should have a 'public' visibility.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   Proprietary
  */
 abstract class AbstractValueObject implements \JsonSerializable, Serializable
@@ -39,7 +40,8 @@ abstract class AbstractValueObject implements \JsonSerializable, Serializable
         HasRequiredFieldsTrait,
         HasFieldCastingTrait,
         HasGuardedFieldsTrait,
-        HasConversionToPrimitiveValuesTrait;
+        HasConversionToPrimitiveValuesTrait,
+        CanProcessOnLoadEventsTrait;
 
     /** @var array $attributeList - Value Object's data attribute's list */
     private array $attributeList = [];
@@ -60,6 +62,7 @@ abstract class AbstractValueObject implements \JsonSerializable, Serializable
     public function __construct(array $fields)
     {
         $this->loadInstance($fields);
+        $this->triggerOnLoad();
     }
 
     /**
@@ -113,7 +116,8 @@ abstract class AbstractValueObject implements \JsonSerializable, Serializable
             $attrs['required'],
             $attrs['ruleList'],
             $attrs['castList'],
-            $attrs['attributeList']
+            $attrs['attributeList'],
+            $attrs['onLoadEvents']
         );
 
         return $attrs;

@@ -100,7 +100,7 @@ echo "{$string} has the value 'that is a great feature'";
 You can easily import, use and manipulate primitive native data in the following way:
 
 ```php
-use Hradigital\Datatypes\Scalar\VoString;
+use HraDigital\Datatypes\Scalar\VoString;
 
 // ...
 
@@ -117,12 +117,12 @@ $string = NString::create('This is originally a NString.')
     ->replace(' is ', ' was ')
     ->toVoString();
 
-echo get_class($string); // Should echo \Hradigital\Datatypes\Scalar\VoString
+echo get_class($string); // Should echo \HraDigital\Datatypes\Scalar\VoString
 echo $string; // This was originally a NString.
 
 // Converts to original type.
 $string = $string->replace(VoString::create(' was '), VoString::create(' is '))->toNString();
 
-echo get_class($string); // Should echo \Hradigital\Datatypes\Scalar\NString
+echo get_class($string); // Should echo \HraDigital\Datatypes\Scalar\NString
 echo $string; // This is originally a NString.
 ```

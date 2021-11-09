@@ -1,14 +1,16 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Traits\Entities\Personal;
+declare(strict_types=1);
 
-use Hradigital\Datatypes\Datatypes\Datetime;
+namespace HraDigital\Datatypes\Traits\Entities\Personal;
+
+use HraDigital\Datatypes\Datetime\Datetime;
 
 /**
  * Trait for an Entity's DateOfBirth attribute.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   Proprietary
  */
 trait HasDateOfBirthTrait
@@ -32,7 +34,7 @@ trait HasDateOfBirthTrait
      *
      * @return Datetime|null
      */
-    public function dateOfBirth(): ?Datetime
+    public function getDateOfBirth(): ?Datetime
     {
         return $this->dob;
     }

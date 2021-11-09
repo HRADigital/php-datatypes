@@ -1,6 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Collections\Linear;
+declare(strict_types=1);
+
+namespace HraDigital\Datatypes\Collections\Linear;
 
 use Aesir\Domain\Datatypes\Sorting\SortInfo;
 
@@ -16,8 +18,8 @@ use Aesir\Domain\Datatypes\Sorting\SortInfo;
  *
  * If no pagination information is required, please use regular Collection object.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  * @see       EntityCollection
  */

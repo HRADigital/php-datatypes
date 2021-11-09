@@ -1,14 +1,16 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Traits\Entities\General;
+declare(strict_types=1);
 
-use Hradigital\Datatypes\Exceptions\Datatypes\NonNegativeNumberException;
+namespace HraDigital\Datatypes\Traits\Entities\General;
+
+use HraDigital\Datatypes\Exceptions\Datatypes\NonNegativeNumberException;
 
 /**
  * Gives record Ordering capabilities to an Entity/Value Object.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   Proprietary
  */
 trait HasOrderingTrait
@@ -40,7 +42,7 @@ trait HasOrderingTrait
      *
      * @return int
      */
-    public function ordering(): int
+    public function getOrdering(): int
     {
         return $this->ordering;
     }

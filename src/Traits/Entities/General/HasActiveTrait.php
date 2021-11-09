@@ -1,12 +1,14 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Traits\Entities\General;
+declare(strict_types=1);
+
+namespace HraDigital\Datatypes\Traits\Entities\General;
 
 /**
  * Gives Activation information capabilities to an Entity/Value Object.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   Proprietary
  */
 trait HasActiveTrait
@@ -30,7 +32,7 @@ trait HasActiveTrait
      *
      * @return bool
      */
-    public function active(): bool
+    public function isActive(): bool
     {
         return $this->active;
     }

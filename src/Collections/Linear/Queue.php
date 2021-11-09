@@ -1,6 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Collections\Linear;
+declare(strict_types=1);
+
+namespace HraDigital\Datatypes\Collections\Linear;
 
 /**
  * Queue linear Collection.
@@ -23,8 +25,8 @@ namespace Hradigital\Datatypes\Collections\Linear;
  * is also entered, returning the value of the front element without dequeuing it. A queue is an
  * example of a linear data structure, or more abstractly a sequential Collection.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  * @link      http://php.net/manual/en/class.ds-queue.php
  * @link      https://en.wikipedia.org/wiki/Queue_(abstract_data_type)
