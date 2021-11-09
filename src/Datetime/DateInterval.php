@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Datetime;
 
-use HraDigital\Datatypes\Scalar\VoString;
+use HraDigital\Datatypes\Scalar\Str;
 
 /**
  * DateInterval utility class.
@@ -19,7 +19,7 @@ class DateInterval
 {
     protected \DateInterval $interval;
 
-    public static function fromDuration(VoString $duration, bool $inverted = false): DateInterval
+    public static function fromDuration(Str $duration, bool $inverted = false): DateInterval
     {
         return new DateInterval((string) $duration, $inverted);
     }
@@ -123,31 +123,31 @@ class DateInterval
         return $this->interval->invert ? (0 - $this->interval->f) : $this->interval->f;
     }
 
-    protected function toFormatInternal(string $format): VoString
+    protected function toFormatInternal(string $format): Str
     {
-        return VoString::create(
+        return Str::create(
             $this->interval->format($format)
         );
     }
 
     /**
-     * Returns VoString instance with value in format "Y-m-d H:i:s".
+     * Returns Str instance with value in format "Y-m-d H:i:s".
      *
-     * @return VoString
+     * @return Str
      */
-    public function toDatetimeString(): VoString
+    public function toDatetimeString(): Str
     {
         return $this->toFormatInternal('Y-m-d H:i:s');
     }
 
-    public function toFormat(VoString $format): VoString
+    public function toFormat(Str $format): Str
     {
         return $this->toFormatInternal((string) $format);
     }
 
-    public function toDuration(): VoString
+    public function toDuration(): Str
     {
-        return VoString::create(
+        return Str::create(
             \sprintf(
                 'P%dY%dM%dDT%dH%dM%dS',
                 $this->interval->y,

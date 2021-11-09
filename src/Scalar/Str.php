@@ -1,4 +1,6 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Scalar;
 
@@ -18,17 +20,17 @@ use HraDigital\Datatypes\Exceptions\Datatypes\ParameterOutOfRangeException;
  * @copyright HraDigital\Datatypes
  * @license   MIT
  */
-class VoString extends AbstractBaseString
+class Str extends AbstractBaseString
 {
     /**
-     * Creates a new instance of VoString based on a string value.
+     * Creates a new instance of Str based on a string value.
      *
      * @param  string $value - Instance's initial value.
-     * @return VoString
+     * @return Str
      */
-    public static function create(string $value): VoString
+    public static function create(string $value): Str
     {
-        return new VoString($value);
+        return new Str($value);
     }
 
     /**
@@ -46,10 +48,10 @@ class VoString extends AbstractBaseString
      *
      * Returns TRUE if the 2 instance's values match. FALSE otherwise.
      *
-     * @param  VoString $string - Another VoString instance to compare to.
+     * @param  Str $string - Another Str instance to compare to.
      * @return bool
      */
-    public function equals(VoString $string): bool
+    public function equals(Str $string): bool
     {
         return ($this->value === $string);
     }
@@ -59,12 +61,12 @@ class VoString extends AbstractBaseString
      *
      * Returns TRUE if found. FALSE otherwise.
      *
-     * @param  VoString $search - Non empty string to search for in the instance.
+     * @param  Str $search - Non empty string to search for in the instance.
      *
      * @throws NonEmptyStringException - If supplied $search is empty.
      * @return bool
      */
-    public function contains(VoString $search): bool
+    public function contains(Str $search): bool
     {
         return parent::doContains((string) $search);
     }
@@ -78,14 +80,14 @@ class VoString extends AbstractBaseString
      *
      * If the $search is not found inthe instance's value, NULL is returned.
      *
-     * @param  VoString $search - String to search for in the instance.
+     * @param  Str $search - String to search for in the instance.
      * @param  int     $start  - Search offset start. Defaults to ZERO.
      *
      * @throws NonEmptyStringException      - If $search value is an empty string.
      * @throws ParameterOutOfRangeException - If the $start is either too small, or too long.
      * @return int|null
      */
-    public function indexOf(VoString $search, int $start = 0): ?int
+    public function indexOf(Str $search, int $start = 0): ?int
     {
         return parent::doIndexOf((string) $search, $start);
     }
@@ -93,12 +95,12 @@ class VoString extends AbstractBaseString
     /**
      * Checks if the instance's value starts with the supplied string.
      *
-     * @param  VoString $search - Non empty string to search for in the instance.
+     * @param  Str $search - Non empty string to search for in the instance.
      *
      * @throws NonEmptyStringException - If supplied $search is empty.
      * @return bool
      */
-    public function startsWith(VoString $search): bool
+    public function startsWith(Str $search): bool
     {
         return parent::doStartsWith((string) $search);
     }
@@ -106,12 +108,12 @@ class VoString extends AbstractBaseString
     /**
      * Checks if the instance's value ends with the supplied string.
      *
-     * @param  VoString $search - Non empty string to search for in the instance.
+     * @param  Str $search - Non empty string to search for in the instance.
      *
      * @throws NonEmptyStringException - If supplied $search is empty.
      * @return bool
      */
-    public function endsWith(VoString $search): bool
+    public function endsWith(Str $search): bool
     {
         return parent::doEndsWith((string) $search);
     }
@@ -119,7 +121,7 @@ class VoString extends AbstractBaseString
     /**
      * Counts the number of substring occurrences in the instance's value.
      *
-     * @param  VoString  $search - Non empty string to search for in the instance.
+     * @param  Str  $search - Non empty string to search for in the instance.
      * @param  int      $start  - The sub-string's offset/start.
      * @param  int|null $length - Length value. Can be NULL, in which case, it won't be validated.
      *
@@ -127,7 +129,7 @@ class VoString extends AbstractBaseString
      * @throws ParameterOutOfRangeException - If the $start and/or $length is either too small, or too long.
      * @return int
      */
-    public function count(VoString $search, int $start = 0, ?int $length = null): int
+    public function count(Str $search, int $start = 0, ?int $length = null): int
     {
         return parent::doCount((string) $search, $start, $length);
     }
@@ -135,11 +137,11 @@ class VoString extends AbstractBaseString
     /**
      * Trims instance's value on both ends.
      *
-     * @return VoString
+     * @return Str
      */
-    public function trim(): VoString
+    public function trim(): Str
     {
-        return VoString::create(
+        return Str::create(
             parent::doTrim()
         );
     }
@@ -147,11 +149,11 @@ class VoString extends AbstractBaseString
     /**
      * Trims instance's value only on the left.
      *
-     * @return VoString
+     * @return Str
      */
-    public function trimLeft(): VoString
+    public function trimLeft(): Str
     {
-        return VoString::create(
+        return Str::create(
             parent::doTrimLeft()
         );
     }
@@ -159,11 +161,11 @@ class VoString extends AbstractBaseString
     /**
      * Trims instance's value only on the right.
      *
-     * @return VoString
+     * @return Str
      */
-    public function trimRight(): VoString
+    public function trimRight(): Str
     {
-        return VoString::create(
+        return Str::create(
             parent::doTrimRight()
         );
     }
@@ -171,11 +173,11 @@ class VoString extends AbstractBaseString
     /**
      * Converts the instance's value to Uppercase, and returns a new instance of the object.
      *
-     * @return VoString
+     * @return Str
      */
-    public function toUpper(): VoString
+    public function toUpper(): Str
     {
-        return VoString::create(
+        return Str::create(
             parent::doToUpper()
         );
     }
@@ -184,11 +186,11 @@ class VoString extends AbstractBaseString
      * Converts the instance's value first character to Uppercase, and returns a new instance
      * of the object.
      *
-     * @return VoString
+     * @return Str
      */
-    public function toUpperFirst(): VoString
+    public function toUpperFirst(): Str
     {
-        return VoString::create(
+        return Str::create(
             parent::doToUpperFirst()
         );
     }
@@ -197,13 +199,13 @@ class VoString extends AbstractBaseString
      * Converts the instance's value first character of each word to Upper Case, and returns a new instance
      * of the object.
      *
-     * @param  VoString|null $delimiters - The optional delimiters contains the word separator characters.
+     * @param  Str|null $delimiters - The optional delimiters contains the word separator characters.
      *
-     * @return VoString
+     * @return Str
      */
-    public function toUpperWords(?VoString $delimiters = null): VoString
+    public function toUpperWords(?Str $delimiters = null): Str
     {
-        return VoString::create(
+        return Str::create(
             parent::doToUpperWords($delimiters ?? " \t\r\n\f\v")
         );
     }
@@ -211,11 +213,11 @@ class VoString extends AbstractBaseString
     /**
      * Converts the instance's value to Lowercase, and returns a new instance of the object.
      *
-     * @return VoString
+     * @return Str
      */
-    public function toLower(): VoString
+    public function toLower(): Str
     {
-        return VoString::create(
+        return Str::create(
             parent::doToLower()
         );
     }
@@ -224,11 +226,11 @@ class VoString extends AbstractBaseString
      * Converts the instance's value first character to Lowercase, and returns a new instance
      * of the object
      *
-     * @return VoString
+     * @return Str
      */
-    public function toLowerFirst(): VoString
+    public function toLowerFirst(): Str
     {
-        return VoString::create(
+        return Str::create(
             parent::doToLowerFirst()
         );
     }
@@ -244,20 +246,20 @@ class VoString extends AbstractBaseString
      * it is padded with characters from $padding up to the limit.
      *
      * @param  int  $length  - Length of the padded value.
-     * @param  VoString|null $padding - The pad_string may be truncated if the required number of padding characters
+     * @param  Str|null $padding - The pad_string may be truncated if the required number of padding characters
      *                           can't be evenly divided by the $padding's length.
      *
      * @throws NonEmptyStringException      - If supplied $padding is empty.
      * @throws ParameterOutOfRangeException - If the $length is either too small, or too long.
-     * @return VoString
+     * @return Str
      */
-    public function padLeft(int $length, ?VoString $padding = null): VoString
+    public function padLeft(int $length, ?Str $padding = null): Str
     {
         if ($padding === null) {
-            $padding = VoString::create(" ");
+            $padding = Str::create(" ");
         }
 
-        return VoString::create(
+        return Str::create(
             parent::doPadLeft($length, ((string) $padding ?? " "))
         );
     }
@@ -269,20 +271,20 @@ class VoString extends AbstractBaseString
      * it is padded with characters from $padding up to the limit.
      *
      * @param  int  $length  - Length of the padded value.
-     * @param  VoString|null $padding - The pad_string may be truncated if the required number of padding characters
+     * @param  Str|null $padding - The pad_string may be truncated if the required number of padding characters
      *                           can't be evenly divided by the $padding's length.
      *
      * @throws NonEmptyStringException      - If supplied $padding is empty.
      * @throws ParameterOutOfRangeException - If the $length is either too small, or too long.
-     * @return VoString
+     * @return Str
      */
-    public function padLeftExtra(int $length, ?VoString $padding = null): VoString
+    public function padLeftExtra(int $length, ?Str $padding = null): Str
     {
         if ($padding === null) {
-            $padding = VoString::create(" ");
+            $padding = Str::create(" ");
         }
 
-        return VoString::create(
+        return Str::create(
             parent::doPadLeftExtra($length, ((string) $padding ?? " "))
         );
     }
@@ -298,20 +300,20 @@ class VoString extends AbstractBaseString
      * it is padded with characters from $padding up to the limit.
      *
      * @param  int  $length  - Length of the padded value.
-     * @param  VoString|null $padding - The pad_string may be truncated if the required number of padding characters
+     * @param  Str|null $padding - The pad_string may be truncated if the required number of padding characters
      *                           can't be evenly divided by the $padding's length.
      *
      * @throws NonEmptyStringException      - If supplied $padding is empty.
      * @throws ParameterOutOfRangeException - If the $length is either too small, or too long.
-     * @return VoString
+     * @return Str
      */
-    public function padRight(int $length, ?VoString $padding = null): VoString
+    public function padRight(int $length, ?Str $padding = null): Str
     {
         if ($padding === null) {
-            $padding = VoString::create(" ");
+            $padding = Str::create(" ");
         }
 
-        return VoString::create(
+        return Str::create(
             parent::doPadRight($length, ((string) $padding ?? " "))
         );
     }
@@ -323,20 +325,20 @@ class VoString extends AbstractBaseString
      * it is padded with characters from $padding up to the limit.
      *
      * @param  int  $length  - Length of the padded value.
-     * @param  VoString|null $padding - The pad_string may be truncated if the required number of padding characters
+     * @param  Str|null $padding - The pad_string may be truncated if the required number of padding characters
      *                           can't be evenly divided by the $padding's length.
      *
      * @throws NonEmptyStringException      - If supplied $padding is empty.
      * @throws ParameterOutOfRangeException - If the $length is either too small, or too long.
-     * @return VoString
+     * @return Str
      */
-    public function padRightExtra(int $length, ?VoString $padding = null): VoString
+    public function padRightExtra(int $length, ?Str $padding = null): Str
     {
         if ($padding === null) {
-            $padding = VoString::create(" ");
+            $padding = Str::create(" ");
         }
 
-        return VoString::create(
+        return Str::create(
             parent::doPadRightExtra($length, ((string) $padding ?? " "))
         );
     }
@@ -367,11 +369,11 @@ class VoString extends AbstractBaseString
      * @param  int $length - Length of the sub-string. Can be negative.
      *
      * @throws ParameterOutOfRangeException - If the $start and/or $length is either too small, or too long.
-     * @return VoString
+     * @return Str
      */
-    public function subString(int $start, int $length = null): VoString
+    public function subString(int $start, int $length = null): Str
     {
-        return VoString::create(
+        return Str::create(
             parent::doSubString($start, $length)
         );
     }
@@ -383,11 +385,11 @@ class VoString extends AbstractBaseString
      * @param  int $length - Length of the sub-string. Must be positive.
      *
      * @throws ParameterOutOfRangeException - If supplied Length is not a positive integer.
-     * @return VoString
+     * @return Str
      */
-    public function subLeft(int $length): VoString
+    public function subLeft(int $length): Str
     {
-        return VoString::create(
+        return Str::create(
             parent::doSubLeft($length)
         );
     }
@@ -399,11 +401,11 @@ class VoString extends AbstractBaseString
      * @param  int $length - Length of the sub-string. Must be positive.
      *
      * @throws ParameterOutOfRangeException - If supplied Length is not a positive integer.
-     * @return VoString
+     * @return Str
      */
-    public function subRight(int $length): VoString
+    public function subRight(int $length): Str
     {
-        return VoString::create(
+        return Str::create(
             parent::doSubRight($length)
         );
     }
@@ -411,11 +413,11 @@ class VoString extends AbstractBaseString
     /**
      * This method returns the reversed value of the instance.
      *
-     * @return VoString
+     * @return Str
      */
-    public function reverse(): VoString
+    public function reverse(): Str
     {
-        return VoString::create(
+        return Str::create(
             parent::doReverse()
         );
     }
@@ -423,15 +425,15 @@ class VoString extends AbstractBaseString
     /**
      * This method replaces a string's occurance by another, and returns a new instance with the new value.
      *
-     * @param  VoString $search  - The string to search for.
-     * @param  VoString $replace - The search's replacement.
+     * @param  Str $search  - The string to search for.
+     * @param  Str $replace - The search's replacement.
      *
      * @throws NonEmptyStringException - If either $search or $replace are empty.
-     * @return VoString
+     * @return Str
      */
-    public function replace(VoString $search, VoString $replace): VoString
+    public function replace(Str $search, Str $replace): Str
     {
-        return VoString::create(
+        return Str::create(
             parent::doReplace((string) $search, (string) $replace)
         );
     }

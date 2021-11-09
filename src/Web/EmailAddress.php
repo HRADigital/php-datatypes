@@ -6,7 +6,7 @@ namespace HraDigital\Datatypes\Web;
 
 use HraDigital\Datatypes\Exceptions\Datatypes\InvalidEmailException;
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
-use HraDigital\Datatypes\Scalar\VoString;
+use HraDigital\Datatypes\Scalar\Str;
 
 /**
  * E-mail address datatype.
@@ -20,14 +20,14 @@ use HraDigital\Datatypes\Scalar\VoString;
  */
 class EmailAddress implements \Serializable
 {
-    /** @var VoString $username - Holds the Username's part of the E-mail address. */
-    protected VoString $username;
+    /** @var Str $username - Holds the Username's part of the E-mail address. */
+    protected Str $username;
 
-    /** @var VoString $domain - Holds the Domain part of the E-mail address. */
-    protected VoString $domain;
+    /** @var Str $domain - Holds the Domain part of the E-mail address. */
+    protected Str $domain;
 
-    /** @var VoString $tld - Holds the Top Level Domain part of the E-mail address. */
-    protected VoString $tld;
+    /** @var Str $tld - Holds the Top Level Domain part of the E-mail address. */
+    protected Str $tld;
 
     /**
      * Loads a new EmailAddress instance from a native string.
@@ -63,8 +63,8 @@ class EmailAddress implements \Serializable
      */
     protected function loadFromPrimitive(string $email): void
     {
-        // Converts supplied primitive to VoString.
-        $voEmail = VoString::create($email)->trim()->toLower();
+        // Converts supplied primitive to Str.
+        $voEmail = Str::create($email)->trim()->toLower();
 
         // Validate supplied parameter.
         if ($voEmail->length() === 0) {
@@ -76,12 +76,12 @@ class EmailAddress implements \Serializable
 
         // Sanitizes and processes supplied e-mail address.
         $parts = \explode('@', (string) $voEmail);
-        $this->username = VoString::create($parts[0]);
+        $this->username = Str::create($parts[0]);
 
         // Processes the right side of the e-mail address.
         $domain = \explode('.', $parts[1]);
-        $this->tld    = VoString::create(\array_pop($domain));
-        $this->domain = VoString::create(\implode('.', $domain));
+        $this->tld    = Str::create(\array_pop($domain));
+        $this->domain = Str::create(\implode('.', $domain));
     }
 
     /**
@@ -121,9 +121,9 @@ class EmailAddress implements \Serializable
      *
      * @return string
      */
-    public function address(): VoString
+    public function address(): Str
     {
-        return VoString::create(
+        return Str::create(
             \sprintf(
                 "%s@%s.%s",
                 (string) $this->username,
@@ -138,7 +138,7 @@ class EmailAddress implements \Serializable
      *
      * @return string
      */
-    public function username(): VoString
+    public function username(): Str
     {
         return $this->username;
     }
@@ -148,7 +148,7 @@ class EmailAddress implements \Serializable
      *
      * @return string
      */
-    public function domain(): VoString
+    public function domain(): Str
     {
         return $this->domain;
     }
@@ -158,7 +158,7 @@ class EmailAddress implements \Serializable
      *
      * @return string
      */
-    public function tld(): VoString
+    public function tld(): Str
     {
         return $this->tld;
     }

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace HraDigital\Datatypes\Datetime;
 
 use DateTimeImmutable;
-use HraDigital\Datatypes\Scalar\VoString;
+use HraDigital\Datatypes\Scalar\Str;
 use HraDigital\Datatypes\Traits\Datetime\Datetime\HasStaticFactoryMethodsTrait;
 
 /**
@@ -51,170 +51,170 @@ class DatetimeInheritance extends DateTimeImmutable implements \JsonSerializable
         return (string) $this;
     }
 
-    protected function toFormatInternal(string $format): VoString
+    protected function toFormatInternal(string $format): Str
     {
-        return VoString::create(
+        return Str::create(
             $this->format($format)
         );
     }
 
     /**
-     * Returns VoString instance with value in format "Y-m-d\TH:i:sP".
+     * Returns Str instance with value in format "Y-m-d\TH:i:sP".
      *
-     * @return VoString
+     * @return Str
      */
-    public function toATOM(): VoString
+    public function toATOM(): Str
     {
         return $this->toFormatInternal(\Datetime::ATOM);
     }
 
     /**
-     * Returns VoString instance with value in format "l, d-M-Y H:i:s T".
+     * Returns Str instance with value in format "l, d-M-Y H:i:s T".
      *
-     * @return VoString
+     * @return Str
      */
-    public function toCookie(): VoString
+    public function toCookie(): Str
     {
         return $this->toFormatInternal(\Datetime::COOKIE);
     }
 
     /**
-     * Returns VoString instance with value in format "Y-m-d\TH:i:sO".
+     * Returns Str instance with value in format "Y-m-d\TH:i:sO".
      *
-     * @return VoString
+     * @return Str
      */
-    public function toISO8601(): VoString
+    public function toISO8601(): Str
     {
         return $this->toFormatInternal(\Datetime::ISO8601);
     }
 
     /**
-     * Returns VoString instance with value in format "D, d M y H:i:s O".
+     * Returns Str instance with value in format "D, d M y H:i:s O".
      *
-     * @return VoString
+     * @return Str
      */
-    public function toRFC822(): VoString
+    public function toRFC822(): Str
     {
         return $this->toFormatInternal(\Datetime::RFC822);
     }
 
     /**
-     * Returns VoString instance with value in format "l, d-M-y H:i:s T".
+     * Returns Str instance with value in format "l, d-M-y H:i:s T".
      *
-     * @return VoString
+     * @return Str
      */
-    public function toRFC850(): VoString
+    public function toRFC850(): Str
     {
         return $this->toFormatInternal(\Datetime::RFC850);
     }
 
     /**
-     * Returns VoString instance with value in format "D, d M y H:i:s O".
+     * Returns Str instance with value in format "D, d M y H:i:s O".
      *
-     * @return VoString
+     * @return Str
      */
-    public function toRFC1036(): VoString
+    public function toRFC1036(): Str
     {
         return $this->toFormatInternal(\Datetime::RFC1036);
     }
 
     /**
-     * Returns VoString instance with value in format "D, d M Y H:i:s O".
+     * Returns Str instance with value in format "D, d M Y H:i:s O".
      *
-     * @return VoString
+     * @return Str
      */
-    public function toRFC1123(): VoString
+    public function toRFC1123(): Str
     {
         return $this->toFormatInternal(\Datetime::RFC1123);
     }
 
     /**
-     * Returns VoString instance with value in format "D, d M Y H:i:s \G\M\T".
+     * Returns Str instance with value in format "D, d M Y H:i:s \G\M\T".
      *
-     * @return VoString
+     * @return Str
      */
-    public function toRFC7231(): VoString
+    public function toRFC7231(): Str
     {
         return $this->toFormatInternal(\Datetime::RFC7231);
     }
 
     /**
-     * Returns VoString instance with value in format "D, d M Y H:i:s O".
+     * Returns Str instance with value in format "D, d M Y H:i:s O".
      *
-     * @return VoString
+     * @return Str
      */
-    public function toRFC2822(): VoString
+    public function toRFC2822(): Str
     {
         return $this->toFormatInternal(\Datetime::RFC2822);
     }
 
     /**
-     * Returns VoString instance with value in format "Y-m-d\TH:i:sP".
+     * Returns Str instance with value in format "Y-m-d\TH:i:sP".
      *
-     * @return VoString
+     * @return Str
      */
-    public function toRFC3339(): VoString
+    public function toRFC3339(): Str
     {
         return $this->toFormatInternal(\Datetime::RFC3339);
     }
 
     /**
-     * Returns VoString instance with value in format "Y-m-d\TH:i:s.vP".
+     * Returns Str instance with value in format "Y-m-d\TH:i:s.vP".
      *
-     * @return VoString
+     * @return Str
      */
-    public function toRFC3339Extended(): VoString
+    public function toRFC3339Extended(): Str
     {
         return $this->toFormatInternal(\Datetime::RFC3339_EXTENDED);
     }
 
     /**
-     * Returns VoString instance with value in format "D, d M Y H:i:s O".
+     * Returns Str instance with value in format "D, d M Y H:i:s O".
      *
-     * @return VoString
+     * @return Str
      */
-    public function toRSS(): VoString
+    public function toRSS(): Str
     {
         return $this->toFormatInternal(\Datetime::RSS);
     }
 
     /**
-     * Returns VoString instance with value in format "Y-m-d\TH:i:sP".
+     * Returns Str instance with value in format "Y-m-d\TH:i:sP".
      *
-     * @return VoString
+     * @return Str
      */
-    public function toW3C(): VoString
+    public function toW3C(): Str
     {
         return $this->toFormatInternal(\Datetime::W3C);
     }
 
     /**
-     * Returns VoString instance with value in format "Y-m-d H:i:s".
+     * Returns Str instance with value in format "Y-m-d H:i:s".
      *
-     * @return VoString
+     * @return Str
      */
-    public function toDatetimeString(): VoString
+    public function toDatetimeString(): Str
     {
         return $this->toFormatInternal('Y-m-d H:i:s');
     }
 
     /**
-     * Returns VoString instance with value in format "H:i:s".
+     * Returns Str instance with value in format "H:i:s".
      *
-     * @return VoString
+     * @return Str
      */
-    public function toTimeString(): VoString
+    public function toTimeString(): Str
     {
         return $this->toFormatInternal('H:i:s');
     }
 
     /**
-     * Returns VoString instance with value in specified format.
+     * Returns Str instance with value in specified format.
      *
-     * @param  VoString $format - VoString instance containing desired Datetime format.
-     * @return VoString
+     * @param  Str $format - Str instance containing desired Datetime format.
+     * @return Str
      */
-    public function toFormat(VoString $format): VoString
+    public function toFormat(Str $format): Str
     {
         return $this->toFormatInternal((string) $format);
     }

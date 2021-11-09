@@ -32,13 +32,13 @@ class NString extends AbstractBaseString
     }
 
     /**
-     * Returns a VoString object, containing this instance's value.
+     * Returns a Str object, containing this instance's value.
      *
-     * @return VoString
+     * @return Str
      */
-    public function toVoString(): VoString
+    public function toStr(): Str
     {
-        return VoString::create($this->value);
+        return Str::create($this->value);
     }
 
     /**

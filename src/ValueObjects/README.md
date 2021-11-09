@@ -36,8 +36,8 @@ If we're talking about a Database as a **persistence layer**, and a given datata
 ```php
 class MyValueObject extends AbstractValueObject
 {
-    protected VoString $name;
-    protected VoString $surname;
+    protected Str $name;
+    protected Str $surname;
     protected Datetime $date_of_birth;
 }
 ```
@@ -97,8 +97,8 @@ protected $maps = [
 ```php
 class Person extends AbstractvalueObject
 {
-    protected VoString $name;
-    protected VoString $surname;
+    protected Str $name;
+    protected Str $surname;
 
     protected array $required = ['name', 'surname'];
 }
@@ -113,12 +113,12 @@ class Person extends AbstractValueObject
 
     protected function castName(string $name): void
     {
-        $this->name = VoString::create($name)->trim();
+        $this->name = Str::create($name)->trim();
     }
 
     protected function castSurname(string $surname): void
     {
-        $this->surname = VoString::create($surname)->trim();
+        $this->surname = Str::create($surname)->trim();
     }
 }
 ```
@@ -130,12 +130,12 @@ class Person extends AbstractValueObject
 {
     // ... Previous content.
 
-    public function name(): VoString
+    public function name(): Str
     {
         return $this->name;
     }
 
-    public function surname(): VoString
+    public function surname(): Str
     {
         return $this->surname;
     }
