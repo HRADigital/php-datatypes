@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Traits\Entities\General;
 
+use HraDigital\Datatypes\Scalar\Str;
+
 /**
  * Gives Password capabilities to an Entity/Value Object.
  *
@@ -13,8 +15,8 @@ namespace HraDigital\Datatypes\Traits\Entities\General;
  */
 trait HasPasswordTrait
 {
-    /** @var string|null $password - Record's password value. */
-    protected ?string $password = null;
+    /** @var Str|null $password - Record's password value. */
+    protected ?Str $password = null;
 
     /**
      * Sets the password value of an Entity/Value Object.
@@ -24,15 +26,15 @@ trait HasPasswordTrait
      */
     protected function castPassword(string $password): void
     {
-        $this->password = $password;
+        $this->password = ($password ? Str::create($password) : null);
     }
 
     /**
      * Returns record's Password value.
      *
-     * @return string
+     * @return Str|null
      */
-    public function getPassword(): string
+    public function getPassword(): ?Str
     {
         return $this->password;
     }

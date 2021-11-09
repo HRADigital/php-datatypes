@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Traits\Entities\Location;
 
+use HraDigital\Datatypes\Scalar\Str;
+
 /**
  * Trait for an Entity's Street Aditional attribute.
  *
@@ -13,8 +15,8 @@ namespace HraDigital\Datatypes\Traits\Entities\Location;
  */
 trait HasStreetAdditionalTrait
 {
-    /** @var string $street_additional - Street Additional */
-    protected string $street_additional = '';
+    /** @var Str $street_additional - Street Additional */
+    protected Str $street_additional = Str::create('');
 
     /**
      * Mutator method for setting the value into the Attribute.
@@ -24,15 +26,15 @@ trait HasStreetAdditionalTrait
      */
     protected function castStreetAdditional(string $street): void
     {
-        $this->street_additional = \trim($street);
+        $this->street_additional = Str::create($street)->trim();
     }
 
     /**
      * Returns the Entity's Street Additional.
      *
-     * @return string
+     * @return Str
      */
-    public function getStreetAdditional(): string
+    public function getStreetAdditional(): Str
     {
         return $this->street_additional;
     }

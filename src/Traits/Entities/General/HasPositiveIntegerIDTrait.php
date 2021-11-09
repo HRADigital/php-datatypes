@@ -27,7 +27,7 @@ trait HasPositiveIntegerIDTrait
     protected function castId(int $id): void
     {
         if ($id < 1) {
-            throw new PositiveIntegerException('id');
+            throw new PositiveIntegerException('$id');
         }
 
         $this->id = $id;

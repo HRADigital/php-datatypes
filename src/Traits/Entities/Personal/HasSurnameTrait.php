@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace HraDigital\Datatypes\Traits\Entities\Personal;
 
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
+use HraDigital\Datatypes\Scalar\Str;
 
 /**
  * Gives Surname information capabilities to an Entity/Value Object.
@@ -15,8 +16,8 @@ use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
  */
 trait HasSurnameTrait
 {
-    /** @var string $surname - Instance's Surname. */
-    protected string $surname = '';
+    /** @var Str $surname - Instance's Surname. */
+    protected Str $surname = Str::create('');
 
     /**
      * Setter method for Surname.
@@ -29,19 +30,21 @@ trait HasSurnameTrait
     protected function castSurname(string $surname): void
     {
         // Validates supplied parameter.
-        if (\strlen(\trim($surname)) === 0) {
+        $surnameValue = Str::create($surname)->trim();
+
+        if ($surnameValue->getLength() === 0) {
             throw new NonEmptyStringException('$surname');
         }
 
-        $this->surname = $surname;
+        $this->surname = $surnameValue;
     }
 
     /**
      * Returns the Instance's Surname.
      *
-     * @return string
+     * @return Str
      */
-    public function getSurname(): string
+    public function getSurname(): Str
     {
         return $this->surname;
     }

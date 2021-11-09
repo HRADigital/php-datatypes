@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace HraDigital\Datatypes\Traits\Entities\Personal;
 
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
+use HraDigital\Datatypes\Scalar\Str;
 
 /**
  * Gives Photo information capabilities to an Entity/Value Object.
@@ -15,8 +16,8 @@ use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
  */
 trait HasPhotoTrait
 {
-    /** @var string|null $photo - Profile's Photo file */
-    protected ?string $photo = null;
+    /** @var Str|null $photo - Profile's Photo file */
+    protected ?Str $photo = null;
 
     /**
      * Sets the Profile's Photo value of an Entity.
@@ -29,19 +30,21 @@ trait HasPhotoTrait
     protected function castPhoto(?string $photo): void
     {
         // Validates supplied parameter.
-        if (\strlen(\trim($photo)) === 0) {
+        $photoValue = Str::create($photo)->trim();
+
+        if ($photoValue->getLength() === 0) {
             throw new NonEmptyStringException('$photo');
         }
 
-        $this->photo = $photo;
+        $this->photo = $photoValue;
     }
 
     /**
      * Returns the Instance's Profile's Photo.
      *
-     * @return string|null
+     * @return Str|null
      */
-    public function getPhoto(): ?string
+    public function getPhoto(): ?Str
     {
         return $this->photo;
     }

@@ -30,7 +30,7 @@ trait HasOrderingTrait
     {
         // Validates supplied parameter.
         if ($order < 0) {
-            throw new NonNegativeNumberException("Supplied Order must be a non negative integer.");
+            throw new NonNegativeNumberException('$ordering');
         }
 
         // Sets the value in the class.

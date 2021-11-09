@@ -44,7 +44,7 @@ trait HasDeletedAtTrait
     /**
      * Returns TRUE if the record is marked as deleted in the system.
      *
-     * @return boolean
+     * @return bool
      */
     public function isDeleted(): bool
     {

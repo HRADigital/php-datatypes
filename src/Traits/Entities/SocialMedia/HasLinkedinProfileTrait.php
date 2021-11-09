@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Traits\Entities\SocialMedia;
 
+use HraDigital\Datatypes\Scalar\Str;
+
 /**
  * Adds Linkedin's Social Media account URL field.
  *
@@ -13,8 +15,8 @@ namespace HraDigital\Datatypes\Traits\Entities\SocialMedia;
  */
 trait HasLinkedinProfileTrait
 {
-    /** @var string|null $linkedin - Social Media account's URL. */
-    protected ?string $linkedin = null;
+    /** @var Str|null $linkedin - Social Media account's URL. */
+    protected ?Str $linkedin = null;
 
     /**
      * Sets the Social Media account URL value of an Entity.
@@ -24,15 +26,15 @@ trait HasLinkedinProfileTrait
      */
     protected function castLinkedin(?string $linkedin): void
     {
-        $this->linkedin = $linkedin;
+        $this->linkedin = $linkedin ? Str::create($linkedin)->trim() : null;
     }
 
     /**
      * Retrieves record's Social Media account's URL.
      *
-     * @return string|null
+     * @return Str|null
      */
-    public function getLinkedinUrl(): ?string
+    public function getLinkedinUrl(): ?Str
     {
         return $this->linkedin;
     }

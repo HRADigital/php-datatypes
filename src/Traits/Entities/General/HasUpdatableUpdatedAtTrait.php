@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace HraDigital\Datatypes\Traits\Entities\General;
 
 use HraDigital\Datatypes\Datetime\Datetime;
-use HraDigital\Datatypes\Scalar\Str;
 
 /**
  * Trait for an Updatable Record UpdatedAt attribute.

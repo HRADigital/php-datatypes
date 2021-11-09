@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Traits\Entities\Location;
 
+use HraDigital\Datatypes\Scalar\Str;
+
 /**
  * Trait for an Entity's Country attribute.
  *
@@ -13,8 +15,8 @@ namespace HraDigital\Datatypes\Traits\Entities\Location;
  */
 trait HasCountryTrait
 {
-    /** @var string $country - Country */
-    protected string $country = '';
+    /** @var Str $country - Country */
+    protected Str $country = Str::create('');
 
     /**
      * Mutator method for setting the value into the Attribute.
@@ -24,15 +26,15 @@ trait HasCountryTrait
      */
     protected function castCountry(string $country): void
     {
-        $this->country = \trim($country);
+        $this->country = Str::create($country)->trim();
     }
 
     /**
      * Returns the Entity's Country.
      *
-     * @return string
+     * @return Str
      */
-    public function getCountry(): string
+    public function getCountry(): Str
     {
         return $this->country;
     }
