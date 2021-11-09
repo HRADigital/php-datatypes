@@ -1,6 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Exceptions;
+declare(strict_types=1);
+
+namespace HraDigital\Datatypes\Exceptions;
 
 /**
  * Requested Range is Not Satisfiable Domain Exception.
@@ -13,8 +15,8 @@ namespace Hradigital\Datatypes\Exceptions;
  * Use this Exception where it makes semanticle sense, even if not making
  * total technical sense.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  */
 class RequestedRangeNotSatisfiableException extends AbstractBaseException

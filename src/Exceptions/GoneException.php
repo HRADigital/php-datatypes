@@ -1,6 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Exceptions;
+declare(strict_types=1);
+
+namespace HraDigital\Datatypes\Exceptions;
 
 /**
  * Record Gone Base Domain Exception.
@@ -10,8 +12,8 @@ namespace Hradigital\Datatypes\Exceptions;
  *
  * Used when the requested resource is gone already.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  */
 class GoneException extends AbstractBaseException

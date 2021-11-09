@@ -1,6 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Exceptions;
+declare(strict_types=1);
+
+namespace HraDigital\Datatypes\Exceptions;
 
 /**
  * Not Found Base Domain Exception.
@@ -10,8 +12,8 @@ namespace Hradigital\Datatypes\Exceptions;
  *
  * Used when the requested resource is not found/doesn't exist.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  */
 class NotFoundException extends AbstractBaseException

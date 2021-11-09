@@ -1,6 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Exceptions;
+declare(strict_types=1);
+
+namespace HraDigital\Datatypes\Exceptions;
 
 /**
  * Denied Access Base Domain Exception.
@@ -14,8 +16,8 @@ namespace Hradigital\Datatypes\Exceptions;
  * Semantically means "unauthorised", the user does not have valid authentication
  * credentials for the target resource.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  */
 class DeniedAccessException extends AbstractBaseException

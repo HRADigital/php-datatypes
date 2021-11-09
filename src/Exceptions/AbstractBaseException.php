@@ -1,6 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Exceptions;
+declare(strict_types=1);
+
+namespace HraDigital\Datatypes\Exceptions;
 
 /**
  * Abstract Base Domain Exception.
@@ -14,8 +16,8 @@ namespace Hradigital\Datatypes\Exceptions;
  * All child classes that extend this base Exception class, should define as an error code one of the available
  * HTTP status codes.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  * @link      https://httpstatuses.com/
  */

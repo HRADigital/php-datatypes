@@ -1,16 +1,18 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Exceptions\Datatypes;
+declare(strict_types=1);
 
-use Hradigital\Datatypes\Exceptions\UnprocessableEntityException;
+namespace HraDigital\Datatypes\Exceptions\Datatypes;
+
+use HraDigital\Datatypes\Exceptions\UnprocessableEntityException;
 
 /**
  * Must be a Non Negative Number Datatype Exception.
  *
  * Only Zero or more should be allowed.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  */
 class NonNegativeNumberException extends UnprocessableEntityException

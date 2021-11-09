@@ -1,6 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Exceptions;
+declare(strict_types=1);
+
+namespace HraDigital\Datatypes\Exceptions;
 
 /**
  * Failed Dependency Base Domain Exception.
@@ -12,8 +14,8 @@ namespace Hradigital\Datatypes\Exceptions;
  * For example, if a command in a PROPPATCH method fails, then, at minimum,
  * the rest of the commands will also fail with 424 (Failed Dependency).
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  */
 class FailedDependencyException extends AbstractBaseException

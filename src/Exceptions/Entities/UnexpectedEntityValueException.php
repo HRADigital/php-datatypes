@@ -1,14 +1,16 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Datatypes\Exceptions\Entities;
+declare(strict_types=1);
 
-use Hradigital\Datatypes\Exceptions\UnprocessableEntityException;
+namespace HraDigital\Datatypes\Exceptions\Entities;
+
+use HraDigital\Datatypes\Exceptions\UnprocessableEntityException;
 
 /**
  * Unexpected value Entity Exception.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  */
 class UnexpectedEntityValueException extends UnprocessableEntityException
