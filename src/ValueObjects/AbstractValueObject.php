@@ -1,7 +1,10 @@
 <?php
 
+declare(strict_types=1);
+
 namespace HraDigital\Datatypes\ValueObjects;
 
+use HraDigital\Datatypes\Collections\Linear\EntityCollection;
 use HraDigital\Datatypes\Exceptions\Entities\RequiredEntityValueMissingException;
 use HraDigital\Datatypes\Exceptions\Entities\UnexpectedEntityValueException;
 use HraDigital\Datatypes\Traits\ValueObjects\CanProcessOnLoadEventsTrait;
@@ -14,10 +17,7 @@ use HraDigital\Datatypes\Traits\ValueObjects\HasRuleProcessingTrait;
 use Serializable;
 
 /**
- * Abstract Base Value Object class for all Domain Entities.
- *
- * Implementation Value Objects should not need to call parent __construct() method, but they
- * should implement casting and rule processing methods.
+ * Abstract Base Value Object class for all Domain Entities/Value Objects.
  *
  * Implementation Value Objects should also provide documented getters() for all class
  * attributes/fields, as well as provide the appropriate accessibility for all attributes.
@@ -74,12 +74,13 @@ abstract class AbstractValueObject implements \JsonSerializable, Serializable
      * @throws UnexpectedEntityValueException      - If some of the supplied fields are invalid.
      * @return void
      */
-    protected function loadInstance(array $fields): void
+    private function loadInstance(array $fields): void
     {
         // Configures Value Object's instance.
-        $this->loadUsableFields();
-        $this->loadAttributeCastingList();
-        $this->loadAttributeRuleList();
+        $this->registerUsableFields();
+        $this->registerAttributeCastingList();
+        $this->registerAttributeRuleList();
+        $this->registerOnLoadEvents();
 
         // Translates supplied fields, into existing ones.
         $mapped = $this->translateToMappedFields($fields);
@@ -87,7 +88,7 @@ abstract class AbstractValueObject implements \JsonSerializable, Serializable
         // Validates and loads supplied data into class.
         $mapped = $this->processRules($mapped);
         $this->validateRequired($mapped);
-        $this->castAttributesInitialValues($mapped);
+        $this->castAttributes($mapped);
     }
 
     /**
@@ -95,7 +96,7 @@ abstract class AbstractValueObject implements \JsonSerializable, Serializable
      *
      * @return void
      */
-    private function loadUsableFields(): void
+    private function registerUsableFields(): void
     {
         $this->attributeList = $this->filterSystemControlFields(
             \get_object_vars($this)
@@ -127,17 +128,12 @@ abstract class AbstractValueObject implements \JsonSerializable, Serializable
      * Retrieves a list containing all Value Object's fields.
      *
      * Returns an associative array containing all the fields from the Value Object.
-     *
-     * Arrays will be returned as JSON.
-     *
-     * Other objects will either be returned as their string representation, or they will
-     * be serialized.
-     *
-     * Primitive types, or unserializable objects, will be returned in their current form.
+     * Nested Value Objects (records) will be included as a nested associative array.
+     * Datatype Value Objects will be converted to their primitive representation.
      *
      * @return array
      */
-    public function getAttributes(): array
+    public function toArray(): array
     {
         // Collects a list of usable Attributes from the Value Object.
         $fields = $this->filterSystemControlFields(
@@ -148,12 +144,43 @@ abstract class AbstractValueObject implements \JsonSerializable, Serializable
         return $this->convertIntoPrimitiveValues($fields);
     }
 
+    /**
+     * Retrieves a list containing all Value Object's fields.
+     *
+     * Returns an associative array only containing fields which belong directly to record.
+     * Nested Value Objects will not be returned.
+     * Datatype Value Objects will be converted to their primitive representation.
+     *
+     * @return array
+     */
+    public function getAttributes(): array
+    {
+        // Collects a list of usable Attributes from the Value Object.
+        $fields = $this->filterSystemControlFields(
+            \get_object_vars($this)
+        );
+
+        foreach ($fields as $name => $value) {
+            if ($value instanceof AbstractValueObject || $value instanceof EntityCollection) {
+                unset($fields[$name]);
+            }
+        }
+
+        // Converts all objects into primitives.
+        return $this->convertIntoPrimitiveValues($fields);
+    }
+
     /** @inheritDoc */
     public function serialize(): string
     {
         return \serialize(
-            $this->getAttributes()
+            $this->toArray()
         );
+    }
+
+    public function __serialize(): array
+    {
+        return $this->toArray();
     }
 
     /** @inheritDoc */
@@ -164,6 +191,11 @@ abstract class AbstractValueObject implements \JsonSerializable, Serializable
         );
     }
 
+    public function __unserialize(array $data): void
+    {
+        $this->loadInstance($data);
+    }
+
     /**
      * {@inheritDoc}
      *
@@ -172,8 +204,13 @@ abstract class AbstractValueObject implements \JsonSerializable, Serializable
      */
     public function jsonSerialize(): \stdClass
     {
+        // Collects a list of usable Attributes from the Value Object.
+        $fields = $this->filterSystemControlFields(
+            \get_object_vars($this)
+        );
+
         return (object) $this->removeGuardedFields(
-            $this->getAttributes()
+            $this->convertIntoPrimitiveValues($fields, true)
         );
     }
 }
