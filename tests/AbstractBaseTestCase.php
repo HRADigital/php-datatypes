@@ -1,6 +1,8 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Tests\Datatypes;
+declare(strict_types=1);
+
+namespace HraDigital\Tests\Datatypes;
 
 use PHPUnit\Framework\TestCase;
 
