@@ -43,7 +43,7 @@ class Str extends AbstractBaseString
      */
     public function equals(Str $string): bool
     {
-        return ($this->value === $string);
+        return ($this->value === $string->value);
     }
 
     /**
@@ -415,16 +415,45 @@ class Str extends AbstractBaseString
     /**
      * This method replaces a string's occurance by another, and returns a new instance with the new value.
      *
-     * @param  string $search  - The string to search for.
-     * @param  string $replace - The search's replacement.
+     * @param  Str $search  - The string to search for.
+     * @param  Str $replace - The search's replacement.
      *
      * @throws NonEmptyStringException - If either $search or $replace are empty.
      * @return Str
      */
-    public function replace(string $search, string $replace): Str
+    public function replace(Str $search, Str $replace): Str
     {
         return Str::create(
             parent::doReplace((string) $search, (string) $replace)
         );
+    }
+
+    /**
+     * Returns an array of strings, each of which is a substring of string formed
+     * by splitting it on boundaries formed by the string separator.
+     *
+     * If limit is set and positive, the returned array will contain a maximum of limit
+     * elements with the last element containing the rest of string.
+     *
+     * If the limit parameter is negative, all components except the last -limit are returned.
+     *
+     * If the limit parameter is zero, then this is treated as 1.
+     *
+     * @param  string   $separator - The boundary string.
+     * @param  int|null $limit     - The limit of returned segments.
+     *
+     * @throws NonEmptyStringException - If $separator is an empty string.
+     * @return array|Str[]
+     */
+    public function explode(string $separator, ?int $limit = null): array
+    {
+        $segments = parent::doExplode($separator, $limit);
+        $exploded = [];
+
+        foreach ($segments as $segment) {
+            $exploded[] = Str::create($segment);
+        }
+
+        return $exploded;
     }
 }
