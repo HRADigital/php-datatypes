@@ -20,9 +20,10 @@ trait HasConversionToPrimitiveValuesTrait
      * Converts all values into primitives, and retiurns the processed array.
      *
      * @param  array $fields - List of Fields to be converted.
+     * @param  bool  $objectAsJson - If set to true, will use jsonSerialize(). Otherwise will use toArray()
      * @return array
      */
-    private function convertIntoPrimitiveValues(array $fields): array
+    private function convertIntoPrimitiveValues(array $fields, bool $objectAsJson = false): array
     {
         // Loops through all the supplied Fields, and converts their values into primitives.
         $converted = [];
@@ -31,7 +32,7 @@ trait HasConversionToPrimitiveValuesTrait
             // Returns the string representation of the object, or tries to convert array or object to JSON.
             // If is not an Object not an Array, returns the actual value of the Field.
             if ($value instanceof AbstractValueObject || $value instanceof EntityCollection) {
-                $converted[$field] = $value->jsonSerialize();
+                $converted[$field] = $objectAsJson ? $value->jsonSerialize() : $value->toArray();
             } elseif (\is_object($value) && \method_exists($value, '__toString')) {
                 $converted[$field] = (string) $value;
             } elseif (\is_array($value) || \is_object($value)) {

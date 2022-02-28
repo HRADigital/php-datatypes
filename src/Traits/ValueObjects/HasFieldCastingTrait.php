@@ -27,7 +27,7 @@ trait HasFieldCastingTrait
      * @param  array $fields - List of mapped Fields to be loaded.
      * @return void
      */
-    private function castAttributesInitialValues(array $fields): void
+    protected function castAttributes(array $fields): void
     {
         // Loops through all the supplied Field's list.
         foreach ($fields as $field => $value) {
@@ -59,7 +59,7 @@ trait HasFieldCastingTrait
      *
      * @return void
      */
-    private function loadAttributeCastingList(): void
+    private function registerAttributeCastingList(): void
     {
         // Loops through all the class' methods, and loads the necessary ones in
         // the corresponding containers.

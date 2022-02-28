@@ -41,7 +41,7 @@ trait HasRuleProcessingTrait
      *
      * @return void
      */
-    private function loadAttributeRuleList(): void
+    private function registerAttributeRuleList(): void
     {
         // Loops through all the class' methods, and loads the necessary ones in
         // the corresponding containers.

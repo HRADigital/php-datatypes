@@ -4,12 +4,12 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Traits\ValueObjects;
 
-use Closure;
-
 /**
  * Gives onLoad event handling capabilities to class.
  *
- * To register an new handler for the onLoad event, use $this->onLoad(function() { $this->someCall() });
+ * To register an new handler for the onLoad event, declare a protected method starting with "onLoad".
+ *
+ * onLoad() methods should only be called when instance is created by instantiation.
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
@@ -17,6 +17,9 @@ use Closure;
  */
 trait CanProcessOnLoadEventsTrait
 {
+    /** Sets the onLoad Mutator method's prefix. */
+    private static $ONLOADPREFIX = 'onLoad';
+
     /** @var array $onLoadEvents - List of onLoad event handlers, defined as closures. */
     private array $onLoadEvents = [];
 
@@ -25,21 +28,21 @@ trait CanProcessOnLoadEventsTrait
      *
      * @return void
      */
-    protected function triggerOnLoad(): void
+    private function triggerOnLoad(): void
     {
         foreach ($this->onLoadEvents as $onLoad) {
-            $onLoad();
+            $this->$onLoad();
         }
     }
 
-    /**
-     * Adds a new onLoad event handler to the class.
-     *
-     * @param  Closure $handler - Closure that will be triggered onLoad.
-     * @return void
-     */
-    protected function onLoad(Closure $handler): void
+    private function registerOnLoadEvents(): void
     {
-        $this->onLoadEvents[] = $handler;
+        // Loops through all the class' methods, and loads the necessary ones in
+        // the corresponding containers.
+        foreach (\get_class_methods($this) as $method) {
+            if (\strpos($method, self::$ONLOADPREFIX) === 0 && \strlen($method) > \strlen(self::$ONLOADPREFIX)) {
+                $this->onLoadEvents[] = $method;
+            }
+        }
     }
 }
