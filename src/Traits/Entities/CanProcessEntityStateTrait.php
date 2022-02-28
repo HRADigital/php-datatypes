@@ -19,13 +19,11 @@ trait CanProcessEntityStateTrait
     /**
      * Event handler that will create a snapshot of object's current state.
      *
-     * eg:. This can be used as an handler for onLoad or onUpdate handlers.
-     *
      * Needs to be registered in the Entity's Constructor, before calling parent Constructor.
      *
      * @return void
      */
-    private function onEventSnapshotState(): void
+    protected function onLoadSnapshotState(): void
     {
         $this->initialState = $this->getAttributes();
     }
@@ -48,9 +46,10 @@ trait CanProcessEntityStateTrait
      *
      * If the Entity is not marked as dirty, this will return an empty array.
      *
+     * @param  bool $withTimestamps - In case dirty attributes include timestamps. Defaults to FALSE.
      * @return array
      */
-    final public function getDirty(): array
+    final public function getDirty(bool $withTimestamps = false): array
     {
         // Loops through all the class' attributes, and validates if any has changed.
         $dirty = [];
@@ -65,6 +64,11 @@ trait CanProcessEntityStateTrait
             ) {
                 $dirty[$field] = $value;
             }
+        }
+
+        /// Removes timestamps in case they exist, and they were not requested.
+        if (!$withTimestamps) {
+            unset($dirty['created_at'], $dirty['updated_at'], $dirty['deleted_at']);
         }
 
         // Returns all dirty attributes.
@@ -82,6 +86,16 @@ trait CanProcessEntityStateTrait
     final public function getOriginal(): array
     {
         return $this->initialState;
+    }
+
+    /**
+     * Resets the instance's state, cleaning up "Dirty" attributes, and reset tracking.
+     *
+     * @return void
+     */
+    final public function resetState(): void
+    {
+        $this->initialState = $this->getAttributes();
     }
 
     /**
@@ -112,7 +126,7 @@ trait CanProcessEntityStateTrait
         // Process supplied fields.
         $mapped = $this->translateToMappedFields($fields);
         $this->processRules($mapped);
-        $this->loadAttributes($mapped);
+        $this->castAttributes($mapped);
 
         if (\method_exists($this, 'triggerOnUpdate')) {
             $this->{'triggerOnUpdate'}();
