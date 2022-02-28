@@ -40,7 +40,7 @@ trait HasSeoFieldsTrait
     protected function castSeoTitle(?string $title = null): void
     {
         // Setting the max length for Seo description.
-        $titleValue = ($title ? Str::create($title)->trim() ? null);
+        $titleValue = ($title ? Str::create($title)->trim() : null);
 
         if ($titleValue !== null && $titleValue->getLength() > 70) {
             throw new NonEmptyStringException("Supplied Seo title must have length up to 70 characters.");

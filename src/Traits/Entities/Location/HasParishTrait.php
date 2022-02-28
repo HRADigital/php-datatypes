@@ -8,43 +8,43 @@ use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
 use HraDigital\Datatypes\Scalar\Str;
 
 /**
- * Trait for an Entity's City attribute.
+ * Trait for an Entity's Parish attribute.
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
  * @license   MIT
  */
-trait HasCityTrait
+trait HasParishTrait
 {
-    /** @var Str|null $city - City */
-    protected ?Str $city;
+    /** @var Str|null $parish - Parish */
+    protected ?Str $parish;
 
     /**
      * Mutator method for setting the value into the Attribute.
      *
-     * @param  string|null $city - City.
+     * @param  string|null $parish - Parish.
      *
      * @throws NonEmptyStringException - If supplied value is not a non empty string.
      * @return void
      */
-    protected function castCity(?string $city): void
+    protected function castParish(?string $parish): void
     {
-        $cityValue = $city ? Str::create($city)->trim() : null;
+        $parishValue = $parish ? Str::create($parish)->trim() : null;
 
-        if ($cityValue !== null && $cityValue->getLength() === 0) {
-            throw new NonEmptyStringException('$city');
+        if ($parishValue !== null && $parishValue->getLength() === 0) {
+            throw new NonEmptyStringException('$parish');
         }
 
-        $this->city = $cityValue;
+        $this->parish = $parishValue;
     }
 
     /**
-     * Returns the Entity's City.
+     * Returns the Entity's Parish.
      *
      * @return Str|null
      */
-    public function getCity(): ?Str
+    public function getParish(): ?Str
     {
-        return $this->city;
+        return $this->parish;
     }
 }
