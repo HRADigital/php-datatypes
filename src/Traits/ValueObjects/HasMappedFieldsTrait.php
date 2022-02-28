@@ -15,11 +15,7 @@ namespace HraDigital\Datatypes\Traits\ValueObjects;
  */
 trait HasMappedFieldsTrait
 {
-    /**
-     * @var array $maps - Attribute mapping array.
-     *
-     * Set your overrides as keys, and the attribute they're supposed to map as values for the array.
-     */
+    /** @var array $maps - Set your overrides as keys, and the attribute they're supposed to map as values. */
     protected array $maps = [];
 
      /**
