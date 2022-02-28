@@ -16,25 +16,29 @@ use HraDigital\Datatypes\Scalar\Str;
  */
 trait HasGenderTrait
 {
-    /** @var Str $sex - Gender */
-    protected Str $sex;
+    /** @var Str $gender - Gender */
+    protected Str $gender;
 
     /**
      * Mutator method for setting the value into the Attribute.
      *
-     * @param  string $sex - Gender.
+     * @param  string $gender - Gender.
      * @return void
      */
-    protected function castSex(string $sex): void
+    protected function castGender(string $gender): void
     {
         // Sanitizes and checks supplied value.
-        $sexValue = Str::create($sex)->toLower()->toUpperFirst();
+        $genderValue = Str::create($gender)->toLower()->toUpperFirst();
 
-        if (!$sexValue->equals(Str::create('Male')) && !$sexValue->equals(Str::create('Female'))) {
-            throw new UnexpectedEntityValueException('$sex');
+        if (!(
+            $genderValue->equals(Str::create('Male')) ||
+            $genderValue->equals(Str::create('Female')) ||
+            $genderValue->equals(Str::create('Other'))
+        )) {
+            throw new UnexpectedEntityValueException('$gender');
         }
 
-        $this->sex = $sex;
+        $this->gender = $genderValue;
     }
 
     /**
@@ -44,6 +48,6 @@ trait HasGenderTrait
      */
     public function getGender(): Str
     {
-        return $this->sex;
+        return $this->gender;
     }
 }

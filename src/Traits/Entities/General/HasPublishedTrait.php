@@ -22,7 +22,7 @@ trait HasPublishedTrait
      * @param  bool $published - New published value.
      * @return void
      */
-    protected function castPublished(bool $published): void
+    protected function castIsPublished(bool $published): void
     {
         $this->is_published = $published;
     }
