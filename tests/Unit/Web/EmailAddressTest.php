@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace Hradigital\Tests\Datatypes\Unit\Web;
+namespace HraDigital\Tests\Datatypes\Unit\Web;
 
-use Hradigital\Datatypes\Exceptions\Datatypes\InvalidEmailException;
-use Hradigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
-use Hradigital\Datatypes\Web\EmailAddress;
-use Hradigital\Tests\Datatypes\AbstractBaseTestCase;
+use HraDigital\Datatypes\Exceptions\Datatypes\InvalidEmailException;
+use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
+use HraDigital\Datatypes\Web\EmailAddress;
+use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
 
 /**
  * Email Address Unit testing.
