@@ -216,10 +216,10 @@ abstract class AbstractBaseString
     {
         // Calculates the absolute values for validations.
         $absStart  = (int) \abs($start);
-        $absLength = (int) \abs($length);
+        $absLength = $length ? (int) \abs($length) : null;
 
         // Validates the starting value.
-        if ($absStart > $this->length()) {
+        if ($absStart > $this->getLength()) {
             throw new ParameterOutOfRangeException('$start');
         }
 
@@ -229,7 +229,7 @@ abstract class AbstractBaseString
         }
 
         // Checks if the supplied $length, doesn't exceed the available number of characters.
-        if (($start >= 0 && ($this->length() - $start < $absLength)) ||
+        if (($start >= 0 && ($this->getLength() - $start < $absLength)) ||
             ($start < 0 && $absLength > $absStart)) {
 
             throw new ParameterOutOfRangeException('$length');
@@ -364,7 +364,7 @@ abstract class AbstractBaseString
      */
     protected function doPadLeftExtra(int $length, string $padding = " "): string
     {
-        return $this->doPadLeft(($this->length() + $length), $padding);
+        return $this->doPadLeft(($this->getLength() + $length), $padding);
     }
 
     /**
@@ -414,7 +414,7 @@ abstract class AbstractBaseString
      */
     protected function doPadRightExtra(int $length, string $padding = " "): string
     {
-        return $this->doPadRight(($this->length() + $length), $padding);
+        return $this->doPadRight(($this->getLength() + $length), $padding);
     }
 
     /**
@@ -528,5 +528,36 @@ abstract class AbstractBaseString
         }
 
         return \str_replace($search, $replace, $this->value);
+    }
+
+    /**
+     * Returns an array of strings, each of which is a substring of string formed
+     * by splitting it on boundaries formed by the string separator.
+     *
+     * If limit is set and positive, the returned array will contain a maximum of limit
+     * elements with the last element containing the rest of string.
+     *
+     * If the limit parameter is negative, all components except the last -limit are returned.
+     *
+     * If the limit parameter is zero, then this is treated as 1.
+     *
+     * @param  string   $separator - The boundary string.
+     * @param  int|null $limit     - The limit of returned segments.
+     *
+     * @throws NonEmptyStringException - If $separator is an empty string.
+     * @return array|Str[]
+     */
+    protected function doExplode(string $separator, ?int $limit): array
+    {
+        // Validates supplied parameters.
+        if (\strlen($separator) === 0) {
+            throw new NonEmptyStringException('$separator');
+        }
+
+        if ($limit === null) {
+            return \explode($separator, $this->value);
+        }
+
+        return \explode($separator, $this->value, $limit);
     }
 }
