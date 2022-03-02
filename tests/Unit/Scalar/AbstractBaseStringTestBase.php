@@ -1,12 +1,14 @@
-<?php declare(strict_types=1);
+<?php
 
-namespace Hradigital\Tests\Datatypes\Unit\Scalar;
+declare(strict_types=1);
 
-use Hradigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
-use Hradigital\Datatypes\Exceptions\Datatypes\ParameterOutOfRangeException;
-use Hradigital\Datatypes\Scalar\AbstractBaseString;
-use Hradigital\Datatypes\Scalar\NString;
-use Hradigital\Tests\Datatypes\AbstractBaseTestCase;
+namespace HraDigital\Tests\Datatypes\Unit\Scalar;
+
+use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
+use HraDigital\Datatypes\Exceptions\Datatypes\ParameterOutOfRangeException;
+use HraDigital\Datatypes\Scalar\AbstractBaseString;
+use HraDigital\Datatypes\Scalar\NString;
+use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
 
 /**
  * Tests shared functionality for all child classes inherting from AbstractBaseString.
@@ -80,7 +82,7 @@ abstract class AbstractBaseStringTestBase extends AbstractBaseTestCase
         // Performs assertions.
         $this->assertEquals(
             \strlen($string),
-            $instance->length(),
+            $instance->getLength(),
             'Instance character length does not seam to match.'
         );
     }
@@ -99,7 +101,7 @@ abstract class AbstractBaseStringTestBase extends AbstractBaseTestCase
         // Performs assertions.
         $this->assertEquals(
             5,
-            $instance->wordCount(),
+            $instance->getWordCount(),
             'Instance word  count does not seam to match.'
         );
     }
