@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Collections\Linear;
 
+use HraDigital\Datatypes\ValueObjects\AbstractValueObject;
+
 /**
  * Entity Collection class.
  *
@@ -55,9 +57,9 @@ class EntityCollection implements \Countable, \Iterator, \JsonSerializable
      *
      * @throws \OutOfRangeException  - If the supplied ID is not a positive integer.
      * @throws \OutOfBoundsException - If the supplied ID was not present in the Collection.
-     * @return AbstractEntity
+     * @return AbstractValueObject
      */
-    public function get(int $id): AbstractEntity
+    public function get(int $id): AbstractValueObject
     {
         // Validates supplied ID.
         if ($id <= 0) {
@@ -109,24 +111,24 @@ class EntityCollection implements \Countable, \Iterator, \JsonSerializable
     }
 
     /**
-     * Adds a new Entity to the Collection.
+     * Adds a new Value Object to the Collection.
      *
      * This method supports chaining.
      *
-     * @param  AbstractEntity $entity - Entity to add to the collection.
+     * @param  AbstractValueObject $valueObject - Entity to add to the collection.
      *
      * @throws \OverflowException - If you're trying to add a repeated Entity to the Collection.
      * @return self
      */
-    public function add(AbstractEntity $entity): self
+    public function add(AbstractValueObject $valueObject): self
     {
         // Validates if the given Entity already exists in the Collection.
-        if (\array_key_exists($entity->id(), $this->collection)) {
-            throw new \OverflowException("The Entity you are trying to add to the Collection already exists.");
+        if (\array_key_exists($valueObject->{'getId'}(), $this->collection)) {
+            throw new \OverflowException("The Value Object you are trying to add to the Collection already exists.");
         }
 
         // Adds an Entity to the collection.
-        $this->collection[$entity->id()] = $entity;
+        $this->collection[$valueObject->{'getId'}()] = $valueObject;
 
         // Returns this instance.
         return $this;
@@ -168,7 +170,7 @@ class EntityCollection implements \Countable, \Iterator, \JsonSerializable
      * {@inheritDoc}
      * @see \Iterator::rewind()
      */
-    public function rewind(): ?AbstractEntity
+    public function rewind(): ?AbstractValueObject
     {
         // Rewinds the cursor and returns the first Element.
         if (($element = \reset($this->collection)) !== false) {
@@ -184,7 +186,7 @@ class EntityCollection implements \Countable, \Iterator, \JsonSerializable
      * {@inheritDoc}
      * @see \Iterator::current()
      */
-    public function current(): ?AbstractEntity
+    public function current(): ?AbstractValueObject
     {
         // If retrieving the current element fails, we'll still try to rewind the
         // pointer and return the first element.
@@ -262,11 +264,10 @@ class EntityCollection implements \Countable, \Iterator, \JsonSerializable
     {
         // Declares and fills a return array.
         $array = [];
-        foreach ($this->collection as $entity) {
+        foreach ($this->collection as $valueObject) {
 
-            /** @var AbstractEntity $entity - Type casts record */
-            $entity  = $entity;
-            $array[] = $entity->jsonSerialize();
+            /** @var AbstractValueObject $valueObject - Type casts record */
+            $array[] = $valueObject->jsonSerialize();
         }
 
         return $array;
