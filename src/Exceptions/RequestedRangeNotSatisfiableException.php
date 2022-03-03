@@ -21,10 +21,7 @@ namespace HraDigital\Datatypes\Exceptions;
  */
 class RequestedRangeNotSatisfiableException extends AbstractBaseException
 {
-    /** @var string $message - Exception's error message. */
     protected $message = "The requested range for the operation you're trying to perform, is not satisfiable.";
-
-    /** @var int $code - Exception's error code. */
     protected $code = 416;
 
     /**

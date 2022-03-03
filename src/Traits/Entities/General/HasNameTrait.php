@@ -32,7 +32,7 @@ trait HasNameTrait
         // Validates supplied parameter.
         $nameValue = Str::create($name)->trim();
         if ($nameValue->getLength() === 0) {
-            throw new NonEmptyStringException('$name');
+            throw NonEmptyStringException::withName('$name');
         }
 
         $this->name = $nameValue;

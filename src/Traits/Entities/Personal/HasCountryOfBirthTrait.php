@@ -30,7 +30,7 @@ trait HasCountryOfBirthTrait
         $countryValue = Str::create($country)->trim();
 
         if ($countryValue->getLength() === 0) {
-            throw new NonEmptyStringException('$country_of_birth');
+            throw NonEmptyStringException::withName('$country_of_birth');
         }
 
         $this->country_of_birth = $countryValue;

@@ -34,7 +34,7 @@ trait HasAliasTrait
 
         // Validates if alias is filled.
         if ($aliasValue->getLength() === 0) {
-            throw new NonEmptyStringException('$alias');
+            throw NonEmptyStringException::withName('$alias');
         }
 
         // We'll set the alias value on the attribute, but use the sanitizeAlias() method

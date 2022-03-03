@@ -20,10 +20,7 @@ namespace HraDigital\Datatypes\Exceptions;
  */
 class TooManyRequestsException extends AbstractBaseException
 {
-    /** @var string $message - Exception's error message. */
     protected $message = "Too many requests have been made to the system.";
-
-    /** @var int $code - Exception's error code. */
     protected $code = 429;
 
     /**

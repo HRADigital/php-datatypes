@@ -32,7 +32,7 @@ trait HasParishTrait
         $parishValue = $parish ? Str::create($parish)->trim() : null;
 
         if ($parishValue !== null && $parishValue->getLength() === 0) {
-            throw new NonEmptyStringException('$parish');
+            throw NonEmptyStringException::withName('$parish');
         }
 
         $this->parish = $parishValue;

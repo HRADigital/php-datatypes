@@ -21,25 +21,22 @@ class NotFoundException extends AbstractBaseException
     /** @var string $message - Exception's error message. */
     protected $message = "The resource you are looking for, was not found in the system.";
 
-    /** @var string $message - Exception's error message when a record ID is specified. */
-    protected string $messageWithId = "The resource with the ID %d you are looking for, was not found in the system.";
-
     /** @var int $code - Exception's error code. */
     protected $code = 404;
 
     /**
-     * Initializes Base NotFound Exception.
+     * Initializes Base Record Not Found Exception.
      *
      * Code value will be collected from defined class attribute.
      *
-     * @param  int|null        $id    - Optional record ID that was not found in the system.
-     * @param  \Exception|null $inner - Optional previous Exception in the stack, for Exception's nesting.
-     * @return void
+     * @param  int $id
+     * @param \Exception|null $inner
+     * @return self
      */
-    public function __construct(?int $id = null, ?\Exception $inner = null)
+    public static function withId(int $id, ?\Exception $inner = null): self
     {
-        parent::__construct(
-            ($id !== null ? \sprintf($this->messageWithId, $id) : $this->message),
+        return new self(
+            \sprintf("The resource with the ID %d you are looking for, was not found in the system.", $id),
             $inner
         );
     }

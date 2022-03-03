@@ -32,7 +32,7 @@ trait HasCityTrait
         $cityValue = $city ? Str::create($city)->trim() : null;
 
         if ($cityValue !== null && $cityValue->getLength() === 0) {
-            throw new NonEmptyStringException('$city');
+            throw NonEmptyStringException::withName('$city');
         }
 
         $this->city = $cityValue;

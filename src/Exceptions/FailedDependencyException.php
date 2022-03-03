@@ -20,10 +20,7 @@ namespace HraDigital\Datatypes\Exceptions;
  */
 class FailedDependencyException extends AbstractBaseException
 {
-    /** @var string $message - Exception's error message. */
     protected $message = "The action failed due to failure of a previous action.";
-
-    /** @var int $code - Exception's error code. */
     protected $code = 424;
 
     /**

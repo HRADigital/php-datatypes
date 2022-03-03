@@ -22,10 +22,7 @@ namespace HraDigital\Datatypes\Exceptions;
  */
 class MethodNotAllowedException extends AbstractBaseException
 {
-    /** @var string $message - Exception's error message. */
     protected $message = "The action failed due using a request method not supported by that resource.";
-
-    /** @var int $code - Exception's error code. */
     protected $code = 405;
 
     /**
