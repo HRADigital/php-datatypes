@@ -32,7 +32,7 @@ trait HasTitleTrait
         // Validates supplied parameter.
         $titleValue = Str::create($title)->trim();
         if ($titleValue->getLength() === 0) {
-            throw new NonEmptyStringException('$title');
+            throw NonEmptyStringException::withName('$title');
         }
 
         $this->title = $titleValue;

@@ -33,7 +33,7 @@ trait HasPhotoTrait
         $photoValue = Str::create($photo)->trim();
 
         if ($photoValue->getLength() === 0) {
-            throw new NonEmptyStringException('$photo');
+            throw NonEmptyStringException::withName('$photo');
         }
 
         $this->photo = $photoValue;

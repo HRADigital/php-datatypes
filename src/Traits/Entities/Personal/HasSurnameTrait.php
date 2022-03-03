@@ -33,7 +33,7 @@ trait HasSurnameTrait
         $surnameValue = Str::create($surname)->trim();
 
         if ($surnameValue->getLength() === 0) {
-            throw new NonEmptyStringException('$surname');
+            throw NonEmptyStringException::withName('$surname');
         }
 
         $this->surname = $surnameValue;

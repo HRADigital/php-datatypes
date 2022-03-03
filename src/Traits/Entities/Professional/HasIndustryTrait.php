@@ -33,7 +33,7 @@ trait HasIndustryTrait
         $industryValue = $industry ? Str::create($industry)->trim() : null;
 
         if ($industryValue !== null && $industryValue->getLength() === 0) {
-            throw new NonEmptyStringException('$occupation');
+            throw NonEmptyStringException::withName('$occupation');
         }
 
         $this->industry = $industryValue;

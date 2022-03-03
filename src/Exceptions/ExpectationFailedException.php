@@ -20,10 +20,7 @@ namespace HraDigital\Datatypes\Exceptions;
  */
 class ExpectationFailedException extends AbstractBaseException
 {
-    /** @var string $message - Exception's error message. */
     protected $message = "The operation failed due to a previous Expectation not being met.";
-
-    /** @var int $code - Exception's error code. */
     protected $code = 417;
 
     /**

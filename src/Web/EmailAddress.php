@@ -68,10 +68,10 @@ class EmailAddress implements \Serializable
 
         // Validate supplied parameter.
         if ($voEmail->getLength() === 0) {
-            throw new NonEmptyStringException('$email');
+            throw NonEmptyStringException::withName('$email');
         }
         if (!\filter_var((string) $email, FILTER_VALIDATE_EMAIL)) {
-            throw new InvalidEmailException($email);
+            throw InvalidEmailException::withName($email);
         }
 
         // Sanitizes and processes supplied e-mail address.

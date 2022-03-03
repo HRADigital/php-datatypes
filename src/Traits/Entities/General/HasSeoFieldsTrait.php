@@ -43,7 +43,7 @@ trait HasSeoFieldsTrait
         $titleValue = ($title ? Str::create($title)->trim() : null);
 
         if ($titleValue !== null && $titleValue->getLength() > 70) {
-            throw new NonEmptyStringException("Supplied Seo title must have length up to 70 characters.");
+            throw InvalidStringLengthException::withNameAndLength("Seo title", 70);
         }
 
         $this->seo_title = $this->seoSanitize($titleValue);
@@ -55,7 +55,7 @@ trait HasSeoFieldsTrait
      *
      * @param string|null $description - New value to be set on Attribute.
      *
-     * @throws NonEmptyStringException - Supplied Seo Description must be a non empty string.
+     * @throws InvalidStringLengthException - Supplied Seo Description must be a non empty string.
      *
      * @link  https://seopressor.com/blog/google-title-meta-descriptions-length
      * @return void
@@ -66,7 +66,7 @@ trait HasSeoFieldsTrait
         $descriptionValue = ($description ? Str::create($description) : null);
 
         if ($descriptionValue !== null && $descriptionValue->trim()->getLength() > 160) {
-            throw new NonEmptyStringException("Supplied Seo description must have length up to 160 characters.");
+            throw InvalidStringLengthException::withNameAndLength("Seo description", 160);
         }
 
         $this->seo_description = $this->seoSanitize($descriptionValue);
@@ -78,7 +78,7 @@ trait HasSeoFieldsTrait
      *
      * @param string|null $keywords - New value to be set on Attribute.
      *
-     * @throws NonEmptyStringException - Supplied Seo Keywords must be a non empty string.
+     * @throws InvalidStringLengthException - Supplied Seo Keywords must be a non empty string.
      *
      * @link  https://www.quora.com/What-is-the-minimum-length-of-a-meta-keyword-in-on-page-SEO
      * @return void
@@ -89,7 +89,7 @@ trait HasSeoFieldsTrait
         $keywordsValue = ($keywords ? Str::create($keywords) : null);
 
         if ($keywordsValue !== null && $keywordsValue->trim()->getLength() > 255) {
-            throw new NonEmptyStringException("Supplied Seo keywords must have length up to 255 characters.");
+            throw InvalidStringLengthException::withNameAndLength("Seo keywords", 255);
         }
 
         $this->seo_keywords = $this->seoSanitize($keywordsValue);

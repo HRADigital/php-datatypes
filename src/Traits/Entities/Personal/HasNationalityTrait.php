@@ -30,7 +30,7 @@ trait HasNationalityTrait
         $nationalityValue = $nationality ? Str::create($nationality)->trim() : null;
 
         if ($nationalityValue !== null && $nationalityValue->getLength() === 0) {
-            throw new NonEmptyStringException('$nationality');
+            throw NonEmptyStringException::withName('$nationality');
         }
 
         $this->nationality = $nationalityValue;

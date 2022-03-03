@@ -15,9 +15,13 @@ use HraDigital\Datatypes\Exceptions\UnprocessableEntityException;
  */
 class PositiveIntegerException extends UnprocessableEntityException
 {
-    /** @var string $message - Exception's error message. */
     protected $message = "Supplied parameter must be a positive integer.";
 
-    /** @var string $message - Exception's error message with field's name. */
-    protected string $messageWithName = "Parameter '%s' must be a positive integer.";
+    public static function withName(string $name, ?\Exception $inner = null): self
+    {
+        return new self(
+            \sprintf("Parameter '%s' must be a positive integer.", $name),
+            $inner
+        );
+    }
 }

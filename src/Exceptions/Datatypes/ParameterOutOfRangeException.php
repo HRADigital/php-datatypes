@@ -15,9 +15,13 @@ use HraDigital\Datatypes\Exceptions\UnprocessableEntityException;
  */
 class ParameterOutOfRangeException extends UnprocessableEntityException
 {
-    /** @var string $message - Exception's error message. */
     protected $message = "Supplied parameter is out of range.";
 
-    /** @var string $message - Exception's error message with field's name. */
-    protected string $messageWithName = "Parameter '%s' is out of expected range.";
+    public static function withName(string $name, ?\Exception $inner = null): self
+    {
+        return new self(
+            \sprintf("Parameter '%s' is out of expected range.", $name),
+            $inner
+        );
+    }
 }

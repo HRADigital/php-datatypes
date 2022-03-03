@@ -33,7 +33,7 @@ trait HasOccupationTrait
         $occupationValue = $occupation ? Str::create($occupation)->trim() : null;
 
         if ($occupationValue !== null && $occupationValue->getLength() === 0) {
-            throw new NonEmptyStringException('$occupation');
+            throw NonEmptyStringException::withName('$occupation');
         }
 
         $this->occupation = $occupationValue;

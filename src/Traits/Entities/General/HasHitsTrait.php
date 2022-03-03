@@ -30,7 +30,7 @@ trait HasHitsTrait
     {
         // Validates supplied $hits value.
         if ($hits < 0) {
-            throw new NonNegativeNumberException('$hits');
+            throw NonNegativeNumberException::withName('$hits');
         }
 
         // Sets value in class' attribute.

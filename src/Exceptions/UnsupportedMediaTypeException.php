@@ -20,13 +20,7 @@ namespace HraDigital\Datatypes\Exceptions;
  */
 class UnsupportedMediaTypeException extends AbstractBaseException
 {
-    /** @var string $message - Exception's error message. */
     protected $message = "The supplied MediaType is not supported by the system.";
-
-    /** @var string $message - Exception's error message when Media Type is supplied. */
-    protected string $messageWithName = "MediaType '%s' is not supported by the system.";
-
-    /** @var int $code - Exception's error code. */
     protected $code = 415;
 
     /**
@@ -34,14 +28,14 @@ class UnsupportedMediaTypeException extends AbstractBaseException
      *
      * Code value will be collected from defined class attribute.
      *
-     * @param  string|null     $name  - Optional media type name that is not supported.
+     * @param  string          $name  - Media type name that is not supported.
      * @param  \Exception|null $inner - Optional previous Exception in the stack, for Exception's nesting.
-     * @return void
+     * @return self
      */
-    public function __construct(?string $name = null, ?\Exception $inner = null)
+    public static function withName(string $name, ?\Exception $inner = null): self
     {
-        parent::__construct(
-            ($name !== null ? \sprintf($this->messageWithName, $name) : $this->message),
+        return new self(
+            \sprintf("MediaType '%s' is not supported by the system.", $name),
             $inner
         );
     }

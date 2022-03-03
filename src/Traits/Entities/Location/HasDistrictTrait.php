@@ -32,7 +32,7 @@ trait HasDistrictTrait
         $districtValue = $district ? Str::create($district)->trim() : null;
 
         if ($districtValue !== null && $districtValue->getLength() === 0) {
-            throw new NonEmptyStringException('$district');
+            throw NonEmptyStringException::withName('$district');
         }
 
         $this->district = $districtValue;

@@ -95,7 +95,7 @@ abstract class AbstractBaseString
     {
         // Validates supplied parameter.
         if (\strlen($search) === 0) {
-            throw new NonEmptyStringException('$search');
+            throw NonEmptyStringException::withName('$search');
         }
 
         return ($this->doIndexOf($search) !== null);
@@ -121,7 +121,7 @@ abstract class AbstractBaseString
     {
         // Validates supplied parameters.
         if (\strlen($search) === 0) {
-            throw new NonEmptyStringException('$search');
+            throw NonEmptyStringException::withName('$search');
         }
         if ($start) {
             $this->validateStartAndLength($start, null);
@@ -150,7 +150,7 @@ abstract class AbstractBaseString
     {
         // Validates supplied parameter.
         if (\strlen($search) === 0) {
-            throw new NonEmptyStringException('$search');
+            throw NonEmptyStringException::withName('$search');
         }
 
         return ($this->doIndexOf($search) === 0);
@@ -168,7 +168,7 @@ abstract class AbstractBaseString
     {
         // Validates supplied parameter.
         if (\strlen($search) === 0) {
-            throw new NonEmptyStringException('$search');
+            throw NonEmptyStringException::withName('$search');
         }
 
         return ($this->doSubString((0 - \strlen($search))) === $search);
@@ -189,7 +189,7 @@ abstract class AbstractBaseString
     {
         // Validates supplied $search parameter.
         if (\strlen($search) === 0) {
-            throw new NonEmptyStringException('$search');
+            throw NonEmptyStringException::withName('$search');
         }
 
         // Validates supplied $start and $length.
@@ -220,7 +220,7 @@ abstract class AbstractBaseString
 
         // Validates the starting value.
         if ($absStart > $this->getLength()) {
-            throw new ParameterOutOfRangeException('$start');
+            throw ParameterOutOfRangeException::withName('$start');
         }
 
         // If supplied $length is NULL, no further validations are required.
@@ -232,7 +232,7 @@ abstract class AbstractBaseString
         if (($start >= 0 && ($this->getLength() - $start < $absLength)) ||
             ($start < 0 && $absLength > $absStart)) {
 
-            throw new ParameterOutOfRangeException('$length');
+            throw ParameterOutOfRangeException::withName('$length');
         }
     }
 
@@ -339,10 +339,10 @@ abstract class AbstractBaseString
     {
         // Validates supplied parameters.
         if ($length < 1) {
-            throw new ParameterOutOfRangeException('$length');
+            throw ParameterOutOfRangeException::withName('$length');
         }
         if (\strlen($padding) === 0) {
-            throw new NonEmptyStringException('$padding');
+            throw NonEmptyStringException::withName('$padding');
         }
 
         return \str_pad($this->value, $length, $padding, STR_PAD_LEFT);
@@ -389,10 +389,10 @@ abstract class AbstractBaseString
     {
         // Validates supplied parameters.
         if ($length < 1) {
-            throw new ParameterOutOfRangeException('$length');
+            throw ParameterOutOfRangeException::withName('$length');
         }
         if (\strlen($padding) === 0) {
-            throw new NonEmptyStringException('$padding');
+            throw NonEmptyStringException::withName('$padding');
         }
 
         return \str_pad($this->value, $length, $padding, STR_PAD_RIGHT);
@@ -473,7 +473,7 @@ abstract class AbstractBaseString
     {
         // Validates parameter.
         if ($length < 1) {
-            throw new ParameterOutOfRangeException('$length');
+            throw ParameterOutOfRangeException::withName('$length');
         }
 
         return $this->doSubString(0, $length);
@@ -492,7 +492,7 @@ abstract class AbstractBaseString
     {
         // Validates parameter.
         if ($length < 1) {
-            throw new ParameterOutOfRangeException('$length');
+            throw ParameterOutOfRangeException::withName('$length');
         }
 
         return $this->doSubString(0 - $length);
@@ -521,10 +521,10 @@ abstract class AbstractBaseString
     {
         // Validates supplied parameters.
         if (\strlen($search) === 0) {
-            throw new NonEmptyStringException('$search');
+            throw NonEmptyStringException::withName('$search');
         }
         if (\strlen($replace) === 0) {
-            throw new NonEmptyStringException('$replace');
+            throw NonEmptyStringException::withName('$replace');
         }
 
         return \str_replace($search, $replace, $this->value);
@@ -551,7 +551,7 @@ abstract class AbstractBaseString
     {
         // Validates supplied parameters.
         if (\strlen($separator) === 0) {
-            throw new NonEmptyStringException('$separator');
+            throw NonEmptyStringException::withName('$separator');
         }
 
         if ($limit === null) {

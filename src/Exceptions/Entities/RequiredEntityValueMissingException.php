@@ -21,9 +21,13 @@ use HraDigital\Datatypes\Exceptions\UnprocessableEntityException;
  */
 class RequiredEntityValueMissingException extends UnprocessableEntityException
 {
-    /** @var string $message - Exception's error message. */
     protected $message = "A Required Entity field was missing, while loading.";
 
-    /** @var string $message - Exception's error message with field's name. */
-    protected string $messageWithName = "Entity field '%s' was missing, while loading.";
+    public static function withName(string $name, ?\Exception $inner = null): self
+    {
+        return new self(
+            \sprintf("Entity field '%s' was missing, while loading.", $name),
+            $inner
+        );
+    }
 }

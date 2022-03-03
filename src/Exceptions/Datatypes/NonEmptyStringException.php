@@ -15,9 +15,13 @@ use HraDigital\Datatypes\Exceptions\UnprocessableEntityException;
  */
 class NonEmptyStringException extends UnprocessableEntityException
 {
-    /** @var string $message - Exception's error message. */
     protected $message = "Supplied parameter must be non empty string.";
 
-    /** @var string $message - Exception's error message with field's name. */
-    protected string $messageWithName = "Parameter '%s' must be a non empty string.";
+    public static function withName(string $name, ?\Exception $inner = null): self
+    {
+        return new self(
+            \sprintf("Parameter '%s' must be a non empty string.", $name),
+            $inner
+        );
+    }
 }

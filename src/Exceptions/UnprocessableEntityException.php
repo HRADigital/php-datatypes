@@ -21,13 +21,7 @@ namespace HraDigital\Datatypes\Exceptions;
  */
 class UnprocessableEntityException extends AbstractBaseException
 {
-    /** @var string $message - Exception's error message. */
     protected $message = "The request was well-formed but was unable to be followed due to semantic errors.";
-
-    /** @var string $messageWithName - Exception's error message when an attribute name is supplied. */
-    protected string $messageWithName = "The request was well-formed but was unable to be followed due to field '%s'.";
-
-    /** @var int $code - Exception's error code. */
     protected $code = 422;
 
     /**
@@ -35,14 +29,14 @@ class UnprocessableEntityException extends AbstractBaseException
      *
      * Code value will be collected from defined class attribute.
      *
-     * @param  string|null     $name  - Optional attribute name that could't be processed.
+     * @param  string          $name  - Attribute's name that could't be processed.
      * @param  \Exception|null $inner - Optional previous Exception in the stack, for Exception's nesting.
-     * @return void
+     * @return self
      */
-    public function __construct(?string $name = null, ?\Exception $inner = null)
+    public static function withName(string $name, ?\Exception $inner = null): self
     {
-        parent::__construct(
-            ($name !== null ? \sprintf($this->messageWithName, $name) : $this->message),
+        return new self(
+            \sprintf("The request was well-formed but was unable to be followed due to field '%s'.", $name),
             $inner
         );
     }

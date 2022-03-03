@@ -22,10 +22,7 @@ namespace HraDigital\Datatypes\Exceptions;
  */
 class ForbiddenException extends AbstractBaseException
 {
-    /** @var string $message - Exception's error message. */
     protected $message = "You were forbidden to access the resource you were looking for.";
-
-    /** @var int $code - Exception's error code. */
     protected $code = 403;
 
     /**
