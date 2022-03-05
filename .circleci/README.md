@@ -45,6 +45,14 @@ SUM:                           137           1306           4016           4700
 -------------------------------------------------------------------------------
 ```
 
+In order to access Code Coverage reports, please go to [CodeDov](https://app.codecov.io/gh/HRADigital/php-datatypes).
+
 ## Testing
 
-Run `circleci local execute --job php-74` to test `v7.4`, or replace `74` with `80` or `81`, for versions v`8.0` and `v8.1`.
+Run `circleci local execute --job php-74` to test `v7.4`, or replace `74` with `80` or `81`, for versions `v8.0` & `v8.1`:
+
+- `circleci local execute --job php-74`
+- `circleci local execute --job php-80`
+- `circleci local execute --job php-81`
+
+In order to access CI reports, please got to [CircleCI](https://app.circleci.com/pipelines/github/HRADigital/php-datatypes?filter=all).
