@@ -46,7 +46,6 @@ trait HasRuleProcessingTrait
         // Loops through all the class' methods, and loads the necessary ones in
         // the corresponding containers.
         foreach (\get_class_methods($this) as $method) {
-
             // Loads mutators/setters and rules.
             if (\strpos($method, self::$RULEPREFIX) === 0 && \strlen($method) > \strlen(self::$RULEPREFIX)) {
                 $this->ruleList[] = $method;

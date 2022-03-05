@@ -31,7 +31,6 @@ trait HasFieldCastingTrait
     {
         // Loops through all the supplied Field's list.
         foreach ($fields as $field => $value) {
-
             // Builds up the Mutator's name.
             $mutator = $this->createMutatorName(self::$CASTPREFIX, $field);
 
@@ -64,7 +63,6 @@ trait HasFieldCastingTrait
         // Loops through all the class' methods, and loads the necessary ones in
         // the corresponding containers.
         foreach (\get_class_methods($this) as $method) {
-
             // Loads casting mutators.
             if (\strpos($method, self::$CASTPREFIX) === 0 && \strlen($method) > \strlen(self::$CASTPREFIX)) {
                 $this->castList[] = $method;
