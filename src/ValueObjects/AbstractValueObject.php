@@ -196,4 +196,19 @@ abstract class AbstractValueObject implements \JsonSerializable
             $this->convertIntoPrimitiveValues($fields, true)
         );
     }
+
+    /**
+     * This method is called by var_dump() when dumping an object to get the properties that should be shown.
+     *
+     * If the method isn't defined on an object, then all public, protected and private properties will be shown.
+     *
+     * Note: Might not work with xDebug.
+     *
+     * @link https://www.php.net/manual/en/language.oop5.magic.php#object.debuginfo
+     * @return array
+     */
+    public function __debugInfo(): array
+    {
+        return $this->toArray();
+    }
 }
