@@ -15,7 +15,7 @@ jobs:
           command: sudo apt-get update
       - run:
           name: Install CLOC
-          command: sudo apt-get -y install cloc php-xdebug
+          command: sudo apt-get -y install cloc
       # COMPOSER
       - run:
           name: Install Composer Dependencies
