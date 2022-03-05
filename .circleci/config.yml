@@ -19,7 +19,7 @@ jobs:
       # COMPOSER
       - run:
           name: Install Composer Dependencies
-          command: composer update
+          command: composer install
       # STATISTICS
       - run:
           name: Project's Statistics
