@@ -16,6 +16,12 @@ After installation of `circleci` utility, you can assess Coding Standards and Te
 
 In order to test CircleCI configiuration file, you can run `circleci config validate`.
 
+## Quick links
+
+- [CodeDov](https://app.codecov.io/gh/HRADigital/php-datatypes)
+- [Codacy](https://app.codacy.com/gh/HRADigital/php-datatypes/dashboard)
+- [CircleCI](https://app.circleci.com/pipelines/github/HRADigital/php-datatypes?filter=all)
+
 ## Coding Standards
 
 Run `circleci local execute --job php-cs` from the root of the project in order to test Coding Standards.
@@ -46,6 +52,8 @@ SUM:                           137           1306           4016           4700
 ```
 
 In order to access Code Coverage reports, please go to [CodeDov](https://app.codecov.io/gh/HRADigital/php-datatypes).
+
+In order to access Code Quality reports, please go to [Codacy](https://app.codacy.com/gh/HRADigital/php-datatypes/dashboard).
 
 ## Testing
 
