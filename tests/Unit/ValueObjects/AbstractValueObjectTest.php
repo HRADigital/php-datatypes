@@ -115,4 +115,20 @@ class AbstractValueObjectTest extends AbstractBaseTestCase
             (string) $unserialized->getTitle()
         );
     }
+
+    public function testCanCallDebugInfoInValueObject(): void
+    {
+        $valueObject = new TestingValueObject(
+            TestingValueObject::DATA
+        );
+        $array = $valueObject->__debugInfo();
+
+        $this->assertArrayHasKey('active', $array);
+        $this->assertArrayHasKey('email', $array);
+        $this->assertArrayHasKey('title', $array);
+        $this->assertArrayHasKey('inner', $array);
+
+        $this->assertArrayHasKey('title', $array['inner']);
+        $this->assertArrayHasKey('active', $array['inner']);
+    }
 }
