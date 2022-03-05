@@ -43,7 +43,7 @@ class Str extends AbstractBaseString
      */
     public function equals(Str $string): bool
     {
-        return ($this->value === $string->value);
+        return parent::doEquals((string) $string);
     }
 
     /**
