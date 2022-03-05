@@ -21,7 +21,6 @@ namespace HraDigital\Datatypes\Exceptions;
 class ConflictException extends AbstractBaseException
 {
     protected $message = "The action failed due to a conflict in the provided request.";
-
     protected $code = 409;
 
     /**

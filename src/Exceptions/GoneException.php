@@ -18,10 +18,7 @@ namespace HraDigital\Datatypes\Exceptions;
  */
 class GoneException extends AbstractBaseException
 {
-    /** @var string $message - Exception's error message. */
     protected $message = "The resource you are looking for, is no longer available in the system.";
-
-    /** @var int $code - Exception's error code. */
     protected $code = 410;
 
     /**
