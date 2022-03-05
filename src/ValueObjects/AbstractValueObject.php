@@ -174,7 +174,7 @@ abstract class AbstractValueObject implements \JsonSerializable, Serializable
     public function serialize(): string
     {
         return \serialize(
-            $this->toArray()
+            $this->__serialize()
         );
     }
 
@@ -186,7 +186,7 @@ abstract class AbstractValueObject implements \JsonSerializable, Serializable
     /** @inheritDoc */
     public function unserialize($serialized): void
     {
-        $this->loadInstance(
+        $this->__unserialize(
             \unserialize($serialized)
         );
     }
