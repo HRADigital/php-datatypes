@@ -4,16 +4,15 @@ orbs:
 jobs:
   build:
     docker:
-      - image: php:7.4-cli
+      - image: circleci/php:7.4
     working_directory: ~/php-datatypes
     steps:
       # GIT
       - checkout
       # SYSTEM
       - run:
-          name: Install System Packages
+          name: Update System
           command: sudo apt-get update
-      - run:
           name: Install CLOC
           command: sudo apt-get -y install cloc
       # COMPOSER
