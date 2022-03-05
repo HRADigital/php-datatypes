@@ -9,7 +9,7 @@ The project currently supports version `7.4`, `8.0` & `8.1` of PHP.
 In order to validate CircleCI configuration, you'll need to install locally `circleci` cli utility:
 
 ```bash
-sudo snap install circlec
+sudo snap install circleci
 ```
 
 After installation of `circleci` utility, you can assess Coding Standards and Testing in multiple supported PHP versions.
