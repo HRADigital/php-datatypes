@@ -42,7 +42,7 @@
     },
     "scripts": {
         "test-code" : "./vendor/bin/phpunit --coverage-clover ci/coverage-report.xml --coverage-html ci/coverage-report --log-junit ci/tests-results.xml",
-        "test-cs" : "./vendor/bin/phpcs -p --colors --no-cache --report=full --standard=PSR2 src/",
+        "test-cs" : "./vendor/bin/phpcs -p --colors --no-cache --report=full --standard=PSR2 --exclude=Squiz.WhiteSpace.ControlStructureSpacing src/",
         "test-all" : "composer run test-code && composer run test-cs"
     }
 }
