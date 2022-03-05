@@ -525,4 +525,66 @@ class StrTest extends AbstractBaseStringTestBase
         $original = $this->getInstance("Immutable String.");
         $original->replace($this->getInstance(''), $this->getInstance('Object'));
     }
+
+    /**
+     * Tests that text replace breaks.
+     *
+     * @return void
+     */
+    public function testBreaksTextReplaceIfReplaceIsEmpty(): void
+    {
+        // Creates expectation.
+        $this->expectException(NonEmptyStringException::class);
+
+        // Performs test.
+        $original = $this->getInstance("Immutable String.");
+        $original->replace($this->getInstance('Object'), $this->getInstance(''));
+    }
+
+    /**
+     * Tests that text can be exploded into an array.
+     *
+     * @return void
+     */
+    public function testTextCanBeExplodedIntoAnArray(): void
+    {
+        // Performs test.
+        $original = $this->getInstance("This is an immutable String.");
+        $array = $original->explode(' ');
+
+        // Performs assertions.
+        $this->assertIsArray($array);
+        $this->assertCount(5, $array);
+    }
+
+    /**
+     * Tests that text can be exploded into an array.
+     *
+     * @return void
+     */
+    public function testTextCanBeExplodedIntoAnArrayWithLimit(): void
+    {
+        // Performs test.
+        $original = $this->getInstance("This is an immutable String.");
+        $array = $original->explode(' ', 3);
+
+        // Performs assertions.
+        $this->assertIsArray($array);
+        $this->assertCount(3, $array);
+    }
+
+    /**
+     * Tests that text is not replaced if search is not found.
+     *
+     * @return void
+     */
+    public function testBreaksIfReplacementIsEmpty(): void
+    {
+        // Creates expectation.
+        $this->expectException(NonEmptyStringException::class);
+
+        // Performs test.
+        $original = $this->getInstance("This is an immutable String.");
+        $original->explode('');
+    }
 }
