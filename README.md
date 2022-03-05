@@ -1,10 +1,14 @@
 # PHP Datatypes
 
-#### Master branch build status:
-[![Build](https://circleci.com/gh/HRADigital/php-datatypes/tree/master.svg?style=svg)](https://circleci.com/gh/HRADigital/php-datatypes/tree/master)
-[![Coverage](https://codecov.io/gh/HRADigital/php-datatypes/branch/master/graph/badge.svg?token=voJmDwksFU)](https://codecov.io/gh/HRADigital/php-datatypes)
-[![Quality](https://api.codacy.com/project/badge/Grade/3be6c231eea84329878a59a66af49e2f)](https://www.codacy.com/app/HRADigital/php-datatypes?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=HRADigital/php-datatypes&amp;utm_campaign=Badge_Grade)
-[![Licence](https://img.shields.io/github/license/HRADigital/php-datatypes.svg)](/)
+## Master branch build status
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/7e5daeb819a24af0a6825127fb1938ba)](https://app.codacy.com/gh/HRADigital/php-datatypes?utm_source=github.com&utm_medium=referral&utm_content=HRADigital/php-datatypes&utm_campaign=Badge_Grade_Settings)
+[![Build](https://img.shields.io/circleci/build/github/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
+[![Coverage](https://img.shields.io/codecov/c/github/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
+[![Quality](https://api.codacy.com/project/badge/Grade/3be6c231eea84329878a59a66af49e2f)](https://github.com/HRADigital/php-datatypes)
+[![Downloads](https://img.shields.io/github/downloads/HRADigital/php-datatypes/total.svg)](https://github.com/HRADigital/php-datatypes)
+[![Licence](https://img.shields.io/github/license/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
+[![Version](https://img.shields.io/github/release/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
+[![PHP](https://img.shields.io/packagist/php-v/hradigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
 
 ## About
 
@@ -29,11 +33,14 @@ and both _Linear_ and _Associative_ **Collections** such as `Queues`, `Stacks` a
 
 In order to install this package, just add it to your **composer**, by executing `composer require hradigital/php-datatypes`.
 
-For general usage of the project's code, please read the project's [usage notes](/src).
+## Usage
+
+For more information about how to to use these Datatypes, please see the project's **usage notes** and some implementation examples
+in [here](https://github.com/HRADigital/php-datatypes/tree/master/src/).
 
 ## Contributing
 
 Contributing to the project is easy and contributions are welcomed and appreciated.
 
-It's obviously harder to maintain the project alone, but efforts will be made to keep and improve it, as I plan to use it
-as a dependency in other projects.
+It's obviously harder to maintain the project alone, but efforts will be made to keep and improve it, as I plan to use it as
+a dependency in other projects.
