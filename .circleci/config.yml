@@ -27,7 +27,7 @@ jobs:
       # TESTS
       - run:
           name: Run Tests
-          command: phpdbg -qrr vendor/bin/phpunit --coverage-clover build/coverage-report
+          command: phpdbg -qrr vendor/bin/phpunit --coverage-clover ~/build/coverage-report
       - run:
           name: Check coding standards in /src
           command: vendor/bin/phpcs --standard=PSR2 --exclude=Squiz.WhiteSpace.ControlStructureSpacing src
@@ -35,7 +35,9 @@ jobs:
           name: Check coding standards in /tests
           command: vendor/bin/phpcs --standard=PSR2 --exclude=Squiz.WhiteSpace.ControlStructureSpacing tests
       - store_artifacts:
-          path: build/coverage-report
+          path: ~/build/coverage-report
+      - store_test_results:
+          path: ~/build/test-results
       - codecov/upload:
-          file: build/coverage-report
+          file: ~/build/coverage-report
 
