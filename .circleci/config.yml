@@ -1,43 +1,97 @@
 version: 2.1
+
 orbs:
   codecov: codecov/codecov@1.0.4
+
 jobs:
-  build:
+  php-statistics:
     docker:
-      - image: circleci/php:7.4
+      - image: cimg/php:7.4
     working_directory: ~/php-datatypes
     steps:
-      # GIT
       - checkout
-      # SYSTEM
       - run:
           name: Update System
           command: sudo apt-get update
       - run:
           name: Install CLOC
           command: sudo apt-get -y install cloc
-      # COMPOSER
       - run:
-          name: Install Composer Dependencies
-          command: composer install
-      # STATISTICS
+          name: PHP Version
+          command: php -v
       - run:
           name: Project's Statistics
           command: git ls-files | xargs cloc
-      # TESTS
+
+  php-cs:
+    docker:
+      - image: cimg/php:7.4
+    working_directory: ~/php-datatypes
+    steps:
+      - checkout
       - run:
-          name: Run Tests
+          name: Composer Install
+          command: composer install
+      - run:
+          name: Check Coding Standards for PHPv7.4
+          command: |
+            vendor/bin/phpcs --standard=PSR2 --exclude=Squiz.WhiteSpace.ControlStructureSpacing src
+            vendor/bin/phpcs --standard=PSR2 --exclude=Squiz.WhiteSpace.ControlStructureSpacing tests
+
+  php-74:
+    docker:
+      - image: cimg/php:7.4
+    working_directory: ~/php-datatypes
+    steps:
+      - checkout
+      - run:
+          name: Composer Install
+          command: composer install
+      - run:
+          name: Run Tests for PHPv7.4
           command: phpdbg -qrr vendor/bin/phpunit --coverage-clover ~/build/coverage-report
-      - run:
-          name: Check coding standards in /src
-          command: vendor/bin/phpcs --standard=PSR2 --exclude=Squiz.WhiteSpace.ControlStructureSpacing src
-      - run:
-          name: Check coding standards in /tests
-          command: vendor/bin/phpcs --standard=PSR2 --exclude=Squiz.WhiteSpace.ControlStructureSpacing tests
       - store_artifacts:
-          path: ~/build/coverage-report
-      - store_test_results:
           path: ~/build/coverage-report
       - codecov/upload:
           file: ~/build/coverage-report
 
+  php-80:
+    docker:
+      - image: cimg/php:8.0
+    working_directory: ~/php-datatypes
+    steps:
+      - checkout
+      - run:
+          name: Composer Install
+          command: composer install
+      - run:
+          name: Run Tests for PHPv8.0
+          command: phpdbg -qrr vendor/bin/phpunit
+
+  php-81:
+    docker:
+      - image: cimg/php:8.1
+    working_directory: ~/php-datatypes
+    steps:
+      - checkout
+      - run:
+          name: Composer Install
+          command: composer install
+      - run:
+          name: Run Tests for PHPv8.1
+          command: phpdbg -qrr vendor/bin/phpunit
+
+workflows:
+  ci-flow:
+    jobs:
+      - php-statistics
+      - php-cs
+      - php-74:
+          requires:
+            - php-cs
+      - php-80:
+          requires:
+            - php-cs
+      - php-81:
+          requires:
+            - php-cs
