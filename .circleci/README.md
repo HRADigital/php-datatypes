@@ -14,6 +14,8 @@ sudo snap install circlec
 
 After installation of `circleci` utility, you can assess Cding Standards and Testing in multiple supported PHP versions.
 
+In order to test CircleCI configiuration file, you can run `circleci config validate`.
+
 ## Coding Standards
 
 Run `circleci local execute --job php-cs` from the route of the project in order to test Coding Standards.
