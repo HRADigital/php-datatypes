@@ -12,13 +12,38 @@ In order to validate CircleCI configuration, you'll need to install locally `cir
 sudo snap install circlec
 ```
 
-After installation of `circleci` utility, you can assess Cding Standards and Testing in multiple supported PHP versions.
+After installation of `circleci` utility, you can assess Coding Standards and Testing in multiple supported PHP versions.
 
 In order to test CircleCI configiuration file, you can run `circleci config validate`.
 
 ## Coding Standards
 
-Run `circleci local execute --job php-cs` from the route of the project in order to test Coding Standards.
+Run `circleci local execute --job php-cs` from the root of the project in order to test Coding Standards.
+
+Coding standards' job will also give you information about the environment and project it's running on:
+
+### PHP Version
+
+```bash
+PHP 7.4.26 (cli) (built: Nov 23 2021 21:06:06) ( NTS )
+Copyright (c) The PHP Group
+Zend Engine v3.4.0, Copyright (c) Zend Technologies
+```
+
+### Project's Statistics
+
+```bash
+-------------------------------------------------------------------------------
+Language                     files          blank        comment           code
+-------------------------------------------------------------------------------
+PHP                            108           1129           4016           4139
+Markdown                        27            171              0            431
+YAML                             1              6              0             83
+JSON                             1              0              0             47
+-------------------------------------------------------------------------------
+SUM:                           137           1306           4016           4700
+-------------------------------------------------------------------------------
+```
 
 ## Testing
 
