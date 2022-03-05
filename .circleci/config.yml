@@ -13,6 +13,7 @@ jobs:
       - run:
           name: Update System
           command: sudo apt-get update
+      - run:
           name: Install CLOC
           command: sudo apt-get -y install cloc
       # COMPOSER
