@@ -14,7 +14,6 @@ use HraDigital\Datatypes\Traits\ValueObjects\HasGuardedFieldsTrait;
 use HraDigital\Datatypes\Traits\ValueObjects\HasMappedFieldsTrait;
 use HraDigital\Datatypes\Traits\ValueObjects\HasRequiredFieldsTrait;
 use HraDigital\Datatypes\Traits\ValueObjects\HasRuleProcessingTrait;
-use Serializable;
 
 /**
  * Abstract Base Value Object class for all Domain Entities/Value Objects.
@@ -33,7 +32,7 @@ use Serializable;
  * @copyright HraDigital\Datatypes
  * @license   MIT
  */
-abstract class AbstractValueObject implements \JsonSerializable, Serializable
+abstract class AbstractValueObject implements \JsonSerializable
 {
     use HasMappedFieldsTrait,
         HasRuleProcessingTrait,
@@ -170,25 +169,9 @@ abstract class AbstractValueObject implements \JsonSerializable, Serializable
         return $this->convertIntoPrimitiveValues($fields);
     }
 
-    /** @inheritDoc */
-    public function serialize(): string
-    {
-        return \serialize(
-            $this->__serialize()
-        );
-    }
-
     public function __serialize(): array
     {
         return $this->toArray();
-    }
-
-    /** @inheritDoc */
-    public function unserialize($serialized): void
-    {
-        $this->__unserialize(
-            \unserialize($serialized)
-        );
     }
 
     public function __unserialize(array $data): void
