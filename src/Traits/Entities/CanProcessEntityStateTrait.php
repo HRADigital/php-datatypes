@@ -54,14 +54,13 @@ trait CanProcessEntityStateTrait
         // Loops through all the class' attributes, and validates if any has changed.
         $dirty = [];
         foreach ($this->getAttributes() as $field => $value) {
-
             // Is the current value different from the initial one?
             // Is the Entity NEW, and the field a required one?
             // If so, add it to the $dirty return array.
-            if (
-                $value !== $this->initialState[$field] ||
-                ($this->isNew() && \array_search($field, $this->required) !== false)
-            ) {
+            $hasChanged = ($value !== $this->initialState[$field]);
+            $isNewOrRequired = ($this->isNew() && \array_search($field, $this->required));
+
+            if ($hasChanged || $isNewOrRequired) {
                 $dirty[$field] = $value;
             }
         }

@@ -229,9 +229,10 @@ abstract class AbstractBaseString
         }
 
         // Checks if the supplied $length, doesn't exceed the available number of characters.
-        if (($start >= 0 && ($this->getLength() - $start < $absLength)) ||
-            ($start < 0 && $absLength > $absStart)) {
+        $startTooBig = ($start >= 0 && ($this->getLength() - $start < $absLength));
+        $startTooSmall = ($start < 0 && $absLength > $absStart);
 
+        if ($startTooBig || $startTooSmall) {
             throw ParameterOutOfRangeException::withName('$length');
         }
     }

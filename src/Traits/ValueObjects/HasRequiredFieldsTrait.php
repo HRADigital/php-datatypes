@@ -33,7 +33,6 @@ trait HasRequiredFieldsTrait
     {
         // Checks that all required fields were supplied.
         foreach ($this->required as $required) {
-
             // First, we'll need to assess if the field already exists NATIVELY in the class.
             // If not, we'll need to assess it is mapped.
             if (! \array_key_exists($required, $fields)) {

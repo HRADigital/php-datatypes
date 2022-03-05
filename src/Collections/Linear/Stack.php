@@ -45,7 +45,6 @@ class Stack extends AbstractListArray
     {
         // Checks initially provided list of elements.
         if ($initial !== null) {
-
             // Validates supplied parameter.
             if (\count($initial) === 0) {
                 throw new \InvalidArgumentException("Supplied array should be a list of string elements.");
