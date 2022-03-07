@@ -32,7 +32,7 @@ trait HasConversionToPrimitiveValuesTrait
             // If is not an Object not an Array, returns the actual value of the Field.
             if ($value instanceof AbstractValueObject || $value instanceof EntityCollection) {
                 $converted[$field] = $objectAsJson ? $value->jsonSerialize() : $value->toArray();
-            } elseif (\method_exists($value, '__toString')) {
+            } elseif (\is_object($value) && \method_exists($value, '__toString')) {
                 $converted[$field] = (string) $value;
             } elseif (\is_object($value)) {
                 $converted[$field] = (array) $value;
