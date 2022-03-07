@@ -102,11 +102,6 @@ trait HasSeoFieldsTrait
      */
     public function getSeoTitle(): ?Str
     {
-        // If the Seo title is not set it is set to name property.
-        if ($this->seo_title === null || $this->seo_title->trim()->getLength() === 0) {
-            return ( \property_exists($this, 'name') ? $this->{'name'} : null );
-        }
-
         return $this->seo_title;
     }
 
