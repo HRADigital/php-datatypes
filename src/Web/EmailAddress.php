@@ -18,7 +18,7 @@ use HraDigital\Datatypes\Scalar\Str;
  * @copyright HraDigital\Datatypes
  * @license   MIT
  */
-class EmailAddress implements \Serializable
+class EmailAddress
 {
     /** @var Str $username - Holds the Username's part of the E-mail address. */
     protected Str $username;
@@ -84,25 +84,17 @@ class EmailAddress implements \Serializable
         $this->domain = Str::create(\implode('.', $domain));
     }
 
-    /**
-     * {@inheritDoc}
-     * @see \Serializable::serialize()
-     */
-    public function serialize()
+    public function __serialize(): array
     {
-        return \serialize(
-            (string) $this->address()
-        );
+        return [
+            'email'=> (string) $this,
+        ];
     }
 
-    /**
-     * {@inheritDoc}
-     * @see \Serializable::unserialize()
-     */
-    public function unserialize($serialized)
+    public function __unserialize(array $data): void
     {
         $this->loadFromPrimitive(
-            \unserialize($serialized)
+            $data['email']
         );
     }
 
