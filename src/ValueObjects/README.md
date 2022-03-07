@@ -82,8 +82,8 @@ with field mapping when loading data into it. Mapping will occour before state i
 
 You should define which fields names are mapped to which fields, in your class definition.
 
-You can also define which fields are necessary on object's instantiation, by adding them to a `$required` array.
-If these fields are not present while loading the class, and Exception will be raised.
+You can also define which fields are required on object's instantiation, by adding them to a `$required` array.
+If these fields are not present while loading the class, an Exception will be raised.
 
 In the following example, the names `full_name`, `fullname`, `fullName` will all be mapped to `name`, and we'll set `name` & `active`
 as required fields for the class:
@@ -113,11 +113,11 @@ class MyEntity extends AbstractValueObject
 You can define rules for the object, which will manipulate the loaded data bafore it is set on the object's state. You can also
 add `onLoad` event handlers to manipulate data after class state is loaded, but before the object's instanciation is finalized.
 
-For rules, define a as many `protected` methods as you'd like, with a prefix `rule`, that will take a `$fields` array,
-and return it after mmanipulation.
+For rules, define as many `protected` methods as you'd like, with a prefix `rule`, that will take a `$fields` array,
+and return it after manipulation.
 
-For the `onLoad` event handlers, define as many as you'de like with a prefix `onLoad`, and no parameters nor returned type.
-These handlers will get called, after the object's state is alreayd loaded.
+For the `onLoad` event handlers, define as many as you'de like with a prefix `onLoad`, with no parameters or returned type.
+These handlers will get called, after the object's state is already loaded.
 
 ```php
 class UserEntity extends AbstractValueObject
