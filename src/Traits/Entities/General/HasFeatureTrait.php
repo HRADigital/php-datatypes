@@ -22,7 +22,7 @@ trait HasFeatureTrait
      * @param  bool $featured - New featured value.
      * @return void
      */
-    protected function castFeatured(bool $featured): void
+    protected function castIsFeatured(bool $featured): void
     {
         $this->is_featured = $featured;
     }
