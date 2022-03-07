@@ -48,7 +48,7 @@ trait CanProcessOnUpdateEventsTrait
     protected function triggerOnUpdate(): void
     {
         foreach ($this->onUpdateEvents as $onUpdate) {
-            $onUpdate();
+            $this->$onUpdate();
         }
     }
 }
