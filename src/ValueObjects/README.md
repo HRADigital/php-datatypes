@@ -1,4 +1,4 @@
-# Domain Value Objects
+# Value Objects & Entities
 
 **Value Object** are objects used to transport data **from** and **to** the **Domain**, but also play an important part
 in validating data integrity on a record.
@@ -9,180 +9,294 @@ in validating data integrity on a record.
 
 ## Building a new Value Object
 
-The first thing you should assess, is the context of the **Value Object** you're trying to model.
+To start building your ValueObjects/Entities with this package, you'll need to create your class extending `AbstractValueObject`.
+Afterwards, you should include the corresponding `Traits` for each one of the fields your object will have.
 
-Similar contexted **Value Objects**, will be placed near each other in the filesystem/namespace.
+### Loading data into Value Object
 
-All **Value Objects** should be located in the `HraDigital\Basetypes\ValueObjects` namespace, followed by the same segments
-present in the file system, up to the class definition.
+After you define your ValueObject/Entity structure, you can load data into it by passing an associative array to its Constructor.
 
-### Value Objects are immutable
-
-Value Objects should be treated as immutable, and therefore, once data is loaded into them, it should not be changed.
-
-In order to change the values on a Value Object, a new one whould be created, opposite to Entities that can change state.
-
-### Declaring Value Object's fields/attributes
-
-You should declare as `protected`, all the **Value Object** fields you'll want loaded into the class, with the same
-name they have in the **persistence layer**, when applicable.
-
-Whenever possible, use **Traits** for commonly used attributes. This will facilitate reusing fields in different
-attributes across the application.
-
-If we're talking about a Database as a **persistence layer**, and a given datatable has the _fields_ **name**,
-**surname** and **date_of_birth**, the **Value Object** should have the following `protected` _attributes_:
+If the attribute is not set in the class through Attribute Traits, it will not be loaded into the object's state.
 
 ```php
-class MyValueObject extends AbstractValueObject
-{
-    protected Str $name;
-    protected Str $surname;
-    protected Datetime $date_of_birth;
-}
-```
-
-### Declaring Accessor methods for the Attributes you want visible
-
-For each attribute that you want to make available from outside the Value Object, you should declare an accessor/getter.
-These method's names can be whatever you want, they should be declared `public`, and should return the required value.
-
-For an attribute called `$name`, a good accessor method's signature would be `public function name(): string;`.
-
-### Casting and/or Sanitizing values into the Value Object's state
-
-Each attribute should have a `protected` mutator starting with **cast** followed by the capitalized attribute name, without
-the underscores. Eg:. An Attribute called `$user_id` would have a `protected` mutator/sanitizing method called
-`castUserId(int $id)`. This mutator will be called internally, and will sanitize the attribute's value before setting it.
-
-### Rules for multiple attributes
-
-Sometimes, your Value Object might have more than one attributes which are dependent on each other. When this happens,
-your should declare a **rule** in your **Value Object**.
-
-**Rules** are just special methods, which take the initial data array as reference, and perform operations on it, breaking it
-if required. You can have as many rules as required, and they should be declared in the Value Object for which they exist.
-
-In order to declare a **rule**, you'll just need to declare a `protected` method, which takes an array of fields as reference.
-Eg:. `protected function ruleMySpecialRule(array $fields): array;`.
-
-### Setting Attributes as Required
-
-Required attributes, are attributes that will need to be present when first loading the Value Object. If not present,
-Value Object loading functionality will raise an Exception, and Value Object will not be instantiated. These are usually
-fields that don't have a default value in the persistence layer.
-
-In order to set attributes as required, you'll just need to list them in the `protected` array named `$required`.
-Eg:. `protected $required = ['name', 'surname'];`
-
-### Mapping different names to Attributes
-
-You may wish to hide internal Attribute's names, or just have them load data when providing different names in the loading array.
-One possible example is, if the fields in the Client's request, are different from the ones used internally in the Value Object.
-You can do this by mapping those field names in the `protected $maps = [];` array.
-
-As a **key**, you'll set the mapping attribute name, and in the **value**, you'll set the native Entity's attribute name.
-
-```php
-protected $maps = [
-    'first' => 'name',
-    'last'  => 'surname',
-];
-```
-
-## Using the Value Object
-
-### Example Value Object with Required attributes only
-
-```php
-class Person extends AbstractvalueObject
-{
-    protected Str $name;
-    protected Str $surname;
-
-    protected array $required = ['name', 'surname'];
-}
-```
-
-### Example Value Object, where we add casting/sanitizing methods
-
-```php
-class Person extends AbstractValueObject
-{
-    // ... Previous content.
-
-    protected function castName(string $name): void
-    {
-        $this->name = Str::create($name)->trim();
-    }
-
-    protected function castSurname(string $surname): void
-    {
-        $this->surname = Str::create($surname)->trim();
-    }
-}
-```
-
-### Example Value Object, where we add accessor methods
-
-```php
-class Person extends AbstractValueObject
-{
-    // ... Previous content.
-
-    public function name(): Str
-    {
-        return $this->name;
-    }
-
-    public function surname(): Str
-    {
-        return $this->surname;
-    }
-}
-```
-
-### Using our Value Object, from within our application
-
-```php
-$person = new Person([
-    'name'    => 'John',
-    'surname' => 'Doe',
+$user = new UserEntity([
+    'id' => 123,
+    'active' => true,
+    'name' => ' John Doe ',
 ]);
 
-// Echoing all the 'properties'.
-echo $person->name();    // Echoes 'John'
-echo $person->surname(); // Echoes 'Doe'
-
-// The following code will break, because both $name and $surname are required.
-$breaks = new Person([
-    'name' => 'John',
-]);
+echo $user->getName(); // Prints ' John Doe '
+echo $user->getName()->trim()->toUpper()->replace(' ', '-'); // Prints 'JOHN-DOE'
+echo $user->getName(); // Prints ' John Doe ' again, as Attribute is immutable.
 ```
 
-### Mapping different names to our attributes
+### Field Traits
 
-Mapping definition:
+Each Field Trait will have 3 required class members:
+
+- Attribute (`protected`) - Holds field's state.
+- Casting method (`protected`) - Casts primite value to strongly typed object (eg:. `"SomeString"` => `Str::class`).
+- Getter (`public`) - Provides a way to access the field's value.
 
 ```php
-class Person extends AbstractValueObject
+trait HasEmailTrait
 {
-    // ... Previous content.
+    protected ?EmailAddress $email = null;
 
-    protected $maps = [
-        'first' => 'name',
-        'last'  => 'surname',
+    protected function castEmail(string $email): void
+    {
+        $this->email = EmailAddress::create($email);
+    }
+
+    public function getEmail(): ?EmailAddress
+    {
+        return $this->email;
+    }
+}
+```
+
+You can build whole objects using these `Traits`.
+
+By default, when adding these `Traits`, your object will be immutable.
+If you're creating a mutable Entity, you'll need to define state mutation logic within your class.
+
+```php
+class MyEntity extends AbstractValueObject
+{
+    use HasPositiveIntegerIDTrait,
+        HasActiveTrait,
+        HasNameTrait,
+        HasEmailTrait,
+        HasCreatedAtTrait,
+        HasUpdatedAtTrait;
+}
+```
+
+### Field Mapping & Requirement
+
+As these ValueObjects/Entities are meant to be platform agnostic, they might be loaded into your application from different sources.
+Eg:. Database, Webservice, WebRequests, Events, ...
+
+Therefore, and because the same information might be represented with slight structural changes, `AbstractValueObject` provides you
+with field mapping when loading data into it. Mapping will occour before state is loaded into the object.
+
+You should define which fields names are mapped to which fields, in your class definition.
+
+You can also define which fields are necessary on object's instantiation, by adding them to a `$required` array.
+If these fields are not present while loading the class, and Exception will be raised.
+
+In the following example, the names `full_name`, `fullname`, `fullName` will all be mapped to `name`, and we'll set `name` & `active`
+as required fields for the class:
+
+```php
+class MyEntity extends AbstractValueObject
+{
+    use HasPositiveIntegerIDTrait,
+        HasActiveTrait,
+        HasNameTrait;
+
+    protected array $maps = [
+        'full_name' => 'name',
+        'fullname' => 'name',
+        'fullName' => 'name',
+    ];
+
+    protected array $required = [
+        'active',
+        'name',
     ];
 }
 ```
 
+### Field Rules & onLoad Event Handlers
+
+You can define rules for the object, which will manipulate the loaded data bafore it is set on the object's state. You can also
+add `onLoad` event handlers to manipulate data after class state is loaded, but before the object's instanciation is finalized.
+
+For rules, define a as many `protected` methods as you'd like, with a prefix `rule`, that will take a `$fields` array,
+and return it after mmanipulation.
+
+For the `onLoad` event handlers, define as many as you'de like with a prefix `onLoad`, and no parameters nor returned type.
+These handlers will get called, after the object's state is alreayd loaded.
+
 ```php
-$person = new Person([
+class UserEntity extends AbstractValueObject
+{
+    use HasPositiveIntegerIDTrait,
+        HasNameTrait;
+
+    protected function ruleConcatenateFirstAndLastNames(array $fields): array
+    {
+        if (isset($fields['first']) && isset($fields['last'])) {
+            $fields['name'] = $fields['first'] . ' ' . $fields['last'];
+        }
+
+        return fields;
+    }
+
+    protected function onLoadConvertNameToUpperCase(): void
+    {
+        $this->name = $this->name->toUpper();
+    }
+}
+
+$user = new UserEntity([
+    'id' => 123,
     'first' => 'John',
-    'last'  => 'Doe',
+    'last' => 'Doe',
 ]);
 
-// Echoing all the 'properties'.
-echo $person->name();    // Echoes 'John'
-echo $person->surname(); // Echoes 'Doe'
+echo $user->getName(); // Prints 'JOHN DOE'
+```
+
+## Accessing & Serializing data
+
+By default, your ValueObject's/Entity's attributes can be accessed by Getters available in the different `Traits`, but you might
+want to retrieve the full record in your application.
+`AbstractValueObject` provides you with two methods for this:
+
+- `getAttributes()` will get you the attributes, for the first level record only.
+- `toArray()` will return a full representation of record, including nested ValueObjects/Entities in it (eg:. _Aggregate Roots_).
+
+You can also easily serialize and unserialize objects that extend `AbstractValueObject`:
+
+```php
+$oldUser = new UserEntity([
+    'id' => 123,
+    'name' => 'John Doe',
+]);
+
+$serialized = serialize($oldUser);
+$newUser = unserialize($serialized);
+
+echo $newUser->getName(); // Prints 'John Doe'
+```
+
+### JSON Serializing
+
+Apart from easy serializing, classes extending `AbstractValueObject` can also easily be converted to JSON, if you which to output
+them, for example, in an API Response.
+
+On top of this, and because you might want to protect certain fields, you can also define which fields won't be serializable into
+JSON, by filling in a `$guarded` internal array.
+
+```php
+class MyEntity extends AbstractValueObject
+{
+    use HasPositiveIntegerIDTrait,
+        HasNameTrait,
+        HasEmailTrait,
+        HasPasswordTrait,
+        HasCreatedAtTrait;
+
+    protected array $guarded = [
+        'email',
+        'password',
+    ];
+}
+
+$user = new UserEntity([
+    'id' => 123,
+    'name' => 'John Doe',
+    'email' => 'john.doe@domain.tld',
+    'password' => 'poiouashfiahsifuahpsdfphapsdfpoasopasyeytnracsyntaynetyaoeya',
+    'created_at' => '2022-02-02 12:30:00',
+]);
+
+$json = json_encode($user);
+echo $json; // NO EMAIL OR PASSWORD
+
+/*
+{
+  "id": 123,
+  "name": "John Doe",
+  "created_at": "2022-02-02 12:30:00"
+}
+*/
+```
+
+## Manipulating State
+
+If you want to keep track of the object's state, you can include the Trait `CanProcessEntityStateTrait` in your class.
+
+This `Trait` can provide you information, about attributes that have been changed since load.
+
+```php
+class UserEntity extends AbstractValueObject
+{
+    use HasPositiveIntegerIDTrait,
+        HasActiveTrait,
+        HasNameTrait,
+        CanProcessEntityStateTrait;
+
+    public function activate(): void
+    {
+        $this->active = true;
+    }
+}
+
+$user = new UserEntity([
+    'id' => 123,
+    'active' => false,
+    'name' => 'John Doe',
+]);
+
+$user->isDirty(); // FALSE
+$user->activate();
+$user->isDirty(); // TRUE
+
+/*
+$user->getDirty();
+
+OUTPUTS
+[
+    'active' => true,
+]
+*/
+```
+
+### Reacting to State changes
+
+You can react to state changes, by adding a second Trait `CanProcessOnUpdateEventsTrait` to your class.
+
+Afterwards, and at this point, your class will need to call `$this->triggerOnUpdate();` inside your Mutators/Setters,
+in order to trigger all "_onUpdate_" event handlers. This is not done automatically, at this point.
+
+If you need to react to this event, you can declare as many `protected` methods as you which, with the prefix `onUpdate`,
+without any parameters or returned type.
+
+```php
+class UserEntity extends AbstractValueObject
+{
+    use HasPositiveIntegerIDTrait,
+        HasActiveTrait,
+        HasNameTrait,
+        HasCreatedAtTrait,
+        CanProcessEntityStateTrait,
+        CanProcessOnUpdateEventsTrait;
+
+    public function activate(): void
+    {
+        $this->active = true;
+        $this->triggerOnUpdate();
+    }
+
+    public function rename(Str $newName): void
+    {
+        $this->name = $newName;
+        $this->triggerOnUpdate();
+    }
+
+    protected function onUpdateChangeUpdatedAtField(): void
+    {
+        $this->updated_at = DateTime::now();
+    }
+}
+
+$user->getUpdatedAt(); // Initially loaded DateTime.
+$user->activate();
+$user->rename(
+    Str::create('John Smith')
+);
+$user->getUpdatedAt(); // Updated DateTime.
 ```
