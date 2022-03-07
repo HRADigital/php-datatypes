@@ -3,7 +3,7 @@
 ## Master branch build status
 [![Build](https://img.shields.io/circleci/build/github/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
 [![Coverage](https://img.shields.io/codecov/c/github/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
-[![Quality](https://app.codacy.com/project/badge/Grade/de03155208c64196899848458c2ced8a)](https://github.com/HRADigital/php-datatypes)
+[![Quality](https://app.codacy.com/project/badge/Grade/de03155208c64196899848458c2ced8a)](https://www.codacy.com/gh/HRADigital/php-datatypes/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=HRADigital/php-datatypes&amp;utm_campaign=Badge_Grade)
 [![Downloads](https://img.shields.io/github/downloads/HRADigital/php-datatypes/total.svg)](https://github.com/HRADigital/php-datatypes)
 [![Licence](https://img.shields.io/github/license/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
 [![Version](https://img.shields.io/github/release/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
@@ -11,44 +11,45 @@
 
 ## About
 
-**PHP Datatypes** is a project meant to conviniently aggregate commonly used **Scalar objects**, other **datatypes** and
-**Data Transfer Object**'s base classes into a single package.
+**PHP Datatypes** is meant to provide an easy way to create your Value Objects/Entities, in a fast and platform agnostic way,
+that promotes:
 
-Some of the projects that inspired this one, are mainly [Nikita Popov's Scalar Objects](https://github.com/nikic/scalar_objects),
-but also [Martin Helmich's Scalar Classes](https://github.com/martin-helmich/php-scalarclasses/) and
-[Michael Hall's Datatypes](https://github.com/themichaelhall/datatypes/).
+- Code reusability
+- Data normalization
+- Type hint enforcement
+- Full data serializing
+- No 3rd party dependency apart from PHP. Clean/Self reliant project.
 
-## Requirements
+An Entity/ValueObject that extends [AbstractValueObject](/HRADigital/php-datatypes/blob/master/src/ValueObjects/AbstractValueObject.php)
+will be built using predefined/tested [Traits](/HRADigital/php-datatypes/tree/master/src/Traits/Entities) for each of the class attributes,
+leaving your class definition cleaned/free for your business logic implementation.
 
-- PHP >= 7.4
+This will also allow you to reuse/load your objects with data that can come from a Database, Webservice, Event payload, etc...
 
-## Installation
+Getters/Accessors for class attributes will return ValueObjects instead of primitive types, as much as possible. All these datatypes will
+also be included in the package, as it doesn't have any dependencies apart from, PHP itself.
 
-``` bash
-$ composer require hradigital/php-datatypes
-```
+To learn how to use this package, please go to [AbstractValueObject](/HRADigital/php-datatypes/blob/master/src/ValueObjects/) documentation.
 
-### Project's purpose/mission
+### Inspiration
 
-The project's mission is based on the following 4 principles:
+Some of the projects that inspired this one, are mainly [Nikita Popov's Scalar Objects](/nikic/scalar_objects),
+but also [Martin Helmich's Scalar Classes](/martin-helmich/php-scalarclasses/) and
+[Michael Hall's Datatypes](/themichaelhall/datatypes/).
 
-- Deliver the biggest amount of datatypes on a single project, that can serve as base code for many different projects.
-- Be a self reliant project, without extra dependencies, that only depends on PHP's version and/or native code.
-- Provide reliable code, which is fully tested/coverade.
-- Provide fully documented code.
+Due to the "_No 3rd party dependency_" rule, this package will use some simplified versions of more popular datatypes. Some examples are:
 
-### When not to use this project
-
-**PHP Datatypes** provides easily used, simple class interfaces, and each of the supplied datatypes is not meant to fully
-provide all code combinations and/or functionality. It's code created for developer's convinience.
-
-If you need a more comprehensive handling of each datatype, there are other alternatives online. Here are a few:
-
-- `nesbot/carbon` for Datetime's processing
-- `symfony/string` for String's processing
-- `moneyphp/money` for currency's processing
-- `egulias/email-validator` for e-mail's processing
+- [synfony/string](/symfony/string), for String related manipulations.
+- [nesbot/carbon](/briannesbitt/Carbon), for DateTime manipulations.
 - ...
+
+## Requirements & Installation
+
+- PHP >= 7.4||8.*
+
+```bash
+composer require hradigital/php-datatypes
+```
 
 ## Usage
 
