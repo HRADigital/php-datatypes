@@ -30,18 +30,11 @@ trait CanProcessOnLoadEventsTrait
      */
     private function triggerOnLoad(): void
     {
-        foreach ($this->onLoadEvents as $onLoad) {
-            $this->$onLoad();
-        }
-    }
-
-    private function registerOnLoadEvents(): void
-    {
         // Loops through all the class' methods, and loads the necessary ones in
         // the corresponding containers.
         foreach (\get_class_methods($this) as $method) {
             if (\strpos($method, self::$ONLOADPREFIX) === 0 && \strlen($method) > \strlen(self::$ONLOADPREFIX)) {
-                $this->onLoadEvents[] = $method;
+                $this->$method();
             }
         }
     }

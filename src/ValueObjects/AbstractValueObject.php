@@ -79,7 +79,6 @@ abstract class AbstractValueObject implements \JsonSerializable
         $this->registerUsableFields();
         $this->registerAttributeCastingList();
         $this->registerAttributeRuleList();
-        $this->registerOnLoadEvents();
 
         // Translates supplied fields, into existing ones.
         $mapped = $this->translateToMappedFields($fields);
