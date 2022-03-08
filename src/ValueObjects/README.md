@@ -55,6 +55,22 @@ trait HasEmailTrait
 }
 ```
 
+Attributes are usually defined using "_snake-case_", and in order to more easily handling persisted data, usually map directly
+to the names of the corresponding fields in the persistence layer. This also helps out, when serializing the record to JSON,
+as it "_usually_" uses the same casing.
+
+Casting methods should be set as `protected`, and have `cast` prefix followed by the name of the existing attribute (_CamelCase_)
+without any underscores. Eg:
+
+- `$email` would have the casting method `protected function castEmail()`.
+- `$user_name` would have the casting method `protected function castUserName()`.
+- `$date_of_birth` would have the casting method `protected function castDateOfBirth()`.
+
+Usually, each Attribute and Casting method should be accompanied by a Getter. Getter methods should account for the possibility of
+an Attribute not being handed a value while instantiating, therefore, it's good policy to assign it a default one.
+
+### Using Field's Traits
+
 You can build whole objects using these `Traits`.
 
 By default, when adding these `Traits`, your object will be immutable.
@@ -300,3 +316,14 @@ $user->rename(
 );
 $user->getUpdatedAt(); // Updated DateTime.
 ```
+
+## Loading Execution Order
+
+When instantiating a new ValueObject/Entity that extends `AbstractValueObject`, the order of events is as follows:
+
+- Register instance's structure (_available attributes, casting methods, rule methods, ..._)
+- Map supplied fields to instance's attributes (_rename supplied keys using `$maps` as reference_)
+- Processes Rules for supplied fields (_all `protected` methods with `rule` prefix_)
+- Validates if all required fields were supplied (_compares supplied field's keys with `$required` array_)
+- Load/cast supplied data into existing attributes (_loads supplied fields using all `protected` methods with `cast` prefix_)
+- Trigger onLoad handlers (_calls all `protected` methods with `onLoad` prefix_)
