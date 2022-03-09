@@ -4,9 +4,14 @@ declare(strict_types=1);
 
 namespace HraDigital\Tests\Datatypes\Unit\ValueObjects;
 
+use HraDigital\Datatypes\Datetime\Datetime;
+use HraDigital\Datatypes\Scalar\Str;
+use HraDigital\Datatypes\Traits\Entities\CanProcessEntityStateTrait;
+use HraDigital\Datatypes\Traits\Entities\CanProcessOnUpdateEventsTrait;
 use HraDigital\Datatypes\Traits\Entities\General\HasActiveTrait;
 use HraDigital\Datatypes\Traits\Entities\General\HasEmailTrait;
 use HraDigital\Datatypes\Traits\Entities\General\HasTitleTrait;
+use HraDigital\Datatypes\Traits\Entities\General\HasUpdatableUpdatedAtTrait;
 use HraDigital\Datatypes\ValueObjects\AbstractValueObject;
 
 /**
@@ -23,14 +28,17 @@ class TestingValueObject extends AbstractValueObject
         'address' => 'user@domain.tld',
         'title' => 'my title',
         'inner' => [
-            'active' => true,
+            'active' => false,
             'title' => 'My Inner Title',
         ],
     ];
 
     use HasActiveTrait,
         HasEmailTrait,
-        HasTitleTrait;
+        HasTitleTrait,
+        HasUpdatableUpdatedAtTrait,
+        CanProcessEntityStateTrait,
+        CanProcessOnUpdateEventsTrait;
 
     /** @var array $guarded - List of fields that should not be serializable into JSON. */
     protected array $guarded = ['email'];
@@ -42,8 +50,6 @@ class TestingValueObject extends AbstractValueObject
 
     protected array $required = [
         'active',
-        'email',
-        'title',
     ];
 
     protected TestingNestedValueObject $inner;
@@ -53,7 +59,7 @@ class TestingValueObject extends AbstractValueObject
         $this->inner = new TestingNestedValueObject($inner);
     }
 
-    protected function getInner(): TestingNestedValueObject
+    public function getInner(): TestingNestedValueObject
     {
         return $this->inner;
     }
@@ -64,20 +70,27 @@ class TestingValueObject extends AbstractValueObject
      * @param  array $fields - Original fields being loaded into the Value Object.
      * @return array
      */
-    protected function ruleTestingMethod(array $fields): array
+    protected function ruleSetUpdatedAtIfMissing(array $fields): array
     {
-        $fields['title'] = 'My Outter Title';
+        if (!isset($fields['updated_at'])) {
+            $fields['updated_at'] = (string) Datetime::now()->addHours(-1);
+        }
 
         return $fields;
     }
 
-    /**
-     * onLoad's testing handler.
-     *
-     * @return void
-     */
-    protected function onLoadActivateValueObjectHandler(): void
+    public function activate(): void
     {
         $this->active = true;
+
+        $this->triggerOnUpdate();
+    }
+
+    public function changeTitle(Str $title): void
+    {
+        $this->title = Str::create('My ' . (string) $title);
+        $this->inner->changeTitle($this->title->replace('My ', 'My Other '));
+
+        $this->triggerOnUpdate();
     }
 }
