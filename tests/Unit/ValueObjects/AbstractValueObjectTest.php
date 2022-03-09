@@ -5,6 +5,9 @@ declare(strict_types=1);
 namespace HraDigital\Tests\Datatypes\Unit\ValueObjects;
 
 use HraDigital\Datatypes\Exceptions\Entities\RequiredEntityValueMissingException;
+use HraDigital\Datatypes\Exceptions\Entities\UnexpectedEntityValueException;
+use HraDigital\Datatypes\Exceptions\Datatypes\ParameterOutOfRangeException;
+use HraDigital\Datatypes\Datetime\Datetime;
 use HraDigital\Datatypes\Scalar\Str;
 use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
 
@@ -185,6 +188,38 @@ class AbstractValueObjectTest extends AbstractBaseTestCase
         );
     }
 
+    public function testCanResetState(): void
+    {
+        $valueObject = new TestingValueObject(
+            TestingValueObject::DATA
+        );
+
+        // Checks initially loaded state.
+        $this->assertFalse($valueObject->isActive());
+        $this->assertFalse($valueObject->getInner()->isActive());
+        $mainUpdatedAt = $valueObject->getUpdatedAt();
+        $innerUpdatedAt = $valueObject->getInner()->getUpdatedAt();
+        $array = $valueObject->toArray();
+
+        // Perform state change operations on Aggregate.
+        $valueObject->activate();
+        $valueObject->changeTitle(Str::create('Main Title'));
+        $valueObject->resetState();
+
+        // Checks it's now marked as Dirty
+        $this->assertTrue($valueObject->isActive());
+        $this->assertFalse($valueObject->getInner()->isActive());
+        $this->assertFalse($valueObject->isDirty());
+        $dirty = $valueObject->getDirty(true);
+
+        // Checks Dirty array contains only fields that have changed.
+        $this->assertArrayNotHasKey('active', $dirty);
+        $this->assertArrayNotHasKey('email', $dirty);
+        $this->assertArrayNotHasKey('title', $dirty);
+        $this->assertArrayNotHasKey('inner', $dirty);
+        $this->assertCount(0, $dirty);
+    }
+
     public function testCanMassAssignValues(): void
     {
         $valueObject = new TestingValueObject(
@@ -220,5 +255,16 @@ class AbstractValueObjectTest extends AbstractBaseTestCase
             (string) $innerUpdatedAt->toDatetimeString(),
             (string) $original['inner']['updated_at']
         );
+    }
+
+    public function testBreaksWhenMassAssignmentIsEmpty(): void
+    {
+        $this->expectException(ParameterOutOfRangeException::class);
+
+        $valueObject = new TestingValueObject(
+            TestingValueObject::DATA
+        );
+
+        $valueObject->setAttributes([]);
     }
 }
