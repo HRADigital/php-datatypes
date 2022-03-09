@@ -71,7 +71,7 @@ trait CanProcessEntityStateTrait
                 continue;
             }
 
-            if (\method_exists($this->{$field}, '__toString')) {
+            if (\is_object($this->{$field}) && \method_exists($this->{$field}, '__toString')) {
                 $hasChanged = ((string) $value) !== ((string) $this->{$field});
             } else {
                 $hasChanged = $value !== $this->{$field};
