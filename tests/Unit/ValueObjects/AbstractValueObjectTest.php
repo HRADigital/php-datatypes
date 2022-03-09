@@ -132,9 +132,6 @@ class AbstractValueObjectTest extends AbstractBaseTestCase
         $this->assertArrayHasKey('active', $array['inner']);
     }
 
-    /**
-     * @group hugo
-     */
     public function testCanChangeAndTrackState(): void
     {
         $valueObject = new TestingValueObject(
