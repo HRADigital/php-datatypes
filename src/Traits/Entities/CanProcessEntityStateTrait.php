@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Traits\Entities;
 
+use HraDigital\Datatypes\ValueObjects\AbstractValueObject;
+
 /**
  * Will handle state changes on an Entity.
  *
@@ -25,7 +27,7 @@ trait CanProcessEntityStateTrait
      */
     protected function onLoadSnapshotState(): void
     {
-        $this->initialState = $this->getAttributes();
+        $this->initialState = $this->toArray();
     }
 
     /**
@@ -53,15 +55,30 @@ trait CanProcessEntityStateTrait
     {
         // Loops through all the class' attributes, and validates if any has changed.
         $dirty = [];
-        foreach ($this->getAttributes() as $field => $value) {
-            // Is the current value different from the initial one?
-            // Is the Entity NEW, and the field a required one?
-            // If so, add it to the $dirty return array.
-            $hasChanged = ($value !== $this->initialState[$field]);
-            $isNewOrRequired = ($this->isNew() && \array_search($field, $this->required));
+        foreach ($this->initialState as $field => $value) {
+
+            $isNewOrRequired = (
+                (\method_exists($this, 'isNew') && $this->isNew()) ||
+                \array_search($field, $this->required)
+            );
+
+            if ($this->{$field} instanceof AbstractValueObject) {
+
+                if ($isNewOrRequired || (\method_exists($this->{$field}, 'isDirty') && $this->{$field}->isDirty())) {
+                    $dirty[$field] = $this->{$field}->getDirty($withTimestamps);
+                }
+
+                continue;
+            }
+
+            if (\method_exists($this->{$field}, '__toString')) {
+                $hasChanged = ((string) $value) !== ((string) $this->{$field});
+            } else {
+                $hasChanged = $value !== $this->{$field};
+            }
 
             if ($hasChanged || $isNewOrRequired) {
-                $dirty[$field] = $value;
+                $dirty[$field] = $this->{$field};
             }
         }
 
@@ -94,7 +111,7 @@ trait CanProcessEntityStateTrait
      */
     final public function resetState(): void
     {
-        $this->initialState = $this->getAttributes();
+        $this->initialState = $this->toArray();
     }
 
     /**
