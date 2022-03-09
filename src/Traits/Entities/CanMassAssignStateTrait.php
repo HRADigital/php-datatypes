@@ -40,7 +40,7 @@ trait CanMassAssignStateTrait
         foreach ($mapped as $field => $value) {
             if ($this->{$field} instanceof AbstractValueObject && \method_exists($this->{$field}, 'setAttributes')) {
                 $this->{$field}->setAttributes($value);
-            } elseif (\method_exists($this->{$field}, '__toString')) {
+            } elseif (\is_object($this->{$field}) && \method_exists($this->{$field}, '__toString')) {
                 $fields[$field] = (string) $value;
             } else {
                 $fields[$field] = $value;
