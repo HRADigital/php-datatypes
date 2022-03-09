@@ -29,7 +29,7 @@ class AbstractValueObjectTest extends AbstractBaseTestCase
 
         // Test Rule's processing works.
         $this->assertEquals(
-            'MY OUTTER TITLE',
+            'MY TITLE',
             (string) $valueObject->getTitle()->toUpper()
         );
 
@@ -130,5 +130,50 @@ class AbstractValueObjectTest extends AbstractBaseTestCase
 
         $this->assertArrayHasKey('title', $array['inner']);
         $this->assertArrayHasKey('active', $array['inner']);
+    }
+
+    /**
+     * @group hugo
+     */
+    public function testCanChangeAndTrackState(): void
+    {
+        $valueObject = new TestingValueObject(
+            TestingValueObject::DATA
+        );
+
+        // Checks initially loaded state.
+        $this->assertFalse($valueObject->isActive());
+        $this->assertFalse($valueObject->getInner()->isActive());
+        $mainUpdatedAt = $valueObject->getUpdatedAt();
+        $innerUpdatedAt = $valueObject->getInner()->getUpdatedAt();
+
+        // Perform state change operations on Aggregate.
+        $valueObject->activate();
+        $valueObject->changeTitle(Str::create('Main Title'));
+
+        // Checks it's now marked as Dirty
+        $this->assertTrue($valueObject->isActive());
+        $this->assertFalse($valueObject->getInner()->isActive());
+        $this->assertTrue($valueObject->isDirty());
+        $dirty = $valueObject->getDirty(true);
+
+        // Checks Dirty array contains only fields that have changed.
+        $this->assertArrayHasKey('active', $dirty);
+        $this->assertArrayNotHasKey('email', $dirty);
+        $this->assertArrayHasKey('title', $dirty);
+        $this->assertArrayHasKey('inner', $dirty);
+
+        $this->assertArrayHasKey('title', $dirty['inner']);
+        $this->assertArrayNotHasKey('active', $dirty['inner']);
+
+        // Asserts that UpdatedAt DateTimes have updated with calls.
+        $this->assertNotEquals(
+            (string) $mainUpdatedAt->toDatetimeString(),
+            (string) $valueObject->getUpdatedAt()->toDatetimeString()
+        );
+        $this->assertNotEquals(
+            (string) $innerUpdatedAt->toDatetimeString(),
+            (string) $valueObject->getInner()->getUpdatedAt()->toDatetimeString()
+        );
     }
 }
