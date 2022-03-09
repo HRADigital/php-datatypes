@@ -25,7 +25,7 @@ class AbstractValueObjectTest extends AbstractBaseTestCase
 
         // Tests field mapping and onLoad events work.
         $this->assertFalse(TestingValueObject::DATA['is_active']);
-        $this->assertTrue($valueObject->isActive());
+        $this->assertFalse($valueObject->isActive());
 
         // Test Rule's processing works.
         $this->assertEquals(
