@@ -6,6 +6,7 @@ namespace HraDigital\Tests\Datatypes\Unit\ValueObjects;
 
 use HraDigital\Datatypes\Datetime\Datetime;
 use HraDigital\Datatypes\Scalar\Str;
+use HraDigital\Datatypes\Traits\Entities\CanMassAssignStateTrait;
 use HraDigital\Datatypes\Traits\Entities\CanProcessEntityStateTrait;
 use HraDigital\Datatypes\Traits\Entities\CanProcessOnUpdateEventsTrait;
 use HraDigital\Datatypes\Traits\Entities\General\HasActiveTrait;
@@ -24,10 +25,11 @@ use HraDigital\Datatypes\ValueObjects\AbstractValueObject;
 class TestingNestedValueObject extends AbstractValueObject
 {
     use HasActiveTrait,
-        HasTitleTrait,
-        HasUpdatableUpdatedAtTrait,
+        CanMassAssignStateTrait,
         CanProcessEntityStateTrait,
-        CanProcessOnUpdateEventsTrait;
+        CanProcessOnUpdateEventsTrait,
+        HasTitleTrait,
+        HasUpdatableUpdatedAtTrait;
 
     /** @var array $guarded - List of fields that should not be serializable into JSON. */
     protected array $guarded = ['active'];

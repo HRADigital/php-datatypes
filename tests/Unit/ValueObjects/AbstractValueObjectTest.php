@@ -172,5 +172,53 @@ class AbstractValueObjectTest extends AbstractBaseTestCase
             (string) $innerUpdatedAt->toDatetimeString(),
             (string) $valueObject->getInner()->getUpdatedAt()->toDatetimeString()
         );
+
+        // Asserts that Original UpdatedAt DateTimes were kept.
+        $original = $valueObject->getOriginal();
+        $this->assertEquals(
+            (string) $mainUpdatedAt->toDatetimeString(),
+            (string) $original['updated_at']
+        );
+        $this->assertEquals(
+            (string) $innerUpdatedAt->toDatetimeString(),
+            (string) $original['inner']['updated_at']
+        );
+    }
+
+    public function testCanMassAssignValues(): void
+    {
+        $valueObject = new TestingValueObject(
+            TestingValueObject::DATA
+        );
+        $mainUpdatedAt = $valueObject->getUpdatedAt();
+        $innerUpdatedAt = $valueObject->getInner()->getUpdatedAt();
+
+        $valueObject->setAttributes([
+            'title' => 'Mass assigned Title',
+            'inner' => [
+                'active' => true,
+            ],
+        ]);
+
+        $dirty = $valueObject->getDirty(true);
+
+        // Checks Dirty array contains only fields that have changed.
+        $this->assertArrayNotHasKey('email', $dirty);
+        $this->assertArrayHasKey('title', $dirty);
+        $this->assertArrayHasKey('inner', $dirty);
+
+        $this->assertArrayNotHasKey('title', $dirty['inner']);
+        $this->assertArrayHasKey('active', $dirty['inner']);
+
+        // Asserts that Original UpdatedAt DateTimes were kept.
+        $original = $valueObject->getOriginal();
+        $this->assertEquals(
+            (string) $mainUpdatedAt->toDatetimeString(),
+            (string) $original['updated_at']
+        );
+        $this->assertEquals(
+            (string) $innerUpdatedAt->toDatetimeString(),
+            (string) $original['inner']['updated_at']
+        );
     }
 }
