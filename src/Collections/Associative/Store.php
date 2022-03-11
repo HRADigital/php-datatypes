@@ -240,9 +240,9 @@ class Store implements \JsonSerializable
         // Returns sanitized $name/key.
         if ($this->context === null) {
             return $name;
-        } else {
-            return ($this->context . '.' . $name);
         }
+
+        return ($this->context . '.' . $name);
     }
 
     /** {@inheritDoc} */
