@@ -97,16 +97,19 @@ class Stack extends AbstractListArray
      * @param  string $element - Element to be added to the Stack.
      *
      * @throws NonEmptyStringException - If supplied element is not a non empty string.
+     * @throws ParameterOutOfRangeException - If adding element will exceed list's capacity.
      * @return void
      */
     public function push(string $element): void
     {
-        // Validates provided parameter.
         if (\strlen(\trim($element)) === 0) {
             throw NonEmptyStringException::withName('$element');
         }
 
-        // Adds element to the Stack.
+        if ($this->hasMaxCapacity() && $this->getCapacity() === $this->count()) {
+            throw new ParameterOutOfRangeException();
+        }
+
         $this->list[] = Str::create($element);
     }
 }
