@@ -5,12 +5,6 @@ declare(strict_types=1);
 namespace HraDigital\Tests\Datatypes\Unit\Traits\Entities;
 
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
-use HraDigital\Datatypes\Traits\Entities\Personal\HasCountryOfBirthTrait;
-use HraDigital\Datatypes\Traits\Entities\Personal\HasDateOfBirthTrait;
-use HraDigital\Datatypes\Traits\Entities\Personal\HasGenderTrait;
-use HraDigital\Datatypes\Traits\Entities\Personal\HasNationalityTrait;
-use HraDigital\Datatypes\Traits\Entities\Personal\HasPhotoTrait;
-use HraDigital\Datatypes\ValueObjects\AbstractValueObject;
 use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
 
 /**
