@@ -497,9 +497,11 @@ class Str
         // Validates supplied $start and $length.
         $this->validateStartAndLength($start, $length);
 
-        return new self(
-            (\substr($this->value, $start, $length) ?? '')
-        );
+        if ($length === null) {
+            return new self(\substr($this->value, $start) ?? '');
+        }
+
+        return new self(\substr($this->value, $start, $length) ?? '');
     }
 
     /**
