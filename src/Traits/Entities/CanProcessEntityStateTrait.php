@@ -111,7 +111,9 @@ trait CanProcessEntityStateTrait
      */
     final public function resetState(): void
     {
-        foreach ($this->initialState as $field => $value) {
+        $fields = \array_keys($this->initialState);
+
+        foreach ($fields as $field) {
             if ($this->{$field} instanceof AbstractValueObject && \method_exists($this->{$field}, 'resetState')) {
                 $this->{$field}->resetState();
             }
