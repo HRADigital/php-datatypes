@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace HraDigital\Datatypes\Collections\Linear;
 
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
+use HraDigital\Datatypes\Exceptions\Datatypes\ParameterOutOfRangeException;
 use HraDigital\Datatypes\Scalar\Str;
 
 /**
@@ -93,17 +94,20 @@ class Queue extends AbstractListArray
      *
      * @param  string $element - Element to be added to the Queue.
      *
-     * @throws \InvalidArgumentException - If supplied element is not a non empty string.
+     * @throws NonEmptyStringException - If supplied element is not a non empty string.
+     * @throws ParameterOutOfRangeException - If adding element will exceed list's capacity.
      * @return void
      */
     public function push(string $element): void
     {
-        // Validates provided parameter.
         if (\strlen(\trim($element)) === 0) {
             throw NonEmptyStringException::withName('$element');
         }
 
-        // Adds element to the Queue.
+        if ($this->hasMaxCapacity() && $this->getCapacity() === $this->count()) {
+            throw new ParameterOutOfRangeException();
+        }
+
         $this->list[] = Str::create($element);
     }
 }
