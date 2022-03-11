@@ -222,7 +222,7 @@ class GeneralTraitsVOTest extends AbstractBaseTestCase
         $data['seo_description'] = ' ';
         $data['seo_keywords'] = ' ';
 
-        new GeneralTraitsVO($data);
+        $object = new GeneralTraitsVO($data);
 
         $this->assertNull($object->getSeoTitle());
         $this->assertNull($object->getSeoDescription());
