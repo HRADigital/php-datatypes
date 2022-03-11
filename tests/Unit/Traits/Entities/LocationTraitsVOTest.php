@@ -64,4 +64,34 @@ class LocationTraitsVOTest extends AbstractBaseTestCase
         $this->assertEquals(self::DATA['street_no'], (string) $object->getStreetNumber());
         $this->assertEquals(self::DATA['street'], (string) $object->getStreet());
     }
+
+    public function testBreaksWithEmptyCity(): void
+    {
+        $data = self::DATA;
+        $data['city'] = ' ';
+
+        $this->expectException(NonEmptyStringException::class);
+
+        new LocationTraitsVO($data);
+    }
+
+    public function testBreaksWithEmptyDistrict(): void
+    {
+        $data = self::DATA;
+        $data['district'] = ' ';
+
+        $this->expectException(NonEmptyStringException::class);
+
+        new LocationTraitsVO($data);
+    }
+
+    public function testBreaksWithEmptyParish(): void
+    {
+        $data = self::DATA;
+        $data['parish'] = ' ';
+
+        $this->expectException(NonEmptyStringException::class);
+
+        new LocationTraitsVO($data);
+    }
 }
