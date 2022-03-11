@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Collections\Linear;
 
+use HraDigital\Datatypes\Exceptions\Datatypes\ParameterOutOfRangeException;
+use HraDigital\Datatypes\Exceptions\Datatypes\PositiveIntegerException;
+
 /**
  * List Abstract Linear Collection.
  *
@@ -39,8 +42,8 @@ abstract class AbstractListArray implements \Countable, \JsonSerializable
     /** @var array $list - Holds the List's Elements. */
     protected array $list = [];
 
-    /** @var int $capacity - Holds the maximum capacity for the List. -1 means "no limit". */
-    protected int $capacity = -1;
+    /** @var int|NULL $capacity - Holds the maximum capacity for the List. NULL means "no limit". */
+    protected ?int $capacity = null;
 
     /**
      * Returns the value count from the List.
@@ -55,7 +58,7 @@ abstract class AbstractListArray implements \Countable, \JsonSerializable
     /**
      * Returns the array List of values.
      *
-     * @return array
+     * @return array|Str[]
      */
     public function toArray(): array
     {
@@ -87,43 +90,49 @@ abstract class AbstractListArray implements \Countable, \JsonSerializable
      *
      * If the capacity is set to -1, it means the List has no capacity limit.
      *
-     * @return int
+     * @return int|NULL
      */
-    public function capacity(): int
+    public function getCapacity(): ?int
     {
         return $this->capacity;
     }
 
     /**
+     * If List has a Maximum Capacity set.
+     *
+     * @return boolean
+     */
+    public function hasMaxCapacity(): bool
+    {
+        return ($this->capacity !== null);
+    }
+
+    /**
      * Allocates a capacity limit to the List.
      *
-     * @param  int $capacity - Capacity limit to set in the List.
+     * @param  int|NULL $capacity - Capacity limit to set in the List. If NULL, no capacity will be set.
      *
-     * @throws \InvalidArgumentException - If provided capacity is not a positive integer.
-     * @throws \OutOfRangeException      - The the supplied capacity is less than the current List's value count.
+     * @throws PositiveIntegerException     - If provided capacity is not a positive integer.
+     * @throws ParameterOutOfRangeException - The the supplied capacity is less than the current List's value count.
      * @return void
      */
-    public function allocate(int $capacity): void
+    public function allocateCapacity(?int $capacity): void
     {
         // Validates provided parameter.
-        if ($capacity < 1) {
-            throw new \InvalidArgumentException("Supplied capacity must be a positive integer.");
+        if ($capacity !== null && $capacity < 1) {
+            throw PositiveIntegerException::withName('$capacity');
         }
-        if ($capacity < $this->count()) {
-            throw new \OutOfRangeException("Supplied capacity cannot be less than the current list's capacity.");
+        if ($capacity !== null && $capacity < $this->count()) {
+            throw ParameterOutOfRangeException::withName('$capacity');
         }
 
         // Sets the capacity in the List.
         $this->capacity = $capacity;
     }
 
-    /**
-     * Serializes the List into a JSON string.
-     *
-     * @return string
-     */
-    public function jsonSerialize(): string
+    /** @inheritDoc */
+    public function jsonSerialize(): array
     {
-        return \json_encode($this->list);
+        return $this->toArray();
     }
 }
