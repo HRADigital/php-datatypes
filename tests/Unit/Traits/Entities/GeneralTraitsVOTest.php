@@ -8,23 +8,6 @@ use HraDigital\Datatypes\Exceptions\Datatypes\InvalidStringLengthException;
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
 use HraDigital\Datatypes\Exceptions\Datatypes\NonNegativeNumberException;
 use HraDigital\Datatypes\Exceptions\Datatypes\PositiveIntegerException;
-use HraDigital\Datatypes\Traits\Entities\General\HasActiveTrait;
-use HraDigital\Datatypes\Traits\Entities\General\HasAliasTrait;
-use HraDigital\Datatypes\Traits\Entities\General\HasCreatedAtTrait;
-use HraDigital\Datatypes\Traits\Entities\General\HasDeletedAtTrait;
-use HraDigital\Datatypes\Traits\Entities\General\HasEmailTrait;
-use HraDigital\Datatypes\Traits\Entities\General\HasFeatureTrait;
-use HraDigital\Datatypes\Traits\Entities\General\HasHitsTrait;
-use HraDigital\Datatypes\Traits\Entities\General\HasNameTrait;
-use HraDigital\Datatypes\Traits\Entities\General\HasOrderingTrait;
-use HraDigital\Datatypes\Traits\Entities\General\HasPasswordTrait;
-use HraDigital\Datatypes\Traits\Entities\General\HasPositiveIntegerIDTrait;
-use HraDigital\Datatypes\Traits\Entities\General\HasPublishedTrait;
-use HraDigital\Datatypes\Traits\Entities\General\HasSeoFieldsTrait;
-use HraDigital\Datatypes\Traits\Entities\General\HasTitleTrait;
-use HraDigital\Datatypes\Traits\Entities\General\HasUpdatableUpdatedAtTrait;
-use HraDigital\Datatypes\Traits\Entities\General\HasUuidTrait;
-use HraDigital\Datatypes\ValueObjects\AbstractValueObject;
 use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
 
 /**
