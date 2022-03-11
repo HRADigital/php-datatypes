@@ -497,15 +497,8 @@ class Str
         // Validates supplied $start and $length.
         $this->validateStartAndLength($start, $length);
 
-        // Processes the substring.
-        if ($length !== null) {
-            $value = \substr($this->value, $start, $length);
-        } else {
-            $value = \substr($this->value, $start);
-        }
-
         return new self(
-            ($value ?? '')
+            (\substr($this->value, $start, $length) ?? '')
         );
     }
 
