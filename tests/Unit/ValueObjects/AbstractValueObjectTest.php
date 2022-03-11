@@ -197,9 +197,6 @@ class AbstractValueObjectTest extends AbstractBaseTestCase
         // Checks initially loaded state.
         $this->assertFalse($valueObject->isActive());
         $this->assertFalse($valueObject->getInner()->isActive());
-        $mainUpdatedAt = $valueObject->getUpdatedAt();
-        $innerUpdatedAt = $valueObject->getInner()->getUpdatedAt();
-        $array = $valueObject->toArray();
 
         // Perform state change operations on Aggregate.
         $valueObject->activate();
