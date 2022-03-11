@@ -4,10 +4,7 @@ declare(strict_types=1);
 
 namespace HraDigital\Tests\Datatypes\Unit\Traits\Entities;
 
-use HraDigital\Datatypes\Exceptions\Datatypes\InvalidStringLengthException;
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
-use HraDigital\Datatypes\Exceptions\Datatypes\NonNegativeNumberException;
-use HraDigital\Datatypes\Exceptions\Datatypes\PositiveIntegerException;
 use HraDigital\Datatypes\Traits\Entities\Location\HasAddressTrait;
 use HraDigital\Datatypes\Traits\Entities\Location\HasCityTrait;
 use HraDigital\Datatypes\Traits\Entities\Location\HasCountryCodeTrait;
