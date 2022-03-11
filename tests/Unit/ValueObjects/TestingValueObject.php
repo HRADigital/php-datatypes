@@ -18,8 +18,8 @@ use HraDigital\Datatypes\ValueObjects\AbstractValueObject;
 /**
  * Abstract Base Value Object for testing.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  */
 class TestingValueObject extends AbstractValueObject

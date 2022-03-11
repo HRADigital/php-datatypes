@@ -22,8 +22,8 @@ use HraDigital\Datatypes\ValueObjects\AbstractValueObject;
 /**
  * Testing Value Object for Location Entity Traits.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  */
 class LocationTraitsVO extends AbstractValueObject

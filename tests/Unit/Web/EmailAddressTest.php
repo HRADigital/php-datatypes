@@ -10,8 +10,8 @@ use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
 /**
  * Email Address Unit testing.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  */
 class EmailAddressTest extends AbstractBaseTestCase
