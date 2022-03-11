@@ -129,7 +129,7 @@ class GeneralTraitsVOTest extends AbstractBaseTestCase
         $data = self::DATA;
         $data['id'] = -1;
 
-        $object = new GeneralTraitsVO($data);
+        new GeneralTraitsVO($data);
     }
 
     public function testBreaksIfTitleIsEmpty(): void
@@ -139,7 +139,7 @@ class GeneralTraitsVOTest extends AbstractBaseTestCase
         $data = self::DATA;
         $data['title'] = '';
 
-        $object = new GeneralTraitsVO($data);
+        new GeneralTraitsVO($data);
     }
 
     public function testBreaksIfNameIsEmpty(): void
@@ -149,7 +149,7 @@ class GeneralTraitsVOTest extends AbstractBaseTestCase
         $data = self::DATA;
         $data['name'] = '';
 
-        $object = new GeneralTraitsVO($data);
+        new GeneralTraitsVO($data);
     }
 
     public function testBreaksIfAliasIsEmpty(): void
@@ -159,7 +159,7 @@ class GeneralTraitsVOTest extends AbstractBaseTestCase
         $data = self::DATA;
         $data['alias'] = '';
 
-        $object = new GeneralTraitsVO($data);
+        new GeneralTraitsVO($data);
     }
 
     public function testBreaksIfHitsIsNegative(): void
@@ -169,7 +169,7 @@ class GeneralTraitsVOTest extends AbstractBaseTestCase
         $data = self::DATA;
         $data['hits'] = -1;
 
-        $object = new GeneralTraitsVO($data);
+        new GeneralTraitsVO($data);
     }
 
     public function testBreaksIfOrderingIsNegative(): void
@@ -179,7 +179,7 @@ class GeneralTraitsVOTest extends AbstractBaseTestCase
         $data = self::DATA;
         $data['ordering'] = -1;
 
-        $object = new GeneralTraitsVO($data);
+        new GeneralTraitsVO($data);
     }
 
     public function testBreaksIfSeoTitleTooLong(): void
@@ -190,7 +190,7 @@ class GeneralTraitsVOTest extends AbstractBaseTestCase
         $tenCharacterString = 'sodhgfsodh';
         $data['seo_title'] = str_repeat($tenCharacterString, 7) . 'a';
 
-        $object = new GeneralTraitsVO($data);
+        new GeneralTraitsVO($data);
     }
 
     public function testBreaksIfSeoDescriptionTooLong(): void
@@ -201,7 +201,7 @@ class GeneralTraitsVOTest extends AbstractBaseTestCase
         $tenCharacterString = 'sodhgfsodh';
         $data['seo_description'] = str_repeat($tenCharacterString, 16) . 'a';
 
-        $object = new GeneralTraitsVO($data);
+        new GeneralTraitsVO($data);
     }
 
     public function testBreaksIfSeoKeywordsTooLong(): void
@@ -212,7 +212,7 @@ class GeneralTraitsVOTest extends AbstractBaseTestCase
         $tenCharacterString = 'sodhgfsodh';
         $data['seo_keywords'] = str_repeat($tenCharacterString, 25) . 'hgfdsa';
 
-        $object = new GeneralTraitsVO($data);
+        new GeneralTraitsVO($data);
     }
 
     public function testLoadsNullValueIfSeoFieldEmptyString(): void
@@ -222,7 +222,7 @@ class GeneralTraitsVOTest extends AbstractBaseTestCase
         $data['seo_description'] = ' ';
         $data['seo_keywords'] = ' ';
 
-        $object = new GeneralTraitsVO($data);
+        new GeneralTraitsVO($data);
 
         $this->assertNull($object->getSeoTitle());
         $this->assertNull($object->getSeoDescription());
