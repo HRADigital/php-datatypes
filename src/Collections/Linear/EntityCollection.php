@@ -208,12 +208,11 @@ class EntityCollection implements \Countable, \Iterator, \JsonSerializable
         // First, we'll collect the key.
         $key = \key($this->collection);
 
-        // Then, we'll uniform the returned value.
-        if ($key !== null && $key !== false) {
-            return ((int) $key);
-        } else {
+        if ($key === null || $key === false) {
             return null;
         }
+
+        return (int) $key;
     }
 
     /**
