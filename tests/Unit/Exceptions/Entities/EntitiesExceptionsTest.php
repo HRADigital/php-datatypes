@@ -11,8 +11,8 @@ use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
 /**
  * Unit testing for all Entity's base Exception classes.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  */
 class EntitiesExceptionsTest extends AbstractBaseTestCase

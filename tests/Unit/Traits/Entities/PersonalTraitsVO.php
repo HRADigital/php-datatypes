@@ -15,8 +15,8 @@ use HraDigital\Datatypes\ValueObjects\AbstractValueObject;
 /**
  * Testing Value Object for Personal Entity Traits.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  */
 class PersonalTraitsVO extends AbstractValueObject

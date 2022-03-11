@@ -13,8 +13,8 @@ use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
 /**
  * String's Scalar Native/Primitive Object Unit testing.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  */
 class StrTest extends AbstractBaseTestCase

@@ -16,8 +16,8 @@ use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
 /**
  * Testing Value Object for Personal Entity Traits.
  *
- * @package   Hradigital\Datatypes
- * @copyright Hradigital\Datatypes
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
  * @license   MIT
  */
 class PersonalTraitsVOTest extends AbstractBaseTestCase
