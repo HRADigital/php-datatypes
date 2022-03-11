@@ -21,6 +21,7 @@ use HraDigital\Datatypes\Traits\Entities\General\HasSeoFieldsTrait;
 use HraDigital\Datatypes\Traits\Entities\General\HasTitleTrait;
 use HraDigital\Datatypes\Traits\Entities\General\HasUpdatableUpdatedAtTrait;
 use HraDigital\Datatypes\Traits\Entities\General\HasUuidTrait;
+use HraDigital\Datatypes\Traits\Entities\General\HasSurnameTrait;
 use HraDigital\Datatypes\ValueObjects\AbstractValueObject;
 
 /**
@@ -48,6 +49,7 @@ class GeneralTraitsVO extends AbstractValueObject
         HasTitleTrait,
         HasUpdatableUpdatedAtTrait,
         HasUuidTrait,
+        HasSurnameTrait,
         CanProcessOnUpdateEventsTrait;
 
     public function simulateUpdate(): void

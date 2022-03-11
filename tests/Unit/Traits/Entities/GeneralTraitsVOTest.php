@@ -47,6 +47,7 @@ class GeneralTraitsVOTest extends AbstractBaseTestCase
         'email' => 'user@domain.tld',
         'hits' => 1999,
         'name' => 'Name of Record',
+        'surname' => 'Surname of Record',
         'ordering' => 2,
         'password' => 'usdhciucyneoyhnoerytos8ryt8svyeero8tyvwo8ryt8wryvutt89weysr8ncseryngngc8yeroiyncweryc8f',
         'seo_title' => 'My SEO Title',
@@ -73,6 +74,7 @@ class GeneralTraitsVOTest extends AbstractBaseTestCase
         $this->assertEquals(self::DATA['alias'], (string) $object->getAlias());
         $this->assertEquals(self::DATA['email'], (string) $object->getEmail());
         $this->assertEquals(self::DATA['name'], (string) $object->getName());
+        $this->assertEquals(self::DATA['surname'], (string) $object->getSurname());
         $this->assertEquals(self::DATA['title'], (string) $object->getTitle());
         $this->assertEquals(self::DATA['password'], (string) $object->getPassword());
 
