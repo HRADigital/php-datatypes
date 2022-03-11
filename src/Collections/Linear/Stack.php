@@ -4,6 +4,10 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Collections\Linear;
 
+use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
+use HraDigital\Datatypes\Exceptions\Datatypes\ParameterOutOfRangeException;
+use HraDigital\Datatypes\Scalar\Str;
+
 /**
  * Stack Linear Collection.
  *
@@ -36,33 +40,22 @@ class Stack extends AbstractListArray
     /**
      * Initializes an instance of a Stack.
      *
-     * @param array|NULL $initial - Initial element list for the Stack. Can be NULL.
-     *
-     * @throws \InvalidArgumentException - If supplied array is empty, although not NULL.
+     * @param array $initial - Initial element list for the Stack. Defaults to empty array.
      * @return void
      */
-    public function __construct(?array $initial = null)
+    public function __construct(array $initial = [])
     {
-        // Checks initially provided list of elements.
-        if ($initial !== null) {
-            // Validates supplied parameter.
-            if (\count($initial) === 0) {
-                throw new \InvalidArgumentException("Supplied array should be a list of string elements.");
-            }
-
-            // Fills in the Stack.
-            foreach ($initial as $element) {
-                $this->push($element);
-            }
+        foreach ($initial as $element) {
+            $this->push($element);
         }
     }
 
     /**
-     * Returns a copy of the current Stack object.
+     * Returns a cloned copy of the current Stack object.
      *
      * @return Stack
      */
-    public function copy(): self
+    public function clone(): Stack
     {
         return new Stack(
             $this->toArray()
@@ -74,9 +67,9 @@ class Stack extends AbstractListArray
      *
      * If the Stack has no elements, it will return NULL.
      *
-     * @return string|NULL
+     * @return Str|NULL
      */
-    public function peek(): ?string
+    public function peek(): ?Str
     {
         // Validates the Stack has elements.
         if ($this->count() === 0) {
@@ -91,9 +84,9 @@ class Stack extends AbstractListArray
      *
      * If the Stack has no elements, it will return NULL.
      *
-     * @return string|NULL
+     * @return Str|NULL
      */
-    public function pop(): ?string
+    public function pop(): ?Str
     {
         return \array_pop($this->list);
     }
@@ -103,17 +96,17 @@ class Stack extends AbstractListArray
      *
      * @param  string $element - Element to be added to the Stack.
      *
-     * @throws \InvalidArgumentException - If supplied element is not a non empty string.
+     * @throws NonEmptyStringException - If supplied element is not a non empty string.
      * @return void
      */
     public function push(string $element): void
     {
         // Validates provided parameter.
         if (\strlen(\trim($element)) === 0) {
-            throw new \InvalidArgumentException("Supplied element must be a non empty string.");
+            throw NonEmptyStringException::withName('$element');
         }
 
         // Adds element to the Stack.
-        $this->list[] = $element;
+        $this->list[] = Str::create($element);
     }
 }
