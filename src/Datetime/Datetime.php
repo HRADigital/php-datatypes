@@ -430,6 +430,16 @@ class Datetime implements \JsonSerializable //extends \Datetime //implements \Se
     }
 
     /**
+     * Returns Str instance with value in format "Y-m-d".
+     *
+     * @return Str
+     */
+    public function toDateString(): Str
+    {
+        return $this->toFormatInternal('Y-m-d');
+    }
+
+    /**
      * Returns Str instance with value in format "H:i:s".
      *
      * @return Str
