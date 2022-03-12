@@ -6,6 +6,7 @@ namespace HraDigital\Datatypes\Datetime;
 
 use DateTimeImmutable;
 use HraDigital\Datatypes\Scalar\Str;
+use HraDigital\Datatypes\Traits\Datetime\Datetime\HasStaticFactoryMethodsTrait;
 
 /**
  * Datetime utility class.
@@ -27,12 +28,12 @@ use HraDigital\Datatypes\Scalar\Str;
  * @link      http://php.net/manual/en/timezones.php
  * @link      https://timezonedb.com/download
  */
-class DatetimeInheritance extends DateTimeImmutable implements \JsonSerializable
+class Datetime extends DateTimeImmutable implements \JsonSerializable
 {
-    public static function create(string $datetime): DatetimeInheritance
-    {
-        return new DatetimeInheritance($datetime);
-    }
+    use HasStaticFactoryMethodsTrait;
+
+    /** Format used for internal object instantiation */
+    const START_FORMAT = \DateTimeImmutable::W3C;
 
     /**
      * Magic method for instance printing.
@@ -276,5 +277,108 @@ class DatetimeInheritance extends DateTimeImmutable implements \JsonSerializable
     public function getSecond(): int
     {
         return (int) ((string) $this->toFormatInternal('s'));
+    }
+
+    /**
+     * Internal method for DateInterval addition and subtraction.
+     *
+     * @param  string $duration - Duration string
+     * @param  int    $value
+     * @return self
+     */
+    protected function addDateIntervalValue(string $duration, int $value): self
+    {
+        $isNegative = ($value < 0);
+        $value = (int) \abs($value);
+
+        $dateInterval = new \DateInterval(
+            \sprintf($duration, $value)
+        );
+
+        if ($isNegative) {
+            $dateInterval->invert = 1;
+        }
+
+        return new self(
+            $this->add($dateInterval)->format(self::START_FORMAT)
+        );
+    }
+
+    /**
+     * Add the supplied number of Seconds to the Datetime instance.
+     *
+     * Supports chaining.
+     *
+     * @param  int $seconds - Number of Seconds to add to instance. Supports negative numbers for subtraction.
+     * @return self
+     */
+    public function addSeconds(int $seconds): self
+    {
+        return $this->addDateIntervalValue("PT%dS", $seconds);
+    }
+
+    /**
+     * Add the supplied number of Minutes to the Datetime instance.
+     *
+     * Supports chaining.
+     *
+     * @param  int $minutes - Number of Minutes to add to instance. Supports negative numbers for subtraction.
+     * @return self
+     */
+    public function addMinutes(int $minutes): self
+    {
+        return $this->addDateIntervalValue("PT%dM", $minutes);
+    }
+
+    /**
+     * Add the supplied number of Hours to the Datetime instance.
+     *
+     * Supports chaining.
+     *
+     * @param  int $hours - Number of Hours to add to instance. Supports negative numbers for subtraction.
+     * @return self
+     */
+    public function addHours(int $hours): self
+    {
+        return $this->addDateIntervalValue("PT%dH", $hours);
+    }
+
+    /**
+     * Add the supplied number of Days to the Datetime instance.
+     *
+     * Supports chaining.
+     *
+     * @param  int $days - Number of Days to add to instance. Supports negative numbers for subtraction.
+     * @return self
+     */
+    public function addDays(int $days): self
+    {
+        return $this->addDateIntervalValue("P%dD", $days);
+    }
+
+    /**
+     * Add the supplied number of Months to the Datetime instance.
+     *
+     * Supports chaining.
+     *
+     * @param  int $months - Number of Months to add to instance. Supports negative numbers for subtraction.
+     * @return self
+     */
+    public function addMonths(int $months): self
+    {
+        return $this->addDateIntervalValue("P%dM", $months);
+    }
+
+    /**
+     * Add the supplied number of Years to the Datetime instance.
+     *
+     * Supports chaining.
+     *
+     * @param  int $years - Number of Years to add to instance. Supports negative numbers for subtraction.
+     * @return self
+     */
+    public function addYears(int $years): self
+    {
+        return $this->addDateIntervalValue("P%dY", $years);
     }
 }
