@@ -20,9 +20,6 @@ trait CanProcessOnLoadEventsTrait
     /** Sets the onLoad Mutator method's prefix. */
     private static $ONLOADPREFIX = 'onLoad';
 
-    /** @var array $onLoadEvents - List of onLoad event handlers, defined as closures. */
-    private array $onLoadEvents = [];
-
     /**
      * Triggers all onLoad pre-declared events.
      *
@@ -32,7 +29,8 @@ trait CanProcessOnLoadEventsTrait
     {
         // Loops through all the class' methods, and loads the necessary ones in
         // the corresponding containers.
-        foreach (\get_class_methods($this) as $method) {
+        $allMethods = \get_class_methods($this);
+        foreach ($allMethods as $method) {
             if (\strpos($method, self::$ONLOADPREFIX) === 0 && \strlen($method) > \strlen(self::$ONLOADPREFIX)) {
                 $this->$method();
             }
