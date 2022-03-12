@@ -115,8 +115,7 @@ abstract class AbstractValueObject implements \JsonSerializable
             $attrs['required'],
             $attrs['ruleList'],
             $attrs['castList'],
-            $attrs['attributeList'],
-            $attrs['onLoadEvents']
+            $attrs['attributeList']
         );
 
         return $attrs;
