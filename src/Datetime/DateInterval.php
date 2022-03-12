@@ -19,7 +19,8 @@ use HraDigital\Datatypes\Scalar\Str;
  */
 class DateInterval extends ParentDateInterval
 {
-    public static function createFromDateString($datetime)
+    #[\ReturnTypeWillChange]
+    public static function createFromDateString($datetime): DateInterval
     {
         $result = parent::createFromDateString($datetime);
 
