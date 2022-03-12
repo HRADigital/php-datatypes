@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Datetime;
 
+use DateInterval as ParentDateInterval;
+use HraDigital\Datatypes\Exceptions\Datatypes\InvalidDateIntervalException;
 use HraDigital\Datatypes\Scalar\Str;
 
 /**
@@ -15,9 +17,21 @@ use HraDigital\Datatypes\Scalar\Str;
  * @link      http://php.net/manual/en/timezones.php
  * @link      https://timezonedb.com/download
  */
-class DateInterval
+class DateInterval extends ParentDateInterval
 {
-    protected \DateInterval $interval;
+    public static function createFromDateString($datetime)
+    {
+        $result = parent::createFromDateString($datetime);
+
+        if ($result === false) {
+            throw new InvalidDateIntervalException();
+        }
+
+        return DateInterval::fromDuration(
+            Str::create(self::toDurationInternal($result)),
+            (bool) $result->invert
+        );
+    }
 
     public static function fromDuration(Str $duration, bool $inverted = false): DateInterval
     {
@@ -51,7 +65,7 @@ class DateInterval
     public static function fromHours(int $hours): DateInterval
     {
         return new DateInterval(
-            \sprintf("P%dH", \abs($hours)),
+            \sprintf("PT%dH", \abs($hours)),
             ($hours < 0)
         );
     }
@@ -59,7 +73,7 @@ class DateInterval
     public static function fromMinutes(int $minutes): DateInterval
     {
         return new DateInterval(
-            \sprintf("P%dI", \abs($minutes)),
+            \sprintf("PT%dM", \abs($minutes)),
             ($minutes < 0)
         );
     }
@@ -67,15 +81,16 @@ class DateInterval
     public static function fromSeconds(int $seconds): DateInterval
     {
         return new DateInterval(
-            \sprintf("P%dS", \abs($seconds)),
+            \sprintf("PT%dS", \abs($seconds)),
             ($seconds < 0)
         );
     }
 
-    protected function __construct(string $duration, bool $inverted = false)
+    public function __construct(string $duration, bool $inverted = false)
     {
-        $this->interval = new \DateInterval($duration);
-        $this->interval->invert = (int) $inverted;
+        parent::__construct($duration);
+
+        $this->invert = (int) $inverted;
     }
 
     public function __toString(): string
@@ -88,45 +103,45 @@ class DateInterval
         return $invert ? (0 - $value) : $value;
     }
 
-    public function inYears(): int
+    public function getYears(): int
     {
-        return $this->invertValue($this->interval->y, $this->interval->invert);
+        return $this->invertValue($this->y, $this->invert);
     }
 
-    public function inMonths(): int
+    public function getMonths(): int
     {
-        return $this->invertValue($this->interval->m, $this->interval->invert);
+        return $this->invertValue($this->m, $this->invert);
     }
 
-    public function inDays(): int
+    public function getDays(): int
     {
-        return $this->invertValue($this->interval->d, $this->interval->invert);
+        return $this->invertValue($this->d, $this->invert);
     }
 
-    public function inHours(): int
+    public function getHours(): int
     {
-        return $this->invertValue($this->interval->h, $this->interval->invert);
+        return $this->invertValue($this->h, $this->invert);
     }
 
-    public function inMinutes(): int
+    public function getMinutes(): int
     {
-        return $this->invertValue($this->interval->i, $this->interval->invert);
+        return $this->invertValue($this->i, $this->invert);
     }
 
-    public function inSeconds(): int
+    public function getSeconds(): int
     {
-        return $this->invertValue($this->interval->s, $this->interval->invert);
+        return $this->invertValue($this->s, $this->invert);
     }
 
-    public function inMicroSeconds(): float
+    public function getMicroSeconds(): float
     {
-        return $this->interval->invert ? (0 - $this->interval->f) : $this->interval->f;
+        return $this->invert ? (0 - $this->f) : $this->f;
     }
 
     protected function toFormatInternal(string $format): Str
     {
         return Str::create(
-            $this->interval->format($format)
+            $this->format($format)
         );
     }
 
@@ -137,7 +152,7 @@ class DateInterval
      */
     public function toDatetimeString(): Str
     {
-        return $this->toFormatInternal('Y-m-d H:i:s');
+        return $this->toFormatInternal('%r%Yy %Mm %Dd %H:%I:%S');
     }
 
     public function toFormat(Str $format): Str
@@ -145,18 +160,28 @@ class DateInterval
         return $this->toFormatInternal((string) $format);
     }
 
+    protected static function toDurationInternal(ParentDateInterval $interval): string
+    {
+        return \sprintf(
+            'P%dY%dM%dDT%dH%dM%dS',
+            $interval->y,
+            $interval->m,
+            $interval->d,
+            $interval->h,
+            $interval->i,
+            $interval->s
+        );
+    }
+
     public function toDuration(): Str
     {
         return Str::create(
-            \sprintf(
-                'P%dY%dM%dDT%dH%dM%dS',
-                $this->interval->y,
-                $this->interval->m,
-                $this->interval->d,
-                $this->interval->h,
-                $this->interval->i,
-                $this->interval->s
-            )
+            self::toDurationInternal($this)
         );
+    }
+
+    public function isNegative(): bool
+    {
+        return (bool) $this->invert;
     }
 }
