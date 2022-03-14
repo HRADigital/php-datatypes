@@ -38,15 +38,11 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Composer Install
-          command: composer install
+          name: Composer Update
+          command: composer update
       - run:
           name: Run Tests for PHPv7.4
-          command: phpdbg -qrr vendor/bin/phpunit --coverage-clover ~/build/coverage-report
-      - store_artifacts:
-          path: ~/build/coverage-report
-      - codecov/upload:
-          file: ~/build/coverage-report
+          command: phpdbg -qrr vendor/bin/phpunit
 
   php-80:
     docker:
@@ -55,8 +51,8 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Composer Install
-          command: composer install
+          name: Composer Update
+          command: composer update
       - run:
           name: Run Tests for PHPv8.0
           command: phpdbg -qrr vendor/bin/phpunit
@@ -68,11 +64,28 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Composer Install
-          command: composer install
+          name: Composer Update
+          command: composer update
       - run:
           name: Run Tests for PHPv8.1
           command: phpdbg -qrr vendor/bin/phpunit
+
+  php-coverage:
+    docker:
+      - image: cimg/php:7.4
+    working_directory: ~/php-datatypes
+    steps:
+      - checkout
+      - run:
+          name: Composer Install
+          command: composer install
+      - run:
+          name: Run Tests for PHPv7.4
+          command: phpdbg -qrr vendor/bin/phpunit --coverage-clover ~/build/coverage-report
+      - store_artifacts:
+          path: ~/build/coverage-report
+      - codecov/upload:
+          file: ~/build/coverage-report
 
 workflows:
   ci-flow:
@@ -87,3 +100,8 @@ workflows:
       - php-81:
           requires:
             - php-cs
+      - php-coverage:
+          requires:
+            - php-74
+            - php-80
+            - php-81
