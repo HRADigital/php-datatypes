@@ -78,7 +78,11 @@ trait CanProcessEntityStateTrait
             }
 
             if ($hasChanged || $isNewOrRequired) {
-                $dirty[$field] = $this->{$field};
+                if (\is_object($this->{$field}) && \method_exists($this->{$field}, '__toString')) {
+                    $dirty[$field] = (string) $this->{$field};
+                } else {
+                    $dirty[$field] = $this->{$field};
+                }
             }
         }
 
