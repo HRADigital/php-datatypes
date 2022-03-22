@@ -105,7 +105,7 @@ class EmailAddress
      */
     public function __toString(): string
     {
-        return (string) $this->address();
+        return (string) $this->getAddress();
     }
 
     /**
@@ -113,7 +113,7 @@ class EmailAddress
      *
      * @return string
      */
-    public function address(): Str
+    public function getAddress(): Str
     {
         return Str::create(
             \sprintf(
@@ -130,7 +130,7 @@ class EmailAddress
      *
      * @return string
      */
-    public function username(): Str
+    public function getUsername(): Str
     {
         return $this->username;
     }
@@ -140,7 +140,7 @@ class EmailAddress
      *
      * @return string
      */
-    public function domain(): Str
+    public function getDomain(): Str
     {
         return $this->domain;
     }
@@ -150,7 +150,7 @@ class EmailAddress
      *
      * @return string
      */
-    public function tld(): Str
+    public function GetTld(): Str
     {
         return $this->tld;
     }
