@@ -150,7 +150,7 @@ class EmailAddress
      *
      * @return string
      */
-    public function GetTld(): Str
+    public function getTld(): Str
     {
         return $this->tld;
     }
