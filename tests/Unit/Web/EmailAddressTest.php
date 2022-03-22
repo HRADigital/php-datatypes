@@ -40,22 +40,22 @@ class EmailAddressTest extends AbstractBaseTestCase
         );
         $this->assertEquals(
             $emailString,
-            (string) $email->address(),
+            (string) $email->getAddress(),
             'Addresses do not match.'
         );
         $this->assertEquals(
             'user',
-            (string) $email->username(),
+            (string) $email->getUsername(),
             'Usernames do not match.'
         );
         $this->assertEquals(
             'domain',
-            (string) $email->domain(),
+            (string) $email->getDomain(),
             'Domains do not match.'
         );
         $this->assertEquals(
             'tld',
-            (string) $email->tld(),
+            (string) $email->GetTld(),
             'TLDs do not match.'
         );
     }
