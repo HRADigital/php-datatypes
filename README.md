@@ -11,7 +11,7 @@
 
 ## About
 
-**PHP Datatypes** is meant to provide an easy way to create your Value Objects/Entities, in a fast and platform agnostic way,
+**PHP Datatypes** is meant to provide an easy way to create your Value Objects/Entities/Aggregates, in a fast and platform agnostic way,
 that promotes:
 
 - Code reusability
@@ -20,7 +20,7 @@ that promotes:
 - Full data serializing
 - No 3rd party dependency apart from PHP. Clean/Self reliant project.
 
-An Entity/ValueObject that extends [AbstractValueObject](/HRADigital/php-datatypes/blob/master/src/ValueObjects/AbstractValueObject.php)
+An Aggregate/Entity/ValueObject that extends [AbstractValueObject](/HRADigital/php-datatypes/blob/master/src/ValueObjects/AbstractValueObject.php)
 will be built using predefined/tested [Traits](/HRADigital/php-datatypes/tree/master/src/Traits/Entities) for each of the class attributes,
 leaving your class definition cleaned/free for your business logic implementation.
 
