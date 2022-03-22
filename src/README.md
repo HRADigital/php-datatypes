@@ -18,3 +18,8 @@ For more information about each type of available object, please read dedicated 
 - [Traits](Traits/)
 - [ValueObjects](ValueObjects/)
 - [Web](Web/)
+
+## Getting started
+
+If you want to get started with this package, please read
+[Abstract Value Object's documentation](https://github.com/HRADigital/php-datatypes/blob/master/src/ValueObjects).
