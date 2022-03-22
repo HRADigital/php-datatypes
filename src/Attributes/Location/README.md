@@ -1,0 +1,1 @@
+# Entity related Location Traits
