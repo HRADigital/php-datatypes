@@ -12,7 +12,7 @@
 
 ## Code Usage
 
-In order to learn more about the code, please go [here](https://github.com/HRADigital/php-datatypes/blob/master/src/).
+In order to learn more about the code, please go [here](https://github.com/HRADigital/php-datatypes/blob/master/src/ValueObjects).
 
 ## About
 
