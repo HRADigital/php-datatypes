@@ -55,7 +55,7 @@ class EmailAddressTest extends AbstractBaseTestCase
         );
         $this->assertEquals(
             'tld',
-            (string) $email->GetTld(),
+            (string) $email->getTld(),
             'TLDs do not match.'
         );
     }
