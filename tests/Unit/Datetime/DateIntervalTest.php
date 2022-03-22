@@ -166,6 +166,7 @@ class DateIntervalTest extends AbstractBaseTestCase
         $this->assertEquals(30, $di->getMinutes());
         $this->assertEquals(5, $di->getSeconds());
         $this->assertFalse($di->isNegative());
+        $this->assertEquals((string) $di, $di->toDatetimeString());
         $this->assertEquals("03y 06m 04d 12:30:05", $di->toDatetimeString());
         $this->assertEquals("03y 06m 04d 12:30:05", $di->toFormat(Str::create($strFormat)));
         $this->assertEquals("03y 06m 04d 12:30:05", $di->format($strFormat));
@@ -179,8 +180,10 @@ class DateIntervalTest extends AbstractBaseTestCase
         $this->assertEquals(-30, $di->getMinutes());
         $this->assertEquals(-5, $di->getSeconds());
         $this->assertTrue($di->isNegative());
+        $this->assertEquals((string) $di, $di->toDatetimeString());
         $this->assertEquals("-03y 06m 04d 12:30:05", $di->toDatetimeString());
         $this->assertEquals("-03y 06m 04d 12:30:05", $di->toFormat(Str::create($strFormat)));
+        $this->assertEquals("-03y 06m 04d 12:30:05", $di->format($strFormat));
         $this->assertEquals("-03y 06m 04d 12:30:05", $di->format($strFormat));
     }
 
