@@ -10,7 +10,7 @@
 [![Version](https://img.shields.io/github/release/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
 [![PHP](https://img.shields.io/packagist/php-v/hradigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
 
-## Code
+## Code Usage
 
 In order to learn more about the code, please go [here](https://github.com/HRADigital/php-datatypes/blob/master/src/).
 
