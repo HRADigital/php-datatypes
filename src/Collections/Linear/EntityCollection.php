@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Collections\Linear;
 
+use HraDigital\Datatypes\Exceptions\Collections\DuplicatedEntryException;
+use HraDigital\Datatypes\Exceptions\Datatypes\ParameterOutOfRangeException;
+use HraDigital\Datatypes\Exceptions\Datatypes\PositiveIntegerException;
 use HraDigital\Datatypes\ValueObjects\AbstractValueObject;
 
 /**
@@ -36,14 +39,14 @@ class EntityCollection implements \Countable, \Iterator, \JsonSerializable
      *
      * @param  int $id - Entity's ID to search for.
      *
-     * @throws \OutOfRangeException - If the supplied ID is not a positive integer.
+     * @throws PositiveIntegerException - If the supplied ID is not a positive integer.
      * @return bool
      */
     public function has(int $id): bool
     {
         // Validates supplied ID.
         if ($id <= 0) {
-            throw new \OutOfRangeException("Supplied ID should be a positive integer.");
+            throw PositiveIntegerException::withName('$id');
         }
 
         // Returns the existence of the Entity in the Collection.
@@ -55,18 +58,18 @@ class EntityCollection implements \Countable, \Iterator, \JsonSerializable
      *
      * @param  int $id - Entity's ID to search for.
      *
-     * @throws \OutOfRangeException  - If the supplied ID is not a positive integer.
-     * @throws \OutOfBoundsException - If the supplied ID was not present in the Collection.
+     * @throws PositiveIntegerException     - If the supplied ID is not a positive integer.
+     * @throws ParameterOutOfRangeException - If the supplied ID was not present in the Collection.
      * @return AbstractValueObject
      */
     public function get(int $id): AbstractValueObject
     {
         // Validates supplied ID.
         if ($id <= 0) {
-            throw new \OutOfRangeException("Supplied ID should be a positive integer.");
+            throw PositiveIntegerException::withName('$id');
         }
         if (!\array_key_exists($id, $this->collection)) {
-            throw new \OutOfBoundsException("The Entity you are trying to retrieve does not exist in the Collection.");
+            throw ParameterOutOfRangeException::withName('$id');
         }
 
         // Returns the Entity.
@@ -117,20 +120,19 @@ class EntityCollection implements \Countable, \Iterator, \JsonSerializable
      *
      * @param  AbstractValueObject $valueObject - Entity to add to the collection.
      *
-     * @throws \OverflowException - If you're trying to add a repeated Entity to the Collection.
+     * @throws DuplicatedEntryException - If you're trying to add a repeated Entity to the Collection.
      * @return self
      */
-    public function add(AbstractValueObject $valueObject): self
+    public function add(AbstractValueObject $object): self
     {
-        // Validates if the given Entity already exists in the Collection.
-        if (\array_key_exists($valueObject->{'getId'}(), $this->collection)) {
-            throw new \OverflowException("The Value Object you are trying to add to the Collection already exists.");
+        $id = $object->{'getId'}();
+
+        if (\array_key_exists($id, $this->collection)) {
+            throw DuplicatedEntryException::withId($id);
         }
 
-        // Adds an Entity to the collection.
-        $this->collection[$valueObject->{'getId'}()] = $valueObject;
+        $this->collection[$id] = $object;
 
-        // Returns this instance.
         return $this;
     }
 
@@ -141,18 +143,18 @@ class EntityCollection implements \Countable, \Iterator, \JsonSerializable
      *
      * @param  int $id - Entity's ID to search for.
      *
-     * @throws \OutOfRangeException  - If the supplied ID is not a positive integer.
-     * @throws \OutOfBoundsException - If the Entity with the supplied ID doesn't exist in the Collection.
+     * @throws PositiveIntegerException     - If the supplied ID is not a positive integer.
+     * @throws ParameterOutOfRangeException - If the Entity with the supplied ID doesn't exist in the Collection.
      * @return bool
      */
     public function remove(int $id): bool
     {
         // Validates supplied ID.
         if ($id <= 0) {
-            throw new \OutOfRangeException("Supplied ID should be a positive integer.");
+            throw PositiveIntegerException::withName('$id');
         }
         if (!\array_key_exists($id, $this->collection)) {
-            throw new \OutOfBoundsException("The Entity you are trying to delete does not exist in the Collection.");
+            throw ParameterOutOfRangeException::withName('$id');
         }
 
         // Removes element and rewinds
@@ -170,6 +172,7 @@ class EntityCollection implements \Countable, \Iterator, \JsonSerializable
      * {@inheritDoc}
      * @see \Iterator::rewind()
      */
+    #[\ReturnTypeWillChange]
     public function rewind(): ?AbstractValueObject
     {
         // Rewinds the cursor and returns the first Element.
@@ -261,11 +264,10 @@ class EntityCollection implements \Countable, \Iterator, \JsonSerializable
      */
     public function jsonSerialize(): array
     {
-        // Declares and fills a return array.
         $array = [];
-        foreach ($this->collection as $valueObject) {
 
-            /** @var AbstractValueObject $valueObject - Type casts record */
+        /** @var AbstractValueObject $valueObject - Type casts record */
+        foreach ($this->collection as $valueObject) {
             $array[] = $valueObject->jsonSerialize();
         }
 
