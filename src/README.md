@@ -10,9 +10,9 @@ can facilitate the creation of strongly typed records.
 
 For more information about each type of available object, please read dedicated information:
 
-- [Aggregates](Aggregates/)
+- [Attributes](Attributes/)
 - [Collections](Collections/)
-- [Entities](Entities/)
+- [Datetime](Datetime/)
 - [Exceptions](Exceptions/)
 - [Scalar](Scalar/)
 - [Traits](Traits/)

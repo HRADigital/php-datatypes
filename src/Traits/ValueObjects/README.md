@@ -1,1 +1,1 @@
-# Value Object's related Traits
+# Value Object's configuration Traits
