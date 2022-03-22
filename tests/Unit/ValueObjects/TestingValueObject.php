@@ -11,6 +11,7 @@ use HraDigital\Datatypes\Traits\Entities\CanProcessEntityStateTrait;
 use HraDigital\Datatypes\Traits\Entities\CanProcessOnUpdateEventsTrait;
 use HraDigital\Datatypes\Traits\Entities\General\HasActiveTrait;
 use HraDigital\Datatypes\Traits\Entities\General\HasEmailTrait;
+use HraDigital\Datatypes\Traits\Entities\General\HasPositiveIntegerIDTrait;
 use HraDigital\Datatypes\Traits\Entities\General\HasTitleTrait;
 use HraDigital\Datatypes\Traits\Entities\General\HasUpdatableUpdatedAtTrait;
 use HraDigital\Datatypes\ValueObjects\AbstractValueObject;
@@ -25,6 +26,7 @@ use HraDigital\Datatypes\ValueObjects\AbstractValueObject;
 class TestingValueObject extends AbstractValueObject
 {
     const DATA = [
+        'id' => 123,
         'is_active' => false,
         'address' => 'user@domain.tld',
         'title' => 'my title',
@@ -34,7 +36,8 @@ class TestingValueObject extends AbstractValueObject
         ],
     ];
 
-    use HasActiveTrait,
+    use HasPositiveIntegerIDTrait,
+        HasActiveTrait,
         CanMassAssignStateTrait,
         CanProcessEntityStateTrait,
         CanProcessOnUpdateEventsTrait,
