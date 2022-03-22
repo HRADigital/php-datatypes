@@ -9,10 +9,9 @@ use HraDigital\Datatypes\Scalar\Str;
 use HraDigital\Datatypes\Traits\Entities\CanMassAssignStateTrait;
 use HraDigital\Datatypes\Traits\Entities\CanProcessEntityStateTrait;
 use HraDigital\Datatypes\Traits\Entities\CanProcessOnUpdateEventsTrait;
-use HraDigital\Datatypes\Traits\Entities\General\HasActiveTrait;
-use HraDigital\Datatypes\Traits\Entities\General\HasEmailTrait;
-use HraDigital\Datatypes\Traits\Entities\General\HasTitleTrait;
-use HraDigital\Datatypes\Traits\Entities\General\HasUpdatableUpdatedAtTrait;
+use HraDigital\Datatypes\Attributes\General\HasActiveTrait;
+use HraDigital\Datatypes\Attributes\General\HasTitleTrait;
+use HraDigital\Datatypes\Attributes\General\HasUpdatableUpdatedAtTrait;
 use HraDigital\Datatypes\ValueObjects\AbstractValueObject;
 
 /**
