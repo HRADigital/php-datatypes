@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace HraDigital\Tests\Datatypes\Unit\Attributes;
 
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
+use HraDigital\Datatypes\Exceptions\Entities\UnexpectedEntityValueException;
 use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
 
 /**
@@ -34,6 +35,24 @@ class PersonalTraitsVOTest extends AbstractBaseTestCase
         $this->assertEquals(self::DATA['nationality'], (string) $object->getNationality());
         $this->assertEquals(self::DATA['photo'], (string) $object->getPhoto());
         $this->assertTrue($object->hasPhoto());
+    }
+
+    public function testLoadsSuccessfullyWithDifferentGender(): void
+    {
+        $data = self::DATA;
+        $data['gender'] = 'Female';
+        $object = new PersonalTraitsVO($data);
+
+        $this->assertEquals($data['gender'], (string) $object->getGender());
+    }
+
+    public function testBreaksIfGenderIsNotSupported(): void
+    {
+        $this->expectException(UnexpectedEntityValueException::class);
+
+        $data = self::DATA;
+        $data['gender'] = 'Unsupported';
+        new PersonalTraitsVO($data);
     }
 
     public function testBreaksWithEmptyCoutryOfBirth(): void
