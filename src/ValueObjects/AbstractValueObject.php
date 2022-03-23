@@ -7,13 +7,13 @@ namespace HraDigital\Datatypes\ValueObjects;
 use HraDigital\Datatypes\Collections\Linear\EntityCollection;
 use HraDigital\Datatypes\Exceptions\Entities\RequiredEntityValueMissingException;
 use HraDigital\Datatypes\Exceptions\Entities\UnexpectedEntityValueException;
-use HraDigital\Datatypes\Traits\ValueObjects\CanProcessOnLoadEventsTrait;
-use HraDigital\Datatypes\Traits\ValueObjects\HasConversionToPrimitiveValuesTrait;
-use HraDigital\Datatypes\Traits\ValueObjects\HasFieldCastingTrait;
-use HraDigital\Datatypes\Traits\ValueObjects\HasGuardedFieldsTrait;
-use HraDigital\Datatypes\Traits\ValueObjects\HasMappedFieldsTrait;
-use HraDigital\Datatypes\Traits\ValueObjects\HasRequiredFieldsTrait;
-use HraDigital\Datatypes\Traits\ValueObjects\HasRuleProcessingTrait;
+use HraDigital\Datatypes\ValueObjects\Traits\CanProcessOnLoadEventsTrait;
+use HraDigital\Datatypes\ValueObjects\Traits\HasConversionToPrimitiveValuesTrait;
+use HraDigital\Datatypes\ValueObjects\Traits\HasFieldCastingTrait;
+use HraDigital\Datatypes\ValueObjects\Traits\HasGuardedFieldsTrait;
+use HraDigital\Datatypes\ValueObjects\Traits\HasMappedFieldsTrait;
+use HraDigital\Datatypes\ValueObjects\Traits\HasRequiredFieldsTrait;
+use HraDigital\Datatypes\ValueObjects\Traits\HasRuleProcessingTrait;
 
 /**
  * Abstract Base Value Object class for all Domain Entities/Value Objects.
