@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace HraDigital\Datatypes\Traits\ValueObjects;
+namespace HraDigital\Datatypes\ValueObjects\Traits;
 
 use HraDigital\Datatypes\Exceptions\Entities\RequiredEntityValueMissingException;
 
