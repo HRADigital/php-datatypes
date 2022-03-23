@@ -4,13 +4,13 @@ declare(strict_types=1);
 
 namespace HraDigital\Tests\Datatypes\Unit\Attributes;
 
-use HraDigital\Datatypes\Traits\Entities\CanProcessOnUpdateEventsTrait;
 use HraDigital\Datatypes\Attributes\Personal\HasCountryOfBirthTrait;
 use HraDigital\Datatypes\Attributes\Personal\HasDateOfBirthTrait;
 use HraDigital\Datatypes\Attributes\Personal\HasGenderTrait;
 use HraDigital\Datatypes\Attributes\Personal\HasNationalityTrait;
 use HraDigital\Datatypes\Attributes\Personal\HasPhotoTrait;
 use HraDigital\Datatypes\ValueObjects\AbstractValueObject;
+use HraDigital\Datatypes\ValueObjects\Traits\CanProcessOnUpdateEventsTrait;
 
 /**
  * Testing Value Object for Personal Entity Traits.

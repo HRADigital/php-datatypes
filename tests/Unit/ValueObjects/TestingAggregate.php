@@ -6,7 +6,7 @@ namespace HraDigital\Tests\Datatypes\Unit\ValueObjects;
 
 use HraDigital\Datatypes\Datetime\Datetime;
 use HraDigital\Datatypes\Scalar\Str;
-use HraDigital\Datatypes\Traits\ValueObjects\CanSerializeAllToJsonTrait;
+use HraDigital\Datatypes\ValueObjects\Traits\CanSerializeAllToJsonTrait;
 
 /**
  * Test for JSON Serializable Object.

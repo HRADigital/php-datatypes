@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace HraDigital\Tests\Datatypes\Unit\Attributes;
 
-use HraDigital\Datatypes\Traits\Entities\CanProcessOnUpdateEventsTrait;
 use HraDigital\Datatypes\Attributes\Location\HasAddressTrait;
 use HraDigital\Datatypes\Attributes\Location\HasCityTrait;
 use HraDigital\Datatypes\Attributes\Location\HasCountryCodeTrait;
@@ -18,6 +17,7 @@ use HraDigital\Datatypes\Attributes\Location\HasStreetAdditionalTrait;
 use HraDigital\Datatypes\Attributes\Location\HasStreetNumberTrait;
 use HraDigital\Datatypes\Attributes\Location\HasStreetTrait;
 use HraDigital\Datatypes\ValueObjects\AbstractValueObject;
+use HraDigital\Datatypes\ValueObjects\Traits\CanProcessOnUpdateEventsTrait;
 
 /**
  * Testing Value Object for Location Entity Traits.

@@ -5,9 +5,7 @@ declare(strict_types=1);
 namespace HraDigital\Tests\Datatypes\Unit\ValueObjects;
 
 use HraDigital\Datatypes\Exceptions\Entities\RequiredEntityValueMissingException;
-use HraDigital\Datatypes\Exceptions\Entities\UnexpectedEntityValueException;
 use HraDigital\Datatypes\Exceptions\Datatypes\ParameterOutOfRangeException;
-use HraDigital\Datatypes\Datetime\Datetime;
 use HraDigital\Datatypes\Scalar\Str;
 use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
 
