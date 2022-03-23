@@ -34,6 +34,10 @@ class TestingValueObject extends AbstractValueObject
             'active' => false,
             'title' => 'My Inner Title',
         ],
+        'native' => [
+            'active' => false,
+            'title' => 'Some random native object',
+        ],
     ];
 
     use HasPositiveIntegerIDTrait,
@@ -58,10 +62,16 @@ class TestingValueObject extends AbstractValueObject
     ];
 
     protected TestingNestedValueObject $inner;
+    protected \stdClass $native;
 
     protected function castInner(array $inner): void
     {
         $this->inner = new TestingNestedValueObject($inner);
+    }
+
+    protected function castNative(array $native): void
+    {
+        $this->native = (object) $native;
     }
 
     public function getInner(): TestingNestedValueObject
