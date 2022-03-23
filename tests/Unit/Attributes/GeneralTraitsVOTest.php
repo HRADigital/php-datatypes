@@ -145,6 +145,16 @@ class GeneralTraitsVOTest extends AbstractBaseTestCase
         new GeneralTraitsVO($data);
     }
 
+    public function testBreaksIfSurnameIsEmpty(): void
+    {
+        $this->expectException(NonEmptyStringException::class);
+
+        $data = self::DATA;
+        $data['surname'] = '';
+
+        new GeneralTraitsVO($data);
+    }
+
     public function testBreaksIfHitsIsNegative(): void
     {
         $this->expectException(NonNegativeNumberException::class);
