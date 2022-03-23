@@ -15,7 +15,6 @@ use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
  * @license   MIT
- * @group hugo
  */
 class AbstractValueObjectTest extends AbstractBaseTestCase
 {

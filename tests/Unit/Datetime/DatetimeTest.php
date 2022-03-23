@@ -19,7 +19,7 @@ class DatetimeTest extends AbstractBaseTestCase
 {
     const DATETIME = '2021-05-06 10:11:12';
 
-    public function testCanInstanciateSuccessfully(): void
+    public function testCanInstanciateSuccessfullyFromString(): void
     {
         $dt = Datetime::fromString(self::DATETIME);
 
@@ -32,6 +32,109 @@ class DatetimeTest extends AbstractBaseTestCase
         $this->assertEquals($dt->getSecond(), 12);
         $this->assertEquals((string) $dt, self::DATETIME);
         $this->assertEquals($dt->jsonSerialize(), self::DATETIME);
+    }
+
+    public function testCanInstantiateSuccessfullyFromNow(): void
+    {
+        $datetime = Datetime::now();
+        $native = new \DateTime('now');
+
+        $this->assertEquals(
+            $datetime->toDateString(),
+            $native->format('Y-m-d')
+        );
+    }
+
+    public function testCanInstantiateSuccessfullyFromToday(): void
+    {
+        $datetime = Datetime::today();
+        $native = new \DateTime('now');
+
+        $this->assertEquals(
+            $datetime->toDateString(),
+            $native->format('Y-m-d')
+        );
+        $this->assertEquals(0, $datetime->getHour());
+        $this->assertEquals(0, $datetime->getMinute());
+        $this->assertEquals(0, $datetime->getSecond());
+    }
+
+    public function testCanInstantiateSuccessfullyFromTomorrow(): void
+    {
+        $datetime = Datetime::tomorrow();
+        $native = new \DateTime('now');
+
+        $this->assertEquals(
+            $datetime->addDays(-1)->toDateString(),
+            $native->format('Y-m-d')
+        );
+        $this->assertEquals(0, $datetime->getHour());
+        $this->assertEquals(0, $datetime->getMinute());
+        $this->assertEquals(0, $datetime->getSecond());
+    }
+
+    public function testCanInstantiateSuccessfullyFromYesterday(): void
+    {
+        $datetime = Datetime::yesterday();
+        $native = new \DateTime('now');
+
+        $this->assertEquals(
+            $datetime->addDays(1)->toDateString(),
+            $native->format('Y-m-d')
+        );
+        $this->assertEquals(0, $datetime->getHour());
+        $this->assertEquals(0, $datetime->getMinute());
+        $this->assertEquals(0, $datetime->getSecond());
+    }
+
+    public function testCanInstantiateSuccessfullyFromTimestamp(): void
+    {
+        $original = Datetime::now();
+        $timestamp = $original->getTimestamp();
+
+        $fromTimestamp = Datetime::fromTimestamp($timestamp);
+
+        $this->assertFalse($original === $fromTimestamp);
+        $this->assertEquals(
+            $original->toDatetimeString(),
+            $fromTimestamp->toDatetimeString()
+        );
+    }
+
+    public function testCanInstantiateSuccessfullyFromUnits(): void
+    {
+        $years = 2020;
+        $months = 11;
+        $days = 10;
+        $hours = 9;
+        $minutes = 30;
+        $seconds = 0;
+        $dt = Datetime::fromUnits($years, $months, $days, $hours, $minutes, $seconds);
+
+        $this->assertEquals(
+            $years,
+            $dt->getYear()
+        );
+        $this->assertEquals(
+            $months,
+            $dt->getMonth()
+        );
+        $this->assertEquals(
+            $days,
+            $dt->getDay()
+        );
+        $this->assertEquals(
+            $hours,
+            $dt->getHour()
+        );
+        $this->assertEquals(
+            $minutes,
+            $dt->getMinute()
+        );
+        $this->assertEquals(
+            $seconds,
+            $dt->getSecond()
+        );
     }
 
     public function testCanAddInterval(): void
