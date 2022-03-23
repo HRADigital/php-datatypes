@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace HraDigital\Datatypes\Traits\Entities;
+namespace HraDigital\Datatypes\ValueObjects\Traits;
 
 use HraDigital\Datatypes\ValueObjects\AbstractValueObject;
 
