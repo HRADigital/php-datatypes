@@ -6,9 +6,9 @@ namespace HraDigital\Tests\Datatypes\Unit\ValueObjects;
 
 use HraDigital\Datatypes\Datetime\Datetime;
 use HraDigital\Datatypes\Scalar\Str;
-use HraDigital\Datatypes\Traits\Entities\CanMassAssignStateTrait;
-use HraDigital\Datatypes\Traits\Entities\CanProcessEntityStateTrait;
-use HraDigital\Datatypes\Traits\Entities\CanProcessOnUpdateEventsTrait;
+use HraDigital\Datatypes\ValueObjects\Traits\CanMassAssignStateTrait;
+use HraDigital\Datatypes\ValueObjects\Traits\CanProcessEntityStateTrait;
+use HraDigital\Datatypes\ValueObjects\Traits\CanProcessOnUpdateEventsTrait;
 use HraDigital\Datatypes\Attributes\General\HasActiveTrait;
 use HraDigital\Datatypes\Attributes\General\HasEmailTrait;
 use HraDigital\Datatypes\Attributes\General\HasPositiveIntegerIDTrait;
