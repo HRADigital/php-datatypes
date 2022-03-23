@@ -73,6 +73,8 @@ trait CanProcessEntityStateTrait
 
             if (\is_object($this->{$field}) && \method_exists($this->{$field}, '__toString')) {
                 $hasChanged = ((string) $value) !== ((string) $this->{$field});
+            } elseif (\is_object($this->{$field})) {
+                $hasChanged = $value !== ((array) $this->{$field});
             } else {
                 $hasChanged = $value !== $this->{$field};
             }

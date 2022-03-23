@@ -198,6 +198,16 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
     }
 
     /**
+     * Returns Str instance with value in format "Y-m-d".
+     *
+     * @return Str
+     */
+    public function toDateString(): Str
+    {
+        return $this->toFormatInternal('Y-m-d');
+    }
+
+    /**
      * Returns Str instance with value in format "H:i:s".
      *
      * @return Str

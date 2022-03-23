@@ -35,7 +35,7 @@ trait HasGenderTrait
             $genderValue->equals('Female') ||
             $genderValue->equals('Other')
         )) {
-            throw new UnexpectedEntityValueException('$gender');
+            throw UnexpectedEntityValueException::withName('$gender');
         }
 
         $this->gender = $genderValue;
