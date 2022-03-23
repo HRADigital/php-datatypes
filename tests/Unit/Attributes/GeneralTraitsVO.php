@@ -4,7 +4,6 @@ declare(strict_types=1);
 
 namespace HraDigital\Tests\Datatypes\Unit\Attributes;
 
-use HraDigital\Datatypes\Traits\Entities\CanProcessOnUpdateEventsTrait;
 use HraDigital\Datatypes\Attributes\General\HasActiveTrait;
 use HraDigital\Datatypes\Attributes\General\HasAliasTrait;
 use HraDigital\Datatypes\Attributes\General\HasCreatedAtTrait;
@@ -18,11 +17,12 @@ use HraDigital\Datatypes\Attributes\General\HasPasswordTrait;
 use HraDigital\Datatypes\Attributes\General\HasPositiveIntegerIDTrait;
 use HraDigital\Datatypes\Attributes\General\HasPublishedTrait;
 use HraDigital\Datatypes\Attributes\General\HasSeoFieldsTrait;
+use HraDigital\Datatypes\Attributes\General\HasSurnameTrait;
 use HraDigital\Datatypes\Attributes\General\HasTitleTrait;
 use HraDigital\Datatypes\Attributes\General\HasUpdatableUpdatedAtTrait;
 use HraDigital\Datatypes\Attributes\General\HasUuidTrait;
-use HraDigital\Datatypes\Attributes\General\HasSurnameTrait;
 use HraDigital\Datatypes\ValueObjects\AbstractValueObject;
+use HraDigital\Datatypes\ValueObjects\Traits\CanProcessOnUpdateEventsTrait;
 
 /**
  * Testing Value Object for General Entity Traits.
