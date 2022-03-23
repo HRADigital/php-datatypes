@@ -15,6 +15,7 @@ use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
  * @license   MIT
+ * @group hugo
  */
 class AbstractValueObjectTest extends AbstractBaseTestCase
 {
@@ -75,6 +76,7 @@ class AbstractValueObjectTest extends AbstractBaseTestCase
         $this->assertArrayNotHasKey('email', $json);
         $this->assertArrayHasKey('title', $json);
         $this->assertArrayHasKey('inner', $json);
+        $this->assertArrayHasKey('native', $json);
 
         $this->assertArrayHasKey('title', $json['inner']);
         $this->assertArrayNotHasKey('active', $json['inner']);
@@ -91,6 +93,7 @@ class AbstractValueObjectTest extends AbstractBaseTestCase
         $this->assertArrayHasKey('email', $array);
         $this->assertArrayHasKey('title', $array);
         $this->assertArrayHasKey('inner', $array);
+        $this->assertArrayHasKey('native', $array);
 
         $this->assertArrayHasKey('title', $array['inner']);
         $this->assertArrayHasKey('active', $array['inner']);
@@ -128,6 +131,7 @@ class AbstractValueObjectTest extends AbstractBaseTestCase
         $this->assertArrayHasKey('email', $array);
         $this->assertArrayHasKey('title', $array);
         $this->assertArrayHasKey('inner', $array);
+        $this->assertArrayHasKey('native', $array);
 
         $this->assertArrayHasKey('title', $array['inner']);
         $this->assertArrayHasKey('active', $array['inner']);
@@ -160,6 +164,7 @@ class AbstractValueObjectTest extends AbstractBaseTestCase
         $this->assertArrayNotHasKey('email', $dirty);
         $this->assertArrayHasKey('title', $dirty);
         $this->assertArrayHasKey('inner', $dirty);
+        $this->assertArrayNotHasKey('native', $dirty);
 
         $this->assertArrayHasKey('title', $dirty['inner']);
         $this->assertArrayNotHasKey('active', $dirty['inner']);
@@ -212,6 +217,7 @@ class AbstractValueObjectTest extends AbstractBaseTestCase
         $this->assertArrayNotHasKey('email', $dirty);
         $this->assertArrayNotHasKey('title', $dirty);
         $this->assertArrayNotHasKey('inner', $dirty);
+        $this->assertArrayNotHasKey('native', $dirty);
         $this->assertCount(0, $dirty);
     }
 
