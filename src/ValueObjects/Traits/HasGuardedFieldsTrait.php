@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace HraDigital\Datatypes\Traits\ValueObjects;
+namespace HraDigital\Datatypes\ValueObjects\Traits;
 
 /**
  * Adds Guarded field's functionality to a Value Object.

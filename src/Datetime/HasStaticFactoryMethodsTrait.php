@@ -2,10 +2,7 @@
 
 declare(strict_types=1);
 
-namespace HraDigital\Datatypes\Traits\Datetime\Datetime;
-
-use HraDigital\Datatypes\Datetime\Datetime;
-use HraDigital\Datatypes\Datetime\DateTimeZone;
+namespace HraDigital\Datatypes\Datetime;
 
 trait HasStaticFactoryMethodsTrait
 {

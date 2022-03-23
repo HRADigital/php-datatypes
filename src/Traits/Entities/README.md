@@ -1,1 +1,0 @@
-# Entity's configuration Traits

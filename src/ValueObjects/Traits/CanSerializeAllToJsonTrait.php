@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace HraDigital\Datatypes\Traits\ValueObjects;
+namespace HraDigital\Datatypes\ValueObjects\Traits;
 
 /**
  * Implements a \JsonSerializable that will collect all class attributes and returns them.
