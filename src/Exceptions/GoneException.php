@@ -32,7 +32,7 @@ class GoneException extends AbstractBaseException
      */
     public static function withId(int $id, ?\Exception $inner = null): self
     {
-        return new self(
+        return new static(
             \sprintf("The resource with the ID %d no longer exists in the system.", $id),
             $inner
         );
