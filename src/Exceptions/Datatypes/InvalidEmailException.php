@@ -19,7 +19,7 @@ class InvalidEmailException extends UnprocessableEntityException
 
     public static function withName(string $name, ?\Exception $inner = null): self
     {
-        return new self(
+        return new static(
             \sprintf("Provided e-mail '%s' does not seam to be a valid e-mail address.", $name),
             $inner
         );

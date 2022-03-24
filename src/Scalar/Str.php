@@ -270,7 +270,7 @@ class Str
      */
     public function trim(): self
     {
-        return new self(
+        return new static(
             \trim($this->value)
         );
     }
@@ -282,7 +282,7 @@ class Str
      */
     public function trimLeft(): self
     {
-        return new self(
+        return new static(
             \ltrim($this->value)
         );
     }
@@ -294,7 +294,7 @@ class Str
      */
     public function trimRight(): self
     {
-        return new self(
+        return new static(
             \rtrim($this->value)
         );
     }
@@ -306,7 +306,7 @@ class Str
      */
     public function toUpper(): self
     {
-        return new self(
+        return new static(
             \mb_strtoupper($this->value)
         );
     }
@@ -318,7 +318,7 @@ class Str
      */
     public function toUpperFirst(): self
     {
-        return new self(
+        return new static(
             \ucfirst($this->value)
         );
     }
@@ -331,7 +331,7 @@ class Str
      */
     public function toUpperWords(string $delimiters = " \t\r\n\f\v"): self
     {
-        return new self(
+        return new static(
             \ucwords($this->value, $delimiters)
         );
     }
@@ -343,7 +343,7 @@ class Str
      */
     public function toLower(): self
     {
-        return new self(
+        return new static(
             \mb_strtolower($this->value)
         );
     }
@@ -355,7 +355,7 @@ class Str
      */
     public function toLowerFirst(): self
     {
-        return new self(
+        return new static(
             \lcfirst($this->value)
         );
     }
@@ -388,7 +388,7 @@ class Str
             throw NonEmptyStringException::withName('$padding');
         }
 
-        return new self(
+        return new static(
             \str_pad($this->value, $length, $padding, STR_PAD_LEFT)
         );
     }
@@ -440,7 +440,7 @@ class Str
             throw NonEmptyStringException::withName('$padding');
         }
 
-        return new self(
+        return new static(
             \str_pad($this->value, $length, $padding, STR_PAD_RIGHT)
         );
     }
@@ -498,10 +498,10 @@ class Str
         $this->validateStartAndLength($start, $length);
 
         if ($length === null) {
-            return new self(\substr($this->value, $start) ?? '');
+            return new static(\substr($this->value, $start) ?? '');
         }
 
-        return new self(\substr($this->value, $start, $length) ?? '');
+        return new static(\substr($this->value, $start, $length) ?? '');
     }
 
     /**
@@ -549,7 +549,7 @@ class Str
      */
     public function reverse(): self
     {
-        return new self(
+        return new static(
             \strrev($this->value)
         );
     }
@@ -573,7 +573,7 @@ class Str
             throw NonEmptyStringException::withName('$replace');
         }
 
-        return new self(
+        return new static(
             \str_replace($search, $replace, $this->value)
         );
     }
