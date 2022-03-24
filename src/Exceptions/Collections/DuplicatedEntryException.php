@@ -19,7 +19,7 @@ class DuplicatedEntryException extends UnprocessableEntityException
 
     public static function withId(int $id, ?\Exception $inner = null): self
     {
-        return new self(
+        return new static(
             \sprintf("Provided entry with ID '%d' was already added to Collection.", $id),
             $inner
         );

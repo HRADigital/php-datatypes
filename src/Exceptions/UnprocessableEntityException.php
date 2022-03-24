@@ -35,7 +35,7 @@ class UnprocessableEntityException extends AbstractBaseException
      */
     public static function withName(string $name, ?\Exception $inner = null): self
     {
-        return new self(
+        return new static(
             \sprintf("The request was well-formed but was unable to be followed due to field '%s'.", $name),
             $inner
         );

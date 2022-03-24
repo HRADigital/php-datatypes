@@ -21,7 +21,7 @@ class NonNegativeNumberException extends UnprocessableEntityException
 
     public static function withName(string $name, ?\Exception $inner = null): self
     {
-        return new self(
+        return new static(
             \sprintf("Parameter '%s' must be a non negative number.", $name),
             $inner
         );

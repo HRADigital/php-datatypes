@@ -19,7 +19,7 @@ class InvalidStringLengthException extends UnprocessableEntityException
 
     public static function withNameAndLength(string $name, int $length, ?\Exception $inner = null): self
     {
-        return new self(
+        return new static(
             \sprintf("Field '%s' doesn't have minimum required character length of %d.", $name, $length),
             $inner
         );
