@@ -308,7 +308,7 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
             $dateInterval->invert = 1;
         }
 
-        return new self(
+        return new static(
             $this->add($dateInterval)->format(self::START_FORMAT)
         );
     }

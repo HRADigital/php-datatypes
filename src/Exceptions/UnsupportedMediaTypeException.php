@@ -34,7 +34,7 @@ class UnsupportedMediaTypeException extends AbstractBaseException
      */
     public static function withName(string $name, ?\Exception $inner = null): self
     {
-        return new self(
+        return new static(
             \sprintf("MediaType '%s' is not supported by the system.", $name),
             $inner
         );

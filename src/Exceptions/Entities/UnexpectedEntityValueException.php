@@ -19,7 +19,7 @@ class UnexpectedEntityValueException extends UnprocessableEntityException
 
     public static function withName(string $name, ?\Exception $inner = null): self
     {
-        return new self(
+        return new static(
             \sprintf("Field '%s' had an unexpected value, while loading into an Entity.", $name),
             $inner
         );

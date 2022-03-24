@@ -32,7 +32,7 @@ class NotFoundException extends AbstractBaseException
      */
     public static function withId(int $id, ?\Exception $inner = null): self
     {
-        return new self(
+        return new static(
             \sprintf("The resource with the ID %d you are looking for, was not found in the system.", $id),
             $inner
         );
