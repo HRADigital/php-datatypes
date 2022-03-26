@@ -6,6 +6,7 @@ namespace HraDigital\Tests\Datatypes\Unit\Exceptions\Entities;
 
 use HraDigital\Datatypes\Exceptions\Entities\RequiredEntityValueMissingException;
 use HraDigital\Datatypes\Exceptions\Entities\UnexpectedEntityValueException;
+use HraDigital\Datatypes\Exceptions\UnprocessableEntityException;
 use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
 
 /**
@@ -21,6 +22,14 @@ class EntitiesExceptionsTest extends AbstractBaseTestCase
     {
         $exception = new RequiredEntityValueMissingException();
         $static = RequiredEntityValueMissingException::withName('SomeField');
+        $child = ChildRequiredEntityValueMissingException::withName('SomeField');
+
+        $this->assertInstanceOf(RequiredEntityValueMissingException::class, $exception);
+        $this->assertInstanceOf(RequiredEntityValueMissingException::class, $static);
+        $this->assertInstanceOf(RequiredEntityValueMissingException::class, $child);
+        $this->assertInstanceOf(UnprocessableEntityException::class, $exception);
+        $this->assertInstanceOf(UnprocessableEntityException::class, $static);
+        $this->assertInstanceOf(UnprocessableEntityException::class, $child);
 
         $this->assertGreaterThan(0, \strlen($exception->getMessage()));
         $this->assertGreaterThan(0, \strlen($static->getMessage()));
@@ -33,6 +42,14 @@ class EntitiesExceptionsTest extends AbstractBaseTestCase
     {
         $exception = new UnexpectedEntityValueException();
         $static = UnexpectedEntityValueException::withName('SomeField');
+        $child = ChildUnexpectedEntityValueException::withName('SomeField');
+
+        $this->assertInstanceOf(UnexpectedEntityValueException::class, $exception);
+        $this->assertInstanceOf(UnexpectedEntityValueException::class, $static);
+        $this->assertInstanceOf(UnexpectedEntityValueException::class, $child);
+        $this->assertInstanceOf(UnprocessableEntityException::class, $exception);
+        $this->assertInstanceOf(UnprocessableEntityException::class, $static);
+        $this->assertInstanceOf(UnprocessableEntityException::class, $child);
 
         $this->assertGreaterThan(0, \strlen($exception->getMessage()));
         $this->assertGreaterThan(0, \strlen($static->getMessage()));
