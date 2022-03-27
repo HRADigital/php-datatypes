@@ -12,12 +12,66 @@
 
 ## Code Usage
 
+This package is mean to provide you an easy way to do this (_and much more_):
+
+```php
+$user = new User([
+    'id' => 123,
+    'active' => true,
+    'name' => ' John Doe ',
+]);
+
+echo $user->getId(); // (int) 123
+echo $user->isActive(); // (bool) true
+echo $user->getName(); // Prints ' John Doe '
+echo $user->getName()->trim()->toUpper()->replace(' ', '-'); // Prints 'JOHN-DOE'
+echo $user->getName(); // Prints ' John Doe ' again, as Attribute is immutable.
+```
+
+... just by building your object like this:
+
+```php
+class User extends AbstractValueObject
+{
+    use HasPositiveIntegerIDTrait,
+        HasActiveTrait,
+        HasNameTrait;
+}
+```
+
+Also, out-of-box, it will allow you to do the following:
+
+```php
+$user = new User([
+    'id' => 123,
+    'active' => true,
+    'name' => ' John Doe ',
+]);
+
+echo json_encode($user); // {"id":123,"active":true,"name":"John Doe"}
+
+$serialized = serialize($user);
+$otherUser = unserialize($serialized);
+
+printf($otherUser->toArray());
+/*
+[
+    'id' => 123,
+    'active' => true,
+    'name' => 'John Doe',
+]
+*/
+```
+
+... and much more. This will leave your objects clean from repetitive state management code, which frees you to
+implement your business logic in them.
+
 In order to learn more about the code, please go [here](https://github.com/HRADigital/php-datatypes/blob/master/src/ValueObjects).
 
 ## About
 
-**PHP Datatypes** is meant to provide an easy way to create your Value Objects/Entities/Aggregates, in a fast and platform agnostic way,
-that promotes:
+**PHP Datatypes** is meant to provide an easy way to create your Value Objects/Entities/Aggregates, in a fast and
+platform agnostic way, that promotes:
 
 - Code reusability
 - Data normalization
