@@ -1,6 +1,6 @@
 {
     "name": "hradigital/php-datatypes",
-    "description": "Brings complex datatype functionality to an application.",
+    "description": "Easy way to build up and sanitize your application objects.",
     "type": "library",
     "license": "MIT",
     "authors": [
@@ -11,13 +11,16 @@
     ],
     "minimum-stability": "dev",
     "keywords": [
-        "package",
-        "library",
-        "hradigital",
         "php",
         "datatypes",
-        "scalar objects",
         "ddd",
+        "domain driven design",
+        "domain",
+        "aggregates",
+        "entity",
+        "entities",
+        "value objects",
+        "scalar objects",
         "immutable objects",
         "mutable objects"
     ],
