@@ -310,6 +310,38 @@ class DatetimeTest extends AbstractBaseTestCase
         );
     }
 
+    public function testCanOutputLocalizedDateTimeForEnglishLocale(): void
+    {
+        $formatted = (string) Datetime::fromString(self::DATETIME)
+            ->toLocalizedDateTime(Str::create('long'), Str::create('short'), Str::create('en_GB'));
+
+        $this->assertEquals('6 May 2021 at 10:11', $formatted);
+    }
+
+    public function testCanOutputLocalizedDateTimeForPortugueseLocale(): void
+    {
+        $formatted = (string) Datetime::fromString(self::DATETIME)
+            ->toLocalizedDateTime(Str::create('long'), Str::create('short'), Str::create('pt_PT'));
+
+        $this->assertEquals('6 de maio de 2021 às 10:11', $formatted);
+    }
+
+    public function testCanOutputLocalizedDateOnly(): void
+    {
+        $formatted = (string) Datetime::fromString(self::DATETIME)
+            ->toLocalizedDateTime(Str::create('long'), Str::create('none'), Str::create('pt_PT'));
+
+        $this->assertEquals('6 de maio de 2021', $formatted);
+    }
+
+    public function testLocalizedDateTimeRejectsInvalidStyle(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        Datetime::fromString(self::DATETIME)
+            ->toLocalizedDateTime(Str::create('huge'), Str::create('short'), Str::create('en_GB'));
+    }
+
     public function testCanAddUnitsIndependently(): void
     {
         $original = Datetime::fromUnits(2022, 2, 2, 10, 11, 12);
