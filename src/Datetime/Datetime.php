@@ -229,6 +229,53 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
     }
 
     /**
+     * Returns Str instance with value formatted for the supplied locale, using CLDR locale-driven
+     * date and time styles.
+     *
+     * The date/time *style* (full/long/medium/short/none) lets CLDR pick the correct separators,
+     * ordering and prepositions per locale - eg. pt_PT "27 de maio de 2026 às 14:32",
+     * en_GB "27 May 2026 at 14:32", de_DE "27. Mai 2026 um 14:32".
+     *
+     * Hand-rolled ICU patterns force one shape across all locales and produce unidiomatic output,
+     * so this method intentionally does not accept a pattern.
+     *
+     * @param  Str $dateStyle - One of "full", "long", "medium", "short", "none".
+     * @param  Str $timeStyle - One of "full", "long", "medium", "short", "none".
+     * @param  Str $locale    - BCP 47 locale tag (eg. "pt_PT", "en_GB").
+     * @return Str
+     */
+    public function toLocalizedDateTime(Str $dateStyle, Str $timeStyle, Str $locale): Str
+    {
+        $styles = [
+            'none'   => \IntlDateFormatter::NONE,
+            'short'  => \IntlDateFormatter::SHORT,
+            'medium' => \IntlDateFormatter::MEDIUM,
+            'long'   => \IntlDateFormatter::LONG,
+            'full'   => \IntlDateFormatter::FULL,
+        ];
+
+        $date = \strtolower((string) $dateStyle);
+        $time = \strtolower((string) $timeStyle);
+
+        if (!isset($styles[$date]) || !isset($styles[$time])) {
+            throw new \InvalidArgumentException(
+                \sprintf('Invalid style. Expected one of: %s.', \implode(', ', \array_keys($styles)))
+            );
+        }
+
+        $formatter = new \IntlDateFormatter(
+            (string) $locale,
+            $styles[$date],
+            $styles[$time],
+            $this->getTimezone()
+        );
+
+        return Str::create(
+            (string) $formatter->format($this)
+        );
+    }
+
+    /**
      * Get Year part of the instance.
      *
      * @return int
