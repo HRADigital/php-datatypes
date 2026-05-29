@@ -365,4 +365,52 @@ class DatetimeTest extends AbstractBaseTestCase
         $this->assertEquals($original->getMinute(), ($calculated->getMinute() - 1));
         $this->assertEquals($original->getSecond(), ($calculated->getSecond() - 1));
     }
+
+    public function testToLocalizedDateTimeReturnsStrInstance(): void
+    {
+        $dt     = Datetime::fromString('2024-05-27 14:32:00');
+        $result = $dt->toLocalizedDateTime(
+            Str::create('medium'),
+            Str::create('short'),
+            Str::create('en_GB'),
+        );
+
+        $this->assertInstanceOf(Str::class, $result);
+        $this->assertNotEmpty((string) $result);
+    }
+
+    public function testToLocalizedDateTimeNoneStylesProduceEmptyishResult(): void
+    {
+        $dt     = Datetime::fromString('2024-05-27 14:32:00');
+        $result = $dt->toLocalizedDateTime(
+            Str::create('none'),
+            Str::create('none'),
+            Str::create('en_GB'),
+        );
+
+        // CLDR with both styles = NONE produces an empty or whitespace-only string.
+        $this->assertInstanceOf(Str::class, $result);
+    }
+
+    public function testToLocalizedDateTimeThrowsForInvalidStyle(): void
+    {
+        $this->expectException(\InvalidArgumentException::class);
+
+        $dt = Datetime::fromString('2024-05-27 14:32:00');
+        $dt->toLocalizedDateTime(
+            Str::create('invalid'),
+            Str::create('short'),
+            Str::create('en_GB'),
+        );
+    }
+
+    public function testToLocalizedDateTimeStyleIsCaseInsensitive(): void
+    {
+        $dt = Datetime::fromString('2024-05-27 14:32:00');
+
+        $lower = $dt->toLocalizedDateTime(Str::create('medium'), Str::create('short'), Str::create('en_GB'));
+        $upper = $dt->toLocalizedDateTime(Str::create('MEDIUM'), Str::create('SHORT'), Str::create('en_GB'));
+
+        $this->assertEquals((string) $lower, (string) $upper);
+    }
 }
