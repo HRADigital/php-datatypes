@@ -1,8 +1,9 @@
 name: Release
 
 on:
+  # Only run on pushes to master. The workflow creates the tag/release itself,
+  # so triggering on tag pushes would re-run it against the tag it just made.
   push:
-    tags: "*"
     branches: [ master ]
 
   # Allows you to run this workflow manually from the Actions tab
@@ -31,12 +32,14 @@ jobs:
       uses: ietf-tools/semver-action@v1
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
-        branch: ${{ github.ref_name }}
+        branch: master
         # Never allow an automatic major bump - releases stay within 2.x.
         majorList: ""
         patchAll: true
         # If no commit maps to a bump, fall back to a patch instead of erroring out.
         noVersionBumpBehavior: patch
+        # If HEAD is already at the latest tag, keep the current version instead of erroring.
+        noNewCommitBehavior: current
 
     - name: Current version
       id: currentVersion
