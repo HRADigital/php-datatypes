@@ -122,7 +122,7 @@ The project is validated on every push and pull request through [GitHub Actions]
 The CI pipeline runs:
 
 - **Coding Standards** - `PSR2` checks via `PHP_CodeSniffer`.
-- **Tests** - the full `PHPUnit` suite against PHP `8.1`, `8.2`, `8.3` and `8.4`.
+- **Tests** - the full `PHPUnit` suite against PHP `8.1`, `8.2`, `8.3`, `8.4` and `8.5`, each running inside its own official `php:<version>-cli` Docker container.
 - **Code Coverage** - a `clover` report generated with `pcov` and uploaded to [Codecov](https://app.codecov.io/gh/HRADigital/php-datatypes).
 
 Composer scripts are available to run the same checks locally:

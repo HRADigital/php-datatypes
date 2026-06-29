@@ -60,33 +60,32 @@ jobs:
   tests:
     name: Tests (PHP ${{ matrix.php }})
     runs-on: ubuntu-latest
+    # Each PHP version runs inside its own official PHP container image.
+    container:
+      image: php:${{ matrix.php }}-cli
     strategy:
       fail-fast: false
       matrix:
-        php: [ '8.1', '8.2', '8.3', '8.4' ]
+        php: [ '8.1', '8.2', '8.3', '8.4', '8.5' ]
 
     steps:
+      - name: Install system dependencies and PHP extensions
+        run: |
+          apt-get update
+          apt-get install -y --no-install-recommends git unzip libicu-dev
+          docker-php-ext-install intl
+
+      - name: Install Composer
+        run: |
+          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+          php composer-setup.php --install-dir=/usr/local/bin --filename=composer
+          php -r "unlink('composer-setup.php');"
+
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
-        with:
-          php-version: ${{ matrix.php }}
-          extensions: intl, mbstring
-          coverage: none
-          tools: composer:v2
-
-      - name: Get Composer cache directory
-        id: composer-cache
-        run: echo "dir=$(composer config cache-files-dir)" >> "$GITHUB_OUTPUT"
-
-      - name: Cache Composer dependencies
-        uses: actions/cache@v4
-        with:
-          path: ${{ steps.composer-cache.outputs.dir }}
-          key: composer-${{ matrix.php }}-${{ hashFiles('**/composer.json') }}
-          restore-keys: composer-${{ matrix.php }}-
+      - name: PHP version
+        run: php -v
 
       - name: Install dependencies
         run: composer install --prefer-dist --no-progress --no-interaction
