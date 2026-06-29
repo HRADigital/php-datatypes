@@ -1,18 +1,24 @@
-<?php
+<?php declare(strict_types=1);
 
-declare(strict_types=1);
-
-namespace HraDigital\Tests\Datatypes\ValueObjects;
+namespace HraDigital\Tests\Datatypes\Unit\ValueObjects;
 
 use HraDigital\Datatypes\ValueObjects\Address;
-use PHPUnit\Framework\Attributes\CoversClass;
-use PHPUnit\Framework\Attributes\Test;
-use PHPUnit\Framework\TestCase;
+use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
 
-#[CoversClass(Address::class)]
-class AddressTest extends TestCase
+/**
+ * Address Value Object Unit testing.
+ *
+ * @package   HraDigital\Datatypes
+ * @copyright HraDigital\Datatypes
+ * @license   MIT
+ */
+class AddressTest extends AbstractBaseTestCase
 {
-    #[Test]
+    /**
+     * Tests the constructor assigns all fields.
+     *
+     * @return void
+     */
     public function testConstructorAssignsFields(): void
     {
         $address = new Address('Main St 1', '12345', 'Springfield', 'USA');
@@ -23,7 +29,26 @@ class AddressTest extends TestCase
         $this->assertSame('USA', $address->country);
     }
 
-    #[Test]
+    /**
+     * Tests the accessor methods return each individual field.
+     *
+     * @return void
+     */
+    public function testGettersReturnEachField(): void
+    {
+        $address = new Address('Main St 1', '12345', 'Springfield', 'USA');
+
+        $this->assertSame('Main St 1', $address->getStreet());
+        $this->assertSame('12345', $address->getPostalCode());
+        $this->assertSame('Springfield', $address->getCity());
+        $this->assertSame('USA', $address->getCountry());
+    }
+
+    /**
+     * Tests the named constructor coerces values and defaults missing keys.
+     *
+     * @return void
+     */
     public function testFromArrayCoercesAndDefaultsMissingKeys(): void
     {
         $address = Address::fromArray(['street' => 'Main', 'postal_code' => '1']);
@@ -34,14 +59,22 @@ class AddressTest extends TestCase
         $this->assertSame('', $address->country);
     }
 
-    #[Test]
+    /**
+     * Tests isEmpty() only returns true when every field is blank.
+     *
+     * @return void
+     */
     public function testIsEmptyReturnsTrueOnlyWhenAllFieldsBlank(): void
     {
         $this->assertTrue((new Address('', '', '', ''))->isEmpty());
         $this->assertFalse((new Address('s', '', '', ''))->isEmpty());
     }
 
-    #[Test]
+    /**
+     * Tests equals() compares all fields and is case sensitive.
+     *
+     * @return void
+     */
     public function testEqualsComparesAllFields(): void
     {
         $a = new Address('s', 'p', 'c', 'co');
@@ -52,18 +85,26 @@ class AddressTest extends TestCase
         $this->assertFalse($a->equals($c));
     }
 
-    #[Test]
+    /**
+     * Tests toArray() returns snake_case keys.
+     *
+     * @return void
+     */
     public function testToArrayReturnsSnakeCaseKeys(): void
     {
         $address = new Address('s', 'p', 'c', 'co');
 
         $this->assertSame(
             ['street' => 's', 'postal_code' => 'p', 'city' => 'c', 'country' => 'co'],
-            $address->toArray(),
+            $address->toArray()
         );
     }
 
-    #[Test]
+    /**
+     * Tests jsonSerialize() mirrors toArray().
+     *
+     * @return void
+     */
     public function testJsonSerializeReturnsSameAsToArray(): void
     {
         $address = new Address('s', 'p', 'c', 'co');
