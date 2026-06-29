@@ -2,8 +2,8 @@
 
 ## Master branch build status
 
-[![Build](https://img.shields.io/circleci/build/github/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
-[![Coverage](https://img.shields.io/codecov/c/github/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
+[![CI](https://github.com/HRADigital/php-datatypes/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/HRADigital/php-datatypes/actions/workflows/ci.yml)
+[![Coverage](https://img.shields.io/codecov/c/github/HRADigital/php-datatypes.svg)](https://app.codecov.io/gh/HRADigital/php-datatypes)
 [![Quality](https://app.codacy.com/project/badge/Grade/de03155208c64196899848458c2ced8a)](https://www.codacy.com/gh/HRADigital/php-datatypes/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=HRADigital/php-datatypes&amp;utm_campaign=Badge_Grade)
 [![Downloads](https://img.shields.io/github/downloads/HRADigital/php-datatypes/total.svg)](https://github.com/HRADigital/php-datatypes)
 [![Licence](https://img.shields.io/github/license/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
@@ -104,7 +104,8 @@ Due to the "_No 3rd party dependency_" rule, this package will use some simplifi
 
 ## Requirements & Installation
 
-- PHP >= 7.4||8.*
+- PHP >= 8.1
+- `ext-intl`
 
 ```bash
 composer require hradigital/php-datatypes
@@ -114,6 +115,29 @@ composer require hradigital/php-datatypes
 
 For more information about how to to use these Datatypes, please see the project's **usage notes** and some implementation examples
 in [here](src/).
+
+## Continuous Integration & Testing
+
+The project is validated on every push and pull request through [GitHub Actions](.github/workflows/ci.yml).
+The CI pipeline runs:
+
+- **Coding Standards** - `PSR2` checks via `PHP_CodeSniffer`.
+- **Tests** - the full `PHPUnit` suite against PHP `8.1`, `8.2`, `8.3` and `8.4`.
+- **Code Coverage** - a `clover` report generated with `pcov` and uploaded to [Codecov](https://app.codecov.io/gh/HRADigital/php-datatypes).
+
+Composer scripts are available to run the same checks locally:
+
+```bash
+composer run test-cs    # Coding standards (PSR2) over src/
+composer run test-code  # PHPUnit suite with coverage + JUnit reports (written to ci/)
+composer run test-all   # Runs both of the above
+```
+
+To run the test suite without a coverage driver installed:
+
+```bash
+./vendor/bin/phpunit --no-coverage
+```
 
 ## Contributing
 
