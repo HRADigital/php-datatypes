@@ -19,7 +19,7 @@ jobs:
     steps:
 
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v7
 
     - name: Configure committer
       run: |
@@ -58,7 +58,7 @@ jobs:
     steps:
 
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v7
 
     - run: echo Previous - ${{ needs.getVersion.outputs.currentVersion }}
     - run: echo Current - ${{ needs.getVersion.outputs.nextVersion }}
@@ -82,7 +82,7 @@ jobs:
     steps:
 
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v7
 
     - name: Configure committer
       run: |
