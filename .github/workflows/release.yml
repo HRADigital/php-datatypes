@@ -9,23 +9,21 @@ on:
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-jobs:
-  getVersion:
-    runs-on: ubuntu-latest
+permissions:
+  # Required to create tags and releases.
+  contents: write
 
-    outputs:
-      currentVersion: ${{ steps.currentVersion.outputs.currentVersion }}
-      nextVersion: ${{ steps.nextVersion.outputs.nextVersion }}
+jobs:
+  release:
+    runs-on: ubuntu-latest
 
     steps:
 
     - name: Checkout
       uses: actions/checkout@v7
-
-    - name: Configure committer
-      run: |
-        git config user.name "HRA Digital"
-        git config user.email "github@hradigital.com"
+      with:
+        # semver-action needs full history and all tags to compare against the latest one.
+        fetch-depth: 0
 
     - name: Get Next Version
       id: semver
@@ -41,65 +39,18 @@ jobs:
         # If HEAD is already at the latest tag, keep the current version instead of erroring.
         noNewCommitBehavior: current
 
-    - name: Current version
-      id: currentVersion
-      run: echo "::set-output name=currentVersion::$current"
-
-    - name: Next version
-      id: nextVersion
-      run: echo "::set-output name=nextVersion::$nextStrict"
-
-  generateChangeLog:
-    runs-on: ubuntu-latest
-    needs: getVersion
-
-    outputs:
-      currentVersion: ${{ needs.getVersion.outputs.currentVersion }}
-      nextVersion: ${{ needs.getVersion.outputs.nextVersion }}
-      changeLogText: ${{ steps.changelog.outputs.changelog }}
-
-    steps:
-
-    - name: Checkout
-      uses: actions/checkout@v7
-
-    - run: echo Previous - ${{ needs.getVersion.outputs.currentVersion }}
-    - run: echo Current - ${{ needs.getVersion.outputs.nextVersion }}
-
-    - name: Generate CHANGELOG
-      id: changelog
-      uses: heinrichreimer/github-changelog-generator-action@v2.4
-      with:
-        token: ${{ github.token }}
-        sinceTag: ${{ needs.getVersion.outputs.currentVersion }}
-        excludeTags:
-        compareLink: true
-        breakingLabel: Breaking changes
-        breakingLabels: break, breaking, breaking changes
-        headerLabel: Release
-
-  dorelease:
-    runs-on: ubuntu-latest
-    needs: generateChangeLog
-
-    steps:
-
-    - name: Checkout
-      uses: actions/checkout@v7
-
-    - name: Configure committer
-      run: |
-        git config user.name "HRA Digital"
-        git config user.email "github@hradigital.com"
-
     - name: Create release
-      id: create_release
-      uses: actions/create-release@v1
+      # Only release when the computed version is actually newer than the latest tag.
+      if: ${{ steps.semver.outputs.nextStrict != steps.semver.outputs.currentStrict }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name:  ${{ needs.generateChangeLog.outputs.nextVersion }}
-        release_name: v${{ needs.generateChangeLog.outputs.nextVersion }}
-        body: ${{ needs.generateChangeLog.outputs.changeLogText }}
-        draft: false
-        prerelease: false
+        NEXT_VERSION: ${{ steps.semver.outputs.nextStrict }}
+      run: |
+        echo "Previous: ${{ steps.semver.outputs.currentStrict }}"
+        echo "Next:     ${NEXT_VERSION}"
+        # Creates the tag at the current commit and a release with auto-generated notes
+        # (built by GitHub from the commits/PRs since the previous tag).
+        gh release create "${NEXT_VERSION}" \
+          --target "${GITHUB_SHA}" \
+          --title "${NEXT_VERSION}" \
+          --generate-notes
