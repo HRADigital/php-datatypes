@@ -32,8 +32,11 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         branch: ${{ github.ref_name }}
-        majorList: break
+        # Never allow an automatic major bump - releases stay within 2.x.
+        majorList: ""
         patchAll: true
+        # If no commit maps to a bump, fall back to a patch instead of erroring out.
+        noVersionBumpBehavior: patch
 
     - name: Current version
       id: currentVersion
