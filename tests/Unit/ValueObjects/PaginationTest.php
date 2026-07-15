@@ -28,7 +28,7 @@ class PaginationTest extends AbstractBaseTestCase
 
     public function testCreatesWithSuppliedValues(): void
     {
-        $pagination = new Pagination(3, 50, false);
+        $pagination = new Pagination(page: 3, pageSize: 50, ascOrder: false);
 
         $this->assertSame(3, $pagination->getPage());
         $this->assertSame(50, $pagination->getPageSize());
@@ -111,7 +111,7 @@ class PaginationTest extends AbstractBaseTestCase
 
     public function testNextPageReturnsNewInstanceOnFollowingPage(): void
     {
-        $pagination = new Pagination(2, 50, false);
+        $pagination = new Pagination(page: 2, pageSize: 50, ascOrder: false);
         $next = $pagination->nextPage();
 
         $this->assertNotSame($pagination, $next);
@@ -123,7 +123,7 @@ class PaginationTest extends AbstractBaseTestCase
 
     public function testWithPageSizeReturnsNewInstanceKeepingPageAndOrder(): void
     {
-        $pagination = new Pagination(2, 50, false);
+        $pagination = new Pagination(page: 2, pageSize: 50, ascOrder: false);
         $resized = $pagination->withPageSize(10);
 
         $this->assertNotSame($pagination, $resized);
@@ -135,16 +135,16 @@ class PaginationTest extends AbstractBaseTestCase
 
     public function testEqualsReturnsTrueForIdenticalValues(): void
     {
-        $a = new Pagination(2, 50, false);
-        $b = new Pagination(2, 50, false);
+        $a = new Pagination(page: 2, pageSize: 50, ascOrder: false);
+        $b = new Pagination(page: 2, pageSize: 50, ascOrder: false);
 
         $this->assertTrue($a->equals($b));
     }
 
     public function testEqualsReturnsFalseForDifferentOrder(): void
     {
-        $a = new Pagination(2, 50, true);
-        $b = new Pagination(2, 50, false);
+        $a = new Pagination(page: 2, pageSize: 50, ascOrder: true);
+        $b = new Pagination(page: 2, pageSize: 50, ascOrder: false);
 
         $this->assertFalse($a->equals($b));
     }
@@ -159,7 +159,7 @@ class PaginationTest extends AbstractBaseTestCase
 
     public function testToArrayExposesPrimitiveState(): void
     {
-        $pagination = new Pagination(2, 50, false);
+        $pagination = new Pagination(page: 2, pageSize: 50, ascOrder: false);
 
         $this->assertSame(
             [
@@ -168,16 +168,6 @@ class PaginationTest extends AbstractBaseTestCase
                 'order'    => 'DESC',
             ],
             $pagination->toArray()
-        );
-    }
-
-    public function testJsonSerializesToItsArrayShape(): void
-    {
-        $pagination = new Pagination(2, 50, false);
-
-        $this->assertSame(
-            \json_encode($pagination->toArray()),
-            \json_encode($pagination)
         );
     }
 }

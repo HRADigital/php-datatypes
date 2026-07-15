@@ -6,6 +6,9 @@ namespace HraDigital\Datatypes\ValueObjects;
 
 use HraDigital\Datatypes\Exceptions\Datatypes\PositiveIntegerException;
 
+use function intdiv;
+use function min;
+
 /**
  * Pagination Value Object for listing queries.
  *
@@ -24,7 +27,7 @@ use HraDigital\Datatypes\Exceptions\Datatypes\PositiveIntegerException;
  * @copyright HraDigital\Datatypes
  * @license   MIT
  */
-class Pagination implements \JsonSerializable
+class Pagination
 {
     public const MAX_RESULTS = 1000;
     public const MAX_OFFSET = 100000;
@@ -54,12 +57,12 @@ class Pagination implements \JsonSerializable
         }
 
         // Caps the page size to the maximum number of records a single page can carry.
-        $pageSize = \min($pageSize, self::MAX_RESULTS);
+        $pageSize = min($pageSize, self::MAX_RESULTS);
 
         // Based on the resolved page size, pulls the page back so the read window
         // never starts beyond MAX_OFFSET.
         if (($page * $pageSize) > self::MAX_OFFSET) {
-            $page = \intdiv(self::MAX_OFFSET, $pageSize);
+            $page = intdiv(self::MAX_OFFSET, $pageSize);
         }
 
         $this->page = $page;
@@ -93,18 +96,18 @@ class Pagination implements \JsonSerializable
     public function nextPage(): self
     {
         return new self(
-            $this->page + 1,
-            $this->pageSize,
-            $this->ascOrder,
+            page: $this->page + 1,
+            pageSize: $this->pageSize,
+            ascOrder: $this->ascOrder,
         );
     }
 
     public function withPageSize(int $pageSize): self
     {
         return new self(
-            $this->page,
-            $pageSize,
-            $this->ascOrder,
+            page: $this->page,
+            pageSize: $pageSize,
+            ascOrder: $this->ascOrder,
         );
     }
 
@@ -125,13 +128,5 @@ class Pagination implements \JsonSerializable
             'pageSize' => $this->pageSize,
             'order'    => $this->getOrder(),
         ];
-    }
-
-    /**
-     * @return array{page: int, pageSize: int, order: string}
-     */
-    public function jsonSerialize(): array
-    {
-        return $this->toArray();
     }
 }
