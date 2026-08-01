@@ -17,6 +17,24 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  # The release version is derived from commit messages, so a malformed message
+  # silently costs a release. This gate makes that a CI failure instead.
+  commits:
+    name: Semantic Commits
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          # commitlint needs the history to resolve the range it validates.
+          fetch-depth: 0
+
+      # Validates only the commits introduced by this push/PR - the existing
+      # non-conventional history is never re-checked. Rules: commitlint.config.mjs
+      - name: Validate commit messages
+        uses: wagoid/commitlint-github-action@v6
+
   coding-standards:
     name: Coding Standards (PHP ${{ matrix.php }})
     runs-on: ubuntu-latest
