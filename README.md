@@ -121,6 +121,9 @@ in [here](src/).
 The project is validated on every push and pull request through [GitHub Actions](.github/workflows/ci.yml).
 The CI pipeline runs:
 
+- **Semantic Commits** - validates that new commit messages follow [Conventional Commits](https://www.conventionalcommits.org),
+  via `commitlint` and the rules in [commitlint.config.mjs](commitlint.config.mjs). Only the commits introduced by the
+  push/pull request are checked - existing history is never re-validated.
 - **Coding Standards** - `PSR2` checks via `PHP_CodeSniffer`.
 - **Tests** - the full `PHPUnit` suite against PHP `8.1`, `8.2`, `8.3`, `8.4` and `8.5`, each running inside its own official `php:<version>-cli` Docker container.
 - **Code Coverage** - a `clover` report generated with `pcov` and uploaded to [Codecov](https://app.codecov.io/gh/HRADigital/php-datatypes).
@@ -139,9 +142,61 @@ To run the test suite without a coverage driver installed:
 ./vendor/bin/phpunit --no-coverage
 ```
 
+### Makefile targets
+
+A [Makefile](Makefile) wraps the same gates with a consistent interface. Run `make help` for the full list:
+
+```bash
+make lint       # PHPCS code-style check (report only)
+make lint-fix   # Apply PHPCBF code-style fixes
+make validate   # Run every report gate concurrently
+make test       # Full PHPUnit suite
+make test-unit  # Unit testsuite only
+```
+
+Scope any target with `FILES` and narrow a test run with `FILTER`. Append `QUIET=1` for silent-on-success -
+gates print only on failure, test targets print only their final summary:
+
+```bash
+make lint FILES="src/Web/Url.php" QUIET=1
+make test-unit FILTER=UrlTest QUIET=1
+```
+
+The targets run natively against `vendor/`. Override the `EXEC` prefix to run them elsewhere, e.g.
+`make lint EXEC="docker exec <container>"`.
+
+## Versioning & Releases
+
+Releases are cut automatically by [GitHub Actions](.github/workflows/release.yml). The workflow is gated on CI:
+it only runs once the CI workflow completes for a `master` push, and it tags the exact commit CI validated - so a
+red commit is never released.
+
+The next version is derived entirely from the commit messages since the last tag:
+
+| Commit | Bump |
+| --- | --- |
+| A `BREAKING CHANGE:` footer | **Major** |
+| `feat:` | **Minor** |
+| Any other commit (`fix`, `perf`, `refactor`, `docs`, `test`, `chore`, `build`, `ci`, `style`, `revert`) | **Patch** |
+
+Every code change therefore bumps at least the revision number.
+
+> **Breaking changes must use the footer.** The release action detects a major bump *only* from a `BREAKING CHANGE:`
+> note - the shorthand `!` suffix (`feat!: ...`) is **not** recognised and would silently release a minor instead.
+> Write it on its own line, after a blank line:
+>
+> ```
+> feat: change Url::getHash() to return a Str
+>
+> BREAKING CHANGE: getHash() now returns Str instead of string. Cast with (string) at call sites.
+> ```
+
 ## Contributing
 
 Contributing to the project is easy and contributions are welcomed and appreciated.
+
+Commit messages must follow [Conventional Commits](https://www.conventionalcommits.org) - CI rejects anything else,
+and the type you pick decides the next release version (see [Versioning & Releases](#versioning--releases) above).
 
 It's obviously harder to maintain the project alone, but efforts will be made to keep and improve it, as I plan to use it as
 a dependency in other projects.
