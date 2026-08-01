@@ -177,9 +177,12 @@ The next version is derived entirely from the commit messages since the last tag
 | --- | --- |
 | A `BREAKING CHANGE:` footer | **Major** |
 | `feat:` | **Minor** |
-| Any other commit (`fix`, `perf`, `refactor`, `docs`, `test`, `chore`, `build`, `ci`, `style`, `revert`) | **Patch** |
+| `fix:`, `perf:`, `refactor:`, `revert:`, `build:` | **Patch** |
+| `ci:`, `chore:`, `docs:`, `style:`, `test:` | *No release* |
 
-Every code change therefore bumps at least the revision number.
+Every change to shipped code therefore bumps at least the revision number, while a docs-only or
+tooling-only push does not burn a version. A commit whose message is not a valid Conventional Commit
+is skipped entirely by the version calculation - which is what the commitlint CI gate prevents.
 
 > **Breaking changes must use the footer.** The release action detects a major bump *only* from a `BREAKING CHANGE:`
 > note - the shorthand `!` suffix (`feat!: ...`) is **not** recognised and would silently release a minor instead.
