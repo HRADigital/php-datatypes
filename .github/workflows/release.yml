@@ -1,27 +1,36 @@
 name: Release
 
 on:
-  # Only run on pushes to master. The workflow creates the tag/release itself,
-  # so triggering on tag pushes would re-run it against the tag it just made.
-  push:
+  # Gated on CI: this fires only once the CI workflow finishes for a master push,
+  # and the job below bails unless it finished green. Triggering on `push` directly
+  # would race CI and could tag a red commit.
+  workflow_run:
+    workflows: [ CI ]
+    types: [ completed ]
     branches: [ master ]
-
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
 
 permissions:
   # Required to create tags and releases.
   contents: write
 
+concurrency:
+  # Serialise releases - two overlapping runs would race on the same next version.
+  group: release
+  cancel-in-progress: false
+
 jobs:
   release:
     runs-on: ubuntu-latest
+    # The gate. workflow_run fires on failure too, so check the conclusion.
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
 
     - name: Checkout
       uses: actions/checkout@v7
       with:
+        # Tag the exact commit CI validated, not whatever master points at now.
+        ref: ${{ github.event.workflow_run.head_sha }}
         # semver-action needs full history and all tags to compare against the latest one.
         fetch-depth: 0
 
@@ -31,26 +40,54 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         branch: master
-        # Never allow an automatic major bump - releases stay within 2.x.
+        # Version comes entirely from the commit messages:
+        #   major -> a "BREAKING CHANGE:" footer (see note below)
+        #   minor -> feat
+        #   patch -> every other commit, conventional or not
+        #
+        # majorList stays empty on purpose: the action detects a major from the
+        # "BREAKING CHANGE:" footer independently of this list, so listing a bare
+        # type here would let a routine commit bump the major by accident.
+        #
+        # NOTE: this action does NOT recognise the "!" suffix (`feat!: ...`) - it
+        # only scans parsed commit notes for a "BREAKING CHANGE" title. A breaking
+        # change MUST carry the footer, on its own line after a blank line:
+        #   BREAKING CHANGE: <what broke + what callers must do>
         majorList: ""
+        minorList: "feat"
+        # patchAll ignores patchList and counts every non-major, non-minor commit
+        # as a patch - so any code change bumps at least the revision number.
         patchAll: true
-        # If no commit maps to a bump, fall back to a patch instead of erroring out.
+        # Belt-and-braces for a push whose commits somehow map to nothing at all.
         noVersionBumpBehavior: patch
         # If HEAD is already at the latest tag, keep the current version instead of erroring.
         noNewCommitBehavior: current
 
     - name: Create release
-      # Only release when the computed version is actually newer than the latest tag.
-      if: ${{ steps.semver.outputs.nextStrict != steps.semver.outputs.currentStrict }}
+      # Release only when the commits actually earned a bump. Note: the action exposes
+      # `current` (not `currentStrict`) - `bump` is the reliable signal here.
+      #
+      # Test `bump` against the allow-list rather than `!= 'none'`: on the
+      # noNewCommitBehavior=current path the action returns early, before it ever sets
+      # the `bump` output, so `bump` comes back EMPTY while `nextStrict` still holds the
+      # existing tag. A `!= 'none'` check passes there and `gh release create` then dies
+      # on a tag that already exists.
+      if: ${{ contains(fromJSON('["major","minor","patch"]'), steps.semver.outputs.bump) }}
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         NEXT_VERSION: ${{ steps.semver.outputs.nextStrict }}
+        TARGET_SHA: ${{ github.event.workflow_run.head_sha }}
       run: |
-        echo "Previous: ${{ steps.semver.outputs.currentStrict }}"
+        echo "Previous: ${{ steps.semver.outputs.current }}"
+        echo "Bump:     ${{ steps.semver.outputs.bump }}"
         echo "Next:     ${NEXT_VERSION}"
-        # Creates the tag at the current commit and a release with auto-generated notes
-        # (built by GitHub from the commits/PRs since the previous tag).
+        # Creates the tag at the validated commit and a release with auto-generated
+        # notes (built by GitHub from the commits/PRs since the previous tag).
         gh release create "${NEXT_VERSION}" \
-          --target "${GITHUB_SHA}" \
+          --target "${TARGET_SHA}" \
           --title "${NEXT_VERSION}" \
           --generate-notes
+
+    - name: Report skipped release
+      if: ${{ !contains(fromJSON('["major","minor","patch"]'), steps.semver.outputs.bump) }}
+      run: echo "No releasable commit since ${{ steps.semver.outputs.current }} - skipping."
