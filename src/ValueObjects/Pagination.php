@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\ValueObjects;
@@ -25,7 +33,7 @@ use function min;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class Pagination
 {
@@ -38,9 +46,6 @@ class Pagination
     public readonly bool $ascOrder;
 
     /**
-     * @param int  $page     - Page number to retrieve. 1-based.
-     * @param int  $pageSize - Number of records per page. Clamped to MAX_RESULTS.
-     * @param bool $ascOrder - TRUE for ascending ordering, FALSE for descending.
      *
      * @throws PositiveIntegerException - If $page or $pageSize is not a positive integer.
      */

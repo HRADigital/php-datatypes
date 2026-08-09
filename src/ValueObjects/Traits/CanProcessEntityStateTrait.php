@@ -1,29 +1,40 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\ValueObjects\Traits;
 
 use HraDigital\Datatypes\ValueObjects\AbstractValueObject;
+use function array_keys;
+use function array_search;
+use function count;
+use function is_object;
+use function method_exists;
 
 /**
  * Will handle state changes on an Entity.
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 trait CanProcessEntityStateTrait
 {
-    /** @var array $initialState - Initial Entity's state. */
+    /** @var array<string, mixed> $initialState - Initial Entity's state. */
     private array $initialState = [];
 
     /**
      * Event handler that will create a snapshot of object's current state.
      *
      * Needs to be registered in the Entity's Constructor, before calling parent Constructor.
-     *
-     * @return void
      */
     protected function onLoadSnapshotState(): void
     {
@@ -35,12 +46,10 @@ trait CanProcessEntityStateTrait
      *
      * Returns TRUE if at least one attribute has changed, since the class
      * was initially loaded.
-     *
-     * @return bool
      */
     final public function isDirty(): bool
     {
-        return (\count($this->getDirty()) > 0);
+        return (count($this->getDirty()) > 0);
     }
 
     /**
@@ -48,8 +57,7 @@ trait CanProcessEntityStateTrait
      *
      * If the Entity is not marked as dirty, this will return an empty array.
      *
-     * @param  bool $withTimestamps - In case dirty attributes include timestamps. Defaults to FALSE.
-     * @return array
+     * @return array<string, mixed>
      */
     final public function getDirty(bool $withTimestamps = false): array
     {
@@ -58,29 +66,35 @@ trait CanProcessEntityStateTrait
         foreach ($this->initialState as $field => $value) {
 
             $isNewOrRequired = (
-                (\method_exists($this, 'isNew') && $this->isNew()) ||
-                \array_search($field, $this->required)
+                (method_exists($this, 'isNew') && $this->isNew()) ||
+                array_search($field, $this->required)
             );
 
             if ($this->{$field} instanceof AbstractValueObject) {
 
-                if ($isNewOrRequired || (\method_exists($this->{$field}, 'isDirty') && $this->{$field}->isDirty())) {
-                    $dirty[$field] = $this->{$field}->getDirty($withTimestamps);
+                // A nested Value Object only reports state changes if it also tracks them.
+                $nested = $this->{$field};
+                if (! method_exists($nested, 'getDirty')) {
+                    continue;
+                }
+
+                if ($isNewOrRequired || (method_exists($nested, 'isDirty') && $nested->isDirty())) {
+                    $dirty[$field] = $nested->getDirty($withTimestamps);
                 }
 
                 continue;
             }
 
-            if (\is_object($this->{$field}) && \method_exists($this->{$field}, '__toString')) {
+            if (is_object($this->{$field}) && method_exists($this->{$field}, '__toString')) {
                 $hasChanged = ((string) $value) !== ((string) $this->{$field});
-            } elseif (\is_object($this->{$field})) {
+            } elseif (is_object($this->{$field})) {
                 $hasChanged = $value !== ((array) $this->{$field});
             } else {
                 $hasChanged = $value !== $this->{$field};
             }
 
             if ($hasChanged || $isNewOrRequired) {
-                if (\is_object($this->{$field}) && \method_exists($this->{$field}, '__toString')) {
+                if (is_object($this->{$field}) && method_exists($this->{$field}, '__toString')) {
                     $dirty[$field] = (string) $this->{$field};
                 } else {
                     $dirty[$field] = $this->{$field};
@@ -103,7 +117,7 @@ trait CanProcessEntityStateTrait
      * When the Entity's attributes change, it becomes Dirty. This method will return the
      * list of attributes, with their original values prior to that change.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     final public function getOriginal(): array
     {
@@ -112,15 +126,13 @@ trait CanProcessEntityStateTrait
 
     /**
      * Resets the instance's state, cleaning up "Dirty" attributes, and reset tracking.
-     *
-     * @return void
      */
     final public function resetState(): void
     {
-        $fields = \array_keys($this->initialState);
+        $fields = array_keys($this->initialState);
 
         foreach ($fields as $field) {
-            if ($this->{$field} instanceof AbstractValueObject && \method_exists($this->{$field}, 'resetState')) {
+            if ($this->{$field} instanceof AbstractValueObject && method_exists($this->{$field}, 'resetState')) {
                 $this->{$field}->resetState();
             }
         }

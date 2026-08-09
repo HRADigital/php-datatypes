@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\ValueObjects;
@@ -14,6 +22,9 @@ use HraDigital\Datatypes\ValueObjects\Traits\HasGuardedFieldsTrait;
 use HraDigital\Datatypes\ValueObjects\Traits\HasMappedFieldsTrait;
 use HraDigital\Datatypes\ValueObjects\Traits\HasRequiredFieldsTrait;
 use HraDigital\Datatypes\ValueObjects\Traits\HasRuleProcessingTrait;
+use JsonSerializable;
+use stdClass;
+use function get_object_vars;
 
 /**
  * Abstract Base Value Object class for all Domain Entities/Value Objects.
@@ -30,9 +41,9 @@ use HraDigital\Datatypes\ValueObjects\Traits\HasRuleProcessingTrait;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
-abstract class AbstractValueObject implements \JsonSerializable
+abstract class AbstractValueObject implements JsonSerializable
 {
     use HasMappedFieldsTrait,
         HasRuleProcessingTrait,
@@ -42,7 +53,7 @@ abstract class AbstractValueObject implements \JsonSerializable
         HasConversionToPrimitiveValuesTrait,
         CanProcessOnLoadEventsTrait;
 
-    /** @var array $attributeList - Value Object's data attribute's list */
+    /** @var array<string, mixed> $attributeList - Value Object's data attribute's list */
     private array $attributeList = [];
 
     /**
@@ -51,12 +62,10 @@ abstract class AbstractValueObject implements \JsonSerializable
      * Loaded parameter should be an associative array, containing the list of
      * fields to be loaded into the Value Object class.
      *
-     * @param  array $fields - List of fields to be loaded into the class.
+     * @param  array<string, mixed> $fields - List of fields to be loaded into the class.
      *
      * @throws RequiredEntityValueMissingException - If any of the required fields are missing.
      * @throws UnexpectedEntityValueException      - If some of the supplied fields are invalid.
-     *
-     * @return void
      */
     public function __construct(array $fields)
     {
@@ -67,11 +76,10 @@ abstract class AbstractValueObject implements \JsonSerializable
     /**
      * Loads instance's state, either on instanciation, or de-serialization.
      *
-     * @param  array $fields - List of fields to be loaded into the class.
+     * @param  array<string, mixed> $fields - List of fields to be loaded into the class.
      *
      * @throws RequiredEntityValueMissingException - If any of the required fields are missing.
      * @throws UnexpectedEntityValueException      - If some of the supplied fields are invalid.
-     * @return void
      */
     private function loadInstance(array $fields): void
     {
@@ -91,21 +99,19 @@ abstract class AbstractValueObject implements \JsonSerializable
 
     /**
      * Loads a list of usable attributes, that can hold state in the Value Object.
-     *
-     * @return void
      */
     private function registerUsableFields(): void
     {
         $this->attributeList = $this->filterSystemControlFields(
-            \get_object_vars($this)
+            get_object_vars($this)
         );
     }
 
     /**
      * Filters system fields from supplied array, and returns it.
      *
-     * @param  array $attrs - Array of fields to be filtered.
-     * @return array
+     * @param  array<string, mixed> $attrs - Array of fields to be filtered.
+     * @return array<string, mixed>
      */
     private function filterSystemControlFields(array $attrs): array
     {
@@ -128,13 +134,13 @@ abstract class AbstractValueObject implements \JsonSerializable
      * Nested Value Objects (records) will be included as a nested associative array.
      * Datatype Value Objects will be converted to their primitive representation.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function toArray(): array
     {
         // Collects a list of usable Attributes from the Value Object.
         $fields = $this->filterSystemControlFields(
-            \get_object_vars($this)
+            get_object_vars($this)
         );
 
         // Converts all objects into primitives.
@@ -148,13 +154,13 @@ abstract class AbstractValueObject implements \JsonSerializable
      * Nested Value Objects will not be returned.
      * Datatype Value Objects will be converted to their primitive representation.
      *
-     * @return array
+     * @return array<string, mixed>
      */
     public function getAttributes(): array
     {
         // Collects a list of usable Attributes from the Value Object.
         $fields = $this->filterSystemControlFields(
-            \get_object_vars($this)
+            get_object_vars($this)
         );
 
         foreach ($fields as $name => $value) {
@@ -167,11 +173,13 @@ abstract class AbstractValueObject implements \JsonSerializable
         return $this->convertIntoPrimitiveValues($fields);
     }
 
+    /** @return array<string, mixed> */
     public function __serialize(): array
     {
         return $this->toArray();
     }
 
+    /** @param array<string, mixed> $data */
     public function __unserialize(array $data): void
     {
         $this->loadInstance($data);
@@ -183,11 +191,11 @@ abstract class AbstractValueObject implements \JsonSerializable
      * @link http://www.php.net/manual/en/jsonserializable.jsonserialize.php
      * @see  \JsonSerializable::jsonSerialize()
      */
-    public function jsonSerialize(): \stdClass
+    public function jsonSerialize(): stdClass
     {
         // Collects a list of usable Attributes from the Value Object.
         $fields = $this->filterSystemControlFields(
-            \get_object_vars($this)
+            get_object_vars($this)
         );
 
         return (object) $this->removeGuardedFields(
@@ -203,7 +211,7 @@ abstract class AbstractValueObject implements \JsonSerializable
      * Note: Might not work with xDebug.
      *
      * @link https://www.php.net/manual/en/language.oop5.magic.php#object.debuginfo
-     * @return array
+     * @return array<string, mixed>
      */
     public function __debugInfo(): array
     {

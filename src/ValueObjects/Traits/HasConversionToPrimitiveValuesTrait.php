@@ -1,27 +1,36 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\ValueObjects\Traits;
 
 use HraDigital\Datatypes\Collections\Linear\EntityCollection;
 use HraDigital\Datatypes\ValueObjects\AbstractValueObject;
+use function is_object;
+use function method_exists;
 
 /**
  * Adds conversion of list of Fields into their primitive representation.
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 trait HasConversionToPrimitiveValuesTrait
 {
     /**
      * Converts all values into primitives, and retiurns the processed array.
      *
-     * @param  array $fields - List of Fields to be converted.
-     * @param  bool  $objectAsJson - If set to true, will use jsonSerialize(). Otherwise will use toArray()
-     * @return array
+     * @param  array<string, mixed> $fields - List of Fields to be converted.
+     * @return array<string, mixed>
      */
     private function convertIntoPrimitiveValues(array $fields, bool $objectAsJson = false): array
     {
@@ -32,9 +41,9 @@ trait HasConversionToPrimitiveValuesTrait
             // If is not an Object not an Array, returns the actual value of the Field.
             if ($value instanceof AbstractValueObject || $value instanceof EntityCollection) {
                 $converted[$field] = $objectAsJson ? $value->jsonSerialize() : $value->toArray();
-            } elseif (\is_object($value) && \method_exists($value, '__toString')) {
+            } elseif (is_object($value) && method_exists($value, '__toString')) {
                 $converted[$field] = (string) $value;
-            } elseif (\is_object($value)) {
+            } elseif (is_object($value)) {
                 $converted[$field] = (array) $value;
             } else {
                 $converted[$field] = $value;
