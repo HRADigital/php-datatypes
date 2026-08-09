@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Collections\Linear;
@@ -7,6 +15,10 @@ namespace HraDigital\Datatypes\Collections\Linear;
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
 use HraDigital\Datatypes\Exceptions\Datatypes\ParameterOutOfRangeException;
 use HraDigital\Datatypes\Scalar\Str;
+use function array_map;
+use function array_shift;
+use function strlen;
+use function trim;
 
 /**
  * Queue linear Collection.
@@ -31,7 +43,7 @@ use HraDigital\Datatypes\Scalar\Str;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  * @link      http://php.net/manual/en/class.ds-queue.php
  * @link      https://en.wikipedia.org/wiki/Queue_(abstract_data_type)
  */
@@ -40,8 +52,7 @@ class Queue extends AbstractListArray
     /**
      * Initializes an instance of a Queue.
      *
-     * @param array $initial - Initial element list for the Queue. Defaults to empty array.
-     * @return void
+     * @param array<int, string> $initial - Initial element list for the Queue. Defaults to empty array.
      */
     public function __construct(array $initial = [])
     {
@@ -52,20 +63,20 @@ class Queue extends AbstractListArray
 
     /**
      * Returns a copy of the current Queue object.
-     *
-     * @return Queue
      */
     public function clone(): Queue
     {
-        return new Queue($this->toArray());
+        // The List holds Str instances, while the constructor seeds itself from native
+        // strings - under strict_types a Str would never be accepted as one.
+        return new Queue(
+            array_map('strval', $this->toArray())
+        );
     }
 
     /**
      * Returns the next element in the Queue, without removing it.
      *
      * If the Queue has no elements, it will return NULL.
-     *
-     * @return Str|NULL
      */
     public function peek(): ?Str
     {
@@ -81,26 +92,21 @@ class Queue extends AbstractListArray
      * Returns the next element in the Queue, while removing it.
      *
      * If the Queue has no elements, it will return NULL.
-     *
-     * @return Str|NULL
      */
     public function pop(): ?Str
     {
-        return \array_shift($this->list);
+        return array_shift($this->list);
     }
 
     /**
      * Adds a new element to the Queue.
      *
-     * @param  string $element - Element to be added to the Queue.
-     *
      * @throws NonEmptyStringException - If supplied element is not a non empty string.
      * @throws ParameterOutOfRangeException - If adding element will exceed list's capacity.
-     * @return void
      */
     public function push(string $element): void
     {
-        if (\strlen(\trim($element)) === 0) {
+        if (strlen(trim($element)) === 0) {
             throw NonEmptyStringException::withName('$element');
         }
 

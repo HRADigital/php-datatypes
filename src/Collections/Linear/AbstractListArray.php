@@ -1,11 +1,23 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Collections\Linear;
 
 use HraDigital\Datatypes\Exceptions\Datatypes\ParameterOutOfRangeException;
 use HraDigital\Datatypes\Exceptions\Datatypes\PositiveIntegerException;
+use HraDigital\Datatypes\Scalar\Str;
+use Countable;
+use JsonSerializable;
+use function count;
 
 /**
  * List Abstract Linear Collection.
@@ -33,13 +45,13 @@ use HraDigital\Datatypes\Exceptions\Datatypes\PositiveIntegerException;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  * @link      http://php.net/manual/en/class.ds-collection.php
  * @link      https://en.wikipedia.org/wiki/Collection_(abstract_data_type)#Lists
  */
-abstract class AbstractListArray implements \Countable, \JsonSerializable
+abstract class AbstractListArray implements Countable, JsonSerializable
 {
-    /** @var array $list - Holds the List's Elements. */
+    /** @var array<int, Str> $list - Holds the List's Elements. */
     protected array $list = [];
 
     /** @var int|NULL $capacity - Holds the maximum capacity for the List. NULL means "no limit". */
@@ -47,18 +59,16 @@ abstract class AbstractListArray implements \Countable, \JsonSerializable
 
     /**
      * Returns the value count from the List.
-     *
-     * @return int
      */
     public function count(): int
     {
-        return \count($this->list);
+        return count($this->list);
     }
 
     /**
      * Returns the array List of values.
      *
-     * @return array|Str[]
+     * @return array<int, Str>
      */
     public function toArray(): array
     {
@@ -67,8 +77,6 @@ abstract class AbstractListArray implements \Countable, \JsonSerializable
 
     /**
      * Clears the List of values.
-     *
-     * @return void
      */
     public function clear(): void
     {
@@ -77,8 +85,6 @@ abstract class AbstractListArray implements \Countable, \JsonSerializable
 
     /**
      * Returns TRUE if the List is empty.
-     *
-     * @return bool
      */
     public function isEmpty(): bool
     {
@@ -89,8 +95,6 @@ abstract class AbstractListArray implements \Countable, \JsonSerializable
      * Returns the total capacity allowed by the List.
      *
      * If the capacity is set to -1, it means the List has no capacity limit.
-     *
-     * @return int|NULL
      */
     public function getCapacity(): ?int
     {
@@ -99,8 +103,6 @@ abstract class AbstractListArray implements \Countable, \JsonSerializable
 
     /**
      * If List has a Maximum Capacity set.
-     *
-     * @return boolean
      */
     public function hasMaxCapacity(): bool
     {
@@ -110,11 +112,8 @@ abstract class AbstractListArray implements \Countable, \JsonSerializable
     /**
      * Allocates a capacity limit to the List.
      *
-     * @param  int|NULL $capacity - Capacity limit to set in the List. If NULL, no capacity will be set.
-     *
      * @throws PositiveIntegerException     - If provided capacity is not a positive integer.
      * @throws ParameterOutOfRangeException - The the supplied capacity is less than the current List's value count.
-     * @return void
      */
     public function allocateCapacity(?int $capacity): void
     {
@@ -130,7 +129,10 @@ abstract class AbstractListArray implements \Countable, \JsonSerializable
         $this->capacity = $capacity;
     }
 
-    /** @inheritDoc */
+    /**
+     * @inheritDoc
+     * @return array<int, Str>
+     */
     public function jsonSerialize(): array
     {
         return $this->toArray();

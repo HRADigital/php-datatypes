@@ -1,11 +1,28 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Datetime;
 
 use DateTimeImmutable;
 use HraDigital\Datatypes\Scalar\Str;
+use DateInterval;
+use IntlDateFormatter;
+use InvalidArgumentException;
+use JsonSerializable;
+use function abs;
+use function array_keys;
+use function implode;
+use function sprintf;
+use function strtolower;
 
 /**
  * Datetime utility class.
@@ -23,21 +40,21 @@ use HraDigital\Datatypes\Scalar\Str;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
+ *
+ * @phpstan-consistent-constructor
  * @link      http://php.net/manual/en/timezones.php
  * @link      https://timezonedb.com/download
  */
-class Datetime extends DateTimeImmutable implements \JsonSerializable
+class Datetime extends DateTimeImmutable implements JsonSerializable
 {
     use HasStaticFactoryMethodsTrait;
 
     /** Format used for internal object instantiation */
-    const START_FORMAT = \DateTimeImmutable::W3C;
+    const START_FORMAT = DateTimeImmutable::W3C;
 
     /**
      * Magic method for instance printing.
-     *
-     * @return string
      */
     public function __toString(): string
     {
@@ -59,8 +76,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
 
     /**
      * Returns Str instance with value in format "Y-m-d\TH:i:sP".
-     *
-     * @return Str
      */
     public function toATOM(): Str
     {
@@ -69,8 +84,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
 
     /**
      * Returns Str instance with value in format "l, d-M-Y H:i:s T".
-     *
-     * @return Str
      */
     public function toCookie(): Str
     {
@@ -79,8 +92,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
 
     /**
      * Returns Str instance with value in format "Y-m-d\TH:i:sO".
-     *
-     * @return Str
      */
     public function toISO8601(): Str
     {
@@ -89,8 +100,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
 
     /**
      * Returns Str instance with value in format "D, d M y H:i:s O".
-     *
-     * @return Str
      */
     public function toRFC822(): Str
     {
@@ -99,8 +108,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
 
     /**
      * Returns Str instance with value in format "l, d-M-y H:i:s T".
-     *
-     * @return Str
      */
     public function toRFC850(): Str
     {
@@ -109,8 +116,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
 
     /**
      * Returns Str instance with value in format "D, d M y H:i:s O".
-     *
-     * @return Str
      */
     public function toRFC1036(): Str
     {
@@ -119,8 +124,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
 
     /**
      * Returns Str instance with value in format "D, d M Y H:i:s O".
-     *
-     * @return Str
      */
     public function toRFC1123(): Str
     {
@@ -129,8 +132,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
 
     /**
      * Returns Str instance with value in format "D, d M Y H:i:s \G\M\T".
-     *
-     * @return Str
      */
     public function toRFC7231(): Str
     {
@@ -139,8 +140,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
 
     /**
      * Returns Str instance with value in format "D, d M Y H:i:s O".
-     *
-     * @return Str
      */
     public function toRFC2822(): Str
     {
@@ -149,8 +148,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
 
     /**
      * Returns Str instance with value in format "Y-m-d\TH:i:sP".
-     *
-     * @return Str
      */
     public function toRFC3339(): Str
     {
@@ -159,8 +156,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
 
     /**
      * Returns Str instance with value in format "Y-m-d\TH:i:s.vP".
-     *
-     * @return Str
      */
     public function toRFC3339Extended(): Str
     {
@@ -169,8 +164,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
 
     /**
      * Returns Str instance with value in format "D, d M Y H:i:s O".
-     *
-     * @return Str
      */
     public function toRSS(): Str
     {
@@ -179,8 +172,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
 
     /**
      * Returns Str instance with value in format "Y-m-d\TH:i:sP".
-     *
-     * @return Str
      */
     public function toW3C(): Str
     {
@@ -189,8 +180,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
 
     /**
      * Returns Str instance with value in format "Y-m-d H:i:s".
-     *
-     * @return Str
      */
     public function toDatetimeString(): Str
     {
@@ -199,8 +188,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
 
     /**
      * Returns Str instance with value in format "Y-m-d".
-     *
-     * @return Str
      */
     public function toDateString(): Str
     {
@@ -209,8 +196,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
 
     /**
      * Returns Str instance with value in format "H:i:s".
-     *
-     * @return Str
      */
     public function toTimeString(): Str
     {
@@ -219,9 +204,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
 
     /**
      * Returns Str instance with value in specified format.
-     *
-     * @param  Str $format - Str instance containing desired Datetime format.
-     * @return Str
      */
     public function toFormat(Str $format): Str
     {
@@ -238,32 +220,27 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
      *
      * Hand-rolled ICU patterns force one shape across all locales and produce unidiomatic output,
      * so this method intentionally does not accept a pattern.
-     *
-     * @param  Str $dateStyle - One of "full", "long", "medium", "short", "none".
-     * @param  Str $timeStyle - One of "full", "long", "medium", "short", "none".
-     * @param  Str $locale    - BCP 47 locale tag (eg. "pt_PT", "en_GB").
-     * @return Str
      */
     public function toLocalizedDateTime(Str $dateStyle, Str $timeStyle, Str $locale): Str
     {
         $styles = [
-            'none'   => \IntlDateFormatter::NONE,
-            'short'  => \IntlDateFormatter::SHORT,
-            'medium' => \IntlDateFormatter::MEDIUM,
-            'long'   => \IntlDateFormatter::LONG,
-            'full'   => \IntlDateFormatter::FULL,
+            'none'   => IntlDateFormatter::NONE,
+            'short'  => IntlDateFormatter::SHORT,
+            'medium' => IntlDateFormatter::MEDIUM,
+            'long'   => IntlDateFormatter::LONG,
+            'full'   => IntlDateFormatter::FULL,
         ];
 
-        $date = \strtolower((string) $dateStyle);
-        $time = \strtolower((string) $timeStyle);
+        $date = strtolower((string) $dateStyle);
+        $time = strtolower((string) $timeStyle);
 
         if (!isset($styles[$date]) || !isset($styles[$time])) {
-            throw new \InvalidArgumentException(
-                \sprintf('Invalid style. Expected one of: %s.', \implode(', ', \array_keys($styles)))
+            throw new InvalidArgumentException(
+                sprintf('Invalid style. Expected one of: %s.', implode(', ', array_keys($styles)))
             );
         }
 
-        $formatter = new \IntlDateFormatter(
+        $formatter = new IntlDateFormatter(
             (string) $locale,
             $styles[$date],
             $styles[$time],
@@ -277,8 +254,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
 
     /**
      * Get Year part of the instance.
-     *
-     * @return int
      */
     public function getYear(): int
     {
@@ -287,8 +262,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
 
     /**
      * Get Month part of the instance.
-     *
-     * @return int
      */
     public function getMonth(): int
     {
@@ -297,8 +270,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
 
     /**
      * Get Day part of the instance.
-     *
-     * @return int
      */
     public function getDay(): int
     {
@@ -307,8 +278,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
 
     /**
      * Get Hour part of the instance.
-     *
-     * @return int
      */
     public function getHour(): int
     {
@@ -317,8 +286,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
 
     /**
      * Get Minute part of the instance.
-     *
-     * @return int
      */
     public function getMinute(): int
     {
@@ -327,8 +294,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
 
     /**
      * Get Second part of the instance.
-     *
-     * @return int
      */
     public function getSecond(): int
     {
@@ -337,18 +302,14 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
 
     /**
      * Internal method for DateInterval addition and subtraction.
-     *
-     * @param  string $duration - Duration string
-     * @param  int    $value
-     * @return self
      */
     protected function addDateIntervalValue(string $duration, int $value): self
     {
         $isNegative = ($value < 0);
-        $value = (int) \abs($value);
+        $value = (int) abs($value);
 
-        $dateInterval = new \DateInterval(
-            \sprintf($duration, $value)
+        $dateInterval = new DateInterval(
+            sprintf($duration, $value)
         );
 
         if ($isNegative) {
@@ -364,9 +325,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
      * Add the supplied number of Seconds to the Datetime instance.
      *
      * Supports chaining.
-     *
-     * @param  int $seconds - Number of Seconds to add to instance. Supports negative numbers for subtraction.
-     * @return self
      */
     public function addSeconds(int $seconds): self
     {
@@ -377,9 +335,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
      * Add the supplied number of Minutes to the Datetime instance.
      *
      * Supports chaining.
-     *
-     * @param  int $minutes - Number of Minutes to add to instance. Supports negative numbers for subtraction.
-     * @return self
      */
     public function addMinutes(int $minutes): self
     {
@@ -390,9 +345,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
      * Add the supplied number of Hours to the Datetime instance.
      *
      * Supports chaining.
-     *
-     * @param  int $hours - Number of Hours to add to instance. Supports negative numbers for subtraction.
-     * @return self
      */
     public function addHours(int $hours): self
     {
@@ -403,9 +355,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
      * Add the supplied number of Days to the Datetime instance.
      *
      * Supports chaining.
-     *
-     * @param  int $days - Number of Days to add to instance. Supports negative numbers for subtraction.
-     * @return self
      */
     public function addDays(int $days): self
     {
@@ -416,9 +365,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
      * Add the supplied number of Months to the Datetime instance.
      *
      * Supports chaining.
-     *
-     * @param  int $months - Number of Months to add to instance. Supports negative numbers for subtraction.
-     * @return self
      */
     public function addMonths(int $months): self
     {
@@ -429,9 +375,6 @@ class Datetime extends DateTimeImmutable implements \JsonSerializable
      * Add the supplied number of Years to the Datetime instance.
      *
      * Supports chaining.
-     *
-     * @param  int $years - Number of Years to add to instance. Supports negative numbers for subtraction.
-     * @return self
      */
     public function addYears(int $years): self
     {

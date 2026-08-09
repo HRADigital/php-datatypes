@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Collections\Linear;
@@ -7,6 +15,10 @@ namespace HraDigital\Datatypes\Collections\Linear;
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
 use HraDigital\Datatypes\Exceptions\Datatypes\ParameterOutOfRangeException;
 use HraDigital\Datatypes\Scalar\Str;
+use function array_map;
+use function array_pop;
+use function strlen;
+use function trim;
 
 /**
  * Stack Linear Collection.
@@ -31,7 +43,7 @@ use HraDigital\Datatypes\Scalar\Str;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  * @link      http://php.net/manual/en/class.ds-stack.php
  * @link      https://en.wikipedia.org/wiki/Stack_(abstract_data_type)
  */
@@ -40,8 +52,7 @@ class Stack extends AbstractListArray
     /**
      * Initializes an instance of a Stack.
      *
-     * @param array $initial - Initial element list for the Stack. Defaults to empty array.
-     * @return void
+     * @param array<int, string> $initial - Initial element list for the Stack. Defaults to empty array.
      */
     public function __construct(array $initial = [])
     {
@@ -52,13 +63,13 @@ class Stack extends AbstractListArray
 
     /**
      * Returns a cloned copy of the current Stack object.
-     *
-     * @return Stack
      */
     public function clone(): Stack
     {
+        // The List holds Str instances, while the constructor seeds itself from native
+        // strings - under strict_types a Str would never be accepted as one.
         return new Stack(
-            $this->toArray()
+            array_map('strval', $this->toArray())
         );
     }
 
@@ -66,8 +77,6 @@ class Stack extends AbstractListArray
      * Returns the next element in the Stack, without removing it.
      *
      * If the Stack has no elements, it will return NULL.
-     *
-     * @return Str|NULL
      */
     public function peek(): ?Str
     {
@@ -83,26 +92,21 @@ class Stack extends AbstractListArray
      * Returns the next element in the Stack, while removing it.
      *
      * If the Stack has no elements, it will return NULL.
-     *
-     * @return Str|NULL
      */
     public function pop(): ?Str
     {
-        return \array_pop($this->list);
+        return array_pop($this->list);
     }
 
     /**
      * Adds a new element to the Stack.
      *
-     * @param  string $element - Element to be added to the Stack.
-     *
      * @throws NonEmptyStringException - If supplied element is not a non empty string.
      * @throws ParameterOutOfRangeException - If adding element will exceed list's capacity.
-     * @return void
      */
     public function push(string $element): void
     {
-        if (\strlen(\trim($element)) === 0) {
+        if (strlen(trim($element)) === 0) {
             throw NonEmptyStringException::withName('$element');
         }
 

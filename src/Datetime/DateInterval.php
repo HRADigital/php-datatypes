@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Datetime;
@@ -7,20 +15,28 @@ namespace HraDigital\Datatypes\Datetime;
 use DateInterval as ParentDateInterval;
 use HraDigital\Datatypes\Exceptions\Datatypes\InvalidDateIntervalException;
 use HraDigital\Datatypes\Scalar\Str;
+use function abs;
+use function sprintf;
 
 /**
  * DateInterval utility class.
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  * @link      http://php.net/manual/en/timezones.php
  * @link      https://timezonedb.com/download
  */
 class DateInterval extends ParentDateInterval
 {
-    #[\ReturnTypeWillChange]
-    public static function createFromDateString($datetime): DateInterval
+    /**
+     * Builds an instance from a relative date string, such as "2 year + 3 day".
+     *
+     * Deliberately NOT named `createFromDateString`: overriding the parent's factory keeps the
+     * inherited `\DateInterval` return type on every static-analysis tool, which hides this class'
+     * own API from callers.
+     */
+    public static function fromDateString(string $datetime): DateInterval
     {
         $result = parent::createFromDateString($datetime);
 
@@ -42,7 +58,7 @@ class DateInterval extends ParentDateInterval
     public static function fromYears(int $years): DateInterval
     {
         return new DateInterval(
-            \sprintf("P%dY", \abs($years)),
+            sprintf("P%dY", abs($years)),
             ($years < 0)
         );
     }
@@ -50,7 +66,7 @@ class DateInterval extends ParentDateInterval
     public static function fromMonths(int $months): DateInterval
     {
         return new DateInterval(
-            \sprintf("P%dM", \abs($months)),
+            sprintf("P%dM", abs($months)),
             ($months < 0)
         );
     }
@@ -58,7 +74,7 @@ class DateInterval extends ParentDateInterval
     public static function fromDays(int $days): DateInterval
     {
         return new DateInterval(
-            \sprintf("P%dD", \abs($days)),
+            sprintf("P%dD", abs($days)),
             ($days < 0)
         );
     }
@@ -66,7 +82,7 @@ class DateInterval extends ParentDateInterval
     public static function fromHours(int $hours): DateInterval
     {
         return new DateInterval(
-            \sprintf("PT%dH", \abs($hours)),
+            sprintf("PT%dH", abs($hours)),
             ($hours < 0)
         );
     }
@@ -74,7 +90,7 @@ class DateInterval extends ParentDateInterval
     public static function fromMinutes(int $minutes): DateInterval
     {
         return new DateInterval(
-            \sprintf("PT%dM", \abs($minutes)),
+            sprintf("PT%dM", abs($minutes)),
             ($minutes < 0)
         );
     }
@@ -82,7 +98,7 @@ class DateInterval extends ParentDateInterval
     public static function fromSeconds(int $seconds): DateInterval
     {
         return new DateInterval(
-            \sprintf("PT%dS", \abs($seconds)),
+            sprintf("PT%dS", abs($seconds)),
             ($seconds < 0)
         );
     }
@@ -148,8 +164,6 @@ class DateInterval extends ParentDateInterval
 
     /**
      * Returns Str instance with value in format "Y-m-d H:i:s".
-     *
-     * @return Str
      */
     public function toDatetimeString(): Str
     {
@@ -163,7 +177,7 @@ class DateInterval extends ParentDateInterval
 
     protected static function toDurationInternal(ParentDateInterval $interval): string
     {
-        return \sprintf(
+        return sprintf(
             'P%dY%dM%dDT%dH%dM%dS',
             $interval->y,
             $interval->m,

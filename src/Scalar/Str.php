@@ -1,11 +1,37 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Scalar;
 
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
 use HraDigital\Datatypes\Exceptions\Datatypes\ParameterOutOfRangeException;
+use function abs;
+use function explode;
+use function lcfirst;
+use function ltrim;
+use function mb_strtolower;
+use function mb_strtoupper;
+use function rtrim;
+use function str_pad;
+use function str_replace;
+use function str_word_count;
+use function strlen;
+use function strpos;
+use function strrev;
+use function substr;
+use function substr_count;
+use function trim;
+use function ucfirst;
+use function ucwords;
 
 /**
  * String's Scalar Value Object class.
@@ -18,7 +44,9 @@ use HraDigital\Datatypes\Exceptions\Datatypes\ParameterOutOfRangeException;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
+ *
+ * @phpstan-consistent-constructor
  */
 class Str
 {
@@ -27,9 +55,6 @@ class Str
 
     /**
      * Creates a new instance of Str based on a string value.
-     *
-     * @param  string $value - Instance's initial value.
-     * @return Str
      */
     public static function create(string $value): Str
     {
@@ -40,9 +65,6 @@ class Str
      * Instantiates an AbstractBaseString child class.
      *
      * Constructor should be kept protected, to allow child class manipulation, if required.
-     *
-     * @param  string $value - Instance's initial state value.
-     * @return void
      */
     protected function __construct(string $value)
     {
@@ -51,8 +73,6 @@ class Str
 
     /**
      * Magic method that will print out the native string representation of the instance.
-     *
-     * @return string
      */
     public function __toString(): string
     {
@@ -63,9 +83,6 @@ class Str
      * Compares the values of 2 separate instances.
      *
      * Returns TRUE if the 2 instance's values match. FALSE otherwise.
-     *
-     * @param  Str $string - Another Str instance to compare to.
-     * @return bool
      */
     public function match(Str $string): bool
     {
@@ -76,9 +93,6 @@ class Str
      * Compares the instance's value, with the supplied native string.
      *
      * Returns TRUE if the 2 values match. FALSE otherwise.
-     *
-     * @param  string $string - Another string to compare with.
-     * @return bool
      */
     public function equals(string $string): bool
     {
@@ -87,22 +101,18 @@ class Str
 
     /**
      * Returns the Instance's character length.
-     *
-     * @return int
      */
     public function getLength(): int
     {
-        return \strlen($this->value);
+        return strlen($this->value);
     }
 
     /**
      * Counts the number of words in the String.
-     *
-     * @return int
      */
     public function getWordCount(): int
     {
-        return \str_word_count($this->value);
+        return str_word_count($this->value);
     }
 
     /**
@@ -110,15 +120,12 @@ class Str
      *
      * Returns TRUE if found. FALSE otherwise.
      *
-     * @param  string $search - Non empty string to search for in the instance.
-     *
      * @throws NonEmptyStringException - If supplied $search is empty.
-     * @return bool
      */
     public function contains(string $search): bool
     {
         // Validates supplied parameter.
-        if (\strlen($search) === 0) {
+        if (strlen($search) === 0) {
             throw NonEmptyStringException::withName('$search');
         }
 
@@ -134,17 +141,13 @@ class Str
      *
      * If the $search is not found in the instance's value, NULL is returned.
      *
-     * @param  string $search - String to search for in the instance.
-     * @param  int    $start  - Search offset start. Defaults to ZERO.
-     *
      * @throws NonEmptyStringException      - If $search value is an empty string.
      * @throws ParameterOutOfRangeException - If the $start is either too small, or too long.
-     * @return int|null
      */
     public function indexOf(string $search, int $start = 0): ?int
     {
         // Validates supplied parameters.
-        if (\strlen($search) === 0) {
+        if (strlen($search) === 0) {
             throw NonEmptyStringException::withName('$search');
         }
         if ($start) {
@@ -152,7 +155,7 @@ class Str
         }
 
         // Collects the string position.
-        $index = \strpos($this->value, $search, $start);
+        $index = strpos($this->value, $search, $start);
 
         // If false is returned, no index was found, and therefore NULL is returned.
         if ($index === false) {
@@ -165,15 +168,12 @@ class Str
     /**
      * Checks if the instance's value starts with the supplied string.
      *
-     * @param  string $search - Non empty string to search for in the instance.
-     *
      * @throws NonEmptyStringException - If supplied $search is empty.
-     * @return bool
      */
     public function startsWith(string $search): bool
     {
         // Validates supplied parameter.
-        if (\strlen($search) === 0) {
+        if (strlen($search) === 0) {
             throw NonEmptyStringException::withName('$search');
         }
 
@@ -183,38 +183,30 @@ class Str
     /**
      * Checks if the instance's value ends with the supplied string.
      *
-     * @param  string $search - Non empty string to search for in the instance.
-     *
      * @throws NonEmptyStringException - If supplied $search is empty.
-     * @return bool
      */
     public function endsWith(string $search): bool
     {
         // Validates supplied parameter.
-        if (\strlen($search) === 0) {
+        if (strlen($search) === 0) {
             throw NonEmptyStringException::withName('$search');
         }
 
         return (
-            ((string) $this->subString((0 - \strlen($search)))) === $search
+            ((string) $this->subString((0 - strlen($search)))) === $search
         );
     }
 
     /**
      * Counts the number of substring occurrences in the instance's value.
      *
-     * @param  string   $search - Non empty string to search for in the instance.
-     * @param  int      $start  - The sub-string's offset/start.
-     * @param  int|NULL $length - Length value. Can be NULL, in which case, it won't be validated.
-     *
      * @throws NonEmptyStringException      - If supplied $search is empty.
      * @throws ParameterOutOfRangeException - If the $start and/or $length is either too small, or too long.
-     * @return int
      */
     public function count(string $search, int $start = 0, ?int $length = null): int
     {
         // Validates supplied $search parameter.
-        if (\strlen($search) === 0) {
+        if (strlen($search) === 0) {
             throw NonEmptyStringException::withName('$search');
         }
 
@@ -223,26 +215,22 @@ class Str
 
         // Checks if $length was defined.
         if ($length) {
-            return \substr_count($this->value, $search, $start, $length);
+            return substr_count($this->value, $search, $start, $length);
         }
 
-        return \substr_count($this->value, $search, $start);
+        return substr_count($this->value, $search, $start);
     }
 
     /**
      * Validates a character $length, based on the instance value's length, and supplied $start.
      *
-     * @param  int       $start  - The sub-string's offset/start.
-     * @param  int|null  $length - Length value. Can be NULL, in which case, it won't be validated.
-     *
      * @throws ParameterOutOfRangeException - If the $start and/or $length is either too small, or too long.
-     * @return void
      */
     private function validateStartAndLength(int $start, ?int $length): void
     {
         // Calculates the absolute values for validations.
-        $absStart  = (int) \abs($start);
-        $absLength = $length ? (int) \abs($length) : null;
+        $absStart  = (int) abs($start);
+        $absLength = $length ? (int) abs($length) : null;
 
         // Validates the starting value.
         if ($absStart > $this->getLength()) {
@@ -265,98 +253,81 @@ class Str
 
     /**
      * Trims instance's value on both ends.
-     *
-     * @return self
      */
     public function trim(): self
     {
         return new static(
-            \trim($this->value)
+            trim($this->value)
         );
     }
 
     /**
      * Trims instance's value only on the left.
-     *
-     * @return self
      */
     public function trimLeft(): self
     {
         return new static(
-            \ltrim($this->value)
+            ltrim($this->value)
         );
     }
 
     /**
      * Trims instance's value only on the right.
-     *
-     * @return self
      */
     public function trimRight(): self
     {
         return new static(
-            \rtrim($this->value)
+            rtrim($this->value)
         );
     }
 
     /**
      * Converts the instance's value to Uppercase.
-     *
-     * @return self
      */
     public function toUpper(): self
     {
         return new static(
-            \mb_strtoupper($this->value)
+            mb_strtoupper($this->value)
         );
     }
 
     /**
      * Converts the instance's value first character to Uppercase.
-     *
-     * @return self
      */
     public function toUpperFirst(): self
     {
         return new static(
-            \ucfirst($this->value)
+            ucfirst($this->value)
         );
     }
 
     /**
      * Converts the instance's value first character of each word to Upper Case.
-     *
-     * @param  string  $delimiters - The optional delimiters contains the word separator characters.
-     * @return self
      */
     public function toUpperWords(string $delimiters = " \t\r\n\f\v"): self
     {
         return new static(
-            \ucwords($this->value, $delimiters)
+            ucwords($this->value, $delimiters)
         );
     }
 
     /**
      * Converts the instance's value to Lowercase.
-     *
-     * @return self
      */
     public function toLower(): self
     {
         return new static(
-            \mb_strtolower($this->value)
+            mb_strtolower($this->value)
         );
     }
 
     /**
      * Converts the instance's value first character to Lowercase.
-     *
-     * @return self
      */
     public function toLowerFirst(): self
     {
         return new static(
-            \lcfirst($this->value)
+            lcfirst($this->value)
         );
     }
 
@@ -370,13 +341,8 @@ class Str
      * If the optional argument $padString is not supplied, the input is padded with spaces, otherwise
      * it is padded with characters from $padString up to the limit.
      *
-     * @param  int     $length  - Length of the padded value.
-     * @param  string  $padding - The pad_string may be truncated if the required number of padding characters
-     *                            can't be evenly divided by the $padString's length.
-     *
      * @throws NonEmptyStringException      - If supplied $padding is empty.
      * @throws ParameterOutOfRangeException - If the $length is either too small, or too long.
-     * @return self
      */
     public function padLeft(int $length, string $padding = " "): self
     {
@@ -384,12 +350,12 @@ class Str
         if ($length < 1) {
             throw ParameterOutOfRangeException::withName('$length');
         }
-        if (\strlen($padding) === 0) {
+        if (strlen($padding) === 0) {
             throw NonEmptyStringException::withName('$padding');
         }
 
         return new static(
-            \str_pad($this->value, $length, $padding, STR_PAD_LEFT)
+            str_pad($this->value, $length, $padding, STR_PAD_LEFT)
         );
     }
 
@@ -399,13 +365,8 @@ class Str
      * If the optional argument $padding is not supplied, the input is padded with spaces, otherwise
      * it is padded with characters from $padding up to the limit.
      *
-     * @param  int     $length  - Length of the padded value.
-     * @param  string  $padding - The pad_string may be truncated if the required number of padding characters
-     *                            can't be evenly divided by the $padding's length.
-     *
      * @throws NonEmptyStringException      - If supplied $padding is empty.
      * @throws ParameterOutOfRangeException - If the $length is either too small, or too long.
-     * @return self
      */
     public function padLeftExtra(int $length, string $padding = " "): self
     {
@@ -422,13 +383,8 @@ class Str
      * If the optional argument $padString is not supplied, the input is padded with spaces, otherwise
      * it is padded with characters from $padding up to the limit.
      *
-     * @param  int     $length  - Length of the padded value.
-     * @param  string  $padding - The pad_string may be truncated if the required number of padding characters
-     *                            can't be evenly divided by the $padding's length.
-     *
      * @throws NonEmptyStringException      - If supplied $padding is empty.
      * @throws ParameterOutOfRangeException - If the $length is either too small, or too long.
-     * @return self
      */
     public function padRight(int $length, string $padding = " "): self
     {
@@ -436,12 +392,12 @@ class Str
         if ($length < 1) {
             throw ParameterOutOfRangeException::withName('$length');
         }
-        if (\strlen($padding) === 0) {
+        if (strlen($padding) === 0) {
             throw NonEmptyStringException::withName('$padding');
         }
 
         return new static(
-            \str_pad($this->value, $length, $padding, STR_PAD_RIGHT)
+            str_pad($this->value, $length, $padding, STR_PAD_RIGHT)
         );
     }
 
@@ -451,13 +407,8 @@ class Str
      * If the optional argument $padding is not supplied, the input is padded with spaces, otherwise
      * it is padded with characters from $padding up to the limit.
      *
-     * @param  int     $length  - Length of the padded value.
-     * @param  string  $padding - The pad_string may be truncated if the required number of padding characters
-     *                            can't be evenly divided by the $padding's length.
-     *
      * @throws NonEmptyStringException      - If supplied $padding is empty.
      * @throws ParameterOutOfRangeException - If the $length is either too small, or too long.
-     * @return self
      */
     public function padRightExtra(int $length, string $padding = " "): self
     {
@@ -477,7 +428,6 @@ class Str
      * - If the absolute value of $start is higher than the instance's length, an
      * exception is thrown.
      *
-     *
      * $length parameter:
      * - If $length is given and is positive, the string returned will contain at most length characters
      * beginning from $start (depending on the length of string).
@@ -486,11 +436,7 @@ class Str
      * - If $length exceeds the remaining number of characters, after the $start calculation, an
      * Exception will be raised.
      *
-     * @param  int     $start  - Start of the sub-string. Can be negative.
-     * @param  int     $length - Length of the sub-string. Can be negative.
-     *
      * @throws ParameterOutOfRangeException - If the $start and/or $length is either too small, or too long.
-     * @return self
      */
     public function subString(int $start, int $length = null): self
     {
@@ -498,20 +444,17 @@ class Str
         $this->validateStartAndLength($start, $length);
 
         if ($length === null) {
-            return new static(\substr($this->value, $start) ?? '');
+            return new static(substr($this->value, $start));
         }
 
-        return new static(\substr($this->value, $start, $length) ?? '');
+        return new static(substr($this->value, $start, $length));
     }
 
     /**
      * This method returns a new instance with a portion of the original instance's value, starting at the beginning
      * of the value, with the number of characters specified in the $length parameter.
      *
-     * @param  int     $length - Length of the sub-string. Must be positive.
-     *
      * @throws ParameterOutOfRangeException - If supplied Length is not a positive integer.
-     * @return self
      */
     public function subLeft(int $length): self
     {
@@ -527,10 +470,7 @@ class Str
      * This method returns a new instance with a portion of the original instance's value, couting from the end
      * of the value, with the number of characters specified in the $length parameter.
      *
-     * @param  int     $length - Length of the sub-string. Must be positive.
-     *
      * @throws ParameterOutOfRangeException - If supplied Length is not a positive integer.
-     * @return self
      */
     public function subRight(int $length): self
     {
@@ -544,37 +484,31 @@ class Str
 
     /**
      * This method returns the reversed value of the instance.
-     *
-     * @return self
      */
     public function reverse(): self
     {
         return new static(
-            \strrev($this->value)
+            strrev($this->value)
         );
     }
 
     /**
      * This method replaces a string's occurance by another, and returns a new instance with the new value.
      *
-     * @param  string  $search  - The string to search for.
-     * @param  string  $replace - The search's replacement.
-     *
      * @throws NonEmptyStringException - If either $search or $replace are empty.
-     * @return self
      */
     public function replace(string $search, string $replace): self
     {
         // Validates supplied parameters.
-        if (\strlen($search) === 0) {
+        if (strlen($search) === 0) {
             throw NonEmptyStringException::withName('$search');
         }
-        if (\strlen($replace) === 0) {
+        if (strlen($replace) === 0) {
             throw NonEmptyStringException::withName('$replace');
         }
 
         return new static(
-            \str_replace($search, $replace, $this->value)
+            str_replace($search, $replace, $this->value)
         );
     }
 
@@ -589,23 +523,20 @@ class Str
      *
      * If the limit parameter is zero, then this is treated as 1.
      *
-     * @param  string   $separator - The boundary string.
-     * @param  int|null $limit     - The limit of returned segments.
-     *
      * @throws NonEmptyStringException - If $separator is an empty string.
      * @return array|Str[]
      */
     public function explode(string $separator, ?int $limit = null): array
     {
         // Validates supplied parameters.
-        if (\strlen($separator) === 0) {
+        if (strlen($separator) === 0) {
             throw NonEmptyStringException::withName('$separator');
         }
 
         if ($limit === null) {
-            $segments = \explode($separator, $this->value);
+            $segments = explode($separator, $this->value);
         } else {
-            $segments = \explode($separator, $this->value, $limit);
+            $segments = explode($separator, $this->value, $limit);
         }
 
         $exploded = [];

@@ -1,10 +1,25 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Collections\Associative;
 
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
+use InvalidArgumentException;
+use JsonSerializable;
+use function array_key_exists;
+use function count;
+use function strlen;
+use function strtolower;
+use function trim;
 
 /**
  * Store Associative Collection.
@@ -26,12 +41,12 @@ use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  * @link      https://en.wikipedia.org/wiki/Set_(abstract_data_type)
  */
-class Store implements \JsonSerializable
+class Store implements JsonSerializable
 {
-    /** @var array $store - Store that will hold the values. */
+    /** @var array<string, string> $store - Store that will hold the values. */
     protected array $store = [];
 
     /** @var string|NULL $context - Context for the Store's values. */
@@ -40,15 +55,12 @@ class Store implements \JsonSerializable
     /**
      * Initializes a new instance of a Store.
      *
-     * @param string|NULL $context - Value's context. Can be used as an inner store.
-     *
      * @throws NonEmptyStringException - If supplied context is a not a non empty string.
-     * @return void
      */
     public function __construct(?string $context = null)
     {
         // Validates provided parameters.
-        if ($context !== null && \strlen(\trim($context)) === 0) {
+        if ($context !== null && strlen(trim($context)) === 0) {
             throw NonEmptyStringException::withName('$context');
         }
 
@@ -58,18 +70,16 @@ class Store implements \JsonSerializable
 
     /**
      * Returns number of items in the Store.
-     *
-     * @return int
      */
     public function count(): int
     {
-        return \count($this->store);
+        return count($this->store);
     }
 
     /**
      * Retrieves all existing Values from the Store.
      *
-     * @return array
+     * @return array<string, string>
      */
     public function getValues(): array
     {
@@ -81,11 +91,7 @@ class Store implements \JsonSerializable
      *
      * If the value is not found, the supplied $default value will be returned.
      *
-     * @param string      $name    - Name of the Value to be retrieved.
-     * @param string|NULL $default - Default returned value, of not found.
-     *
-     * @throws \InvalidArgumentException - If supplied name is a not a non empty string.
-     * @return string|NULL
+     * @throws InvalidArgumentException - If supplied name is a not a non empty string.
      */
     public function get(string $name, ?string $default = null): ?string
     {
@@ -104,27 +110,20 @@ class Store implements \JsonSerializable
      * Returns TRUE of the value exists in the store.
      * FALSE otherwise.
      *
-     * @param string $name - Name of the Value to be searched.
-     *
-     * @throws \InvalidArgumentException - If supplied name is a not a non empty string.
-     * @return bool
+     * @throws InvalidArgumentException - If supplied name is a not a non empty string.
      */
     public function has(string $name): bool
     {
         // Sanitize provided $name/key.
         $name = $this->sanitizeName($name);
 
-        return \array_key_exists($this->name($name), $this->store);
+        return array_key_exists($this->name($name), $this->store);
     }
 
     /**
      * Sets a value in the Store.
      *
-     * @param string $name  - Name of the Value to be set.
-     * @param string $value - Value to be set.
-     *
      * @throws NonEmptyStringException - If supplied name is a not a non empty string.
-     * @return void
      */
     public function set(string $name, string $value): void
     {
@@ -138,11 +137,7 @@ class Store implements \JsonSerializable
     /**
      * Adds a non existing value in the Store.
      *
-     * @param string $name  - Name of the Value to be added.
-     * @param string $value - Value to be added.
-     *
      * @throws NonEmptyStringException - If supplied name is a not a non empty string.
-     * @return bool
      */
     public function add(string $name, string $value): bool
     {
@@ -163,11 +158,7 @@ class Store implements \JsonSerializable
     /**
      * Edits an existing value in the Store.
      *
-     * @param string $name  - Name of the Value to be edited.
-     * @param string $value - Value to be edited.
-     *
      * @throws NonEmptyStringException - If supplied name is a not a non empty string.
-     * @return bool
      */
     public function edit(string $name, string $value): bool
     {
@@ -188,10 +179,7 @@ class Store implements \JsonSerializable
     /**
      * Removes a given value from the Store.
      *
-     * @param string $name - Name of the value to be removed from the store.
-     *
      * @throws NonEmptyStringException - If supplied name is a not a non empty string.
-     * @return bool
      */
     public function delete(string $name): bool
     {
@@ -212,28 +200,21 @@ class Store implements \JsonSerializable
     /**
      * Returns sanitized $name/key.
      *
-     * @param string $name - Name to be sanitized.
-     *
      * @throws NonEmptyStringException - If supplied name is a not a non empty string.
-     * @return string
      */
     protected function sanitizeName(string $name): string
     {
         // Validates provided parameters.
-        if (\strlen(\trim($name)) === 0) {
+        if (strlen(trim($name)) === 0) {
             throw NonEmptyStringException::withName('$name');
         }
 
         // Returns sanitized $name/key.
-        return \strtolower(\trim($name));
+        return strtolower(trim($name));
     }
 
     /**
      * Returns full name, with namespace included if necessary.
-     *
-     * @param string $name - Sanitized name.
-     *
-     * @return string
      */
     protected function name(string $name): string
     {
@@ -245,7 +226,10 @@ class Store implements \JsonSerializable
         return ($this->context . '.' . $name);
     }
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     * @return array<string, string>
+     */
     public function jsonSerialize(): array
     {
         return $this->getValues();
