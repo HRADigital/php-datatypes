@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\General;
@@ -11,7 +19,7 @@ use HraDigital\Datatypes\Exceptions\Datatypes\NonNegativeNumberException;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 trait HasOrderingTrait
 {
@@ -21,10 +29,7 @@ trait HasOrderingTrait
     /**
      * Setter method for the record's order.
      *
-     * @param  int $order - New value to be set on Attribute.
-     *
      * @throws NonNegativeNumberException - Supplied Order must be a non negative integer.
-     * @return void
      */
     protected function castOrdering(int $order): void
     {
@@ -39,8 +44,6 @@ trait HasOrderingTrait
 
     /**
      * The ordering of this record, in a parent container's context.
-     *
-     * @return int
      */
     public function getOrdering(): int
     {

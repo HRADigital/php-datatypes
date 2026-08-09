@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\Location;
@@ -11,7 +19,7 @@ use HraDigital\Datatypes\Scalar\Str;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 trait HasCountryCodeTrait
 {
@@ -20,9 +28,6 @@ trait HasCountryCodeTrait
 
     /**
      * Mutator method for setting the value into the Attribute.
-     *
-     * @param  string $countryCode - Country Code.
-     * @return void
      */
     protected function castCountryCode(string $countryCode): void
     {
@@ -31,8 +36,6 @@ trait HasCountryCodeTrait
 
     /**
      * Returns the Entity's Country Code.
-     *
-     * @return Str
      */
     public function getCountryCode(): Str
     {

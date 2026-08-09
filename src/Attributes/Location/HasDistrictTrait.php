@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\Location;
@@ -12,7 +20,7 @@ use HraDigital\Datatypes\Scalar\Str;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 trait HasDistrictTrait
 {
@@ -22,10 +30,7 @@ trait HasDistrictTrait
     /**
      * Mutator method for setting the value into the Attribute.
      *
-     * @param  string|null $district - District.
-     *
      * @throws NonEmptyStringException - If supplied value is not a non empty string.
-     * @return void
      */
     protected function castDistrict(?string $district): void
     {
@@ -40,8 +45,6 @@ trait HasDistrictTrait
 
     /**
      * Returns the Entity's District.
-     *
-     * @return Str|null
      */
     public function getDistrict(): ?Str
     {

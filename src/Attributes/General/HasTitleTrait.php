@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\General;
@@ -12,7 +20,7 @@ use HraDigital\Datatypes\Scalar\Str;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 trait HasTitleTrait
 {
@@ -22,10 +30,7 @@ trait HasTitleTrait
     /**
      * Casting method for Title.
      *
-     * @param string $title - New value to be set on Attribute.
-     *
      * @throws NonEmptyStringException - Supplied Title must be a non empty string.
-     * @return void
      */
     protected function castTitle(string $title): void
     {
@@ -40,8 +45,6 @@ trait HasTitleTrait
 
     /**
      * Returns the Instance's Title.
-     *
-     * @return Str
      */
     public function getTitle(): Str
     {

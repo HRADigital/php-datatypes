@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\General;
@@ -11,7 +19,7 @@ use HraDigital\Datatypes\Web\EmailAddress;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 trait HasEmailTrait
 {
@@ -20,9 +28,6 @@ trait HasEmailTrait
 
     /**
      * Mutator method for setting the value into the Attribute
-     *
-     * @param  string $email - Email string representation of the value.
-     * @return void
      */
     protected function castEmail(string $email): void
     {
@@ -31,8 +36,6 @@ trait HasEmailTrait
 
     /**
      * Returns an EmailAddress representation for the record's E-mail Address.
-     *
-     * @return EmailAddress|null
      */
     public function getEmail(): ?EmailAddress
     {

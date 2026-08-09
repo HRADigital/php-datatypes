@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\SocialMedia;
@@ -11,7 +19,7 @@ use HraDigital\Datatypes\Scalar\Str;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 trait HasInstagramProfileTrait
 {
@@ -20,9 +28,6 @@ trait HasInstagramProfileTrait
 
     /**
      * Sets the Social Media account URL value of an Entity.
-     *
-     * @param  string|null $instagram - Social Media account's URL.
-     * @return void
      */
     protected function castInstagram(?string $instagram): void
     {
@@ -31,8 +36,6 @@ trait HasInstagramProfileTrait
 
     /**
      * Retrieves record's Social Media account's URL.
-     *
-     * @return Str|null
      */
     public function getInstagramUrl(): ?Str
     {
@@ -41,8 +44,6 @@ trait HasInstagramProfileTrait
 
     /**
      * Is Instagram's Social Media account URL is set.
-     *
-     * @return bool
      */
     public function hasInstagramProfileUrl(): bool
     {

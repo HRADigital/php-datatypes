@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\General;
@@ -13,7 +21,7 @@ use HraDigital\Datatypes\Datetime\Datetime;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 trait HasDeletedAtTrait
 {
@@ -22,9 +30,6 @@ trait HasDeletedAtTrait
 
     /**
      * Mutator method for setting the value into the Attribute
-     *
-     * @param  string|null $timestamp - Timestamp string representation of the value.
-     * @return void
      */
     protected function castDeletedAt(?string $timestamp): void
     {
@@ -33,8 +38,6 @@ trait HasDeletedAtTrait
 
     /**
      * Returns a Datetime representation from the instant the record was marked as deleted.
-     *
-     * @return Datetime|null
      */
     public function getDeletedAt(): ?Datetime
     {
@@ -43,8 +46,6 @@ trait HasDeletedAtTrait
 
     /**
      * Returns TRUE if the record is marked as deleted in the system.
-     *
-     * @return bool
      */
     public function isDeleted(): bool
     {

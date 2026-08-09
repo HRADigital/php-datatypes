@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\Location;
@@ -11,7 +19,7 @@ use HraDigital\Datatypes\Scalar\Str;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 trait HasStreetAdditionalTrait
 {
@@ -20,9 +28,6 @@ trait HasStreetAdditionalTrait
 
     /**
      * Mutator method for setting the value into the Attribute.
-     *
-     * @param  string $street - Street Additional.
-     * @return void
      */
     protected function castStreetAdditional(string $street): void
     {
@@ -31,8 +36,6 @@ trait HasStreetAdditionalTrait
 
     /**
      * Returns the Entity's Street Additional.
-     *
-     * @return Str
      */
     public function getStreetAdditional(): Str
     {

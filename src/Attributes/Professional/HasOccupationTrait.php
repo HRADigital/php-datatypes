@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\Professional;
@@ -12,7 +20,7 @@ use HraDigital\Datatypes\Scalar\Str;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 trait HasOccupationTrait
 {
@@ -22,10 +30,7 @@ trait HasOccupationTrait
     /**
      * Sets the Profile's Professional Occupation value of an Entity.
      *
-     * @param  string|null $occupation - Professional Occupation.
-     *
      * @throws NonEmptyStringException - Supplied Profile's Professional Occupation must be a non empty string.
-     * @return void
      */
     protected function castOccupation(?string $occupation): void
     {
@@ -41,8 +46,6 @@ trait HasOccupationTrait
 
     /**
      * Returns the Instance's Profile's Occupation.
-     *
-     * @return Str|null
      */
     public function getOccupation(): ?Str
     {
@@ -51,8 +54,6 @@ trait HasOccupationTrait
 
     /**
      * If record has Profile's Occupation.
-     *
-     * @return bool
      */
     public function hasOccupation(): bool
     {

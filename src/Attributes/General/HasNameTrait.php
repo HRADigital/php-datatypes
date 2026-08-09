@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\General;
@@ -12,7 +20,7 @@ use HraDigital\Datatypes\Scalar\Str;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 trait HasNameTrait
 {
@@ -22,10 +30,7 @@ trait HasNameTrait
     /**
      * Setter method for name.
      *
-     * @param string $name - New value to be set on Attribute.
-     *
      * @throws NonEmptyStringException - Supplied Name must be a non empty string.
-     * @return void
      */
     protected function castName(string $name): void
     {
@@ -40,8 +45,6 @@ trait HasNameTrait
 
     /**
      * Returns the Instance's name.
-     *
-     * @return Str
      */
     public function getName(): Str
     {

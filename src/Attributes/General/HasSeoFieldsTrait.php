@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\General;
@@ -13,7 +21,7 @@ use HraDigital\Datatypes\Scalar\Str;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 trait HasSeoFieldsTrait
 {
@@ -30,12 +38,9 @@ trait HasSeoFieldsTrait
      * Checking the character limitations of the <seo_title>.
      * Setting the <seo_title> value.
      *
-     * @param string|null $title - New value to be set on Attribute.
-     *
      * @throws InvalidStringLengthException - Supplied Seo Title must be a non empty string.
      *
      * @link  https://seopressor.com/blog/google-title-meta-descriptions-length
-     * @return void
      */
     protected function castSeoTitle(?string $title = null): void
     {
@@ -53,12 +58,9 @@ trait HasSeoFieldsTrait
      * Checking the character limitations of the <seo_description>.
      * Setting the <seo_description> value.
      *
-     * @param string|null $description - New value to be set on Attribute.
-     *
      * @throws InvalidStringLengthException - Supplied Seo Description must be a non empty string.
      *
      * @link  https://seopressor.com/blog/google-title-meta-descriptions-length
-     * @return void
      */
     protected function castSeoDescription(?string $description = null): void
     {
@@ -81,7 +83,6 @@ trait HasSeoFieldsTrait
      * @throws InvalidStringLengthException - Supplied Seo Keywords must be a non empty string.
      *
      * @link  https://www.quora.com/What-is-the-minimum-length-of-a-meta-keyword-in-on-page-SEO
-     * @return void
      */
     protected function castSeoKeywords(string $keywords = null): void
     {
@@ -97,8 +98,6 @@ trait HasSeoFieldsTrait
 
     /**
      * Returns the Entity's seo title.
-     *
-     * @return Str|null
      */
     public function getSeoTitle(): ?Str
     {
@@ -107,8 +106,6 @@ trait HasSeoFieldsTrait
 
     /**
      * Returns the Entity's seo description.
-     *
-     * @return Str|null
      */
     public function getSeoDescription(): ?Str
     {
@@ -117,8 +114,6 @@ trait HasSeoFieldsTrait
 
     /**
      * Returns the Entity's seo keywords.
-     *
-     * @return Str|null
      */
     public function getSeoKeywords(): ?Str
     {
@@ -127,9 +122,6 @@ trait HasSeoFieldsTrait
 
     /**
      * Sanitizes the individual Seo field in the Entity.
-     *
-     * @param  Str|null $seoField - New Hit's value.
-     * @return Str|null
      */
     private function seoSanitize(?Str $seoField = null): ?Str
     {

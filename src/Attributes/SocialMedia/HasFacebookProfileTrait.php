@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\SocialMedia;
@@ -11,7 +19,7 @@ use HraDigital\Datatypes\Scalar\Str;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 trait HasFacebookProfileTrait
 {
@@ -20,9 +28,6 @@ trait HasFacebookProfileTrait
 
     /**
      * Sets the Social Media account URL value of an Entity.
-     *
-     * @param  string|null $facebook - Social Media account's URL.
-     * @return void
      */
     protected function castFacebook(?string $facebook): void
     {
@@ -31,8 +36,6 @@ trait HasFacebookProfileTrait
 
     /**
      * Retrieves record's Social Media account's URL.
-     *
-     * @return Str|null
      */
     public function getFacebookUrl(): ?Str
     {
@@ -41,8 +44,6 @@ trait HasFacebookProfileTrait
 
     /**
      * Is Facebook's Social Media account URL is set.
-     *
-     * @return bool
      */
     public function hasFacebookProfileUrl(): bool
     {

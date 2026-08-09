@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\Professional;
@@ -12,7 +20,7 @@ use HraDigital\Datatypes\Scalar\Str;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 trait HasIndustryTrait
 {
@@ -22,10 +30,7 @@ trait HasIndustryTrait
     /**
      * Sets the Profile's Professional Industry value of an Entity.
      *
-     * @param  string|null $industry - Professional Industry.
-     *
      * @throws NonEmptyStringException - Supplied Profile's Professional Industry must be a non empty string.
-     * @return void
      */
     protected function castIndustry(?string $industry): void
     {
@@ -41,8 +46,6 @@ trait HasIndustryTrait
 
     /**
      * Returns the Instance's Profile's Industry.
-     *
-     * @return Str|null
      */
     public function getIndustry(): ?Str
     {

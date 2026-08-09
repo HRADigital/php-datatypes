@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\General;
@@ -12,7 +20,7 @@ use HraDigital\Datatypes\Scalar\Str;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 trait HasAliasTrait
 {
@@ -22,10 +30,7 @@ trait HasAliasTrait
     /**
      * Setter method for alias.
      *
-     * @param string $alias - New value to be set on Attribute.
-     *
      * @throws NonEmptyStringException - Supplied Alias must be a non empty string.
-     * @return void
      */
     protected function castAlias(string $alias): void
     {
@@ -44,8 +49,6 @@ trait HasAliasTrait
 
     /**
      * Returns the Entity's alias.
-     *
-     * @return Str
      */
     public function getAlias(): Str
     {

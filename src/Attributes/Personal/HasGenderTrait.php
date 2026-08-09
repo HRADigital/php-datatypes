@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\Personal;
@@ -12,7 +20,7 @@ use HraDigital\Datatypes\Scalar\Str;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 trait HasGenderTrait
 {
@@ -21,9 +29,6 @@ trait HasGenderTrait
 
     /**
      * Mutator method for setting the value into the Attribute.
-     *
-     * @param  string $gender - Gender.
-     * @return void
      */
     protected function castGender(string $gender): void
     {
@@ -43,8 +48,6 @@ trait HasGenderTrait
 
     /**
      * Returns the Entity's Gender.
-     *
-     * @return Str
      */
     public function getGender(): Str
     {

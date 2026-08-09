@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\General;
@@ -11,7 +19,7 @@ use HraDigital\Datatypes\Exceptions\Datatypes\PositiveIntegerException;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 trait HasPositiveIntegerIDTrait
 {
@@ -20,9 +28,6 @@ trait HasPositiveIntegerIDTrait
 
     /**
      * Mutator method for setting the value into the Attribute.
-     *
-     * @param  int $id - Positive Integer ID.
-     * @return void
      */
     protected function castId(int $id): void
     {
@@ -35,8 +40,6 @@ trait HasPositiveIntegerIDTrait
 
     /**
      * Returns the Positive Integer ID
-     *
-     * @return int
      */
     public function getId(): int
     {
@@ -47,8 +50,6 @@ trait HasPositiveIntegerIDTrait
      * If record is a new record. Not returned from DB.
      *
      * Validates if the VO/Entity has an ID set.
-     *
-     * @return bool
      */
     public function isNew(): bool
     {

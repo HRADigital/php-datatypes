@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\General;
@@ -11,7 +19,7 @@ use HraDigital\Datatypes\Exceptions\Datatypes\NonNegativeNumberException;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 trait HasHitsTrait
 {
@@ -21,10 +29,7 @@ trait HasHitsTrait
     /**
      * Sets the HITS value of an Entity.
      *
-     * @param  int $hits - New Hit's value.
-     *
      * @throws NonNegativeNumberException - If supplied Hit's counter is negative.
-     * @return void
      */
     protected function castHits(int $hits): void
     {
@@ -39,8 +44,6 @@ trait HasHitsTrait
 
     /**
      * Returns the number of Hits.
-     *
-     * @return int
      */
     public function getHits(): int
     {

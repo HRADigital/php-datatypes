@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\Timezone;
@@ -9,7 +17,7 @@ namespace HraDigital\Datatypes\Attributes\Timezone;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 trait HasTimestampTrait
 {
@@ -18,9 +26,6 @@ trait HasTimestampTrait
 
     /**
      * Setter method for UNIX Timestamp.
-     *
-     * @param  int $timestamp - Unix timestamp.
-     * @return void
      */
     protected function castTimestamp(int $timestamp): void
     {
@@ -29,8 +34,6 @@ trait HasTimestampTrait
 
     /**
      * Returns the Instance's Unix timestamp.
-     *
-     * @return int
      */
     public function getTimestamp(): int
     {

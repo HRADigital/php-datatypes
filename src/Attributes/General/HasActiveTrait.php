@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\General;
@@ -9,7 +17,7 @@ namespace HraDigital\Datatypes\Attributes\General;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 trait HasActiveTrait
 {
@@ -18,9 +26,6 @@ trait HasActiveTrait
 
     /**
      * Sets the active value of an Entity.
-     *
-     * @param  bool $active - New active value.
-     * @return void
      */
     protected function castActive(bool $active): void
     {
@@ -29,8 +34,6 @@ trait HasActiveTrait
 
     /**
      * Returns TRUE if the record is marked as ACTIVE in the system.
-     *
-     * @return bool
      */
     public function isActive(): bool
     {

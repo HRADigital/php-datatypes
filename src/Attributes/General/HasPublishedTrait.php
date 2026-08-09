@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\General;
@@ -9,7 +17,7 @@ namespace HraDigital\Datatypes\Attributes\General;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 trait HasPublishedTrait
 {
@@ -18,9 +26,6 @@ trait HasPublishedTrait
 
     /**
      * Sets the published value of an Entity/Value Object.
-     *
-     * @param  bool $published - New published value.
-     * @return void
      */
     protected function castIsPublished(bool $published): void
     {
@@ -29,8 +34,6 @@ trait HasPublishedTrait
 
     /**
      * Returns TRUE if the record is marked as PUBLISHED for the frontend.
-     *
-     * @return bool
      */
     public function isPublished(): bool
     {

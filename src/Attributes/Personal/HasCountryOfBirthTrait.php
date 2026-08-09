@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\Personal;
@@ -12,7 +20,7 @@ use HraDigital\Datatypes\Scalar\Str;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 trait HasCountryOfBirthTrait
 {
@@ -21,9 +29,6 @@ trait HasCountryOfBirthTrait
 
     /**
      * Mutator method for setting the value into the Attribute.
-     *
-     * @param  string $country - Country of Birth.
-     * @return void
      */
     protected function castCountryOfBirth(string $country): void
     {
@@ -38,8 +43,6 @@ trait HasCountryOfBirthTrait
 
     /**
      * Returns the Entity's Country of Birth.
-     *
-     * @return Str
      */
     public function getCountryOfBirth(): Str
     {

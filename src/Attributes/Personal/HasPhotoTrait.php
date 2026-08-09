@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\Personal;
@@ -12,7 +20,7 @@ use HraDigital\Datatypes\Scalar\Str;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 trait HasPhotoTrait
 {
@@ -22,10 +30,7 @@ trait HasPhotoTrait
     /**
      * Sets the Profile's Photo value of an Entity.
      *
-     * @param  string|null $photo - Profile's Photo.
-     *
      * @throws NonEmptyStringException - Supplied Profile's Photo must be a non empty string.
-     * @return void
      */
     protected function castPhoto(?string $photo): void
     {
@@ -41,8 +46,6 @@ trait HasPhotoTrait
 
     /**
      * Returns the Instance's Profile's Photo.
-     *
-     * @return Str|null
      */
     public function getPhoto(): ?Str
     {
@@ -51,8 +54,6 @@ trait HasPhotoTrait
 
     /**
      * If record has Profile's Photo.
-     *
-     * @return bool
      */
     public function hasPhoto(): bool
     {

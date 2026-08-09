@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\General;
@@ -11,7 +19,7 @@ use HraDigital\Datatypes\Scalar\Str;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 trait HasUuidTrait
 {
@@ -20,9 +28,6 @@ trait HasUuidTrait
 
     /**
      * Mutator method for setting the value into the Attribute.
-     *
-     * @param  string $uuid - Universal Unique Identifier.
-     * @return void
      */
     protected function castUuid(string $uuid): void
     {
@@ -31,8 +36,6 @@ trait HasUuidTrait
 
     /**
      * Returns the Universal Unique Identifier.
-     *
-     * @return Str
      */
     public function getUuid(): Str
     {
