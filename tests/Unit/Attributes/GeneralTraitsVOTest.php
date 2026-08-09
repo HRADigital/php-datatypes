@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace HraDigital\Tests\Datatypes\Unit\Attributes;
 
+use HraDigital\Datatypes\Datetime\Datetime;
 use HraDigital\Datatypes\Exceptions\Datatypes\InvalidStringLengthException;
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
 use HraDigital\Datatypes\Exceptions\Datatypes\NonNegativeNumberException;
@@ -15,7 +16,7 @@ use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class GeneralTraitsVOTest extends AbstractBaseTestCase
 {
@@ -26,7 +27,6 @@ class GeneralTraitsVOTest extends AbstractBaseTestCase
         'is_published' => true,
         'alias' => 'some_alias',
         'created_at' => '2022-01-20 12:30:00',
-        'deleted_at' => null,
         'email' => 'user@domain.tld',
         'hits' => 1999,
         'name' => 'Name of Record',
@@ -220,6 +220,50 @@ class GeneralTraitsVOTest extends AbstractBaseTestCase
         $this->assertNull($object->getSeoTitle());
         $this->assertNull($object->getSeoDescription());
         $this->assertNull($object->getSeoKeywords());
+    }
+
+    public function testPublishingTimestampsDefaultToNullAndOpenWindow(): void
+    {
+        $object = new GeneralTraitsVO(self::DATA);
+
+        $this->assertNull($object->getPublishedFrom());
+        $this->assertNull($object->getPublishedTo());
+        $this->assertTrue($object->isWithinPublishingPeriod());
+    }
+
+    public function testLoadsPublishingTimestamps(): void
+    {
+        $data = self::DATA;
+        $data['published_from'] = '2022-01-20 12:30:00';
+        $data['published_to'] = '2022-02-20 12:30:00';
+
+        $object = new GeneralTraitsVO($data);
+
+        $this->assertEquals($data['published_from'], $object->getPublishedFrom()->toDatetimeString());
+        $this->assertEquals($data['published_to'], $object->getPublishedTo()->toDatetimeString());
+        $this->assertFalse($object->isWithinPublishingPeriod());
+    }
+
+    public function testIsWithinPublishingPeriodWhenWindowIsOpen(): void
+    {
+        $data = self::DATA;
+        $data['published_from'] = '2022-01-20 12:30:00';
+        $data['published_to'] = null;
+
+        $object = new GeneralTraitsVO($data);
+
+        $this->assertNull($object->getPublishedTo());
+        $this->assertTrue($object->isWithinPublishingPeriod());
+    }
+
+    public function testIsNotWithinPublishingPeriodBeforeItStarts(): void
+    {
+        $data = self::DATA;
+        $data['published_from'] = (string) Datetime::now()->addYears(1);
+
+        $object = new GeneralTraitsVO($data);
+
+        $this->assertFalse($object->isWithinPublishingPeriod());
     }
 
     public function testUpdateDateTimeOnUpdateTrigger(): void
