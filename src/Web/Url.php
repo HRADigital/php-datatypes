@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Web;
@@ -7,6 +15,10 @@ namespace HraDigital\Datatypes\Web;
 use HraDigital\Datatypes\Exceptions\Datatypes\InvalidUrlException;
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
 use HraDigital\Datatypes\Scalar\Str;
+use function filter_var;
+use function md5;
+use function parse_url;
+use function sprintf;
 
 /**
  * URL datatype.
@@ -21,7 +33,7 @@ use HraDigital\Datatypes\Scalar\Str;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class Url
 {
@@ -36,9 +48,6 @@ class Url
 
     /**
      * Loads a new Url instance from a native string.
-     *
-     * @param  string $url - URL used to initialize instance.
-     * @return Url
      */
     public static function create(string $url): Url
     {
@@ -48,11 +57,8 @@ class Url
     /**
      * Initializes a new instance of a URL.
      *
-     * @param  string $url - String representation of the URL.
-     *
      * @throws NonEmptyStringException - If the supplied URL is empty.
      * @throws InvalidUrlException     - If the supplied URL is not a valid absolute URL.
-     * @return void
      */
     protected function __construct(string $url)
     {
@@ -65,11 +71,8 @@ class Url
      * The scheme and host are lowercased because they are case-insensitive per
      * RFC 3986; the path and query are left untouched because they are not.
      *
-     * @param  string $url - String representation of the URL.
-     *
      * @throws NonEmptyStringException - If the supplied URL is empty.
      * @throws InvalidUrlException     - If the supplied URL is not a valid absolute URL.
-     * @return void
      */
     protected function loadFromPrimitive(string $url): void
     {
@@ -79,11 +82,11 @@ class Url
             throw NonEmptyStringException::withName('$url');
         }
 
-        if (!\filter_var((string) $voUrl, FILTER_VALIDATE_URL)) {
+        if (!filter_var((string) $voUrl, FILTER_VALIDATE_URL)) {
             throw InvalidUrlException::withValue((string) $voUrl);
         }
 
-        $parts = \parse_url((string) $voUrl);
+        $parts = parse_url((string) $voUrl);
 
         if ($parts === false || !isset($parts['scheme'], $parts['host'])) {
             throw InvalidUrlException::withValue((string) $voUrl);
@@ -93,7 +96,7 @@ class Url
         $this->host = Str::create($parts['host'])->toLower();
 
         $this->value = Str::create(
-            \sprintf(
+            sprintf(
                 '%s://%s%s%s%s',
                 (string) $this->scheme,
                 (string) $this->host,
@@ -111,6 +114,9 @@ class Url
         ];
     }
 
+    /**
+     * @param array<string, mixed> $data
+     */
     public function __unserialize(array $data): void
     {
         $this->loadFromPrimitive(
@@ -120,8 +126,6 @@ class Url
 
     /**
      * Returns the String representation of the object.
-     *
-     * @return string
      */
     public function __toString(): string
     {
@@ -130,8 +134,6 @@ class Url
 
     /**
      * Returns a string representation for the URL.
-     *
-     * @return Str
      */
     public function getAddress(): Str
     {
@@ -140,8 +142,6 @@ class Url
 
     /**
      * Returns the URL's scheme (e.g. `https`).
-     *
-     * @return Str
      */
     public function getScheme(): Str
     {
@@ -150,8 +150,6 @@ class Url
 
     /**
      * Returns the URL's host (e.g. `example.com`).
-     *
-     * @return Str
      */
     public function getHost(): Str
     {
@@ -163,19 +161,14 @@ class Url
      *
      * Intended as the stored surrogate for a UNIQUE index, where the URL itself
      * is too long to index. Always 32 characters, whatever the URL's length.
-     *
-     * @return string
      */
     public function getHash(): string
     {
-        return \md5((string) $this->value);
+        return md5((string) $this->value);
     }
 
     /**
      * Whether both instances represent the very same URL.
-     *
-     * @param  Url $other - URL to compare against.
-     * @return bool
      */
     public function equals(Url $other): bool
     {

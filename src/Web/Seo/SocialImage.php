@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Web\Seo;
@@ -11,13 +19,14 @@ use function filter_var;
 use function trim;
 
 use const FILTER_VALIDATE_URL;
+use function sprintf;
 
 /**
  * Image used in social previews (og:image / twitter:image).
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class SocialImage
 {
@@ -42,7 +51,7 @@ class SocialImage
             throw NonEmptyStringException::withName('$url');
         }
         if (filter_var($trimmed, FILTER_VALIDATE_URL) === false) {
-            throw new InvalidArgumentException(\sprintf('Invalid image URL: "%s".', $trimmed));
+            throw new InvalidArgumentException(sprintf('Invalid image URL: "%s".', $trimmed));
         }
         if ($width !== null && $width <= 0) {
             throw new InvalidArgumentException('$width must be a positive integer.');

@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Web\Seo;
@@ -8,13 +16,14 @@ use DateTimeImmutable;
 use InvalidArgumentException;
 
 use function array_values;
+use function is_string;
 
 /**
  * Article-specific Open Graph metadata. Maps to the `article:*` meta family.
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class ArticleMetadata
 {
@@ -27,7 +36,7 @@ class ArticleMetadata
     public readonly array $tags;
 
     /**
-     * @param array<int, string> $tags
+     * @param array<int, mixed> $tags - Validated at runtime; every entry must be a string.
      */
     public static function create(
         DateTimeImmutable $publishedAt,
@@ -40,7 +49,7 @@ class ArticleMetadata
     }
 
     /**
-     * @param array<int, string> $tags
+     * @param array<int, mixed> $tags - Validated at runtime; every entry must be a string.
      */
     private function __construct(
         DateTimeImmutable $publishedAt,
@@ -52,16 +61,19 @@ class ArticleMetadata
         if ($modifiedAt !== null && $modifiedAt < $publishedAt) {
             throw new InvalidArgumentException('$modifiedAt cannot be earlier than $publishedAt.');
         }
+        $validated = [];
         foreach ($tags as $tag) {
-            if (!\is_string($tag)) {
+            if (!is_string($tag)) {
                 throw new InvalidArgumentException('$tags must contain only strings.');
             }
+
+            $validated[] = $tag;
         }
 
         $this->publishedAt = $publishedAt;
         $this->modifiedAt  = $modifiedAt;
         $this->author      = $author;
         $this->section     = $section;
-        $this->tags        = array_values($tags);
+        $this->tags        = $validated;
     }
 }

@@ -1,5 +1,13 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Web\Markup;
@@ -29,6 +37,7 @@ use const ENT_HTML5;
 use const ENT_QUOTES;
 use const ENT_SUBSTITUTE;
 use const PREG_SET_ORDER;
+use function preg_match;
 
 /**
  * Plain-text ↔ structured-block ↔ HTML transformer. Useful for:
@@ -37,7 +46,7 @@ use const PREG_SET_ORDER;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class Markup
 {
@@ -108,7 +117,7 @@ class Markup
 
             $items = [];
             if (preg_match_all(self::LIST_ITEM_PATTERN, $listInner, $itemMatches) !== false) {
-                foreach ($itemMatches[1] ?? [] as $item) {
+                foreach ($itemMatches[1] as $item) {
                     $items[] = self::decodeInline((string) $item);
                 }
             }
@@ -122,12 +131,15 @@ class Markup
     }
 
     /**
-     * @param array<int, string|array<int, string>> $blocks
+     * @param array<int, mixed> $blocks - Validated at runtime; every entry must be a string or a list of strings.
      */
     public static function fromBlocks(array $blocks): self
     {
+        $validated = [];
+
         foreach ($blocks as $block) {
             if (is_string($block)) {
+                $validated[] = $block;
                 continue;
             }
 
@@ -137,16 +149,21 @@ class Markup
                 );
             }
 
+            $items = [];
             foreach ($block as $item) {
                 if (!is_string($item)) {
                     throw new InvalidArgumentException(
                         'List-item blocks must contain only strings.',
                     );
                 }
+
+                $items[] = $item;
             }
+
+            $validated[] = $items;
         }
 
-        return new self(array_values($blocks));
+        return new self($validated);
     }
 
     public function __toString(): string
@@ -244,49 +261,63 @@ class Markup
         $proseBuffer = [];
         $listBuffer = [];
 
-        $flushProse = function () use (&$proseBuffer, &$blocks, $config): void {
-            if ($proseBuffer === []) {
-                return;
-            }
-            $prose = trim(implode(' ', $proseBuffer));
-            $proseBuffer = [];
-            if ($prose === '') {
-                return;
-            }
-            foreach (self::groupSentences($prose, $config) as $paragraph) {
-                $blocks[] = $paragraph;
-            }
-        };
-
-        $flushList = function () use (&$listBuffer, &$blocks): void {
-            if ($listBuffer === []) {
-                return;
-            }
-            $blocks[] = $listBuffer;
-            $listBuffer = [];
-        };
-
         foreach ($lines as $line) {
             if (trim($line) === '') {
-                $flushProse();
-                $flushList();
+                self::flushProse($blocks, $proseBuffer, $config);
+                self::flushList($blocks, $listBuffer);
                 continue;
             }
 
-            if (\preg_match(self::LIST_LINE_PATTERN, $line, $matches) === 1) {
-                $flushProse();
+            if (preg_match(self::LIST_LINE_PATTERN, $line, $matches) === 1) {
+                self::flushProse($blocks, $proseBuffer, $config);
                 $listBuffer[] = trim($matches[1]);
                 continue;
             }
 
-            $flushList();
+            self::flushList($blocks, $listBuffer);
             $proseBuffer[] = trim($line);
         }
 
-        $flushProse();
-        $flushList();
+        self::flushProse($blocks, $proseBuffer, $config);
+        self::flushList($blocks, $listBuffer);
 
         return $blocks;
+    }
+
+    /**
+     * @param array<int, string|array<int, string>> $blocks
+     * @param array<int, string> $proseBuffer
+     */
+    private static function flushProse(array &$blocks, array &$proseBuffer, MarkupConfiguration $config): void
+    {
+        if ($proseBuffer === []) {
+            return;
+        }
+
+        $prose = trim(implode(' ', $proseBuffer));
+        $proseBuffer = [];
+
+        if ($prose === '') {
+            return;
+        }
+
+        foreach (self::groupSentences($prose, $config) as $paragraph) {
+            $blocks[] = $paragraph;
+        }
+    }
+
+    /**
+     * @param array<int, string|array<int, string>> $blocks
+     * @param array<int, string> $listBuffer
+     */
+    private static function flushList(array &$blocks, array &$listBuffer): void
+    {
+        if ($listBuffer === []) {
+            return;
+        }
+
+        $blocks[] = $listBuffer;
+        $listBuffer = [];
     }
 
     /**

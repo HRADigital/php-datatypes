@@ -1,11 +1,27 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Web\Seo;
 
 use HraDigital\Datatypes\Exceptions\Datatypes\InvalidSlugException;
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
+use function preg_match;
+use function preg_replace;
+use function rtrim;
+use function strlen;
+use function strtolower;
+use function strtr;
+use function substr;
+use function trim;
 
 /**
  * Slug datatype.
@@ -15,7 +31,7 @@ use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class Slug
 {
@@ -25,19 +41,19 @@ class Slug
 
     protected function __construct(string $value)
     {
-        $trimmed = \trim($value);
+        $trimmed = trim($value);
 
         if ($trimmed === '') {
             throw NonEmptyStringException::withName('$slug');
         }
 
-        $normalized = \strtolower($trimmed);
+        $normalized = strtolower($trimmed);
 
-        if (\strlen($normalized) > self::MAX_LENGTH) {
+        if (strlen($normalized) > self::MAX_LENGTH) {
             throw InvalidSlugException::withValue($normalized);
         }
 
-        if (\preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $normalized) !== 1) {
+        if (preg_match('/^[a-z0-9]+(?:-[a-z0-9]+)*$/', $normalized) !== 1) {
             throw InvalidSlugException::withValue($normalized);
         }
 
@@ -67,12 +83,12 @@ class Slug
      */
     public static function fromTitle(string $title): self
     {
-        $value = \strtolower(self::transliterate($title));
-        $value = (string) \preg_replace('/[^a-z0-9]+/', '-', $value);
-        $value = \trim($value, '-');
+        $value = strtolower(self::transliterate($title));
+        $value = (string) preg_replace('/[^a-z0-9]+/', '-', $value);
+        $value = trim($value, '-');
 
-        if (\strlen($value) > self::MAX_LENGTH) {
-            $value = \rtrim(\substr($value, 0, self::MAX_LENGTH), '-');
+        if (strlen($value) > self::MAX_LENGTH) {
+            $value = rtrim(substr($value, 0, self::MAX_LENGTH), '-');
         }
 
         if ($value === '') {
@@ -131,6 +147,6 @@ class Slug
             'Þ' => 'TH', 'þ' => 'th',
         ];
 
-        return \strtr($value, $map);
+        return strtr($value, $map);
     }
 }
