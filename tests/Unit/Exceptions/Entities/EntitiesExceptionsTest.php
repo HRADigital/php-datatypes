@@ -8,13 +8,14 @@ use HraDigital\Datatypes\Exceptions\Entities\RequiredEntityValueMissingException
 use HraDigital\Datatypes\Exceptions\Entities\UnexpectedEntityValueException;
 use HraDigital\Datatypes\Exceptions\UnprocessableEntityException;
 use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
+use function strlen;
 
 /**
  * Unit testing for all Entity's base Exception classes.
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class EntitiesExceptionsTest extends AbstractBaseTestCase
 {
@@ -31,8 +32,8 @@ class EntitiesExceptionsTest extends AbstractBaseTestCase
         $this->assertInstanceOf(UnprocessableEntityException::class, $static);
         $this->assertInstanceOf(UnprocessableEntityException::class, $child);
 
-        $this->assertGreaterThan(0, \strlen($exception->getMessage()));
-        $this->assertGreaterThan(0, \strlen($static->getMessage()));
+        $this->assertGreaterThan(0, strlen($exception->getMessage()));
+        $this->assertGreaterThan(0, strlen($static->getMessage()));
         $this->assertEquals(422, $exception->getCode());
         $this->assertNotEquals($exception->getMessage(), $static->getMessage());
         $this->assertStringContainsString('SomeField', $static->getMessage());
@@ -51,8 +52,8 @@ class EntitiesExceptionsTest extends AbstractBaseTestCase
         $this->assertInstanceOf(UnprocessableEntityException::class, $static);
         $this->assertInstanceOf(UnprocessableEntityException::class, $child);
 
-        $this->assertGreaterThan(0, \strlen($exception->getMessage()));
-        $this->assertGreaterThan(0, \strlen($static->getMessage()));
+        $this->assertGreaterThan(0, strlen($exception->getMessage()));
+        $this->assertGreaterThan(0, strlen($static->getMessage()));
         $this->assertEquals(422, $exception->getCode());
         $this->assertNotEquals($exception->getMessage(), $static->getMessage());
         $this->assertStringContainsString('SomeField', $static->getMessage());

@@ -8,13 +8,17 @@ use HraDigital\Datatypes\Exceptions\Entities\RequiredEntityValueMissingException
 use HraDigital\Datatypes\Exceptions\Datatypes\ParameterOutOfRangeException;
 use HraDigital\Datatypes\Scalar\Str;
 use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
+use function json_decode;
+use function json_encode;
+use function serialize;
+use function unserialize;
 
 /**
  * Abstract Value Object Unit testing.
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class AbstractValueObjectTest extends AbstractBaseTestCase
 {
@@ -25,7 +29,6 @@ class AbstractValueObjectTest extends AbstractBaseTestCase
         );
 
         // Tests field mapping and onLoad events work.
-        $this->assertFalse(TestingValueObject::DATA['is_active']);
         $this->assertFalse($valueObject->isActive());
 
         // Test Rule's processing works.
@@ -66,8 +69,8 @@ class AbstractValueObjectTest extends AbstractBaseTestCase
         $valueObject = new TestingValueObject(
             TestingValueObject::DATA
         );
-        $json = \json_decode(
-            \json_encode($valueObject),
+        $json = json_decode(
+            json_encode($valueObject),
             true
         );
 
@@ -104,8 +107,8 @@ class AbstractValueObjectTest extends AbstractBaseTestCase
             TestingValueObject::DATA
         );
 
-        $serialized = \serialize($valueObject);
-        $unserialized = \unserialize($serialized);
+        $serialized = serialize($valueObject);
+        $unserialized = unserialize($serialized);
 
         $this->assertInstanceOf(TestingValueObject::class, $valueObject);
         $this->assertInstanceOf(TestingValueObject::class, $unserialized);

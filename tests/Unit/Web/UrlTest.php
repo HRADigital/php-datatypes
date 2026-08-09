@@ -8,13 +8,17 @@ use HraDigital\Datatypes\Exceptions\Datatypes\InvalidUrlException;
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
 use HraDigital\Datatypes\Web\Url;
 use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
+use function serialize;
+use function str_repeat;
+use function strlen;
+use function unserialize;
 
 /**
  * Url Unit testing.
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class UrlTest extends AbstractBaseTestCase
 {
@@ -91,7 +95,7 @@ class UrlTest extends AbstractBaseTestCase
     {
         $url = Url::create('https://example.com/posts/hello');
 
-        $this->assertSame(32, \strlen($url->getHash()));
+        $this->assertSame(32, strlen($url->getHash()));
     }
 
     public function testGetHashIsStableForTheSameUrl(): void
@@ -114,9 +118,9 @@ class UrlTest extends AbstractBaseTestCase
     {
         // The whole point of the digest: a URL far past any index key limit
         // still yields a 32 character value.
-        $url = Url::create('https://example.com/' . \str_repeat('a', 3000));
+        $url = Url::create('https://example.com/' . str_repeat('a', 3000));
 
-        $this->assertSame(32, \strlen($url->getHash()));
+        $this->assertSame(32, strlen($url->getHash()));
     }
 
     public function testGetHashMatchesForUrlsDifferingOnlyByHostCase(): void
@@ -155,6 +159,6 @@ class UrlTest extends AbstractBaseTestCase
     {
         $url = Url::create('https://example.com/a?b=1');
 
-        $this->assertEquals($url, \unserialize(\serialize($url)));
+        $this->assertEquals($url, unserialize(serialize($url)));
     }
 }

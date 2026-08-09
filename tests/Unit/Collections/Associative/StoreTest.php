@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hradigital\Tests\Datatypes\Unit\Collections\Associative;
+namespace HraDigital\Tests\Datatypes\Unit\Collections\Associative;
 
 use HraDigital\Datatypes\Collections\Associative\Store;
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
@@ -13,7 +13,7 @@ use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class StoreTest extends AbstractBaseTestCase
 {

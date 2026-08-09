@@ -8,13 +8,14 @@ use HraDigital\Datatypes\Exceptions\Datatypes\InvalidSlugException;
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
 use HraDigital\Datatypes\Web\Seo\Slug;
 use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
+use function str_repeat;
 
 /**
  * Slug Unit testing.
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class SlugTest extends AbstractBaseTestCase
 {
@@ -123,12 +124,12 @@ class SlugTest extends AbstractBaseTestCase
     {
         $this->expectException(InvalidSlugException::class);
 
-        Slug::create(\str_repeat('a', Slug::MAX_LENGTH + 1));
+        Slug::create(str_repeat('a', Slug::MAX_LENGTH + 1));
     }
 
     public function testAcceptsSlugAtMaxLength(): void
     {
-        $value = \str_repeat('a', Slug::MAX_LENGTH);
+        $value = str_repeat('a', Slug::MAX_LENGTH);
         $slug  = Slug::create($value);
 
         $this->assertSame($value, (string) $slug);

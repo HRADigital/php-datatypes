@@ -13,7 +13,7 @@ use InvalidArgumentException;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class MarkupConfigurationTest extends AbstractBaseTestCase
 {

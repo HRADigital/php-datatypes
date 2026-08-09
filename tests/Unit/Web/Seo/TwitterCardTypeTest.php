@@ -6,13 +6,14 @@ namespace HraDigital\Tests\Datatypes\Unit\Web\Seo;
 
 use HraDigital\Datatypes\Web\Seo\TwitterCardType;
 use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
+use function sprintf;
 
 /**
  * TwitterCardType Unit testing.
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class TwitterCardTypeTest extends AbstractBaseTestCase
 {
@@ -34,7 +35,7 @@ class TwitterCardTypeTest extends AbstractBaseTestCase
     public function testAllCasesHaveNonEmptyValues(): void
     {
         foreach (TwitterCardType::cases() as $case) {
-            $this->assertNotEmpty($case->value, \sprintf('Case %s has empty value.', $case->name));
+            $this->assertNotEmpty($case->value, sprintf('Case %s has empty value.', $case->name));
         }
     }
 }

@@ -7,15 +7,16 @@ namespace HraDigital\Tests\Datatypes\Unit\ValueObjects;
 use HraDigital\Datatypes\Datetime\Datetime;
 use HraDigital\Datatypes\Scalar\Str;
 use HraDigital\Datatypes\ValueObjects\Traits\CanSerializeAllToJsonTrait;
+use JsonSerializable;
 
 /**
  * Test for JSON Serializable Object.
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
-class TestingAggregate implements \JsonSerializable
+class TestingAggregate implements JsonSerializable
 {
     use CanSerializeAllToJsonTrait;
 

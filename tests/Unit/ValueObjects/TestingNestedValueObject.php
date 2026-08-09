@@ -19,7 +19,7 @@ use HraDigital\Datatypes\ValueObjects\AbstractValueObject;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class TestingNestedValueObject extends AbstractValueObject
 {
@@ -30,9 +30,13 @@ class TestingNestedValueObject extends AbstractValueObject
         HasTitleTrait,
         HasUpdatableUpdatedAtTrait;
 
-    /** @var array $guarded - List of fields that should not be serializable into JSON. */
+    /** List of fields that should not be serializable into JSON. */
     protected array $guarded = ['active'];
 
+    /**
+     * @param array<string, mixed> $fields
+     * @return array<string, mixed>
+     */
     protected function ruleSetUpdatedAtIfMissing(array $fields): array
     {
         if (!isset($fields['updated_at'])) {

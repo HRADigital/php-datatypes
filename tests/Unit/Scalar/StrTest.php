@@ -9,13 +9,14 @@ use HraDigital\Datatypes\Exceptions\Datatypes\ParameterOutOfRangeException;
 use HraDigital\Datatypes\Scalar\AbstractBaseString;
 use HraDigital\Datatypes\Scalar\Str;
 use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
+use function strlen;
 
 /**
  * String's Scalar Native/Primitive Object Unit testing.
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class StrTest extends AbstractBaseTestCase
 {
@@ -46,8 +47,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Checks that Instance loads and holds value correctly.
-     *
-     * @return void
      */
     public function checkLoadsDataCorrectly(): void
     {
@@ -66,8 +65,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Checks that String's length retrieval works.
-     *
-     * @return void
      */
     public function testCanRetrieveLengthCorrectly(): void
     {
@@ -77,7 +74,7 @@ class StrTest extends AbstractBaseTestCase
 
         // Performs assertions.
         $this->assertEquals(
-            \strlen($string),
+            strlen($string),
             $instance->getLength(),
             'Instance character length does not seam to match.'
         );
@@ -85,8 +82,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Checks that String's word count retrieval works.
-     *
-     * @return void
      */
     public function testCanRetrieveWordCountCorrectly(): void
     {
@@ -104,8 +99,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that a string can be trimmed.
-     *
-     * @return void
      */
     public function testCanTrimString(): void
     {
@@ -125,8 +118,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that a string can be trimmed only on the left.
-     *
-     * @return void
      */
     public function testCanLeftTrimString(): void
     {
@@ -146,8 +137,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that a string can be trimmed only on the right.
-     *
-     * @return void
      */
     public function testCanRightTrimString(): void
     {
@@ -167,8 +156,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that a string can be converted to UPPER case.
-     *
-     * @return void
      */
     public function testCanUpperCaseString(): void
     {
@@ -188,8 +175,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that a string can be converted to UPPER case.
-     *
-     * @return void
      */
     public function testCanUpperCaseFirst(): void
     {
@@ -209,8 +194,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that a string can be convert to UPPER case, all words.
-     *
-     * @return void
      */
     public function testCanUpperCaseWords(): void
     {
@@ -230,8 +213,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that a string can be converted to LOWER case.
-     *
-     * @return void
      */
     public function testCanLowerCaseString(): void
     {
@@ -251,8 +232,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that a string can be converted to LOWER case.
-     *
-     * @return void
      */
     public function testCanLowerCaseFirst(): void
     {
@@ -272,15 +251,13 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that a string can be padded on the left.
-     *
-     * @return void
      */
     public function testCanPadOnTheLeft(): void
     {
         // Performs test.
         $string   = "Immutable String.";
         $original = $this->getInstance($string);
-        $other    = $original->padLeft(\strlen($string) + 2);
+        $other    = $original->padLeft(strlen($string) + 2);
 
         // Performs assertions.
         $this->assertEquals(
@@ -294,8 +271,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that a string is not padded on the left, when the padding length is less than the string's length.
-     *
-     * @return void
      */
     public function testCanPadOnTheLeftWithoutResult(): void
     {
@@ -316,8 +291,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that a string can be padded on the left.
-     *
-     * @return void
      */
     public function testCanPadOnTheLeftExtra(): void
     {
@@ -338,8 +311,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that padding breaks.
-     *
-     * @return void
      */
     public function testBreaksPaddingOnTheLeftWithInvalidLength(): void
     {
@@ -353,15 +324,13 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that a string can be padded on the right.
-     *
-     * @return void
      */
     public function testCanPadOnTheRight(): void
     {
         // Performs test.
         $string   = "Immutable String.";
         $original = $this->getInstance($string);
-        $other    = $original->padRight(\strlen($string) + 2);
+        $other    = $original->padRight(strlen($string) + 2);
 
         // Performs assertions.
         $this->assertEquals(
@@ -375,8 +344,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that a string can be padded on the right.
-     *
-     * @return void
      */
     public function testCanPadOnTheRightExtra(): void
     {
@@ -397,8 +364,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that padding breaks.
-     *
-     * @return void
      */
     public function testCanPadOnTheRightBreaksWithInvalidLength(): void
     {
@@ -412,8 +377,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that a simple substring can be retrieved.
-     *
-     * @return void
      */
     public function testSubStringCanBeRetrieved(): void
     {
@@ -433,8 +396,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that a simple substring can be retrieved.
-     *
-     * @return void
      */
     public function testSubStringCanBeRetrievedWithNegativeStart(): void
     {
@@ -454,8 +415,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that a simple substring can be retrieved.
-     *
-     * @return void
      */
     public function testSubStringCanBeRetrievedWithLength(): void
     {
@@ -475,8 +434,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that a simple substring can be retrieved.
-     *
-     * @return void
      */
     public function testSubStringCanBeRetrievedWithNegativeLength(): void
     {
@@ -496,8 +453,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that substring breaks.
-     *
-     * @return void
      */
     public function testBreaksSubStringWithShortStart(): void
     {
@@ -511,8 +466,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that substring breaks.
-     *
-     * @return void
      */
     public function testBreaksSubStringWithLongStart(): void
     {
@@ -526,8 +479,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that substring breaks.
-     *
-     * @return void
      */
     public function testBreaksSubStringWithShortLength(): void
     {
@@ -541,8 +492,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that substring breaks.
-     *
-     * @return void
      */
     public function testBreaksSubStringWithLongLength(): void
     {
@@ -556,8 +505,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that a simple subLeft can be retrieved.
-     *
-     * @return void
      */
     public function testSubStringLeftCanBeRetrieved(): void
     {
@@ -577,8 +524,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that subLeft() breaks.
-     *
-     * @return void
      */
     public function testBreaksSubStringLeftWithShortLength(): void
     {
@@ -592,8 +537,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that subLeft() breaks.
-     *
-     * @return void
      */
     public function testBreaksSubStringLeftWithLongLength(): void
     {
@@ -607,8 +550,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that a simple subRight() can be retrieved.
-     *
-     * @return void
      */
     public function testSubStringRightCanBeRetrieved(): void
     {
@@ -628,8 +569,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that subRight() breaks.
-     *
-     * @return void
      */
     public function testBreaksSubStringRightWithShortLength(): void
     {
@@ -643,8 +582,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that subRight() breaks.
-     *
-     * @return void
      */
     public function testBreaksSubStringRightWithLongLength(): void
     {
@@ -658,8 +595,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that a string can be reversed.
-     *
-     * @return void
      */
     public function testStringCanBeReversed(): void
     {
@@ -679,8 +614,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Checks Matching between two distinct strings.
-     *
-     * @return void
      */
     public function testCanCheckMatching(): void
     {
@@ -697,8 +630,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Checks Equality of two distinct strings.
-     *
-     * @return void
      */
     public function testCanCheckEquality(): void
     {
@@ -714,8 +645,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that we can check of String contains a text portion.
-     *
-     * @return void
      */
     public function testCanCheckIfStringContainsPortion(): void
     {
@@ -732,8 +661,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that method breaks if invalid parameters are passed.
-     *
-     * @return void
      */
     public function testBreaksCheckingIfStringContainsPortionWithEmptyText(): void
     {
@@ -749,8 +676,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Test indexOf() method.
-     *
-     * @return void
      */
     public function testCanRetrieveIndexOf(): void
     {
@@ -768,8 +693,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Test indexOf() method.
-     *
-     * @return void
      */
     public function testCanRetrieveIndexOfWithStart(): void
     {
@@ -787,8 +710,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Test indexOf() method.
-     *
-     * @return void
      */
     public function testIndexOfReturnsNullIfNotFound(): void
     {
@@ -805,8 +726,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Test indexOf() breaks with illegal parameters.
-     *
-     * @return void
      */
     public function testBreaksIndexOfIfEmptySearch(): void
     {
@@ -820,8 +739,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that we can check is a string begins with a given text.
-     *
-     * @return void
      */
     public function testCanCheckIfStringStartsWithText(): void
     {
@@ -837,8 +754,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that we can check is a string begins with a given text.
-     *
-     * @return void
      */
     public function testBreaksCheckingIfStringStartsWithText(): void
     {
@@ -852,8 +767,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that we can check is a string begins with a given text.
-     *
-     * @return void
      */
     public function testCanCheckIfStringEndsWithText(): void
     {
@@ -869,8 +782,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that we can check is a string begins with a given text.
-     *
-     * @return void
      */
     public function testBreaksCheckingIfStringEndsWithText(): void
     {
@@ -884,8 +795,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests count() method.
-     *
-     * @return void
      */
     public function testCanCountNumberOccurencesInString(): void
     {
@@ -903,8 +812,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests count() method.
-     *
-     * @return void
      */
     public function testCanCountNumberOccurencesInStringWithStartAndLength(): void
     {
@@ -922,8 +829,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests count() method.
-     *
-     * @return void
      */
     public function testCanCountNumberOccurencesInStringIfNoneIsFound(): void
     {
@@ -941,8 +846,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests count() breaks if empty search is supplied.
-     *
-     * @return void
      */
     public function testBreaksCountNumberOccurencesInStringIfSerachIsEmpty(): void
     {
@@ -956,8 +859,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that padding breaks.
-     *
-     * @return void
      */
     public function testBreaksPaddingOnTheLeftWithInvalidPadString(): void
     {
@@ -971,8 +872,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that padding breaks.
-     *
-     * @return void
      */
     public function testBreaksCanPaddingOnTheLeftExtraWithInvalidPadString(): void
     {
@@ -986,15 +885,13 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that a string can be padded on the left.
-     *
-     * @return void
      */
     public function testCanPadOnTheLeftWidthCharacter(): void
     {
         // Performs test.
         $string   = "Immutable String.";
         $original = $this->getInstance($string);
-        $other    = $original->padLeft(\strlen($string) + 2, '_');
+        $other    = $original->padLeft(strlen($string) + 2, '_');
 
         // Performs assertions.
         $this->assertEquals(
@@ -1008,8 +905,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that a string can be padded on the left.
-     *
-     * @return void
      */
     public function testCanPadOnTheLeftExtraWidthCharacter(): void
     {
@@ -1030,8 +925,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that padding breaks.
-     *
-     * @return void
      */
     public function testBreaksCanPadOnTheRightWithInvalidPadString(): void
     {
@@ -1045,8 +938,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that padding breaks.
-     *
-     * @return void
      */
     public function testBreaksCanPadOnTheRightExtraWithInvalidPadString(): void
     {
@@ -1060,15 +951,13 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that a string can be padded on the right.
-     *
-     * @return void
      */
     public function testCanPadOnTheRightWidthCharacter(): void
     {
         // Performs test.
         $string   = "Immutable String.";
         $original = $this->getInstance($string);
-        $other    = $original->padRight(\strlen($string) + 2, '_');
+        $other    = $original->padRight(strlen($string) + 2, '_');
 
         // Performs assertions.
         $this->assertEquals(
@@ -1082,8 +971,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that a string can be padded on the right.
-     *
-     * @return void
      */
     public function testCanPadOnTheRightExtraWidthCharacter(): void
     {
@@ -1104,8 +991,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that text can be replaced in the String.
-     *
-     * @return void
      */
     public function testTextCanBeReplacedInString(): void
     {
@@ -1125,8 +1010,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that text is not replaced if search is not found.
-     *
-     * @return void
      */
     public function testTextIsNotReplacedIfSearchNotFound(): void
     {
@@ -1146,8 +1029,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that text replace breaks.
-     *
-     * @return void
      */
     public function testBreaksTextReplaceIfSearchIsEmpty(): void
     {
@@ -1161,8 +1042,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that text replace breaks.
-     *
-     * @return void
      */
     public function testBreaksTextReplaceIfReplaceIsEmpty(): void
     {
@@ -1176,8 +1055,6 @@ class StrTest extends AbstractBaseTestCase
 
     /**
      * Tests that text can be exploded into an array.
-     *
-     * @return void
      */
     public function testTextCanBeExplodedIntoAnArray(): void
     {
@@ -1186,14 +1063,11 @@ class StrTest extends AbstractBaseTestCase
         $array = $original->explode(' ');
 
         // Performs assertions.
-        $this->assertIsArray($array);
         $this->assertCount(5, $array);
     }
 
     /**
      * Tests that text can be exploded into an array.
-     *
-     * @return void
      */
     public function testTextCanBeExplodedIntoAnArrayWithLimit(): void
     {
@@ -1202,14 +1076,11 @@ class StrTest extends AbstractBaseTestCase
         $array = $original->explode(' ', 3);
 
         // Performs assertions.
-        $this->assertIsArray($array);
         $this->assertCount(3, $array);
     }
 
     /**
      * Tests that text is not replaced if search is not found.
-     *
-     * @return void
      */
     public function testBreaksIfReplacementIsEmpty(): void
     {

@@ -24,7 +24,7 @@ use HraDigital\Datatypes\ValueObjects\Traits\CanProcessOnUpdateEventsTrait;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class LocationTraitsVO extends AbstractValueObject
 {

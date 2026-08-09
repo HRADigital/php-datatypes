@@ -18,10 +18,13 @@ use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class SeoMetadataTest extends AbstractBaseTestCase
 {
+    /**
+     * @param array<string, string> $overrides
+     */
     private function makeMetadata(array $overrides = []): SeoMetadata
     {
         return SeoMetadata::create(
@@ -61,7 +64,11 @@ class SeoMetadataTest extends AbstractBaseTestCase
     {
         $image = SocialImage::create('https://example.com/img.jpg');
         $seo   = SeoMetadata::create(
-            'Title', 'Desc', 'https://example.com', 'Site', 'en_GB',
+            'Title',
+            'Desc',
+            'https://example.com',
+            'Site',
+            'en_GB',
             image: $image,
         );
 
@@ -71,7 +78,11 @@ class SeoMetadataTest extends AbstractBaseTestCase
     public function testExplicitTwitterCardIsRespected(): void
     {
         $seo = SeoMetadata::create(
-            'Title', 'Desc', 'https://example.com', 'Site', 'en_GB',
+            'Title',
+            'Desc',
+            'https://example.com',
+            'Site',
+            'en_GB',
             twitterCard: TwitterCardType::App,
         );
 
@@ -88,7 +99,11 @@ class SeoMetadataTest extends AbstractBaseTestCase
     public function testRobotsDirectiveNoindexNofollow(): void
     {
         $seo = SeoMetadata::create(
-            'Title', 'Desc', 'https://example.com', 'Site', 'en_GB',
+            'Title',
+            'Desc',
+            'https://example.com',
+            'Site',
+            'en_GB',
             robotsIndex: false,
             robotsFollow: false,
         );
@@ -121,7 +136,11 @@ class SeoMetadataTest extends AbstractBaseTestCase
     public function testCanonicalUrlIsStored(): void
     {
         $seo = SeoMetadata::create(
-            'Title', 'Desc', 'https://example.com', 'Site', 'en_GB',
+            'Title',
+            'Desc',
+            'https://example.com',
+            'Site',
+            'en_GB',
             canonicalUrl: '  https://example.com/canonical  ',
         );
 
@@ -166,7 +185,11 @@ class SeoMetadataTest extends AbstractBaseTestCase
     public function testLeadingAndTrailingWhitespaceIsTrimmed(): void
     {
         $seo = SeoMetadata::create(
-            '  Title  ', '  Desc  ', '  https://example.com  ', '  Site  ', '  en_GB  ',
+            '  Title  ',
+            '  Desc  ',
+            '  https://example.com  ',
+            '  Site  ',
+            '  en_GB  ',
         );
 
         $this->assertSame('Title', $seo->title);

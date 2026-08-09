@@ -13,13 +13,14 @@ use HraDigital\Datatypes\Exceptions\Datatypes\ParameterOutOfRangeException;
 use HraDigital\Datatypes\Exceptions\Datatypes\PositiveIntegerException;
 use HraDigital\Datatypes\Exceptions\UnprocessableEntityException;
 use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
+use function strlen;
 
 /**
  * Unit testing for all Datatype base Exception's classes.
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class DatatypeExceptionsTest extends AbstractBaseTestCase
 {
@@ -33,8 +34,8 @@ class DatatypeExceptionsTest extends AbstractBaseTestCase
         $this->assertInstanceOf(UnprocessableEntityException::class, $exception);
         $this->assertInstanceOf(UnprocessableEntityException::class, $static);
 
-        $this->assertGreaterThan(0, \strlen($exception->getMessage()));
-        $this->assertGreaterThan(0, \strlen($static->getMessage()));
+        $this->assertGreaterThan(0, strlen($exception->getMessage()));
+        $this->assertGreaterThan(0, strlen($static->getMessage()));
         $this->assertEquals(422, $exception->getCode());
         $this->assertNotEquals($exception->getMessage(), $static->getMessage());
         $this->assertStringContainsString('SomeField', $static->getMessage());
@@ -50,8 +51,8 @@ class DatatypeExceptionsTest extends AbstractBaseTestCase
         $this->assertInstanceOf(UnprocessableEntityException::class, $exception);
         $this->assertInstanceOf(UnprocessableEntityException::class, $static);
 
-        $this->assertGreaterThan(0, \strlen($exception->getMessage()));
-        $this->assertGreaterThan(0, \strlen($static->getMessage()));
+        $this->assertGreaterThan(0, strlen($exception->getMessage()));
+        $this->assertGreaterThan(0, strlen($static->getMessage()));
         $this->assertEquals(422, $exception->getCode());
         $this->assertNotEquals($exception->getMessage(), $static->getMessage());
         $this->assertStringContainsString('SomeField', $static->getMessage());
@@ -70,9 +71,9 @@ class DatatypeExceptionsTest extends AbstractBaseTestCase
         $this->assertInstanceOf(UnprocessableEntityException::class, $static);
         $this->assertInstanceOf(UnprocessableEntityException::class, $staticWithLength);
 
-        $this->assertGreaterThan(0, \strlen($exception->getMessage()));
-        $this->assertGreaterThan(0, \strlen($static->getMessage()));
-        $this->assertGreaterThan(0, \strlen($staticWithLength->getMessage()));
+        $this->assertGreaterThan(0, strlen($exception->getMessage()));
+        $this->assertGreaterThan(0, strlen($static->getMessage()));
+        $this->assertGreaterThan(0, strlen($staticWithLength->getMessage()));
         $this->assertEquals(422, $exception->getCode());
 
         $this->assertNotEquals($exception->getMessage(), $static->getMessage());
@@ -94,8 +95,8 @@ class DatatypeExceptionsTest extends AbstractBaseTestCase
         $this->assertInstanceOf(UnprocessableEntityException::class, $exception);
         $this->assertInstanceOf(UnprocessableEntityException::class, $static);
 
-        $this->assertGreaterThan(0, \strlen($exception->getMessage()));
-        $this->assertGreaterThan(0, \strlen($static->getMessage()));
+        $this->assertGreaterThan(0, strlen($exception->getMessage()));
+        $this->assertGreaterThan(0, strlen($static->getMessage()));
         $this->assertEquals(422, $exception->getCode());
         $this->assertNotEquals($exception->getMessage(), $static->getMessage());
         $this->assertStringContainsString('SomeField', $static->getMessage());
@@ -111,8 +112,8 @@ class DatatypeExceptionsTest extends AbstractBaseTestCase
         $this->assertInstanceOf(UnprocessableEntityException::class, $exception);
         $this->assertInstanceOf(UnprocessableEntityException::class, $static);
 
-        $this->assertGreaterThan(0, \strlen($exception->getMessage()));
-        $this->assertGreaterThan(0, \strlen($static->getMessage()));
+        $this->assertGreaterThan(0, strlen($exception->getMessage()));
+        $this->assertGreaterThan(0, strlen($static->getMessage()));
         $this->assertEquals(422, $exception->getCode());
         $this->assertNotEquals($exception->getMessage(), $static->getMessage());
         $this->assertStringContainsString('SomeField', $static->getMessage());
@@ -128,8 +129,8 @@ class DatatypeExceptionsTest extends AbstractBaseTestCase
         $this->assertInstanceOf(UnprocessableEntityException::class, $exception);
         $this->assertInstanceOf(UnprocessableEntityException::class, $static);
 
-        $this->assertGreaterThan(0, \strlen($exception->getMessage()));
-        $this->assertGreaterThan(0, \strlen($static->getMessage()));
+        $this->assertGreaterThan(0, strlen($exception->getMessage()));
+        $this->assertGreaterThan(0, strlen($static->getMessage()));
         $this->assertEquals(422, $exception->getCode());
         $this->assertNotEquals($exception->getMessage(), $static->getMessage());
         $this->assertStringContainsString('SomeField', $static->getMessage());
@@ -145,8 +146,8 @@ class DatatypeExceptionsTest extends AbstractBaseTestCase
         $this->assertInstanceOf(UnprocessableEntityException::class, $exception);
         $this->assertInstanceOf(UnprocessableEntityException::class, $static);
 
-        $this->assertGreaterThan(0, \strlen($exception->getMessage()));
-        $this->assertGreaterThan(0, \strlen($static->getMessage()));
+        $this->assertGreaterThan(0, strlen($exception->getMessage()));
+        $this->assertGreaterThan(0, strlen($static->getMessage()));
         $this->assertEquals(422, $exception->getCode());
         $this->assertNotEquals($exception->getMessage(), $static->getMessage());
         $this->assertStringContainsString('SomeField', $static->getMessage());

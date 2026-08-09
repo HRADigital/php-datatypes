@@ -25,7 +25,7 @@ use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class LocationTraitsVOTest extends AbstractBaseTestCase
 {

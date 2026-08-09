@@ -20,13 +20,14 @@ use HraDigital\Datatypes\Exceptions\TooManyRequestsException;
 use HraDigital\Datatypes\Exceptions\UnprocessableEntityException;
 use HraDigital\Datatypes\Exceptions\UnsupportedMediaTypeException;
 use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
+use function strlen;
 
 /**
  * Unit testing for all base Exception's classes.
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class CoreExceptionsTest extends AbstractBaseTestCase
 {
@@ -34,7 +35,7 @@ class CoreExceptionsTest extends AbstractBaseTestCase
     {
         $exception = new ConflictException();
 
-        $this->assertGreaterThan(0, \strlen($exception->getMessage()));
+        $this->assertGreaterThan(0, strlen($exception->getMessage()));
         $this->assertEquals(409, $exception->getCode());
     }
 
@@ -42,7 +43,7 @@ class CoreExceptionsTest extends AbstractBaseTestCase
     {
         $exception = new DeniedAccessException();
 
-        $this->assertGreaterThan(0, \strlen($exception->getMessage()));
+        $this->assertGreaterThan(0, strlen($exception->getMessage()));
         $this->assertEquals(401, $exception->getCode());
     }
 
@@ -50,7 +51,7 @@ class CoreExceptionsTest extends AbstractBaseTestCase
     {
         $exception = new ExpectationFailedException();
 
-        $this->assertGreaterThan(0, \strlen($exception->getMessage()));
+        $this->assertGreaterThan(0, strlen($exception->getMessage()));
         $this->assertEquals(417, $exception->getCode());
     }
 
@@ -58,7 +59,7 @@ class CoreExceptionsTest extends AbstractBaseTestCase
     {
         $exception = new FailedDependencyException();
 
-        $this->assertGreaterThan(0, \strlen($exception->getMessage()));
+        $this->assertGreaterThan(0, strlen($exception->getMessage()));
         $this->assertEquals(424, $exception->getCode());
     }
 
@@ -66,7 +67,7 @@ class CoreExceptionsTest extends AbstractBaseTestCase
     {
         $exception = new ForbiddenException();
 
-        $this->assertGreaterThan(0, \strlen($exception->getMessage()));
+        $this->assertGreaterThan(0, strlen($exception->getMessage()));
         $this->assertEquals(403, $exception->getCode());
     }
 
@@ -75,8 +76,8 @@ class CoreExceptionsTest extends AbstractBaseTestCase
         $exception = new GoneException();
         $static = GoneException::withId(123);
 
-        $this->assertGreaterThan(0, \strlen($exception->getMessage()));
-        $this->assertGreaterThan(0, \strlen($static->getMessage()));
+        $this->assertGreaterThan(0, strlen($exception->getMessage()));
+        $this->assertGreaterThan(0, strlen($static->getMessage()));
         $this->assertEquals(410, $exception->getCode());
         $this->assertNotEquals($exception->getMessage(), $static->getMessage());
         $this->assertStringContainsString('123', $static->getMessage());
@@ -86,7 +87,7 @@ class CoreExceptionsTest extends AbstractBaseTestCase
     {
         $exception = new MethodNotAllowedException();
 
-        $this->assertGreaterThan(0, \strlen($exception->getMessage()));
+        $this->assertGreaterThan(0, strlen($exception->getMessage()));
         $this->assertEquals(405, $exception->getCode());
     }
 
@@ -94,7 +95,7 @@ class CoreExceptionsTest extends AbstractBaseTestCase
     {
         $exception = new NotAcceptableException();
 
-        $this->assertGreaterThan(0, \strlen($exception->getMessage()));
+        $this->assertGreaterThan(0, strlen($exception->getMessage()));
         $this->assertEquals(406, $exception->getCode());
     }
 
@@ -103,8 +104,8 @@ class CoreExceptionsTest extends AbstractBaseTestCase
         $exception = new NotFoundException();
         $static = NotFoundException::withId(12345);
 
-        $this->assertGreaterThan(0, \strlen($exception->getMessage()));
-        $this->assertGreaterThan(0, \strlen($static->getMessage()));
+        $this->assertGreaterThan(0, strlen($exception->getMessage()));
+        $this->assertGreaterThan(0, strlen($static->getMessage()));
         $this->assertEquals(404, $exception->getCode());
         $this->assertNotEquals($exception->getMessage(), $static->getMessage());
         $this->assertStringContainsString('12345', $static->getMessage());
@@ -114,7 +115,7 @@ class CoreExceptionsTest extends AbstractBaseTestCase
     {
         $exception = new PreconditionFailedException();
 
-        $this->assertGreaterThan(0, \strlen($exception->getMessage()));
+        $this->assertGreaterThan(0, strlen($exception->getMessage()));
         $this->assertEquals(412, $exception->getCode());
     }
 
@@ -122,7 +123,7 @@ class CoreExceptionsTest extends AbstractBaseTestCase
     {
         $exception = new PreconditionRequiredException();
 
-        $this->assertGreaterThan(0, \strlen($exception->getMessage()));
+        $this->assertGreaterThan(0, strlen($exception->getMessage()));
         $this->assertEquals(428, $exception->getCode());
     }
 
@@ -130,7 +131,7 @@ class CoreExceptionsTest extends AbstractBaseTestCase
     {
         $exception = new RequestedRangeNotSatisfiableException();
 
-        $this->assertGreaterThan(0, \strlen($exception->getMessage()));
+        $this->assertGreaterThan(0, strlen($exception->getMessage()));
         $this->assertEquals(416, $exception->getCode());
     }
 
@@ -138,7 +139,7 @@ class CoreExceptionsTest extends AbstractBaseTestCase
     {
         $exception = new TooManyRequestsException();
 
-        $this->assertGreaterThan(0, \strlen($exception->getMessage()));
+        $this->assertGreaterThan(0, strlen($exception->getMessage()));
         $this->assertEquals(429, $exception->getCode());
     }
 
@@ -147,8 +148,8 @@ class CoreExceptionsTest extends AbstractBaseTestCase
         $exception = new UnprocessableEntityException();
         $static = UnprocessableEntityException::withName('SomeField');
 
-        $this->assertGreaterThan(0, \strlen($exception->getMessage()));
-        $this->assertGreaterThan(0, \strlen($static->getMessage()));
+        $this->assertGreaterThan(0, strlen($exception->getMessage()));
+        $this->assertGreaterThan(0, strlen($static->getMessage()));
         $this->assertEquals(422, $exception->getCode());
         $this->assertNotEquals($exception->getMessage(), $static->getMessage());
         $this->assertStringContainsString('SomeField', $static->getMessage());
@@ -159,8 +160,8 @@ class CoreExceptionsTest extends AbstractBaseTestCase
         $exception = new UnsupportedMediaTypeException();
         $static = UnsupportedMediaTypeException::withName('MediaType');
 
-        $this->assertGreaterThan(0, \strlen($exception->getMessage()));
-        $this->assertGreaterThan(0, \strlen($static->getMessage()));
+        $this->assertGreaterThan(0, strlen($exception->getMessage()));
+        $this->assertGreaterThan(0, strlen($static->getMessage()));
         $this->assertEquals(415, $exception->getCode());
         $this->assertNotEquals($exception->getMessage(), $static->getMessage());
         $this->assertStringContainsString('MediaType', $static->getMessage());

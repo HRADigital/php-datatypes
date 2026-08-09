@@ -7,13 +7,15 @@ namespace HraDigital\Tests\Datatypes\Unit\Datetime;
 use HraDigital\Datatypes\Datetime\Datetime;
 use HraDigital\Datatypes\Scalar\Str;
 use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
+use DateInterval;
+use InvalidArgumentException;
 
 /**
  * Datetime's Unit testing.
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class DatetimeTest extends AbstractBaseTestCase
 {
@@ -140,7 +142,7 @@ class DatetimeTest extends AbstractBaseTestCase
     public function testCanAddInterval(): void
     {
         $dt = Datetime::fromString(self::DATETIME);
-        $interval = new \DateInterval('P1Y');
+        $interval = new DateInterval('P1Y');
 
         $result = $dt->add($interval);
 
@@ -336,7 +338,7 @@ class DatetimeTest extends AbstractBaseTestCase
 
     public function testLocalizedDateTimeRejectsInvalidStyle(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         Datetime::fromString(self::DATETIME)
             ->toLocalizedDateTime(Str::create('huge'), Str::create('short'), Str::create('en_GB'));
@@ -394,7 +396,7 @@ class DatetimeTest extends AbstractBaseTestCase
 
     public function testToLocalizedDateTimeThrowsForInvalidStyle(): void
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(InvalidArgumentException::class);
 
         $dt = Datetime::fromString('2024-05-27 14:32:00');
         $dt->toLocalizedDateTime(

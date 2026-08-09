@@ -15,7 +15,7 @@ use HraDigital\Datatypes\ValueObjects\AbstractValueObject;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class SocialMediaTraitsVO extends AbstractValueObject
 {

@@ -8,13 +8,15 @@ use HraDigital\Datatypes\Web\Markup\Markup;
 use HraDigital\Datatypes\Web\Markup\MarkupConfiguration;
 use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
 use InvalidArgumentException;
+use function mb_strlen;
+use function str_repeat;
 
 /**
  * Markup Unit testing.
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class MarkupTest extends AbstractBaseTestCase
 {
@@ -136,11 +138,11 @@ class MarkupTest extends AbstractBaseTestCase
 
     public function testToIntroReturnsFirstParagraphTruncated(): void
     {
-        $long   = \str_repeat('a', 200);
+        $long   = str_repeat('a', 200);
         $markup = Markup::fromBlocks([$long]);
 
         $intro = $markup->toIntro(180);
-        $this->assertLessThanOrEqual(184, \mb_strlen($intro)); // 180 chars + ellipsis
+        $this->assertLessThanOrEqual(184, mb_strlen($intro)); // 180 chars + ellipsis
         $this->assertStringEndsWith('…', $intro);
     }
 

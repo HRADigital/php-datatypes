@@ -6,20 +6,22 @@ use HraDigital\Datatypes\Exceptions\Datatypes\InvalidEmailException;
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
 use HraDigital\Datatypes\Web\EmailAddress;
 use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
+use function serialize;
+use function strtolower;
+use function trim;
+use function unserialize;
 
 /**
  * Email Address Unit testing.
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class EmailAddressTest extends AbstractBaseTestCase
 {
     /**
      * Tests an instance can be loaded successfully.
-     *
-     * @return void
      */
     public function testLoadsSuccessfully(): void
     {
@@ -62,8 +64,6 @@ class EmailAddressTest extends AbstractBaseTestCase
 
     /**
      * Tests supplied e-mail address is converted to lower case.
-     *
-     * @return void
      */
     public function testConvertsToLowerCase(): void
     {
@@ -73,7 +73,7 @@ class EmailAddressTest extends AbstractBaseTestCase
 
         // Performs assertions.
         $this->assertEquals(
-            \strtolower(\trim($emailString)),
+            strtolower(trim($emailString)),
             (string) $email,
             'Trimmed and lower cased strings do not match.'
         );
@@ -81,8 +81,6 @@ class EmailAddressTest extends AbstractBaseTestCase
 
     /**
      * Tests breaks instantiation, if invalid data is supplied.
-     *
-     * @return void
      */
     public function testBreaksIfEmptyAddressSupplied(): void
     {
@@ -95,8 +93,6 @@ class EmailAddressTest extends AbstractBaseTestCase
 
     /**
      * Tests breaks instantiation, if invalid data is supplied.
-     *
-     * @return void
      */
     public function testBreaksIfInvalidAddressSupplied(): void
     {
@@ -109,8 +105,6 @@ class EmailAddressTest extends AbstractBaseTestCase
 
     /**
      * Tests instance can be serialized and deserialized correctly.
-     *
-     * @return void
      */
     public function testSerializesAndDeserializesCorrectly(): void
     {
@@ -118,8 +112,8 @@ class EmailAddressTest extends AbstractBaseTestCase
         $emailString = 'user@domain.tld';
         $email1 = EmailAddress::create($emailString);
 
-        $serialized = \serialize($email1);
-        $email2 = \unserialize($serialized);
+        $serialized = serialize($email1);
+        $email2 = unserialize($serialized);
 
         // Performs assertions.
         $this->assertInstanceOf(

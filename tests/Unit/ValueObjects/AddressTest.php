@@ -10,14 +10,12 @@ use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class AddressTest extends AbstractBaseTestCase
 {
     /**
      * Tests the constructor assigns all fields.
-     *
-     * @return void
      */
     public function testConstructorAssignsFields(): void
     {
@@ -31,8 +29,6 @@ class AddressTest extends AbstractBaseTestCase
 
     /**
      * Tests the accessor methods return each individual field.
-     *
-     * @return void
      */
     public function testGettersReturnEachField(): void
     {
@@ -46,8 +42,6 @@ class AddressTest extends AbstractBaseTestCase
 
     /**
      * Tests the named constructor coerces values and defaults missing keys.
-     *
-     * @return void
      */
     public function testFromArrayCoercesAndDefaultsMissingKeys(): void
     {
@@ -61,8 +55,6 @@ class AddressTest extends AbstractBaseTestCase
 
     /**
      * Tests isEmpty() only returns true when every field is blank.
-     *
-     * @return void
      */
     public function testIsEmptyReturnsTrueOnlyWhenAllFieldsBlank(): void
     {
@@ -72,8 +64,6 @@ class AddressTest extends AbstractBaseTestCase
 
     /**
      * Tests equals() compares all fields and is case sensitive.
-     *
-     * @return void
      */
     public function testEqualsComparesAllFields(): void
     {
@@ -87,8 +77,6 @@ class AddressTest extends AbstractBaseTestCase
 
     /**
      * Tests toArray() returns snake_case keys.
-     *
-     * @return void
      */
     public function testToArrayReturnsSnakeCaseKeys(): void
     {
@@ -102,8 +90,6 @@ class AddressTest extends AbstractBaseTestCase
 
     /**
      * Tests jsonSerialize() mirrors toArray().
-     *
-     * @return void
      */
     public function testJsonSerializeReturnsSameAsToArray(): void
     {

@@ -1,6 +1,6 @@
 <?php declare(strict_types=1);
 
-namespace Hradigital\Tests\Datatypes\Unit\Datetime;
+namespace HraDigital\Tests\Datatypes\Unit\Datetime;
 
 use HraDigital\Datatypes\Datetime\DateInterval;
 use HraDigital\Datatypes\Scalar\Str;
@@ -11,7 +11,7 @@ use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class DateIntervalTest extends AbstractBaseTestCase
 {
@@ -189,7 +189,7 @@ class DateIntervalTest extends AbstractBaseTestCase
 
     public function testCanLoadSuccessfullyFromDateString(): void
     {
-        $di = DateInterval::createFromDateString("2 year + 3 day");
+        $di = DateInterval::fromDateString("2 year + 3 day");
 
         $this->assertEquals(2, $di->getYears());
         $this->assertEquals(0, $di->getMonths());
@@ -199,7 +199,7 @@ class DateIntervalTest extends AbstractBaseTestCase
         $this->assertEquals(0, $di->getSeconds());
         $this->assertFalse($di->isNegative());
 
-        $di = DateInterval::createFromDateString("1 day + 12 hours");
+        $di = DateInterval::fromDateString("1 day + 12 hours");
 
         $this->assertEquals(0, $di->getYears());
         $this->assertEquals(0, $di->getMonths());

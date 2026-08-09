@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hradigital\Tests\Datatypes\Unit\Collections\Linear;
+namespace HraDigital\Tests\Datatypes\Unit\Collections\Linear;
 
 use HraDigital\Datatypes\Collections\Linear\Queue;
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
@@ -15,7 +15,7 @@ use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class QueueTest extends AbstractBaseTestCase
 {

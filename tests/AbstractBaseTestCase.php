@@ -14,7 +14,7 @@ use PHPUnit\Framework\TestCase;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 abstract class AbstractBaseTestCase extends TestCase
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Hradigital\Tests\Datatypes\Unit\Collections\Linear;
+namespace HraDigital\Tests\Datatypes\Unit\Collections\Linear;
 
 use HraDigital\Datatypes\Collections\Linear\EntityCollection;
 use HraDigital\Datatypes\Exceptions\Collections\DuplicatedEntryException;
@@ -16,7 +16,7 @@ use HraDigital\Tests\Datatypes\Unit\ValueObjects\TestingValueObject;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class EntityCollectionTest extends AbstractBaseTestCase
 {
@@ -54,7 +54,8 @@ class EntityCollectionTest extends AbstractBaseTestCase
         $this->assertContains(3, $ids);
 
         $entity = $collection->get(2);
-        $this->assertEquals(2, $entity->{'getId'}());
+        $this->assertInstanceOf(TestingValueObject::class, $entity);
+        $this->assertEquals(2, $entity->getId());
     }
 
     public function testCanManageEntriesInCollection(): void
