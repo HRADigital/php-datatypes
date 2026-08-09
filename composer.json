@@ -46,7 +46,7 @@
         }
     },
     "scripts": {
-        "test-code" : "./vendor/bin/phpunit --coverage-clover ci/coverage-report.xml --coverage-html ci/coverage-report --log-junit ci/tests-results.xml",
+        "test-code" : "./vendor/bin/phpunit --log-junit ci/tests-results.xml",
         "test-cs" : "./vendor/bin/phpcs -p --colors --no-cache --report=full",
         "test-static" : "./vendor/bin/phpstan analyse --no-progress",
         "test-all" : "composer run test-code && composer run test-cs && composer run test-static"

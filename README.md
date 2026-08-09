@@ -3,7 +3,6 @@
 ## Master branch build status
 
 [![CI](https://github.com/HRADigital/php-datatypes/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/HRADigital/php-datatypes/actions/workflows/ci.yml)
-[![Coverage](https://img.shields.io/codecov/c/github/HRADigital/php-datatypes.svg)](https://app.codecov.io/gh/HRADigital/php-datatypes)
 [![Quality](https://app.codacy.com/project/badge/Grade/de03155208c64196899848458c2ced8a)](https://www.codacy.com/gh/HRADigital/php-datatypes/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=HRADigital/php-datatypes&amp;utm_campaign=Badge_Grade)
 [![Downloads](https://img.shields.io/github/downloads/HRADigital/php-datatypes/total.svg)](https://github.com/HRADigital/php-datatypes)
 [![Licence](https://img.shields.io/github/license/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
@@ -126,20 +125,13 @@ The CI pipeline runs:
   push/pull request are checked - existing history is never re-validated.
 - **Coding Standards** - `PSR2` checks via `PHP_CodeSniffer`.
 - **Tests** - the full `PHPUnit` suite against PHP `8.1`, `8.2`, `8.3`, `8.4` and `8.5`, each running inside its own official `php:<version>-cli` Docker container.
-- **Code Coverage** - a `clover` report generated with `pcov` and uploaded to [Codecov](https://app.codecov.io/gh/HRADigital/php-datatypes).
 
 Composer scripts are available to run the same checks locally:
 
 ```bash
 composer run test-cs    # Coding standards (PSR2) over src/
-composer run test-code  # PHPUnit suite with coverage + JUnit reports (written to ci/)
+composer run test-code  # PHPUnit suite with JUnit report (written to ci/)
 composer run test-all   # Runs both of the above
-```
-
-To run the test suite without a coverage driver installed:
-
-```bash
-./vendor/bin/phpunit --no-coverage
 ```
 
 ### Makefile targets
