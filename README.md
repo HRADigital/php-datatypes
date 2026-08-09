@@ -194,6 +194,16 @@ is skipped entirely by the version calculation - which is what the commitlint CI
 > BREAKING CHANGE: getHash() now returns Str instead of string. Cast with (string) at call sites.
 > ```
 
+## License
+
+Mozilla Public License 2.0. See [LICENSE](LICENSE).
+
+You may use this package in closed-source and commercial products. If you modify and
+distribute the package's own files, those files must remain under the MPL-2.0.
+
+The `HRADigital` name and package names are not covered by that licence - see
+[TRADEMARK.md](TRADEMARK.md).
+
 ## Contributing
 
 Contributing to the project is easy and contributions are welcomed and appreciated.
