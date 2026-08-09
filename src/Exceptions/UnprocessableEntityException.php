@@ -1,8 +1,19 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Exceptions;
+
+use Exception;
+use function sprintf;
 
 /**
  * The request was well-formed but was unable to be followed due to semantic errors.
@@ -17,7 +28,9 @@ namespace HraDigital\Datatypes\Exceptions;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
+ *
+ * @phpstan-consistent-constructor
  */
 class UnprocessableEntityException extends AbstractBaseException
 {
@@ -28,15 +41,11 @@ class UnprocessableEntityException extends AbstractBaseException
      * Initializes Base Unprocessable Entity Exception.
      *
      * Code value will be collected from defined class attribute.
-     *
-     * @param  string          $name  - Attribute's name that could't be processed.
-     * @param  \Exception|null $inner - Optional previous Exception in the stack, for Exception's nesting.
-     * @return self
      */
-    public static function withName(string $name, ?\Exception $inner = null): self
+    public static function withName(string $name, ?Exception $inner = null): self
     {
         return new static(
-            \sprintf("The request was well-formed but was unable to be followed due to field '%s'.", $name),
+            sprintf("The request was well-formed but was unable to be followed due to field '%s'.", $name),
             $inner
         );
     }

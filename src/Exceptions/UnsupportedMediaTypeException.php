@@ -1,8 +1,19 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Exceptions;
+
+use Exception;
+use function sprintf;
 
 /**
  * Unsupported Media Type Base Domain Exception.
@@ -16,7 +27,9 @@ namespace HraDigital\Datatypes\Exceptions;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
+ *
+ * @phpstan-consistent-constructor
  */
 class UnsupportedMediaTypeException extends AbstractBaseException
 {
@@ -27,15 +40,11 @@ class UnsupportedMediaTypeException extends AbstractBaseException
      * Initializes Base Unsupported Media Type Exception.
      *
      * Code value will be collected from defined class attribute.
-     *
-     * @param  string          $name  - Media type name that is not supported.
-     * @param  \Exception|null $inner - Optional previous Exception in the stack, for Exception's nesting.
-     * @return self
      */
-    public static function withName(string $name, ?\Exception $inner = null): self
+    public static function withName(string $name, ?Exception $inner = null): self
     {
         return new static(
-            \sprintf("MediaType '%s' is not supported by the system.", $name),
+            sprintf("MediaType '%s' is not supported by the system.", $name),
             $inner
         );
     }

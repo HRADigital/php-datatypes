@@ -1,10 +1,20 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Exceptions\Entities;
 
 use HraDigital\Datatypes\Exceptions\UnprocessableEntityException;
+use Exception;
+use function sprintf;
 
 /**
  * Required Entity Value Missing Exception.
@@ -17,16 +27,18 @@ use HraDigital\Datatypes\Exceptions\UnprocessableEntityException;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
+ *
+ * @phpstan-consistent-constructor
  */
 class RequiredEntityValueMissingException extends UnprocessableEntityException
 {
     protected $message = "A Required Entity field was missing, while loading.";
 
-    public static function withName(string $name, ?\Exception $inner = null): self
+    public static function withName(string $name, ?Exception $inner = null): self
     {
         return new static(
-            \sprintf("Entity field '%s' was missing, while loading.", $name),
+            sprintf("Entity field '%s' was missing, while loading.", $name),
             $inner
         );
     }

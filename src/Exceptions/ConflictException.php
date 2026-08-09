@@ -1,8 +1,18 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Exceptions;
+
+use Exception;
 
 /**
  * Conflict Base Domain Exception.
@@ -16,7 +26,7 @@ namespace HraDigital\Datatypes\Exceptions;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  */
 class ConflictException extends AbstractBaseException
 {
@@ -28,11 +38,8 @@ class ConflictException extends AbstractBaseException
      *
      * Message and code values will be collected from defined class attributes.
      * You will only need to define an optional Inner Exceptions.
-     *
-     * @param \Exception|null $inner - Optional previous Exception in the stack, for Exception's nesting.
-     * @return void
      */
-    public function __construct(?\Exception $inner = null)
+    public function __construct(?Exception $inner = null)
     {
         parent::__construct(null, $inner);
     }

@@ -1,8 +1,18 @@
 <?php
 
+/**
+ * This Source Code Form is subject to the terms of the Mozilla Public
+ * License, v. 2.0. If a copy of the MPL was not distributed with this
+ * file, You can obtain one at https://mozilla.org/MPL/2.0/.
+ *
+ * Copyright (c) HRADigital - Hugo Rafael Azevedo.
+ */
+
 declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Exceptions;
+
+use Exception;
 
 /**
  * Abstract Base Domain Exception.
@@ -18,10 +28,10 @@ namespace HraDigital\Datatypes\Exceptions;
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
- * @license   MIT
+ * @license   MPL-2.0
  * @link      https://httpstatuses.com/
  */
-abstract class AbstractBaseException extends \Exception
+abstract class AbstractBaseException extends Exception
 {
     /** @var string $message - Exception's error message. */
     protected $message = "An unspecified error occurred on the server.";
@@ -34,12 +44,8 @@ abstract class AbstractBaseException extends \Exception
      *
      * Override native \Exception class, and processes supplied parameters if empty.
      * If supplied parameters are empty, corresponding attribute values will be used instead.
-     *
-     * @param  string|null    $message - Exception's text message.
-     * @param \Exception|null $inner   - Previous Exception in the stack, for Exception's nesting.
-     * @return void
      */
-    public function __construct(?string $message = null, ?\Exception $inner = null)
+    public function __construct(?string $message = null, ?Exception $inner = null)
     {
         // Validates provided parameters.
         // If no message was supplied, then we'll use whatever values were already set in the class.
