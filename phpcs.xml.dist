@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<ruleset name="hradigital/php-datatypes">
+
+    <description>PSR-2 over the shipped Library code.</description>
+
+    <!--
+        The single source of truth for the code-style gate. Both entry points -
+        `make lint` and composer's `test-cs` script, which is what CI runs - resolve
+        this file rather than carrying their own copy of the standard, so the gate a
+        developer runs locally cannot drift from the gate CI runs.
+
+        Committed as .dist, mirroring phpstan.neon.dist and phpunit.xml.dist: PHPCS
+        auto-discovers phpcs.xml first and falls back to this file, and .gitignore
+        deliberately ignores the former, so a developer can drop a local phpcs.xml
+        override next to it without committing it. Neither entry point pins the
+        standard on the command line, which is what keeps that fallback working.
+    -->
+
+    <!-- Scope. Only the shipped Library code is style-gated; tests are covered by PHPStan. -->
+    <file>src</file>
+
+    <rule ref="PSR2">
+        <!-- The codebase aligns multi-line control structures its own way. -->
+        <exclude name="Squiz.WhiteSpace.ControlStructureSpacing"/>
+    </rule>
+
+</ruleset>

@@ -1,8 +1,19 @@
 ci/
+docs/
 vendor/
 notyetdeveloped/
 .buildpath
 .project
 composer.lock
 phpunit.xml
+phpcs.xml
+phpstan.neon
+
+.php-cs-fixer.php
+
+# Local tool caches
 .phpunit.result.cache
+.php-cs-fixer.cache
+/.phpunit.cache/
+/.phpcs-cache
+/.phpstan.cache/

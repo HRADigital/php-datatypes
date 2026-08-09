@@ -1,0 +1,14 @@
+parameters:
+    level: 6
+
+    paths:
+        - src
+        - tests
+
+    tmpDir: .phpstan.cache
+
+    # Native signatures are the source of truth. PHPDoc never softens or overrides what the
+    # method signature declares - it only adds what PHP itself cannot express (array key/value
+    # types, generics). A docblock that contradicts the native type is an error, not a hint.
+    treatPhpDocTypesAsCertain: false
+    reportWrongPhpDocTypeInVarTag: true

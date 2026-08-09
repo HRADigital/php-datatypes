@@ -1,4 +1,4 @@
-.PHONY: help lint lint-scope-check lint-fix cs validate test test-unit
+.PHONY: help lint lint-scope-check lint-fix cs cs-fixer cs-fixer-fix analyse validate test test-unit
 
 SHELL := /bin/bash
 
@@ -12,10 +12,18 @@ PHPCS_SCOPE_JSON := /tmp/phpcs-scope-$(shell echo $$$$).json
 # one definition means a CI gate can never drift from the gate a developer runs locally.
 EXEC :=
 
-# PHPCS standard. There is no phpcs.xml in this project - the ruleset lives inline in
-# composer.json's `test-cs` script, and these flags mirror it.
-PHPCS_STANDARD := --standard=PSR2 --exclude=Squiz.WhiteSpace.ControlStructureSpacing
-PHPCS_FILES := $(if $(FILES),$(FILES),src/)
+# PHPCS takes no --standard: it auto-discovers phpcs.xml first and falls back to the
+# committed phpcs.xml.dist. .gitignore ignores the former, so a developer can drop a local
+# phpcs.xml override next to the .dist without committing it. Pinning --standard here would
+# defeat that, and would split the ruleset across two files - the .dist is the single source
+# of truth both this target and composer's `test-cs` script (what CI runs) resolve.
+#
+# FILES scopes the run to a list of paths; empty = the `<file>` scope in the ruleset.
+PHPCS_FILES := $(FILES)
+
+# PHPStan takes no -c, for the same reason: it auto-discovers phpstan.neon first and falls
+# back to the committed phpstan.neon.dist.
+PHPSTAN_PATHS := $(FILES)
 
 # On a QUIET test run we still want the verdict, just not the per-test roll call.
 TEST_SUMMARY := grep -E '^[[:space:]]*(Tests|Duration):|^OK|^OK \(|^FAILURES!|^ERRORS!|^WARNINGS!|^No tests executed'
@@ -37,6 +45,9 @@ help:
 	@echo "  make lint-scope-check       - warn when PHPCS skipped requested FILES"
 	@echo "  make lint-fix               - apply PHPCBF code-style fixes"
 	@echo "  make cs                     - alias of lint"
+	@echo "  make cs-fixer               - PHP-CS-Fixer import check (report only)"
+	@echo "  make cs-fixer-fix           - apply PHP-CS-Fixer import fixes"
+	@echo "  make analyse                - PHPStan static analysis (level 6, src + tests)"
 	@echo "  make validate               - run every report gate concurrently"
 	@echo "  make test                   - run the full PHPUnit suite"
 	@echo "  make test-unit              - run the Unit testsuite"
@@ -47,12 +58,12 @@ help:
 # FILES (optional) scopes the file-based gates to a list of paths; empty = src/.
 lint:
 ifeq ($(QUIET),1)
-	@out="$$($(EXEC) vendor/bin/phpcs -q $(PHPCS_STANDARD) --report=full --report-json=$(PHPCS_SCOPE_JSON) $(PHPCS_FILES) 2>&1)" || { printf '%s\n' "$$out"; $(MAKE) --no-print-directory lint-scope-check FILES="$(FILES)" PHPCS_SCOPE_JSON="$(PHPCS_SCOPE_JSON)"; $(EXEC) rm -f $(PHPCS_SCOPE_JSON); exit 1; }
+	@out="$$($(EXEC) vendor/bin/phpcs -q --report=full --report-json=$(PHPCS_SCOPE_JSON) $(PHPCS_FILES) 2>&1)" || { printf '%s\n' "$$out"; $(MAKE) --no-print-directory lint-scope-check FILES="$(FILES)" PHPCS_SCOPE_JSON="$(PHPCS_SCOPE_JSON)"; $(EXEC) rm -f $(PHPCS_SCOPE_JSON); exit 1; }
 	@$(MAKE) --no-print-directory lint-scope-check FILES="$(FILES)" PHPCS_SCOPE_JSON="$(PHPCS_SCOPE_JSON)"
 	@$(EXEC) rm -f $(PHPCS_SCOPE_JSON)
 else
 	@echo "Linting (PHPCS, report-only)..."
-	@$(EXEC) vendor/bin/phpcs $(PHPCS_STANDARD) --report=full --report-json=$(PHPCS_SCOPE_JSON) $(PHPCS_FILES)
+	@$(EXEC) vendor/bin/phpcs --report=full --report-json=$(PHPCS_SCOPE_JSON) $(PHPCS_FILES)
 	@$(MAKE) --no-print-directory lint-scope-check FILES="$(FILES)" PHPCS_SCOPE_JSON="$(PHPCS_SCOPE_JSON)"
 	@$(EXEC) rm -f $(PHPCS_SCOPE_JSON)
 endif
@@ -76,22 +87,49 @@ lint-scope-check:
 # QUIET form stays silent for rc<=1 and only surfaces output on a genuine error.
 lint-fix:
 ifeq ($(QUIET),1)
-	@out="$$($(EXEC) vendor/bin/phpcbf $(PHPCS_STANDARD) $(PHPCS_FILES) 2>&1)"; rc=$$?; [ $$rc -le 1 ] || { printf '%s\n' "$$out"; exit 1; }
+	@out="$$($(EXEC) vendor/bin/phpcbf $(PHPCS_FILES) 2>&1)"; rc=$$?; [ $$rc -le 1 ] || { printf '%s\n' "$$out"; exit 1; }
 else
 	@echo "Applying PHPCBF code-style fixes..."
-	-@$(EXEC) vendor/bin/phpcbf $(PHPCS_STANDARD) $(PHPCS_FILES)
+	-@$(EXEC) vendor/bin/phpcbf $(PHPCS_FILES)
 endif
 
 # Coding-standards gate. Alias of lint - PHPCS is the only style tool installed.
 cs: lint
 
+# PHP-CS-Fixer carries a single rule - native functions/classes/constants are imported in the
+# file header rather than reached through a leading back-slash. It auto-discovers
+# .php-cs-fixer.php first and falls back to the committed .php-cs-fixer.dist.php.
+cs-fixer:
+ifeq ($(QUIET),1)
+	@out="$$($(EXEC) vendor/bin/php-cs-fixer fix --dry-run --show-progress=none $(FILES) 2>&1)" || { printf '%s\n' "$$out"; exit 1; }
+else
+	@echo "Checking global namespace imports (PHP-CS-Fixer, report-only)..."
+	@$(EXEC) vendor/bin/php-cs-fixer fix --dry-run --diff --show-progress=none $(FILES)
+endif
+
+cs-fixer-fix:
+ifeq ($(QUIET),1)
+	@out="$$($(EXEC) vendor/bin/php-cs-fixer fix --show-progress=none $(FILES) 2>&1)" || { printf '%s\n' "$$out"; exit 1; }
+else
+	@echo "Applying PHP-CS-Fixer import fixes..."
+	@$(EXEC) vendor/bin/php-cs-fixer fix --show-progress=none $(FILES)
+endif
+
+analyse:
+ifeq ($(QUIET),1)
+	@out="$$($(EXEC) php -d memory_limit=-1 vendor/bin/phpstan analyse $(PHPSTAN_PATHS) --no-progress 2>&1)" || { printf '%s\n' "$$out"; exit 1; }
+else
+	@echo "Running PHPStan static analysis..."
+	@$(EXEC) php -d memory_limit=-1 vendor/bin/phpstan analyse $(PHPSTAN_PATHS) --no-progress
+endif
+
 # Runs the independent static gates concurrently (own sub-make with -j).
 validate:
 ifeq ($(QUIET),1)
-	@$(MAKE) --no-print-directory -j lint FILES="$(FILES)" QUIET=1
+	@$(MAKE) --no-print-directory -j lint cs-fixer analyse FILES="$(FILES)" QUIET=1
 else
 	@echo "Running the static gates concurrently..."
-	@$(MAKE) --no-print-directory -j lint FILES="$(FILES)"
+	@$(MAKE) --no-print-directory -j lint cs-fixer analyse FILES="$(FILES)"
 endif
 
 test:
