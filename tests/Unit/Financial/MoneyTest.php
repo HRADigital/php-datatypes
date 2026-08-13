@@ -92,6 +92,17 @@ class MoneyTest extends AbstractBaseTestCase
     }
 
     /**
+     * Tests a float amount is converted into minor units without rounding artifacts.
+     */
+    public function testFromFloatConvertsIntoMinorUnits(): void
+    {
+        $this->assertSame(1234, Money::fromFloat(12.34, Currency::EUR)->amount);
+        $this->assertSame(1200, Money::fromFloat(12.0, Currency::EUR)->amount);
+        $this->assertSame(-1234, Money::fromFloat(-12.34, Currency::EUR)->amount);
+        $this->assertSame(120, Money::fromFloat(120.0, Currency::JPY)->amount);
+    }
+
+    /**
      * Tests the minor units are emitted back as a decimal representation.
      */
     public function testToDecimalEmitsDecimalRepresentation(): void
