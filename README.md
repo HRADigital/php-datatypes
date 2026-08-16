@@ -110,6 +110,36 @@ Due to the "_No 3rd party dependency_" rule, this package will use some simplifi
 composer require hradigital/php-datatypes
 ```
 
+## Scope - what belongs here, and what does not
+
+The "_No 3rd party dependency_" rule above is a scope rule as much as a dependency rule.
+This package holds **datatypes**: values that validate and normalise themselves, and that
+any PHP application can use without a framework, an HTTP request or a template engine.
+
+Behaviour that renders, parses documents, or exists to serve a web page is **not** a
+datatype, and lives in [hradigital/php-markup](https://github.com/HRADigital/php-markup)
+instead:
+
+| Concern | Package |
+|---|---|
+| `Slug`, `Url`, `EmailAddress`, `Money`, `Datetime`, … | **php-datatypes** |
+| Exception vocabulary (`Exceptions\Datatypes\*`) | **php-datatypes** |
+| `Markup` - plain text to structured HTML | php-markup |
+| `SocialPreviewImageExtractor` - reads an HTML `<head>` | php-markup |
+| `SeoMetadata`, `SocialImage`, `ArticleMetadata`, Open Graph / Twitter enums | php-markup |
+| schema.org JSON-LD nodes and their builders | php-markup |
+
+php-markup depends on this package - never the other way round. A datatype that needed
+`Illuminate\*` to work would stop being usable in the non-Laravel hosts this package
+exists to serve.
+
+> **Moved in 3.0.0.** `Web\Markup\Markup`, `Web\Markup\MarkupConfiguration`,
+> `Web\Seo\SocialPreviewImageExtractor`, `Web\Seo\SeoMetadata`, `Web\Seo\SocialImage`,
+> `Web\Seo\ArticleMetadata`, `Web\Seo\OpenGraphType` and `Web\Seo\TwitterCardType` were
+> removed from this package and now live in php-markup, under
+> `HraDigital\Components\Markup\` and `HraDigital\Components\Markup\Seo\`. `Web\Seo\Slug`,
+> `Web\Url` and `Web\EmailAddress` are unaffected and stay here.
+
 ## Usage
 
 For more information about how to to use these Datatypes, please see the project's **usage notes** and some implementation examples
