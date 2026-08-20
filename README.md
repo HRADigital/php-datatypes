@@ -1,11 +1,14 @@
 # PHP Datatypes
 
 [![CI](https://github.com/HRADigital/php-datatypes/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/HRADigital/php-datatypes/actions/workflows/ci.yml)
+[![Release](https://github.com/HRADigital/php-datatypes/actions/workflows/release.yml/badge.svg?branch=master)](https://github.com/HRADigital/php-datatypes/actions/workflows/release.yml)
 [![Quality](https://app.codacy.com/project/badge/Grade/de03155208c64196899848458c2ced8a)](https://www.codacy.com/gh/HRADigital/php-datatypes/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=HRADigital/php-datatypes&amp;utm_campaign=Badge_Grade)
-[![Downloads](https://img.shields.io/github/downloads/HRADigital/php-datatypes/total.svg)](https://github.com/HRADigital/php-datatypes)
+[![Downloads](https://img.shields.io/packagist/dt/hradigital/php-datatypes.svg)](https://packagist.org/packages/hradigital/php-datatypes)
 [![Licence](https://img.shields.io/github/license/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
 [![Version](https://img.shields.io/github/release/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
 [![PHP](https://img.shields.io/packagist/php-v/hradigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
+[![Commits since](https://img.shields.io/github/commits-since/HRADigital/php-datatypes/latest.svg)](https://github.com/HRADigital/php-datatypes/commits/master)
+[![Last commit](https://img.shields.io/github/last-commit/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes/commits/master)
 
 **PHP Datatypes** builds your Value Objects, Entities and Aggregates from predefined, tested Traits -
 one per attribute - leaving the class definition free for the business logic that belongs to it.
