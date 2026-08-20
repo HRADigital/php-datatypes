@@ -40,13 +40,12 @@ jobs:
       with:
         token: ${{ secrets.GITHUB_TOKEN }}
         branch: master
-        # Version comes entirely from the commit messages. Only changes to shipped
-        # code earn a release - a docs/ci/chore/style/test push must not burn a
-        # version, so those types are deliberately absent from every list below:
+        # Version comes entirely from the commit messages. EVERY commit that lands
+        # on master ships a new version - the version identifies the state of the
+        # project, so no push is allowed to leave the released version stale:
         #   major -> a "BREAKING CHANGE:" footer (see note below)
         #   minor -> feat
-        #   patch -> fix, perf, refactor, revert, build
-        #   none  -> ci, chore, docs, style, test
+        #   patch -> everything else, including ci, chore, docs, style and test
         #
         # majorList stays empty on purpose: the action detects a major from the
         # "BREAKING CHANGE:" footer independently of this list, so listing a bare
@@ -59,11 +58,12 @@ jobs:
         majorList: ""
         minorList: "feat"
         patchList: "fix, perf, refactor, revert, build"
-        # Explicit list rather than patchAll: patchAll would count every parseable
-        # commit as a patch, so a README-only push would still cut a release.
-        patchAll: false
-        # Nothing releasable in the range is a normal outcome now (e.g. a docs-only
-        # push), not an error - the "Report skipped release" step logs it.
+        # patchAll makes every commit type not already claimed by minorList or the
+        # breaking-change footer count as a patch. patchList above is therefore
+        # redundant, and is kept only to document the intent of those types.
+        patchAll: true
+        # Reached only when the range holds no commit at all (e.g. a re-run), not
+        # when the commits are "unreleasable" - the "Report skipped release" step logs it.
         noVersionBumpBehavior: silent
         # If HEAD is already at the latest tag, keep the current version instead of erroring.
         noNewCommitBehavior: current
