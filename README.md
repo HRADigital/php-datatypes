@@ -1,13 +1,81 @@
 # PHP Datatypes
 
-## Master branch build status
-
 [![CI](https://github.com/HRADigital/php-datatypes/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/HRADigital/php-datatypes/actions/workflows/ci.yml)
 [![Quality](https://app.codacy.com/project/badge/Grade/de03155208c64196899848458c2ced8a)](https://www.codacy.com/gh/HRADigital/php-datatypes/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=HRADigital/php-datatypes&amp;utm_campaign=Badge_Grade)
 [![Downloads](https://img.shields.io/github/downloads/HRADigital/php-datatypes/total.svg)](https://github.com/HRADigital/php-datatypes)
 [![Licence](https://img.shields.io/github/license/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
 [![Version](https://img.shields.io/github/release/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
 [![PHP](https://img.shields.io/packagist/php-v/hradigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
+
+**PHP Datatypes** builds your Value Objects, Entities and Aggregates from predefined, tested Traits -
+one per attribute - leaving the class definition free for the business logic that belongs to it.
+
+Getters return Value Objects rather than primitives wherever possible, so a value carries its own
+validation and normalization instead of every caller remembering it. There is no 3rd party
+dependency beyond PHP itself, so these values work without a framework, an HTTP request or a
+template engine.
+
+- **`AbstractValueObject`** - the base a Value Object, Entity or Aggregate extends, giving it
+  construction from an array, full serialization and `toArray()` out of the box.
+- **Entity Traits** - one Trait per attribute (`HasPositiveIntegerIDTrait`, `HasActiveTrait`,
+  `HasNameTrait`, ...), each carrying the type hints and normalization for that attribute.
+- **Scalar datatypes** - immutable `Str`, integer and float wrappers, with a fluent API that
+  returns a new instance on every operation rather than mutating the value in place.
+- **Web datatypes** - `Slug`, `Url` and `EmailAddress`, each validating and normalising itself.
+- **Datetime datatypes** - date and time values, without pulling in a datetime library.
+- **Exception vocabulary** - a typed exception per datatype under `Exceptions\Datatypes\*`, so a
+  rejected value says what it rejected and why.
+
+## Inspiration
+
+Some of the projects that inspired this one, are mainly [Nikita Popov's Scalar Objects](https://github.com/nikic/scalar_objects),
+but also [Martin Helmich's Scalar Classes](https://github.com/martin-helmich/php-scalarclasses/) and
+[Michael Hall's Datatypes](https://github.com/themichaelhall/datatypes/).
+
+Due to the "_No 3rd party dependency_" rule, this package will use some simplified versions of more popular datatypes. Some examples are:
+
+- [synfony/string](https://github.com/symfony/string), for String related manipulations.
+- [nesbot/carbon](https://github.com/briannesbitt/Carbon), for DateTime manipulations.
+- ...
+
+## Requirements & Installation
+
+- PHP >= 8.1
+- `ext-intl`
+
+```bash
+composer require hradigital/php-datatypes
+```
+
+## Scope - what belongs here, and what does not
+
+The "_No 3rd party dependency_" rule above is a scope rule as much as a dependency rule.
+This package holds **datatypes**: values that validate and normalise themselves, and that
+any PHP application can use without a framework, an HTTP request or a template engine.
+
+Behaviour that renders, parses documents, or exists to serve a web page is **not** a
+datatype, and lives in [hradigital/php-markup](https://github.com/HRADigital/php-markup)
+instead:
+
+| Concern | Package |
+|---|---|
+| `Slug`, `Url`, `EmailAddress`, `Money`, `Datetime`, … | **php-datatypes** |
+| Exception vocabulary (`Exceptions\Datatypes\*`) | **php-datatypes** |
+| `Markup` - plain text to structured HTML | php-markup |
+| `SocialPreviewImageExtractor` - reads an HTML `<head>` | php-markup |
+| `SeoMetadata`, `SocialImage`, `ArticleMetadata`, Open Graph / Twitter enums | php-markup |
+| schema.org JSON-LD nodes and their builders | php-markup |
+
+php-markup depends on this package - never the other way round. A datatype that needed
+`Illuminate\*` to work would stop being usable in the non-Laravel hosts this package
+exists to serve.
+
+> **Moved in 3.0.0.** `Web\Markup\Markup`, `Web\Markup\MarkupConfiguration`,
+> `Web\Seo\SocialPreviewImageExtractor`, `Web\Seo\SeoMetadata`, `Web\Seo\SocialImage`,
+> `Web\Seo\ArticleMetadata`, `Web\Seo\OpenGraphType` and `Web\Seo\TwitterCardType` were
+> removed from this package and now live in php-markup, under
+> `HraDigital\Components\Markup\` and `HraDigital\Components\Markup\Seo\`. `Web\Seo\Slug`,
+> `Web\Url` and `Web\EmailAddress` are unaffected and stay here.
 
 ## Code Usage
 
@@ -67,78 +135,13 @@ implement your business logic in them.
 
 In order to learn more about the code, please go [here](https://github.com/HRADigital/php-datatypes/blob/master/src/ValueObjects).
 
-## About
-
-**PHP Datatypes** is meant to provide an easy way to create your Value Objects/Entities/Aggregates, in a fast and
-platform agnostic way, that promotes:
-
-- Code reusability
-- Data normalization
-- Type hint enforcement
-- Full data serializing
-- No 3rd party dependency apart from PHP. Clean/Self reliant project.
-
 An Aggregate/Entity/ValueObject that extends [AbstractValueObject](https://github.com/HRADigital/php-datatypes/blob/master/src/ValueObjects/AbstractValueObject.php)
 will be built using predefined/tested [Traits](https://github.com/HRADigital/php-datatypes/tree/master/src/Traits/Entities) for each of the class attributes,
 leaving your class definition cleaned/free for your business logic implementation.
 
 This will also allow you to reuse/load your objects with data that can come from a Database, Webservice, Event payload, etc...
 
-Getters/Accessors for class attributes will return ValueObjects instead of primitive types, as much as possible. All these datatypes will
-also be included in the package, as it doesn't have any dependencies apart from, PHP itself.
-
 To learn how to use this package, please go to [AbstractValueObject](https://github.com/HRADigital/php-datatypes/blob/master/src/ValueObjects/) documentation.
-
-### Inspiration
-
-Some of the projects that inspired this one, are mainly [Nikita Popov's Scalar Objects](https://github.com/nikic/scalar_objects),
-but also [Martin Helmich's Scalar Classes](https://github.com/martin-helmich/php-scalarclasses/) and
-[Michael Hall's Datatypes](https://github.com/themichaelhall/datatypes/).
-
-Due to the "_No 3rd party dependency_" rule, this package will use some simplified versions of more popular datatypes. Some examples are:
-
-- [synfony/string](https://github.com/symfony/string), for String related manipulations.
-- [nesbot/carbon](https://github.com/briannesbitt/Carbon), for DateTime manipulations.
-- ...
-
-## Requirements & Installation
-
-- PHP >= 8.1
-- `ext-intl`
-
-```bash
-composer require hradigital/php-datatypes
-```
-
-## Scope - what belongs here, and what does not
-
-The "_No 3rd party dependency_" rule above is a scope rule as much as a dependency rule.
-This package holds **datatypes**: values that validate and normalise themselves, and that
-any PHP application can use without a framework, an HTTP request or a template engine.
-
-Behaviour that renders, parses documents, or exists to serve a web page is **not** a
-datatype, and lives in [hradigital/php-markup](https://github.com/HRADigital/php-markup)
-instead:
-
-| Concern | Package |
-|---|---|
-| `Slug`, `Url`, `EmailAddress`, `Money`, `Datetime`, … | **php-datatypes** |
-| Exception vocabulary (`Exceptions\Datatypes\*`) | **php-datatypes** |
-| `Markup` - plain text to structured HTML | php-markup |
-| `SocialPreviewImageExtractor` - reads an HTML `<head>` | php-markup |
-| `SeoMetadata`, `SocialImage`, `ArticleMetadata`, Open Graph / Twitter enums | php-markup |
-| schema.org JSON-LD nodes and their builders | php-markup |
-
-php-markup depends on this package - never the other way round. A datatype that needed
-`Illuminate\*` to work would stop being usable in the non-Laravel hosts this package
-exists to serve.
-
-> **Moved in 3.0.0.** `Web\Markup\Markup`, `Web\Markup\MarkupConfiguration`,
-> `Web\Seo\SocialPreviewImageExtractor`, `Web\Seo\SeoMetadata`, `Web\Seo\SocialImage`,
-> `Web\Seo\ArticleMetadata`, `Web\Seo\OpenGraphType` and `Web\Seo\TwitterCardType` were
-> removed from this package and now live in php-markup, under
-> `HraDigital\Components\Markup\` and `HraDigital\Components\Markup\Seo\`. `Web\Seo\Slug`,
-> `Web\Url` and `Web\EmailAddress` are unaffected and stay here.
 
 ## Usage
 
@@ -216,16 +219,6 @@ is skipped entirely by the version calculation - which is what the commitlint CI
 > BREAKING CHANGE: getHash() now returns Str instead of string. Cast with (string) at call sites.
 > ```
 
-## License
-
-Mozilla Public License 2.0. See [LICENSE](LICENSE).
-
-You may use this package in closed-source and commercial products. If you modify and
-distribute the package's own files, those files must remain under the MPL-2.0.
-
-The `HRADigital` name and package names are not covered by that licence - see
-[TRADEMARK.md](TRADEMARK.md).
-
 ## Contributing
 
 Contributing to the project is easy and contributions are welcomed and appreciated.
@@ -235,3 +228,13 @@ and the type you pick decides the next release version (see [Versioning & Releas
 
 It's obviously harder to maintain the project alone, but efforts will be made to keep and improve it, as I plan to use it as
 a dependency in other projects.
+
+## License
+
+Mozilla Public License 2.0. See [LICENSE](LICENSE).
+
+You may use this package in closed-source and commercial products. If you modify and
+distribute the package's own files, those files must remain under the MPL-2.0.
+
+The `HRADigital` name and package names are not covered by that licence - see
+[TRADEMARK.md](TRADEMARK.md).
