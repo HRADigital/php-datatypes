@@ -2,13 +2,19 @@
 
 [![CI](https://github.com/HRADigital/php-datatypes/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/HRADigital/php-datatypes/actions/workflows/ci.yml)
 [![Release](https://github.com/HRADigital/php-datatypes/actions/workflows/release.yml/badge.svg?branch=master)](https://github.com/HRADigital/php-datatypes/actions/workflows/release.yml)
-[![Quality](https://app.codacy.com/project/badge/Grade/de03155208c64196899848458c2ced8a)](https://www.codacy.com/gh/HRADigital/php-datatypes/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=HRADigital/php-datatypes&amp;utm_campaign=Badge_Grade)
-[![Downloads](https://img.shields.io/packagist/dt/hradigital/php-datatypes.svg)](https://packagist.org/packages/hradigital/php-datatypes)
-[![Licence](https://img.shields.io/github/license/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
-[![Version](https://img.shields.io/github/release/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
-[![PHP](https://img.shields.io/packagist/php-v/hradigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes)
-[![Commits since](https://img.shields.io/github/commits-since/HRADigital/php-datatypes/latest.svg)](https://github.com/HRADigital/php-datatypes/commits/master)
-[![Last commit](https://img.shields.io/github/last-commit/HRADigital/php-datatypes.svg)](https://github.com/HRADigital/php-datatypes/commits/master)
+[![Release](https://img.shields.io/github/v/release/HRADigital/php-datatypes)](https://github.com/HRADigital/php-datatypes/releases)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/hradigital/php-datatypes)](https://packagist.org/packages/hradigital/php-datatypes)
+[![Total Downloads](https://img.shields.io/packagist/dt/hradigital/php-datatypes)](https://packagist.org/packages/hradigital/php-datatypes)
+[![PHP Version](https://img.shields.io/packagist/php-v/hradigital/php-datatypes)](https://packagist.org/packages/hradigital/php-datatypes)
+[![License](https://img.shields.io/github/license/HRADigital/php-datatypes)](LICENSE)
+[![Last Commit](https://img.shields.io/github/last-commit/HRADigital/php-datatypes)](https://github.com/HRADigital/php-datatypes/commits/master)
+[![Open Issues](https://img.shields.io/github/issues/HRADigital/php-datatypes)](https://github.com/HRADigital/php-datatypes/issues)
+[![Contributors](https://img.shields.io/github/contributors/HRADigital/php-datatypes)](https://github.com/HRADigital/php-datatypes/graphs/contributors)
+[![Stars](https://img.shields.io/github/stars/HRADigital/php-datatypes)](https://github.com/HRADigital/php-datatypes/stargazers)
+[![Code Size](https://img.shields.io/github/languages/code-size/HRADigital/php-datatypes)](https://github.com/HRADigital/php-datatypes)
+[![PHPStan](https://img.shields.io/badge/PHPStan-level%206-brightgreen)](phpstan.neon.dist)
+[![Code Style](https://img.shields.io/badge/code%20style-PSR2-blue)](phpcs.xml.dist)
+[![Conventional Commits](https://img.shields.io/badge/Conventional%20Commits-1.0.0-FE5196?logo=conventionalcommits&logoColor=white)](https://conventionalcommits.org)
 
 **PHP Datatypes** builds your Value Objects, Entities and Aggregates from predefined, tested Traits -
 one per attribute - leaving the class definition free for the business logic that belongs to it.
@@ -28,6 +34,16 @@ template engine.
 - **Datetime datatypes** - date and time values, without pulling in a datetime library.
 - **Exception vocabulary** - a typed exception per datatype under `Exceptions\Datatypes\*`, so a
   rejected value says what it rejected and why.
+
+## Scope
+
+This package holds datatypes: values that validate and normalise themselves, and that any PHP
+application can use without a framework, an HTTP request or a template engine. The "_No 3rd party
+dependency_" rule is a scope rule as much as a dependency rule.
+
+Behaviour that renders, parses documents, or exists to serve a web page is not a datatype, and lives
+in [hradigital/php-markup](https://github.com/HRADigital/php-markup) instead. php-markup depends on
+this package - never the other way round.
 
 ## Inspiration
 
@@ -50,15 +66,7 @@ Due to the "_No 3rd party dependency_" rule, this package will use some simplifi
 composer require hradigital/php-datatypes
 ```
 
-## Scope - what belongs here, and what does not
-
-The "_No 3rd party dependency_" rule above is a scope rule as much as a dependency rule.
-This package holds **datatypes**: values that validate and normalise themselves, and that
-any PHP application can use without a framework, an HTTP request or a template engine.
-
-Behaviour that renders, parses documents, or exists to serve a web page is **not** a
-datatype, and lives in [hradigital/php-markup](https://github.com/HRADigital/php-markup)
-instead:
+## Scope reference
 
 | Concern | Package |
 |---|---|
@@ -69,9 +77,8 @@ instead:
 | `SeoMetadata`, `SocialImage`, `ArticleMetadata`, Open Graph / Twitter enums | php-markup |
 | schema.org JSON-LD nodes and their builders | php-markup |
 
-php-markup depends on this package - never the other way round. A datatype that needed
-`Illuminate\*` to work would stop being usable in the non-Laravel hosts this package
-exists to serve.
+A datatype that needed `Illuminate\*` to work would stop being usable in the non-Laravel hosts this
+package exists to serve.
 
 > **Moved in 3.0.0.** `Web\Markup\Markup`, `Web\Markup\MarkupConfiguration`,
 > `Web\Seo\SocialPreviewImageExtractor`, `Web\Seo\SeoMetadata`, `Web\Seo\SocialImage`,
