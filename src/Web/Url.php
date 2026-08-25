@@ -149,6 +149,29 @@ class Url
     }
 
     /**
+     * Returns the URL without its scheme, in scheme-relative form (`//example.com/a`).
+     *
+     * RFC 3986 calls this a network-path reference: the authority and everything after
+     * it, with the scheme left for the surrounding context to supply. A browser
+     * resolves it against the scheme of the document carrying it, which is what makes
+     * it worth having in markup - one document served over either scheme keeps its
+     * subresources and its links on that same scheme.
+     *
+     * That also bounds where it belongs. Anything read away from the document it came
+     * from - `rel=canonical`, `hreflang`, `og:url`, `og:image`, JSON-LD, a sitemap, a
+     * redirect target, an email - has no scheme to inherit, and wants `getAddress()`.
+     *
+     * Carries the same normalization as every other accessor here, the dropped
+     * fragment included, so it still addresses the resource the server sees.
+     */
+    public function getSchemeRelative(): string
+    {
+        // Cut past `scheme:`, which leaves the `//` opening the authority in place,
+        // rather than re-joining the parts and normalizing a second time here.
+        return (string) $this->value->subString($this->scheme->getLength() + 1);
+    }
+
+    /**
      * Returns the URL's host (e.g. `example.com`).
      */
     public function getHost(): Str

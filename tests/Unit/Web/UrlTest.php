@@ -88,6 +88,47 @@ class UrlTest extends AbstractBaseTestCase
     }
 
     // -----------------------------------------------------------------------
+    // getSchemeRelative
+    // -----------------------------------------------------------------------
+
+    public function testGetSchemeRelativeDropsTheSchemeAndKeepsTheAuthority(): void
+    {
+        $url = Url::create('https://example.com/posts/hello');
+
+        $this->assertSame('//example.com/posts/hello', $url->getSchemeRelative());
+    }
+
+    public function testGetSchemeRelativeDropsAnHttpSchemeToo(): void
+    {
+        $url = Url::create('http://example.com/a');
+
+        $this->assertSame('//example.com/a', $url->getSchemeRelative());
+    }
+
+    public function testGetSchemeRelativeKeepsPortAndQueryString(): void
+    {
+        $url = Url::create('https://example.com:8443/a?b=1&c=2');
+
+        $this->assertSame('//example.com:8443/a?b=1&c=2', $url->getSchemeRelative());
+    }
+
+    public function testGetSchemeRelativeKeepsAnAbsoluteUrlNestedInThePath(): void
+    {
+        // An image proxy addressed as `https://proxy/https://origin/file.png`: only the
+        // URL's own scheme comes off, never the one sitting in its path.
+        $url = Url::create('https://picperf.io/https://example.com/preview.png');
+
+        $this->assertSame('//picperf.io/https://example.com/preview.png', $url->getSchemeRelative());
+    }
+
+    public function testGetSchemeRelativeCarriesTheSameNormalizationAsTheAddress(): void
+    {
+        $url = Url::create('HTTPS://Example.COM/Posts/Hello');
+
+        $this->assertSame('//example.com/Posts/Hello', $url->getSchemeRelative());
+    }
+
+    // -----------------------------------------------------------------------
     // getHash
     // -----------------------------------------------------------------------
 
