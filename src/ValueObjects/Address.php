@@ -26,7 +26,7 @@ use JsonSerializable;
  * @copyright HraDigital\Datatypes
  * @license   MPL-2.0
  */
-class Address implements JsonSerializable
+readonly class Address implements JsonSerializable
 {
     public function __construct(
         public readonly string $street,

@@ -8,6 +8,7 @@ use HraDigital\Datatypes\Exceptions\Datatypes\InvalidSlugException;
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
 use HraDigital\Datatypes\Web\Seo\Slug;
 use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
+use Error;
 use function str_repeat;
 
 /**
@@ -133,5 +134,15 @@ class SlugTest extends AbstractBaseTestCase
         $slug  = Slug::create($value);
 
         $this->assertSame($value, (string) $slug);
+    }
+
+    public function testRefusesToAcceptADynamicProperty(): void
+    {
+        $slug = Slug::create('a-slug');
+
+        $this->expectException(Error::class);
+
+        /** @phpstan-ignore property.notFound */
+        $slug->prefix = 'other';
     }
 }

@@ -5,6 +5,7 @@ namespace HraDigital\Tests\Datatypes\Unit\Financial;
 use HraDigital\Datatypes\Financial\Currency;
 use HraDigital\Datatypes\Financial\Money;
 use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
+use Error;
 use InvalidArgumentException;
 
 /**
@@ -159,5 +160,31 @@ class MoneyTest extends AbstractBaseTestCase
         $money = new Money(1234, Currency::EUR);
 
         $this->assertSame($money->toArray(), $money->jsonSerialize());
+    }
+
+    /**
+     * Tests the class is readonly, therefore an already initialized property cannot be overwritten.
+     */
+    public function testRefusesToOverwriteAnInitializedProperty(): void
+    {
+        $money = new Money(1234, Currency::EUR);
+
+        $this->expectException(Error::class);
+
+        /** @phpstan-ignore property.readOnlyAssignOutOfClass */
+        $money->amount = 1;
+    }
+
+    /**
+     * Tests the class is readonly, therefore no dynamic property can be added to an instance.
+     */
+    public function testRefusesToAcceptADynamicProperty(): void
+    {
+        $money = new Money(1234, Currency::EUR);
+
+        $this->expectException(Error::class);
+
+        /** @phpstan-ignore property.notFound */
+        $money->rate = 1;
     }
 }

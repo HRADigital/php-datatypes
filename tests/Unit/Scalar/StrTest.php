@@ -9,6 +9,7 @@ use HraDigital\Datatypes\Exceptions\Datatypes\ParameterOutOfRangeException;
 use HraDigital\Datatypes\Scalar\AbstractBaseString;
 use HraDigital\Datatypes\Scalar\Str;
 use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
+use Error;
 use function strlen;
 
 /**
@@ -1090,5 +1091,33 @@ class StrTest extends AbstractBaseTestCase
         // Performs test.
         $original = $this->getInstance("This is an immutable String.");
         $original->explode('');
+    }
+
+    /**
+     * Tests the class is readonly, therefore no dynamic property can be added to an instance.
+     */
+    public function testRefusesToAcceptADynamicProperty(): void
+    {
+        // Creates expectation.
+        $this->expectException(Error::class);
+
+        // Performs test.
+        $instance = $this->getInstance("This is an immutable String.");
+
+        /** @phpstan-ignore property.notFound */
+        $instance->encoding = 'UTF-8';
+    }
+
+    /**
+     * Tests the internal value is still assigned when no value is supplied to the class' factory.
+     */
+    public function testHoldsAnEmptyValueWhenCreatedFromAnEmptyString(): void
+    {
+        // Performs test.
+        $instance = Str::create('');
+
+        // Performs assertions.
+        $this->assertSame('', (string) $instance);
+        $this->assertSame(0, $instance->getLength());
     }
 }

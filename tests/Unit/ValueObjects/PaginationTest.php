@@ -7,6 +7,7 @@ namespace HraDigital\Tests\Datatypes\Unit\ValueObjects;
 use HraDigital\Datatypes\Exceptions\Datatypes\PositiveIntegerException;
 use HraDigital\Datatypes\ValueObjects\Pagination;
 use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
+use Error;
 
 /**
  * Pagination Unit testing.
@@ -169,5 +170,31 @@ class PaginationTest extends AbstractBaseTestCase
             ],
             $pagination->toArray()
         );
+    }
+
+    /**
+     * Tests the class is readonly, therefore an already initialized property cannot be overwritten.
+     */
+    public function testRefusesToOverwriteAnInitializedProperty(): void
+    {
+        $pagination = new Pagination(2, 50);
+
+        $this->expectException(Error::class);
+
+        /** @phpstan-ignore property.readOnlyAssignOutOfClass */
+        $pagination->page = 9;
+    }
+
+    /**
+     * Tests the class is readonly, therefore no dynamic property can be added to an instance.
+     */
+    public function testRefusesToAcceptADynamicProperty(): void
+    {
+        $pagination = new Pagination(2, 50);
+
+        $this->expectException(Error::class);
+
+        /** @phpstan-ignore property.notFound */
+        $pagination->offset = 9;
     }
 }

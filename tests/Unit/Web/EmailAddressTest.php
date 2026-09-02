@@ -6,6 +6,7 @@ use HraDigital\Datatypes\Exceptions\Datatypes\InvalidEmailException;
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
 use HraDigital\Datatypes\Web\EmailAddress;
 use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
+use Error;
 use function serialize;
 use function strtolower;
 use function trim;
@@ -136,5 +137,33 @@ class EmailAddressTest extends AbstractBaseTestCase
             (string) $email2,
             'Addresses do not match.'
         );
+        $this->assertNotSame(
+            $email1,
+            $email2,
+            'Unserialization is meant to build a new instance.'
+        );
+        $this->assertEquals(
+            (string) $email1->getUsername(),
+            (string) $email2->getUsername(),
+            'Usernames do not match.'
+        );
+        $this->assertEquals(
+            (string) $email1->getDomain(),
+            (string) $email2->getDomain(),
+            'Domains do not match.'
+        );
+    }
+
+    /**
+     * Tests the class is readonly, therefore no dynamic property can be added to an instance.
+     */
+    public function testRefusesToAcceptADynamicProperty(): void
+    {
+        $email = EmailAddress::create('user@domain.tld');
+
+        $this->expectException(Error::class);
+
+        /** @phpstan-ignore property.notFound */
+        $email->alias = 'other';
     }
 }

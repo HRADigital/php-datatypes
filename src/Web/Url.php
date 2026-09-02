@@ -35,7 +35,7 @@ use function sprintf;
  * @copyright HraDigital\Datatypes
  * @license   MPL-2.0
  */
-class Url
+readonly class Url
 {
     /** @var Str $value - Holds the full, normalized URL. */
     protected Str $value;
@@ -62,20 +62,6 @@ class Url
      */
     protected function __construct(string $url)
     {
-        $this->loadFromPrimitive($url);
-    }
-
-    /**
-     * Loads supplied $url string representation into the class.
-     *
-     * The scheme and host are lowercased because they are case-insensitive per
-     * RFC 3986; the path and query are left untouched because they are not.
-     *
-     * @throws NonEmptyStringException - If the supplied URL is empty.
-     * @throws InvalidUrlException     - If the supplied URL is not a valid absolute URL.
-     */
-    protected function loadFromPrimitive(string $url): void
-    {
         $voUrl = Str::create($url)->trim();
 
         if ($voUrl->getLength() === 0) {
@@ -92,6 +78,8 @@ class Url
             throw InvalidUrlException::withValue((string) $voUrl);
         }
 
+        // The scheme and host are lowercased because they are case-insensitive per
+        // RFC 3986; the path and query are left untouched because they are not.
         $this->scheme = Str::create($parts['scheme'])->toLower();
         $this->host = Str::create($parts['host'])->toLower();
 
@@ -104,23 +92,6 @@ class Url
                 $parts['path'] ?? '',
                 isset($parts['query']) ? '?' . $parts['query'] : ''
             )
-        );
-    }
-
-    public function __serialize(): array
-    {
-        return [
-            'url' => (string) $this,
-        ];
-    }
-
-    /**
-     * @param array<string, mixed> $data
-     */
-    public function __unserialize(array $data): void
-    {
-        $this->loadFromPrimitive(
-            $data['url']
         );
     }
 

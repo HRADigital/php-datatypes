@@ -32,7 +32,7 @@ use function sprintf;
  * @copyright HraDigital\Datatypes
  * @license   MPL-2.0
  */
-class EmailAddress
+readonly class EmailAddress
 {
     /** @var Str $username - Holds the Username's part of the E-mail address. */
     protected Str $username;
@@ -58,16 +58,6 @@ class EmailAddress
      */
     protected function __construct(string $email)
     {
-        $this->loadFromPrimitive($email);
-    }
-
-    /**
-     * Loads supplied $email address string representation into the class.
-     *
-     * @throws InvalidArgumentException - If the supplied email address is empty or invalid.
-     */
-    protected function loadFromPrimitive(string $email): void
-    {
         // Converts supplied primitive to Str.
         $voEmail = Str::create($email)->trim()->toLower();
 
@@ -87,23 +77,6 @@ class EmailAddress
         $domain = explode('.', $parts[1]);
         $this->tld    = Str::create(array_pop($domain));
         $this->domain = Str::create(implode('.', $domain));
-    }
-
-    public function __serialize(): array
-    {
-        return [
-            'email'=> (string) $this,
-        ];
-    }
-
-    /**
-     * @param array<string, mixed> $data
-     */
-    public function __unserialize(array $data): void
-    {
-        $this->loadFromPrimitive(
-            $data['email']
-        );
     }
 
     /**

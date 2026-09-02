@@ -4,6 +4,7 @@ namespace HraDigital\Tests\Datatypes\Unit\ValueObjects;
 
 use HraDigital\Datatypes\ValueObjects\Address;
 use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
+use Error;
 
 /**
  * Address Value Object Unit testing.
@@ -96,5 +97,31 @@ class AddressTest extends AbstractBaseTestCase
         $address = new Address('s', 'p', 'c', 'co');
 
         $this->assertSame($address->toArray(), $address->jsonSerialize());
+    }
+
+    /**
+     * Tests the class is readonly, therefore an already initialized property cannot be overwritten.
+     */
+    public function testRefusesToOverwriteAnInitializedProperty(): void
+    {
+        $address = new Address('s', 'p', 'c', 'co');
+
+        $this->expectException(Error::class);
+
+        /** @phpstan-ignore property.readOnlyAssignOutOfClass */
+        $address->street = 'Other';
+    }
+
+    /**
+     * Tests the class is readonly, therefore no dynamic property can be added to an instance.
+     */
+    public function testRefusesToAcceptADynamicProperty(): void
+    {
+        $address = new Address('s', 'p', 'c', 'co');
+
+        $this->expectException(Error::class);
+
+        /** @phpstan-ignore property.notFound */
+        $address->district = 'Other';
     }
 }

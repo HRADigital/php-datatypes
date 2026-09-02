@@ -35,7 +35,7 @@ use function min;
  * @copyright HraDigital\Datatypes
  * @license   MPL-2.0
  */
-class Pagination
+readonly class Pagination
 {
     public const MAX_RESULTS = 1000;
     public const MAX_OFFSET = 100000;

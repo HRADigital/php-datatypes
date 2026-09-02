@@ -33,7 +33,7 @@ use function trim;
  * @copyright HraDigital\Datatypes
  * @license   MPL-2.0
  */
-class Slug
+readonly class Slug
 {
     public const MAX_LENGTH = 191;
 

@@ -42,7 +42,7 @@ use const STR_PAD_RIGHT;
  * @copyright HraDigital\Datatypes
  * @license   MPL-2.0
  */
-final class Money implements JsonSerializable
+final readonly class Money implements JsonSerializable
 {
     public function __construct(
         public readonly int $amount,

@@ -48,10 +48,10 @@ use function ucwords;
  *
  * @phpstan-consistent-constructor
  */
-class Str
+readonly class Str
 {
     /** @var string $value - Internal string value for the instance. */
-    protected string $value = '';
+    protected string $value;
 
     /**
      * Creates a new instance of Str based on a string value.

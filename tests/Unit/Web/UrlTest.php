@@ -8,6 +8,7 @@ use HraDigital\Datatypes\Exceptions\Datatypes\InvalidUrlException;
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
 use HraDigital\Datatypes\Web\Url;
 use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
+use Error;
 use function serialize;
 use function str_repeat;
 use function strlen;
@@ -199,7 +200,25 @@ class UrlTest extends AbstractBaseTestCase
     public function testSerializesAndUnserializesBackToTheSameValue(): void
     {
         $url = Url::create('https://example.com/a?b=1');
+        $other = unserialize(serialize($url));
 
-        $this->assertEquals($url, unserialize(serialize($url)));
+        $this->assertEquals($url, $other);
+        $this->assertInstanceOf(Url::class, $other);
+        $this->assertSame((string) $url, (string) $other);
+        $this->assertNotSame($url, $other);
+    }
+
+    // -----------------------------------------------------------------------
+    // Readonly semantics
+    // -----------------------------------------------------------------------
+
+    public function testRefusesToAcceptADynamicProperty(): void
+    {
+        $url = Url::create('https://example.com/a');
+
+        $this->expectException(Error::class);
+
+        /** @phpstan-ignore property.notFound */
+        $url->port = 8080;
     }
 }
