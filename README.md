@@ -59,7 +59,7 @@ Due to the "_No 3rd party dependency_" rule, this package will use some simplifi
 
 ## Requirements & Installation
 
-- PHP >= 8.1
+- PHP >= 8.2
 - `ext-intl`
 
 ```bash
@@ -167,7 +167,7 @@ The CI pipeline runs:
   via `commitlint` and the rules in [commitlint.config.mjs](commitlint.config.mjs). Only the commits introduced by the
   push/pull request are checked - existing history is never re-validated.
 - **Coding Standards** - `PSR2` checks via `PHP_CodeSniffer`.
-- **Tests** - the full `PHPUnit` suite against PHP `8.1`, `8.2`, `8.3`, `8.4` and `8.5`, each running inside its own official `php:<version>-cli` Docker container.
+- **Tests** - the full `PHPUnit` suite against PHP `8.2`, `8.3`, `8.4` and `8.5`, each running inside its own official `php:<version>-cli` Docker container.
 
 Composer scripts are available to run the same checks locally:
 
