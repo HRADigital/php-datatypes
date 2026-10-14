@@ -32,6 +32,7 @@ template engine.
   returns a new instance on every operation rather than mutating the value in place.
 - **Web datatypes** - `Slug`, `Url` and `EmailAddress`, each validating and normalising itself.
 - **Datetime datatypes** - date and time values, without pulling in a datetime library.
+- **Fiscal datatypes** - `Nif`, the Portuguese tax number, with its check digit and `NifType`.
 - **Exception vocabulary** - a typed exception per datatype under `Exceptions\Datatypes\*`, so a
   rejected value says what it rejected and why.
 
@@ -70,7 +71,7 @@ composer require hradigital/php-datatypes
 
 | Concern | Package |
 |---|---|
-| `Slug`, `Url`, `EmailAddress`, `Money`, `Datetime`, … | **php-datatypes** |
+| `Slug`, `Url`, `EmailAddress`, `Money`, `Nif`, `Datetime`, … | **php-datatypes** |
 | Exception vocabulary (`Exceptions\Datatypes\*`) | **php-datatypes** |
 | `Markup` - plain text to structured HTML | php-markup |
 | `SocialPreviewImageExtractor` - reads an HTML `<head>` | php-markup |

@@ -14,6 +14,7 @@ For more information about each type of available object, please read dedicated 
 - [Collections](Collections/)
 - [Datetime](Datetime/)
 - [Exceptions](Exceptions/)
+- [Fiscal](Fiscal/)
 - [Scalar](Scalar/)
 - [Traits](Traits/)
 - [ValueObjects](ValueObjects/)
