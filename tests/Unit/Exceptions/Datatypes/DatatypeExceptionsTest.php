@@ -6,6 +6,7 @@ namespace HraDigital\Tests\Datatypes\Unit\Exceptions\Datatypes;
 
 use HraDigital\Datatypes\Exceptions\Datatypes\InvalidDateIntervalException;
 use HraDigital\Datatypes\Exceptions\Datatypes\InvalidEmailException;
+use HraDigital\Datatypes\Exceptions\Datatypes\InvalidNifException;
 use HraDigital\Datatypes\Exceptions\Datatypes\InvalidStringLengthException;
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
 use HraDigital\Datatypes\Exceptions\Datatypes\NonNegativeNumberException;
@@ -56,6 +57,23 @@ class DatatypeExceptionsTest extends AbstractBaseTestCase
         $this->assertEquals(422, $exception->getCode());
         $this->assertNotEquals($exception->getMessage(), $static->getMessage());
         $this->assertStringContainsString('SomeField', $static->getMessage());
+    }
+
+    public function testInvalidNifExceptionIsProperlyInitialized(): void
+    {
+        $exception = new InvalidNifException();
+        $static = InvalidNifException::withValue('123456788');
+
+        $this->assertInstanceOf(InvalidNifException::class, $exception);
+        $this->assertInstanceOf(InvalidNifException::class, $static);
+        $this->assertInstanceOf(UnprocessableEntityException::class, $exception);
+        $this->assertInstanceOf(UnprocessableEntityException::class, $static);
+
+        $this->assertGreaterThan(0, strlen($exception->getMessage()));
+        $this->assertGreaterThan(0, strlen($static->getMessage()));
+        $this->assertEquals(422, $exception->getCode());
+        $this->assertNotEquals($exception->getMessage(), $static->getMessage());
+        $this->assertStringContainsString('123456788', $static->getMessage());
     }
 
     public function testInvalidStringLengthExceptionIsProperlyInitialized(): void
