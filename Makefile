@@ -1,4 +1,4 @@
-.PHONY: help lint lint-scope-check lint-fix cs cs-fixer cs-fixer-fix analyse validate test test-unit
+.PHONY: help lint lint-scope-check lint-fix cs cs-fixer cs-fixer-fix analyse validate test test-unit install-hooks
 
 SHELL := /bin/bash
 
@@ -51,6 +51,7 @@ help:
 	@echo "  make validate               - run every report gate concurrently"
 	@echo "  make test                   - run the full PHPUnit suite"
 	@echo "  make test-unit              - run the Unit testsuite"
+	@echo "  make install-hooks          - install the local commit-msg githook (commitlint via npx)"
 	@echo "  (FILES=\"a.php b.php\" scopes the file-based gates; FILTER=Foo narrows a test run)"
 	@echo "  (append QUIET=1 to any target for silent-on-success: gates print only on"
 	@echo "   failure, test targets print only their final summary; drop QUIET to watch a long run)"
@@ -149,3 +150,10 @@ else
 	@echo "Running Unit suite..."
 	@$(EXEC) php -d memory_limit=-1 vendor/bin/phpunit --testsuite=Unit $(if $(FILTER),--filter="$(FILTER)") $(FILES)
 endif
+
+# Mirrors the CI semantic-commits gate locally. No package.json/devDependency in this
+# project (see commitlint.config.mjs), so the hook itself fetches commitlint via npx.
+install-hooks:
+	@cp .githooks/commit-msg .git/hooks/commit-msg
+	@chmod +x .git/hooks/commit-msg
+	@echo "Installed .git/hooks/commit-msg"

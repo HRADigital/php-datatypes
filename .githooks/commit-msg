@@ -1,0 +1,8 @@
+#!/bin/sh
+# Mirrors the CI "Semantic Commits" gate (commitlint.config.mjs) locally, so a
+# malformed header (e.g. leading whitespace) is rejected before it ever lands
+# in history, instead of being caught later by CI or a rebase/force-push.
+# Installed into .git/hooks/commit-msg by `make install-hooks` - see Makefile.
+# This project ships no package.json (see commitlint.config.mjs), so the hook
+# fetches commitlint through npx on demand instead of a local devDependency.
+npx --yes commitlint --edit "$1"
