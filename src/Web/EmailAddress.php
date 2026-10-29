@@ -103,6 +103,16 @@ readonly class EmailAddress
     }
 
     /**
+     * Whether both instances represent the very same E-mail address.
+     *
+     * Both addresses are lower cased on load, so the comparison is case insensitive.
+     */
+    public function equals(self $other): bool
+    {
+        return (string) $this === (string) $other;
+    }
+
+    /**
      * Return the Username part for the e-mail address.
      */
     public function getUsername(): Str

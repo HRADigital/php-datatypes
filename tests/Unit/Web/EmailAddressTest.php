@@ -155,6 +155,25 @@ class EmailAddressTest extends AbstractBaseTestCase
     }
 
     /**
+     * Tests equals() ignores the case, as both addresses are lower cased on load.
+     */
+    public function testEqualsIsTrueForTheSameAddressInAnyCase(): void
+    {
+        $email = EmailAddress::create('user@domain.tld');
+
+        $this->assertTrue($email->equals(EmailAddress::create('User@DoMaiN.Tld')));
+    }
+
+    public function testEqualsIsFalseForDifferentAddresses(): void
+    {
+        $email = EmailAddress::create('user@domain.tld');
+
+        $this->assertFalse($email->equals(EmailAddress::create('other@domain.tld')));
+        $this->assertFalse($email->equals(EmailAddress::create('user@other.tld')));
+        $this->assertFalse($email->equals(EmailAddress::create('user@domain.com')));
+    }
+
+    /**
      * Tests the class is readonly, therefore no dynamic property can be added to an instance.
      */
     public function testRefusesToAcceptADynamicProperty(): void
