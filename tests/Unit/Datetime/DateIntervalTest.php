@@ -209,4 +209,56 @@ class DateIntervalTest extends AbstractBaseTestCase
         $this->assertEquals(0, $di->getSeconds());
         $this->assertFalse($di->isNegative());
     }
+
+    public function testEqualsIsTrueForTheSameUnitsAndSign(): void
+    {
+        $di = DateInterval::fromDuration(Str::create("P3Y6M4DT12H30M5S"));
+
+        $this->assertTrue($di->equals(DateInterval::fromDuration(Str::create("P3Y6M4DT12H30M5S"))));
+        $this->assertTrue(DateInterval::fromDays(2)->equals(DateInterval::fromDateString("2 day")));
+    }
+
+    /**
+     * @return array<string, array{string}>
+     */
+    public static function differentUnitProvider(): array
+    {
+        return [
+            'years'   => ["P2Y2M2DT2H2M3S"],
+            'months'  => ["P2Y3M2DT2H2M2S"],
+            'days'    => ["P2Y2M3DT2H2M2S"],
+            'hours'   => ["P2Y2M2DT3H2M2S"],
+            'minutes' => ["P2Y2M2DT2H3M2S"],
+            'seconds' => ["P2Y2M2DT2H2M3S"],
+        ];
+    }
+
+    /**
+     * @dataProvider differentUnitProvider
+     */
+    public function testEqualsIsFalseWhenOneUnitDiffers(string $duration): void
+    {
+        $di = DateInterval::fromDuration(Str::create("P2Y2M2DT2H2M2S"));
+
+        $this->assertFalse($di->equals(DateInterval::fromDuration(Str::create($duration))));
+    }
+
+    public function testEqualsIsFalseForADifferentSign(): void
+    {
+        $this->assertFalse(DateInterval::fromDays(2)->equals(DateInterval::fromDays(-2)));
+    }
+
+    public function testEqualsComparesTheUnitsNotTheTotalDuration(): void
+    {
+        $this->assertFalse(DateInterval::fromDays(1)->equals(DateInterval::fromHours(24)));
+    }
+
+    public function testEqualsComparesTheMicroseconds(): void
+    {
+        $di = DateInterval::fromSeconds(1);
+        $other = DateInterval::fromSeconds(1);
+        $other->f = 0.5;
+
+        $this->assertFalse($di->equals($other));
+    }
 }

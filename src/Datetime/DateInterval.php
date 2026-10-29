@@ -199,4 +199,22 @@ class DateInterval extends ParentDateInterval
     {
         return (bool) $this->invert;
     }
+
+    /**
+     * Whether both instances hold the same units and the same sign.
+     *
+     * Compares each unit, not the total duration: a month has no fixed number of days, and a
+     * day is not always 24 hours (daylight saving), so "P1D" and "PT24H" are NOT equal.
+     */
+    public function equals(self $other): bool
+    {
+        return $this->y === $other->y
+            && $this->m === $other->m
+            && $this->d === $other->d
+            && $this->h === $other->h
+            && $this->i === $other->i
+            && $this->s === $other->s
+            && $this->f === $other->f
+            && $this->invert === $other->invert;
+    }
 }
