@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace HraDigital\Tests\Datatypes\Unit\Exceptions\Datatypes;
 
 use HraDigital\Datatypes\Exceptions\Datatypes\InvalidDateIntervalException;
+use HraDigital\Datatypes\Exceptions\Datatypes\InvalidDatetimeException;
 use HraDigital\Datatypes\Exceptions\Datatypes\InvalidEmailException;
 use HraDigital\Datatypes\Exceptions\Datatypes\InvalidNifException;
 use HraDigital\Datatypes\Exceptions\Datatypes\InvalidStringLengthException;
@@ -40,6 +41,22 @@ class DatatypeExceptionsTest extends AbstractBaseTestCase
         $this->assertEquals(422, $exception->getCode());
         $this->assertNotEquals($exception->getMessage(), $static->getMessage());
         $this->assertStringContainsString('SomeField', $static->getMessage());
+    }
+
+    public function testInvalidDatetimeExceptionIsProperlyInitialized(): void
+    {
+        $exception = new InvalidDatetimeException();
+        $static = InvalidDatetimeException::withValue('2021-02-30');
+
+        $this->assertInstanceOf(InvalidDatetimeException::class, $exception);
+        $this->assertInstanceOf(InvalidDatetimeException::class, $static);
+        $this->assertInstanceOf(UnprocessableEntityException::class, $exception);
+        $this->assertInstanceOf(UnprocessableEntityException::class, $static);
+
+        $this->assertGreaterThan(0, strlen($exception->getMessage()));
+        $this->assertEquals(422, $exception->getCode());
+        $this->assertNotEquals($exception->getMessage(), $static->getMessage());
+        $this->assertStringContainsString('2021-02-30', $static->getMessage());
     }
 
     public function testInvalidEmailExceptionIsProperlyInitialized(): void
