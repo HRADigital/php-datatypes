@@ -23,6 +23,14 @@ jobs:
     name: Semantic Commits
     runs-on: ubuntu-latest
 
+    # On a pull_request event commitlint asks the API for the commits the PR
+    # carries, which the workflow-wide `contents: read` does not cover - the
+    # call comes back "Resource not accessible by integration" and the action
+    # then crashes on the list it never received.
+    permissions:
+      contents: read
+      pull-requests: read
+
     steps:
       - name: Checkout
         uses: actions/checkout@v7
@@ -56,7 +64,7 @@ jobs:
           tools: composer:v2
 
       - name: Validate composer.json
-        run: composer validate --strict --no-check-publish
+        run: composer validate --strict --no-check-publish --no-check-lock
 
       - name: Get Composer cache directory
         id: composer-cache
@@ -69,16 +77,28 @@ jobs:
           key: composer-${{ matrix.php }}-${{ hashFiles('**/composer.json') }}
           restore-keys: composer-${{ matrix.php }}-
 
+      # composer.lock is not committed, so every run resolves and downloads from
+      # the network - and `--prefer-dist` has source fallback disabled, so one
+      # 504 from api.github.com fails the job outright. Three attempts with a
+      # growing pause; a genuine resolution error still fails, three times over.
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-interaction
+        run: |
+          for attempt in 1 2 3; do
+            composer install --prefer-dist --no-progress --no-interaction && exit 0
+            echo "composer install failed (attempt $attempt of 3)"
+            sleep $(( attempt * 15 ))
+          done
+          exit 1
 
+      # EXEC= runs the same Makefile gate a developer runs, natively on the
+      # runner (which has PHP + vendor/ but no container). One definition means
+      # the CI gate cannot drift from the local one.
       - name: Check coding standards
-        run: composer run test-cs
+        run: make lint EXEC=
 
       # Native functions, classes and constants must be imported in the file header.
-      # The local gate is `make cs-fixer`; this step enforces the same rule on contributors.
       - name: Check global namespace imports
-        run: ./vendor/bin/php-cs-fixer fix --dry-run --diff --show-progress=none
+        run: make cs-fixer EXEC=
 
   static-analysis:
     name: Static Analysis (PHP ${{ matrix.php }})
@@ -111,44 +131,59 @@ jobs:
           key: composer-${{ matrix.php }}-${{ hashFiles('**/composer.json') }}
           restore-keys: composer-${{ matrix.php }}-
 
+      # composer.lock is not committed, so every run resolves and downloads from
+      # the network - and `--prefer-dist` has source fallback disabled, so one
+      # 504 from api.github.com fails the job outright. Three attempts with a
+      # growing pause; a genuine resolution error still fails, three times over.
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-interaction
+        run: |
+          for attempt in 1 2 3; do
+            composer install --prefer-dist --no-progress --no-interaction && exit 0
+            echo "composer install failed (attempt $attempt of 3)"
+            sleep $(( attempt * 15 ))
+          done
+          exit 1
 
-      - name: Run static analysis
-        run: composer run test-static
+      - name: Run PHPStan
+        run: make analyse EXEC=
 
   tests:
     name: Tests (PHP ${{ matrix.php }})
     runs-on: ubuntu-latest
-    # Each PHP version runs inside its own official PHP container image.
-    container:
-      image: php:${{ matrix.php }}-cli
     strategy:
       fail-fast: false
       matrix:
         php: [ '8.2', '8.3', '8.4', '8.5' ]
 
     steps:
-      - name: Install system dependencies and PHP extensions
-        run: |
-          apt-get update
-          apt-get install -y --no-install-recommends git unzip libicu-dev
-          docker-php-ext-install intl
-
-      - name: Install Composer
-        run: |
-          php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-          php composer-setup.php --install-dir=/usr/local/bin --filename=composer
-          php -r "unlink('composer-setup.php');"
-
       - name: Checkout
         uses: actions/checkout@v7
 
-      - name: PHP version
-        run: php -v
+      # The suite runs inside the project's OWN image, the same one a developer
+      # builds locally. Building it here rather than using a bare `container:`
+      # keeps a single definition of what a test environment is - a drifting
+      # Dockerfile becomes a CI failure instead of a surprise.
+      - name: Build the PHP ${{ matrix.php }} image
+        run: docker build --build-arg PHP_VERSION=${{ matrix.php }} -t php-datatypes:${{ matrix.php }} .
 
+      - name: PHP version
+        run: docker run --rm php-datatypes:${{ matrix.php }} php -v
+
+      # composer.lock is not committed, so every run resolves and downloads from
+      # the network - and `--prefer-dist` has source fallback disabled, so one
+      # 504 from api.github.com fails the job outright. Three attempts with a
+      # growing pause; a genuine resolution error still fails, three times over.
       - name: Install dependencies
-        run: composer install --prefer-dist --no-progress --no-interaction
+        run: |
+          for attempt in 1 2 3; do
+            docker run --rm -v "$PWD":/app -w /app php-datatypes:${{ matrix.php }} \
+              composer install --prefer-dist --no-progress --no-interaction && exit 0
+            echo "composer install failed (attempt $attempt of 3)"
+            sleep $(( attempt * 15 ))
+          done
+          exit 1
 
       - name: Run test suite
-        run: ./vendor/bin/phpunit
+        run: |
+          docker run --rm -v "$PWD":/app -w /app php-datatypes:${{ matrix.php }} \
+            vendor/bin/phpunit

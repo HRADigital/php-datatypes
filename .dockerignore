@@ -1,0 +1,20 @@
+# Keep the build context small and host-independent. vendor/ in particular must
+# never be copied in: the working tree is bind-mounted at run time, and a host
+# vendor/ leaking into the image would mask the version-specific install.
+/vendor/
+/ci/
+/.git/
+/.github/
+/node_modules/
+
+# Caches and reports - all regenerated inside the container.
+/.phpunit.cache/
+.phpunit.result.cache
+/.phpstan.cache/
+/.phpcs-cache
+.php-cs-fixer.cache
+
+# Editor / AI assistant working directories.
+/.claude/
+/.idea/
+/.vscode/
