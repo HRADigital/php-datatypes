@@ -7,6 +7,12 @@ parameters:
 
     tmpDir: .phpstan.cache
 
+    # Analyse against the minimum PHP version composer.json supports, whatever PHP runs the
+    # tool. Error identifiers and native return types differ per version (eg. a readonly write
+    # is `property.readOnlyAssignOutOfClass` on 8.2, `assign.propertyProtectedSet` on 8.4+), so
+    # without the pin a host on a newer PHP and CI on 8.2 disagree on the very same code.
+    phpVersion: 80200
+
     # Native signatures are the source of truth. PHPDoc never softens or overrides what the
     # method signature declares - it only adds what PHP itself cannot express (array key/value
     # types, generics). A docblock that contradicts the native type is an error, not a hint.

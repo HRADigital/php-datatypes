@@ -108,7 +108,7 @@ class AddressTest extends AbstractBaseTestCase
 
         $this->expectException(Error::class);
 
-        /** @phpstan-ignore assign.propertyProtectedSet */
+        /** @phpstan-ignore property.readOnlyAssignOutOfClass */
         $address->street = 'Other';
     }
 

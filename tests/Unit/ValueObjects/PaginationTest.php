@@ -181,7 +181,7 @@ class PaginationTest extends AbstractBaseTestCase
 
         $this->expectException(Error::class);
 
-        /** @phpstan-ignore assign.propertyProtectedSet */
+        /** @phpstan-ignore property.readOnlyAssignOutOfClass */
         $pagination->page = 9;
     }
 

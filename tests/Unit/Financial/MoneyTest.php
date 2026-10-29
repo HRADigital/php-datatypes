@@ -171,7 +171,7 @@ class MoneyTest extends AbstractBaseTestCase
 
         $this->expectException(Error::class);
 
-        /** @phpstan-ignore assign.propertyProtectedSet */
+        /** @phpstan-ignore property.readOnlyAssignOutOfClass */
         $money->amount = 1;
     }
 
