@@ -80,23 +80,13 @@ readonly class Str
     }
 
     /**
-     * Compares the values of 2 separate instances.
+     * Compares the values of 2 separate instances. The comparison is case sensitive.
      *
      * Returns TRUE if the 2 instance's values match. FALSE otherwise.
      */
-    public function match(Str $string): bool
+    public function equals(self $other): bool
     {
-        return $this->equals((string) $string);
-    }
-
-    /**
-     * Compares the instance's value, with the supplied native string.
-     *
-     * Returns TRUE if the 2 values match. FALSE otherwise.
-     */
-    public function equals(string $string): bool
-    {
-        return ($this->value === $string);
+        return $this->value === (string) $other;
     }
 
     /**
@@ -438,7 +428,7 @@ readonly class Str
      *
      * @throws ParameterOutOfRangeException - If the $start and/or $length is either too small, or too long.
      */
-    public function subString(int $start, int $length = null): self
+    public function subString(int $start, ?int $length = null): self
     {
         // Validates supplied $start and $length.
         $this->validateStartAndLength($start, $length);

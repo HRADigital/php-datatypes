@@ -46,6 +46,15 @@ class PersonalTraitsVOTest extends AbstractBaseTestCase
         $this->assertEquals($data['gender'], (string) $object->getGender());
     }
 
+    public function testLoadsSuccessfullyWithOtherGender(): void
+    {
+        $data = self::DATA;
+        $data['gender'] = 'other';
+        $object = new PersonalTraitsVO($data);
+
+        $this->assertEquals('Other', (string) $object->getGender());
+    }
+
     public function testBreaksIfGenderIsNotSupported(): void
     {
         $this->expectException(UnexpectedEntityValueException::class);

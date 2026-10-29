@@ -614,9 +614,9 @@ class StrTest extends AbstractBaseTestCase
     }
 
     /**
-     * Checks Matching between two distinct strings.
+     * Checks Equality of two distinct instances with the same value.
      */
-    public function testCanCheckMatching(): void
+    public function testCanCheckEquality(): void
     {
         // Performs test.
         $original = $this->getInstance("  Immutable string.  ");
@@ -624,24 +624,20 @@ class StrTest extends AbstractBaseTestCase
 
         // Performs assertions.
         $this->assertTrue(
-            $original->match($other),
+            $original->equals($other),
             'Instance values do not match.'
         );
     }
 
     /**
-     * Checks Equality of two distinct strings.
+     * Checks Equality is case sensitive, and does not trim.
      */
-    public function testCanCheckEquality(): void
+    public function testEqualsIsFalseForDifferentValues(): void
     {
-        // Performs test.
-        $original = $this->getInstance("  Immutable string.  ");
+        $original = $this->getInstance("Immutable string.");
 
-        // Performs assertions.
-        $this->assertTrue(
-            $original->equals("  Immutable string.  "),
-            'Instance values do not match.'
-        );
+        $this->assertFalse($original->equals($this->getInstance("immutable string.")));
+        $this->assertFalse($original->equals($this->getInstance(" Immutable string.")));
     }
 
     /**

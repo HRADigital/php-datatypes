@@ -36,9 +36,9 @@ trait HasGenderTrait
         $genderValue = Str::create($gender)->toLower()->toUpperFirst();
 
         if (!(
-            $genderValue->equals('Male') ||
-            $genderValue->equals('Female') ||
-            $genderValue->equals('Other')
+            $genderValue->equals(Str::create('Male')) ||
+            $genderValue->equals(Str::create('Female')) ||
+            $genderValue->equals(Str::create('Other'))
         )) {
             throw UnexpectedEntityValueException::withName('$gender');
         }

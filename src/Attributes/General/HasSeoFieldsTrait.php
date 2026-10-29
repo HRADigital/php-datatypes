@@ -84,7 +84,7 @@ trait HasSeoFieldsTrait
      *
      * @link  https://www.quora.com/What-is-the-minimum-length-of-a-meta-keyword-in-on-page-SEO
      */
-    protected function castSeoKeywords(string $keywords = null): void
+    protected function castSeoKeywords(?string $keywords = null): void
     {
         // Setting the max length for Seo keywords.
         $keywordsValue = ($keywords ? Str::create($keywords) : null);
