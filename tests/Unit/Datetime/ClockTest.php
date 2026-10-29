@@ -50,8 +50,11 @@ class ClockTest extends AbstractBaseTestCase
         $instant = new NativeDateTimeImmutable('2020-01-02 03:04:05');
         $clock = new FrozenClock($instant);
 
-        $this->assertSame($instant, $clock->now());
-        $this->assertSame($instant, $clock->now());
+        $first = $clock->now();
+        $second = $clock->now();
+
+        $this->assertSame($instant, $first);
+        $this->assertSame($instant, $second);
     }
 
     public function testDefaultsToTheSystemClock(): void
