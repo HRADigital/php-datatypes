@@ -305,7 +305,7 @@ class UserEntity extends AbstractValueObject
 
     protected function onUpdateChangeUpdatedAtField(): void
     {
-        $this->updated_at = DateTime::now();
+        $this->updated_at = DateTimeImmutable::now();
     }
 }
 

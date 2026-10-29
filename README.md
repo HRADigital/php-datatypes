@@ -21,8 +21,8 @@ one per attribute - leaving the class definition free for the business logic tha
 
 Getters return Value Objects rather than primitives wherever possible, so a value carries its own
 validation and normalization instead of every caller remembering it. There is no 3rd party
-dependency beyond PHP itself, so these values work without a framework, an HTTP request or a
-template engine.
+dependency beyond PHP itself and the PSR-20 clock interface, so these values work without a
+framework, an HTTP request or a template engine.
 
 - **`AbstractValueObject`** - the base a Value Object, Entity or Aggregate extends, giving it
   construction from an array, full serialization and `toArray()` out of the box.
@@ -31,7 +31,8 @@ template engine.
 - **Scalar datatypes** - immutable `Str`, integer and float wrappers, with a fluent API that
   returns a new instance on every operation rather than mutating the value in place.
 - **Web datatypes** - `Slug`, `Url` and `EmailAddress`, each validating and normalising itself.
-- **Datetime datatypes** - date and time values, without pulling in a datetime library.
+- **Datetime datatypes** - a mutable `DateTime` and an immutable `DateTimeImmutable` with the same
+  method set, a PSR-20 clock, `DateInterval` and `DateTimeZone`, without pulling in a datetime library.
 - **Fiscal datatypes** - `Nif`, the Portuguese tax number, with its check digit and `NifType`.
 - **Exception vocabulary** - a typed exception per datatype under `Exceptions\Datatypes\*`, so a
   rejected value says what it rejected and why.
@@ -62,16 +63,34 @@ Due to the "_No 3rd party dependency_" rule, this package will use some simplifi
 
 - PHP >= 8.2
 - `ext-intl`
+- `psr/clock` (interfaces only)
 
 ```bash
 composer require hradigital/php-datatypes
 ```
 
+## Datetime
+
+`DateTime` (mutable) and `DateTimeImmutable` are competing types: neither extends the other, and
+neither extends a native date class. Each one wraps a native `\DateTimeImmutable`, and both implement
+`DatetimeContract`.
+
+PHP does not let a user class implement `\DateTimeInterface`, so the wrappers are NOT one. Hand
+`toNative()` (a `\DateTimeImmutable` copy) to an API that needs the native type, and wrap a native
+value with `fromNative()`. See [src/README.md](src/README.md#datetime) for the clock and the full API.
+
+| Before (`Datetime`) | After |
+|---|---|
+| `Datetime` | `DateTimeImmutable` |
+| `new Datetime($string)` | `DateTimeImmutable::fromString($string)` |
+| `Datetime::createFromMutable($native)` | `DateTimeImmutable::fromNative($native)` |
+| pass it where a `\DateTimeInterface` is expected | pass `$datetime->toNative()` |
+
 ## Scope reference
 
 | Concern | Package |
 |---|---|
-| `Slug`, `Url`, `EmailAddress`, `Money`, `Nif`, `Datetime`, … | **php-datatypes** |
+| `Slug`, `Url`, `EmailAddress`, `Money`, `Nif`, `DateTime`, `DateTimeImmutable`, … | **php-datatypes** |
 | Exception vocabulary (`Exceptions\Datatypes\*`) | **php-datatypes** |
 | `Markup` - plain text to structured HTML | php-markup |
 | `SocialPreviewImageExtractor` - reads an HTML `<head>` | php-markup |
