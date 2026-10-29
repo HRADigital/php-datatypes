@@ -27,7 +27,8 @@
     ],
     "require": {
         "php": "^8.2",
-        "ext-intl": "*"
+        "ext-intl": "*",
+        "psr/clock": "^1.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^9.0",

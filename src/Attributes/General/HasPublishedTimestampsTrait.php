@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\General;
 
-use HraDigital\Datatypes\Datetime\Datetime;
+use HraDigital\Datatypes\Datetime\DateTimeImmutable;
 
 /**
  * Gives Publishing with timestamps capabilities to an Entity.
@@ -23,18 +23,18 @@ use HraDigital\Datatypes\Datetime\Datetime;
  */
 trait HasPublishedTimestampsTrait
 {
-    /** @var Datetime|null $published_from - Instant from which the record becomes published. */
-    protected ?Datetime $published_from = null;
+    /** @var DateTimeImmutable|null $published_from - Instant from which the record becomes published. */
+    protected ?DateTimeImmutable $published_from = null;
 
-    /** @var Datetime|null $published_to - Instant from which the record stops being published. */
-    protected ?Datetime $published_to = null;
+    /** @var DateTimeImmutable|null $published_to - Instant from which the record stops being published. */
+    protected ?DateTimeImmutable $published_to = null;
 
     /**
      * Mutator method for setting the value into the Attribute
      */
     protected function castPublishedFrom(?string $timestamp): void
     {
-        $this->published_from = ($timestamp ? Datetime::fromString($timestamp) : null);
+        $this->published_from = ($timestamp ? DateTimeImmutable::fromString($timestamp) : null);
     }
 
     /**
@@ -42,13 +42,13 @@ trait HasPublishedTimestampsTrait
      */
     protected function castPublishedTo(?string $timestamp): void
     {
-        $this->published_to = ($timestamp ? Datetime::fromString($timestamp) : null);
+        $this->published_to = ($timestamp ? DateTimeImmutable::fromString($timestamp) : null);
     }
 
     /**
      * Returns a Datetime representation from the instant the record becomes published.
      */
-    public function getPublishedFrom(): ?Datetime
+    public function getPublishedFrom(): ?DateTimeImmutable
     {
         return $this->published_from;
     }
@@ -56,7 +56,7 @@ trait HasPublishedTimestampsTrait
     /**
      * Returns a Datetime representation from the instant the record stops being published.
      */
-    public function getPublishedTo(): ?Datetime
+    public function getPublishedTo(): ?DateTimeImmutable
     {
         return $this->published_to;
     }
@@ -68,12 +68,12 @@ trait HasPublishedTimestampsTrait
      */
     public function isWithinPublishingPeriod(): bool
     {
-        $now = Datetime::now();
+        $now = DateTimeImmutable::now();
 
-        if ($this->published_from !== null && $now < $this->published_from) {
+        if ($this->published_from !== null && $now->isBefore($this->published_from)) {
             return false;
         }
 
-        return !($this->published_to !== null && $now > $this->published_to);
+        return !($this->published_to !== null && $now->isAfter($this->published_to));
     }
 }

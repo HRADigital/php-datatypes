@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace HraDigital\Tests\Datatypes\Unit\ValueObjects;
 
-use HraDigital\Datatypes\Datetime\Datetime;
+use HraDigital\Datatypes\Datetime\DateTimeImmutable;
 use HraDigital\Datatypes\Scalar\Str;
 use HraDigital\Datatypes\ValueObjects\Traits\CanMassAssignStateTrait;
 use HraDigital\Datatypes\ValueObjects\Traits\CanProcessEntityStateTrait;
@@ -40,7 +40,7 @@ class TestingNestedValueObject extends AbstractValueObject
     protected function ruleSetUpdatedAtIfMissing(array $fields): array
     {
         if (!isset($fields['updated_at'])) {
-            $fields['updated_at'] = (string) Datetime::now()->addHours(-1);
+            $fields['updated_at'] = (string) DateTimeImmutable::now()->addHours(-1);
         }
 
         return $fields;

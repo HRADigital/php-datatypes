@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\General;
 
-use HraDigital\Datatypes\Datetime\Datetime;
+use HraDigital\Datatypes\Datetime\DateTimeImmutable;
 
 /**
  * Trait for a Record UpdatedAt attribute.
@@ -23,21 +23,21 @@ use HraDigital\Datatypes\Datetime\Datetime;
  */
 trait HasUpdatedAtTrait
 {
-    /** @var Datetime|null $updated_at - Timestamp representing the instant the record was last updated. */
-    protected ?Datetime $updated_at = null;
+    /** @var DateTimeImmutable|null $updated_at - Timestamp representing the instant the record was last updated. */
+    protected ?DateTimeImmutable $updated_at = null;
 
     /**
      * Mutator method for setting the value into the Attribute
      */
     protected function castUpdatedAt(?string $timestamp): void
     {
-        $this->updated_at = ($timestamp ? Datetime::fromString($timestamp) : null);
+        $this->updated_at = ($timestamp ? DateTimeImmutable::fromString($timestamp) : null);
     }
 
     /**
      * Returns a Datetime representation from the instant the record was last updated.
      */
-    public function getUpdatedAt(): ?Datetime
+    public function getUpdatedAt(): ?DateTimeImmutable
     {
         return $this->updated_at;
     }

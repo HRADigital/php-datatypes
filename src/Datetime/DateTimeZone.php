@@ -15,9 +15,9 @@ namespace HraDigital\Datatypes\Datetime;
 /**
  * DateTimeZone utility class.
  *
- * Extends the native class: Datetime is a \DateTimeImmutable, so a timezone handed to its
- * factory methods has to BE a \DateTimeZone. A standalone class of the same name would only
- * shadow the native one, and blow up the moment it reached the parent's constructor.
+ * Extends the native class: DateTime and DateTimeImmutable hand a timezone they receive to the
+ * native \DateTimeImmutable they hold, so it has to BE a \DateTimeZone. A standalone class of the
+ * same name would only shadow the native one, and blow up the moment it reached the native object.
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
@@ -28,4 +28,14 @@ namespace HraDigital\Datatypes\Datetime;
  */
 class DateTimeZone extends \DateTimeZone
 {
+    /**
+     * Whether both instances are the very same timezone.
+     *
+     * Compares the name, not the offset: 2 zones with the same offset today can follow
+     * different daylight saving rules.
+     */
+    public function equals(self $other): bool
+    {
+        return $this->getName() === $other->getName();
+    }
 }

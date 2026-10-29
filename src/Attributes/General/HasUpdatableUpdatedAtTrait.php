@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\General;
 
-use HraDigital\Datatypes\Datetime\Datetime;
+use HraDigital\Datatypes\Datetime\DateTimeImmutable;
 
 /**
  * Trait for an Updatable Record UpdatedAt attribute.
@@ -32,6 +32,6 @@ trait HasUpdatableUpdatedAtTrait
      */
     protected function onUpdateRecalculateUpdatedAt(): void
     {
-        $this->updated_at = Datetime::now();
+        $this->updated_at = DateTimeImmutable::now();
     }
 }

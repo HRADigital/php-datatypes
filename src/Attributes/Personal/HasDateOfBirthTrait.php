@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\Personal;
 
-use HraDigital\Datatypes\Datetime\Datetime;
+use HraDigital\Datatypes\Datetime\DateTimeImmutable;
 
 /**
  * Trait for an Entity's DateOfBirth attribute.
@@ -23,21 +23,21 @@ use HraDigital\Datatypes\Datetime\Datetime;
  */
 trait HasDateOfBirthTrait
 {
-    /** @var Datetime|null $dob - Timestamp representing a Date of Birth. */
-    protected ?Datetime $dob = null;
+    /** @var DateTimeImmutable|null $dob - Timestamp representing a Date of Birth. */
+    protected ?DateTimeImmutable $dob = null;
 
     /**
      * Mutator method for setting the value into the Attribute
      */
     protected function castDob(string $dob): void
     {
-        $this->dob = Datetime::fromString($dob);
+        $this->dob = DateTimeImmutable::fromString($dob);
     }
 
     /**
      * Returns a Datetime representation for the Entity's Date of Birth.
      */
-    public function getDateOfBirth(): ?Datetime
+    public function getDateOfBirth(): ?DateTimeImmutable
     {
         return $this->dob;
     }

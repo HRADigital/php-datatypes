@@ -12,47 +12,27 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Datetime;
 
-use DateTimeImmutable;
+use DateTimeImmutable as NativeDateTimeImmutable;
 use HraDigital\Datatypes\Scalar\Str;
-use DateInterval;
 use IntlDateFormatter;
 use InvalidArgumentException;
-use JsonSerializable;
-use function abs;
 use function array_keys;
 use function implode;
+use function intdiv;
 use function sprintf;
 use function strtolower;
 
 /**
- * Datetime utility class.
+ * Read methods shared by DateTime and DateTimeImmutable. None of them changes the instance.
  *
- * The purpose of this class, is to wrap native Datetime class, and provide some extra commonly used
- * functionality, while adding better type hinting, for parameters and returned types.
- *
- * The instance's value is always immutable, therefore, any mutator methods will return a new instance
- * of the same class, with the updated value.
- *
- * This class was inspired by Carbon\Carbon package, yet it's meant to be a very stripped down version,
- * and is also meant not to have any 3rd party dependencies.
- *
- * If a more complete set of functionality is required, please check Carbon\Carbon.
+ * The using class holds the wrapped value in `$this->value`.
  *
  * @package   HraDigital\Datatypes
  * @copyright HraDigital\Datatypes
  * @license   MPL-2.0
- *
- * @phpstan-consistent-constructor
- * @link      http://php.net/manual/en/timezones.php
- * @link      https://timezonedb.com/download
  */
-class Datetime extends DateTimeImmutable implements JsonSerializable
+trait HasReadMethodsTrait
 {
-    use HasStaticFactoryMethodsTrait;
-
-    /** Format used for internal object instantiation */
-    const START_FORMAT = DateTimeImmutable::W3C;
-
     /**
      * Magic method for instance printing.
      */
@@ -67,10 +47,28 @@ class Datetime extends DateTimeImmutable implements JsonSerializable
         return (string) $this;
     }
 
+    /**
+     * Returns a copy of the wrapped native value, for APIs that need a \DateTimeInterface.
+     */
+    public function toNative(): NativeDateTimeImmutable
+    {
+        return clone $this->value;
+    }
+
+    public function format(string $format): string
+    {
+        return $this->value->format($format);
+    }
+
+    public function getTimestamp(): int
+    {
+        return $this->value->getTimestamp();
+    }
+
     protected function toFormatInternal(string $format): Str
     {
         return Str::create(
-            $this->format($format)
+            $this->value->format($format)
         );
     }
 
@@ -79,7 +77,7 @@ class Datetime extends DateTimeImmutable implements JsonSerializable
      */
     public function toATOM(): Str
     {
-        return $this->toFormatInternal(\Datetime::ATOM);
+        return $this->toFormatInternal(self::ATOM);
     }
 
     /**
@@ -87,7 +85,7 @@ class Datetime extends DateTimeImmutable implements JsonSerializable
      */
     public function toCookie(): Str
     {
-        return $this->toFormatInternal(\Datetime::COOKIE);
+        return $this->toFormatInternal(self::COOKIE);
     }
 
     /**
@@ -95,7 +93,7 @@ class Datetime extends DateTimeImmutable implements JsonSerializable
      */
     public function toISO8601(): Str
     {
-        return $this->toFormatInternal(\Datetime::ISO8601);
+        return $this->toFormatInternal(self::ISO8601);
     }
 
     /**
@@ -103,7 +101,7 @@ class Datetime extends DateTimeImmutable implements JsonSerializable
      */
     public function toRFC822(): Str
     {
-        return $this->toFormatInternal(\Datetime::RFC822);
+        return $this->toFormatInternal(self::RFC822);
     }
 
     /**
@@ -111,7 +109,7 @@ class Datetime extends DateTimeImmutable implements JsonSerializable
      */
     public function toRFC850(): Str
     {
-        return $this->toFormatInternal(\Datetime::RFC850);
+        return $this->toFormatInternal(self::RFC850);
     }
 
     /**
@@ -119,7 +117,7 @@ class Datetime extends DateTimeImmutable implements JsonSerializable
      */
     public function toRFC1036(): Str
     {
-        return $this->toFormatInternal(\Datetime::RFC1036);
+        return $this->toFormatInternal(self::RFC1036);
     }
 
     /**
@@ -127,7 +125,7 @@ class Datetime extends DateTimeImmutable implements JsonSerializable
      */
     public function toRFC1123(): Str
     {
-        return $this->toFormatInternal(\Datetime::RFC1123);
+        return $this->toFormatInternal(self::RFC1123);
     }
 
     /**
@@ -135,7 +133,7 @@ class Datetime extends DateTimeImmutable implements JsonSerializable
      */
     public function toRFC7231(): Str
     {
-        return $this->toFormatInternal(\Datetime::RFC7231);
+        return $this->toFormatInternal(self::RFC7231);
     }
 
     /**
@@ -143,7 +141,7 @@ class Datetime extends DateTimeImmutable implements JsonSerializable
      */
     public function toRFC2822(): Str
     {
-        return $this->toFormatInternal(\Datetime::RFC2822);
+        return $this->toFormatInternal(self::RFC2822);
     }
 
     /**
@@ -151,7 +149,7 @@ class Datetime extends DateTimeImmutable implements JsonSerializable
      */
     public function toRFC3339(): Str
     {
-        return $this->toFormatInternal(\Datetime::RFC3339);
+        return $this->toFormatInternal(self::RFC3339);
     }
 
     /**
@@ -159,7 +157,7 @@ class Datetime extends DateTimeImmutable implements JsonSerializable
      */
     public function toRFC3339Extended(): Str
     {
-        return $this->toFormatInternal(\Datetime::RFC3339_EXTENDED);
+        return $this->toFormatInternal(self::RFC3339_EXTENDED);
     }
 
     /**
@@ -167,7 +165,7 @@ class Datetime extends DateTimeImmutable implements JsonSerializable
      */
     public function toRSS(): Str
     {
-        return $this->toFormatInternal(\Datetime::RSS);
+        return $this->toFormatInternal(self::RSS);
     }
 
     /**
@@ -175,7 +173,7 @@ class Datetime extends DateTimeImmutable implements JsonSerializable
      */
     public function toW3C(): Str
     {
-        return $this->toFormatInternal(\Datetime::W3C);
+        return $this->toFormatInternal(self::W3C);
     }
 
     /**
@@ -244,11 +242,11 @@ class Datetime extends DateTimeImmutable implements JsonSerializable
             (string) $locale,
             $styles[$date],
             $styles[$time],
-            $this->getTimezone()
+            $this->value->getTimezone()
         );
 
         return Str::create(
-            (string) $formatter->format($this)
+            (string) $formatter->format($this->value)
         );
     }
 
@@ -257,7 +255,7 @@ class Datetime extends DateTimeImmutable implements JsonSerializable
      */
     public function getYear(): int
     {
-        return (int) ((string) $this->toFormatInternal('Y'));
+        return (int) $this->value->format('Y');
     }
 
     /**
@@ -265,7 +263,7 @@ class Datetime extends DateTimeImmutable implements JsonSerializable
      */
     public function getMonth(): int
     {
-        return (int) ((string) $this->toFormatInternal('m'));
+        return (int) $this->value->format('m');
     }
 
     /**
@@ -273,7 +271,7 @@ class Datetime extends DateTimeImmutable implements JsonSerializable
      */
     public function getDay(): int
     {
-        return (int) ((string) $this->toFormatInternal('d'));
+        return (int) $this->value->format('d');
     }
 
     /**
@@ -281,7 +279,7 @@ class Datetime extends DateTimeImmutable implements JsonSerializable
      */
     public function getHour(): int
     {
-        return (int) ((string) $this->toFormatInternal('H'));
+        return (int) $this->value->format('H');
     }
 
     /**
@@ -289,7 +287,7 @@ class Datetime extends DateTimeImmutable implements JsonSerializable
      */
     public function getMinute(): int
     {
-        return (int) ((string) $this->toFormatInternal('i'));
+        return (int) $this->value->format('i');
     }
 
     /**
@@ -297,87 +295,136 @@ class Datetime extends DateTimeImmutable implements JsonSerializable
      */
     public function getSecond(): int
     {
-        return (int) ((string) $this->toFormatInternal('s'));
+        return (int) $this->value->format('s');
     }
 
     /**
-     * Internal method for DateInterval addition and subtraction.
+     * Get Microsecond part of the instance.
      */
-    protected function addDateIntervalValue(string $duration, int $value): self
+    public function getMicrosecond(): int
     {
-        $isNegative = ($value < 0);
-        $value = (int) abs($value);
+        return (int) $this->value->format('u');
+    }
 
-        $dateInterval = new DateInterval(
-            sprintf($duration, $value)
-        );
+    /**
+     * Get the ISO-8601 day of the week: 1 is Monday, 7 is Sunday.
+     */
+    public function getDayOfWeek(): int
+    {
+        return (int) $this->value->format('N');
+    }
 
-        if ($isNegative) {
-            $dateInterval->invert = 1;
+    /**
+     * Get the day of the year: 1 is January 1st.
+     */
+    public function getDayOfYear(): int
+    {
+        return (int) $this->value->format('z') + 1;
+    }
+
+    /**
+     * Get the ISO-8601 week of the year.
+     */
+    public function getWeekOfYear(): int
+    {
+        return (int) $this->value->format('W');
+    }
+
+    /**
+     * Get the quarter of the year: 1 to 4.
+     */
+    public function getQuarter(): int
+    {
+        return intdiv($this->getMonth() - 1, 3) + 1;
+    }
+
+    public function isWeekend(): bool
+    {
+        return $this->getDayOfWeek() >= 6;
+    }
+
+    /**
+     * TRUE when the instance falls on the Clock's current day, in the instance's timezone.
+     */
+    public function isToday(): bool
+    {
+        $today = Clock::now()->setTimezone($this->value->getTimezone());
+
+        return $today->format('Y-m-d') === $this->value->format('Y-m-d');
+    }
+
+    /**
+     * TRUE when the instance is before the Clock's current time.
+     */
+    public function isPast(): bool
+    {
+        return $this->value < Clock::now();
+    }
+
+    /**
+     * TRUE when the instance is after the Clock's current time.
+     */
+    public function isFuture(): bool
+    {
+        return $this->value > Clock::now();
+    }
+
+    /**
+     * Compares the instant (timestamp and microseconds) with another instance: -1 when this one
+     * is before, 0 when both are the same instant, 1 when this one is after.
+     *
+     * The timezone and the class (mutable or immutable) are not compared.
+     */
+    public function compare(DatetimeContract $other): int
+    {
+        return $this->value <=> $other->toNative();
+    }
+
+    public function equals(DatetimeContract $other): bool
+    {
+        return $this->compare($other) === 0;
+    }
+
+    public function isBefore(DatetimeContract $other): bool
+    {
+        return $this->compare($other) < 0;
+    }
+
+    public function isAfter(DatetimeContract $other): bool
+    {
+        return $this->compare($other) > 0;
+    }
+
+    public function isBetween(DatetimeContract $start, DatetimeContract $end, bool $inclusive = true): bool
+    {
+        if ($inclusive) {
+            return $this->compare($start) >= 0 && $this->compare($end) <= 0;
         }
 
-        return new static(
-            $this->add($dateInterval)->format(self::START_FORMAT)
+        return $this->compare($start) > 0 && $this->compare($end) < 0;
+    }
+
+    /**
+     * Returns the interval from this instance to the supplied one. It is negative when the
+     * supplied instance is before this one.
+     */
+    public function diff(DatetimeContract $other): DateInterval
+    {
+        $native = $this->value->diff($other->toNative());
+
+        $interval = new DateInterval(
+            sprintf('P%dY%dM%dDT%dH%dM%dS', $native->y, $native->m, $native->d, $native->h, $native->i, $native->s),
+            (bool) $native->invert
         );
+        $interval->f = $native->f;
+
+        return $interval;
     }
 
-    /**
-     * Add the supplied number of Seconds to the Datetime instance.
-     *
-     * Supports chaining.
-     */
-    public function addSeconds(int $seconds): self
+    public function getTimezone(): DateTimeZone
     {
-        return $this->addDateIntervalValue("PT%dS", $seconds);
-    }
-
-    /**
-     * Add the supplied number of Minutes to the Datetime instance.
-     *
-     * Supports chaining.
-     */
-    public function addMinutes(int $minutes): self
-    {
-        return $this->addDateIntervalValue("PT%dM", $minutes);
-    }
-
-    /**
-     * Add the supplied number of Hours to the Datetime instance.
-     *
-     * Supports chaining.
-     */
-    public function addHours(int $hours): self
-    {
-        return $this->addDateIntervalValue("PT%dH", $hours);
-    }
-
-    /**
-     * Add the supplied number of Days to the Datetime instance.
-     *
-     * Supports chaining.
-     */
-    public function addDays(int $days): self
-    {
-        return $this->addDateIntervalValue("P%dD", $days);
-    }
-
-    /**
-     * Add the supplied number of Months to the Datetime instance.
-     *
-     * Supports chaining.
-     */
-    public function addMonths(int $months): self
-    {
-        return $this->addDateIntervalValue("P%dM", $months);
-    }
-
-    /**
-     * Add the supplied number of Years to the Datetime instance.
-     *
-     * Supports chaining.
-     */
-    public function addYears(int $years): self
-    {
-        return $this->addDateIntervalValue("P%dY", $years);
+        return new DateTimeZone(
+            $this->value->getTimezone()->getName()
+        );
     }
 }

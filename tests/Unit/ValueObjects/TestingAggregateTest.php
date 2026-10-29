@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace HraDigital\Tests\Datatypes\Unit\ValueObjects;
 
-use HraDigital\Datatypes\Datetime\Datetime;
+use HraDigital\Datatypes\Datetime\DateTimeImmutable;
 use HraDigital\Datatypes\Scalar\Str;
 use HraDigital\Tests\Datatypes\AbstractBaseTestCase;
 
@@ -21,7 +21,7 @@ class TestingAggregateTest extends AbstractBaseTestCase
     {
         $aggregate = new TestingAggregate(
             Str::create('String Object'),
-            Datetime::fromString('2022-02-02 10:00:00'),
+            DateTimeImmutable::fromString('2022-02-02 10:00:00'),
             new TestingValueObject(
                 TestingValueObject::DATA
             ),

@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace HraDigital\Tests\Datatypes\Unit\Attributes;
 
-use HraDigital\Datatypes\Datetime\Datetime;
+use HraDigital\Datatypes\Datetime\DateTimeImmutable;
 use HraDigital\Datatypes\Exceptions\Datatypes\InvalidStringLengthException;
 use HraDigital\Datatypes\Exceptions\Datatypes\NonEmptyStringException;
 use HraDigital\Datatypes\Exceptions\Datatypes\NonNegativeNumberException;
@@ -259,7 +259,7 @@ class GeneralTraitsVOTest extends AbstractBaseTestCase
     public function testIsNotWithinPublishingPeriodBeforeItStarts(): void
     {
         $data = self::DATA;
-        $data['published_from'] = (string) Datetime::now()->addYears(1);
+        $data['published_from'] = (string) DateTimeImmutable::now()->addYears(1);
 
         $object = new GeneralTraitsVO($data);
 

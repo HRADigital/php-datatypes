@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\General;
 
-use HraDigital\Datatypes\Datetime\Datetime;
+use HraDigital\Datatypes\Datetime\DateTimeImmutable;
 
 /**
  * Trait for an Entity DeletedAt attribute.
@@ -25,21 +25,21 @@ use HraDigital\Datatypes\Datetime\Datetime;
  */
 trait HasDeletedAtTrait
 {
-    /** @var Datetime|null $deleted_at - Timestamp representing the instant the record was marked as deleted. */
-    protected ?Datetime $deleted_at = null;
+    /** @var DateTimeImmutable|null $deleted_at - Timestamp representing the instant the record was marked as deleted. */
+    protected ?DateTimeImmutable $deleted_at = null;
 
     /**
      * Mutator method for setting the value into the Attribute
      */
     protected function castDeletedAt(?string $timestamp): void
     {
-        $this->deleted_at = ($timestamp ? Datetime::fromString($timestamp) : null);
+        $this->deleted_at = ($timestamp ? DateTimeImmutable::fromString($timestamp) : null);
     }
 
     /**
      * Returns a Datetime representation from the instant the record was marked as deleted.
      */
-    public function getDeletedAt(): ?Datetime
+    public function getDeletedAt(): ?DateTimeImmutable
     {
         return $this->deleted_at;
     }

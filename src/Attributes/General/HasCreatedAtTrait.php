@@ -12,7 +12,7 @@ declare(strict_types=1);
 
 namespace HraDigital\Datatypes\Attributes\General;
 
-use HraDigital\Datatypes\Datetime\Datetime;
+use HraDigital\Datatypes\Datetime\DateTimeImmutable;
 
 /**
  * Trait for a Record CreatedAt attribute.
@@ -23,21 +23,21 @@ use HraDigital\Datatypes\Datetime\Datetime;
  */
 trait HasCreatedAtTrait
 {
-    /** @var Datetime|null $created_at - Timestamp representing the instant the record was created. */
-    protected ?Datetime $created_at = null;
+    /** @var DateTimeImmutable|null $created_at - Timestamp representing the instant the record was created. */
+    protected ?DateTimeImmutable $created_at = null;
 
     /**
      * Mutator method for setting the value into the Attribute
      */
     protected function castCreatedAt(string $timestamp): void
     {
-        $this->created_at = Datetime::fromString($timestamp);
+        $this->created_at = DateTimeImmutable::fromString($timestamp);
     }
 
     /**
      * Returns a Datetime representation from the instant the record was last updated.
      */
-    public function getCreatedAt(): Datetime
+    public function getCreatedAt(): DateTimeImmutable
     {
         return $this->created_at;
     }
